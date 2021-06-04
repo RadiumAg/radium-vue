@@ -1,10 +1,10 @@
 import { SFCWithInstall } from '@radium-vue/utils/types';
 import Carousel from './src/carousel.vue';
-import type {App} from 'vue';
+import type { App } from 'vue';
 
 Carousel.install = (app:App): void => {
-    app.component(Carousel.name,Carousel)
-}
+  app.component(Carousel.name,Carousel);
+};
 
 
 const _Carousel:SFCWithInstall<typeof Carousel> = Carousel;
