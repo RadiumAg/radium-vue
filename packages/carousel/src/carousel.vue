@@ -1,9 +1,10 @@
 <template>
+  <div></div>
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 export default defineComponent({
-  name:'Carousel',
+  name: 'Carousel',
 });
 </script>
