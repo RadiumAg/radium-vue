@@ -8,17 +8,17 @@ const outsideImport = /import .* from '..\/(.*?)\/src\/.*/
 // global.d.ts
 fs.copyFileSync(
   path.resolve(__dirname, '../typings/vue-shim.d.ts'),
-  path.resolve(__dirname, '../lib/element-plus.d.ts'),
+  path.resolve(__dirname, '../lib/random-plus.d.ts'),
 )
 // index.d.ts
 const newIndexPath = path.resolve(__dirname, '../lib/index.d.ts')
-fs.copyFileSync(path.resolve(__dirname, '../lib/element-plus/index.d.ts'), newIndexPath)
+fs.copyFileSync(path.resolve(__dirname, '../lib/random-plus/index.d.ts'), newIndexPath)
 const index = fs.readFileSync(newIndexPath)
-const newIndex = index.toString().replace(/@element-plus\//g, './el-').replace('el-utils', 'utils').replace('el-locale', 'locale')
+const newIndex = index.toString().replace(/@random-plus\//g, './el-').replace('el-utils', 'utils').replace('el-locale', 'locale')
 fs.writeFileSync(newIndexPath, newIndex)
 
 // remove ep
-fs.rmdirSync(path.resolve(__dirname, '../lib/element-plus'), { recursive: true })
+fs.rmdirSync(path.resolve(__dirname, '../lib/random-plus'), { recursive: true })
 
 // remove test-utils
 fs.rmdirSync(path.resolve(__dirname, '../lib/test-utils'), { recursive: true })
@@ -34,10 +34,10 @@ fs.readdirSync(libDirPath).forEach(comp => {
         path.resolve(libDirPath, newCompName))
       // re-import
       const imp = fs.readFileSync(path.resolve(__dirname, '../lib', newCompName, 'index.d.ts')).toString()
-      if(outsideImport.test(imp) || imp.includes('@element-plus/')) {
+      if(outsideImport.test(imp) || imp.includes('@radium-plus/')) {
         const newImp = imp.replace(outsideImport, (i, c) => {
           return i.replace(`../${c}`, `../el-${c}`)
-        }).replace(/@element-plus\//g, '../el-').replace('el-utils', 'utils').replace('el-locale', 'locale')
+        }).replace(/@random-plus\//g, '../el-').replace('el-utils', 'utils').replace('el-locale', 'locale')
         fs.writeFileSync(path.resolve(__dirname, '../lib', newCompName, 'index.d.ts'), newImp)
       }
     }
@@ -56,8 +56,8 @@ fs.readdirSync(libDirPath).forEach(comp => {
         data.forEach(f => {
           if (!fs.lstatSync(path.resolve(srcPath, f)).isDirectory()) {
             const imp = fs.readFileSync(path.resolve(srcPath, f)).toString()
-            if (imp.includes('@element-plus/')) {
-              const newImp = imp.replace(/@element-plus\//g, '../../el-').replace('el-utils', 'utils').replace('el-locale', 'locale')
+            if (imp.includes('@radium-plus/')) {
+              const newImp = imp.replace(/@radium-plus\//g, '../../el-').replace('el-utils', 'utils').replace('el-locale', 'locale')
               fs.writeFileSync(path.resolve(srcPath, f), newImp)
             }
           }

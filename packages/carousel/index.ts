@@ -1,14 +1,12 @@
-import {App} from 'vue'
-import { SFCWithInstall } from '@radium-vue/';
+import { SFCWithInstall } from '@radium-vue/utils/type';
 import Carousel from './src/carousel.vue';
-import { Cascader } from 'element-ui';
-
+import type {App} from 'vue';
 
 Carousel.install = (app:App): void => {
     app.component(Carousel.name,Carousel)
 }
 
 
-const _Carousel:SFCWithInstall<typeof Cascader> = Cascader;
+const _Carousel:SFCWithInstall<typeof Carousel> = Carousel;
 
 export default _Carousel;
