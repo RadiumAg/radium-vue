@@ -1,4 +1,4 @@
-import { SFCWithInstall } from '@radium-vue/utils/type';
+import { SFCWithInstall } from '@radium-vue/utils/types';
 import Carousel from './src/carousel.vue';
 import type {App} from 'vue';
 
