@@ -1,11 +1,22 @@
-export interface CarouselProp {
-  height: number;
-  initialIndex: number;
-  autoplay: boolean;
-  interval: number;
-  arrow: 'always' | 'hover' | 'never';
-  type: 'card';
-  loop: boolean;
-  direction: 'horizontal' | 'vertical';
-  pauseOnHover: boolean;
+export interface CarouselProps {
+  raHeight: string;
+  raInitialIndex: number;
+  raAutoplay: boolean;
+  raInterval: number;
+  raArrow: 'always' | 'hover' | 'never';
+  raType: 'card';
+  raLoop: boolean;
+  raDirection: 'horizontal' | 'vertical';
+  raPauseOnHover: boolean;
+}
+
+export interface CarouselItem {
+  active: boolean;
+  key: string;
+  transformItem: () => {};
+}
+
+export interface CarouselItemProps {
+  raName: string;
+  raLabel: string;
 }
