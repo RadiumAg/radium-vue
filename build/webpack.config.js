@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
-const webpack = require('webpack')
-const { VueLoaderPlugin } = require('vue-loader')
+const path = require('path');
+const webpack = require('webpack');
+const { VueLoaderPlugin } = require('vue-loader');
+const { WebpackOptionsDefaulter } = require('webpack');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
-const libMode = process.env.LIBMODE
-const isFullMode = libMode === 'full'
+const libMode = process.env.LIBMODE;
+const isFullMode = libMode === 'full';
 let externals = [
   {
     vue: {
@@ -14,29 +15,32 @@ let externals = [
       commonjs2: 'vue',
     },
   },
-]
+];
 const plugins = [
   new VueLoaderPlugin(),
   // new BundleAnalyzerPlugin(),
-]
+];
 
-const entry = path.resolve(__dirname, '../packages/radium-vue/index.ts')
+const entry = path.resolve(__dirname, '../packages/radium-vue/index.ts');
 
 if (!isFullMode) {
-  externals.push({
-    '@popperjs/core': '@popperjs/core',
-    'async-validator': 'async-validator',
-    'mitt': 'mitt',
-    'normalize-wheel': 'normalize-wheel',
-    'resize-observer-polyfill': 'resize-observer-polyfill',
-  },
-  /^dayjs.*/,
-  /^lodash.*/)
+  externals.push(
+    {
+      '@popperjs/core': '@popperjs/core',
+      'async-validator': 'async-validator',
+      mitt: 'mitt',
+      'normalize-wheel': 'normalize-wheel',
+      'resize-observer-polyfill': 'resize-observer-polyfill',
+    },
+    /^dayjs.*/,
+    /^lodash.*/,
+  );
 }
 
 const config = {
   mode: 'production',
   entry,
+  devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, '../lib'),
     publicPath: '/',
@@ -44,7 +48,7 @@ const config = {
     libraryTarget: 'umd',
     library: 'ElementPlus',
     umdNamedDefine: true,
-    globalObject: 'typeof self !== \'undefined\' ? self : this',
+    globalObject: "typeof self !== 'undefined' ? self : this",
   },
   module: {
     rules: [
@@ -64,6 +68,6 @@ const config = {
   },
   externals,
   plugins,
-}
+};
 
-module.exports = config
+module.exports = config;

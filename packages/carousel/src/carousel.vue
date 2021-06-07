@@ -1,14 +1,14 @@
 <template>
-  <div ref="root" style="{height: height}">
+  <div ref="root" class="ra-carousel" :style="{ height: raHeight }">
     <transition>
-      <button>
-        <i class="ra-icon-arrow-right"> </i>
+      <button class="ra-carousel__arrow ra-carousel__arrow--left">
+        <i class="ra-icon-arrow-left"> </i>
       </button>
     </transition>
 
     <transition>
-      <button>
-        <i class="ra-icon-arrow-left"> </i>
+      <button class="ra-carousel__arrow ra-carousel__arrow--right">
+        <i class="ra-icon-arrow-right"> </i>
       </button>
     </transition>
     <slot></slot>
@@ -61,13 +61,13 @@ export default defineComponent({
   },
   setup(props: CarouselProps, { emit }) {
     //ref
-
     const ItemRef = ref<CarouselItem[]>();
     const root = ref<HTMLDivElement>();
     const currentIndex = ref<number>();
     const offsetWidht = ref<number>();
     const activeIndex = ref<number>(0);
 
+    console.log(props.raHeight);
     // watch the change and commit
     watch(currentIndex, () => {
       emit('raChange');

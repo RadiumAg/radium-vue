@@ -22,6 +22,8 @@ export default defineComponent({
     function transformItem(index: number, activeIndex: number) {}
 
     function calcTransform(index, activeIndex) {}
+
+    return { props };
   },
 });
 </script>

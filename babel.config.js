@@ -7,7 +7,7 @@ module.exports = {
     [
       '@babel/env',
       {
-        loose: true,
+        loose: false,
         modules: false,
       },
     ],

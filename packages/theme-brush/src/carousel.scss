@@ -1,9 +1,26 @@
 @use "sass:math";
 
-
 @import './mixins/mixins';
 @import './common/var';
 
 @include b(carousel) {
+  position: relative;
+  width: max-content;
+  display: inline-flex;
+  box-sizing: border-box;
   
+  @include e(arrow) {
+    outline: none;
+    border: none;
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+
+    @include m(left) {
+        left: 16px;
+    }
+    @include m(right) {
+        right: 16px;
+    }
+  }
 }

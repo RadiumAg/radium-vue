@@ -4,7 +4,9 @@
 @import './mixins/mixins';
 @import './common/var';
 
-@include b(carousel-item) {
-    
-  
+@include b(carousel) {
+
+    @include (carousel-item){
+        
+    }
 }

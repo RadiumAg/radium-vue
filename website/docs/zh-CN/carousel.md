@@ -2,8 +2,11 @@
 
 ```
   <div class="block">
-    <span class="demonstration">默认 Hover 指示器触发</span>
-    <ra-carousel height="150px">
+    <span class="demonstration">测试</span>
+    <ra-carousel raHeight="150px">
+        <ra-carousel-item v-for="item in 4" :key="item">
+        <h3 class="small">{{ item }}</h3>
+      </ra-carousel-item>
     </ra-carousel>
   </div>
 ```
