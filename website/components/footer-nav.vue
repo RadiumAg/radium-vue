@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import navConfig from '../nav.config.json'
+import navConfig from '../nav.config.json';
 
 export default {
   data() {
@@ -30,93 +30,99 @@ export default {
       currentIndex: -1,
       leftNav: null,
       rightNav: null,
-    }
+    };
   },
 
   computed: {
     lang() {
-      return this.$route.meta.lang
+      return this.$route.meta.lang;
     },
   },
 
   watch: {
     '$route.path'() {
-      this.setNav()
-      this.updateNav()
+      this.setNav();
+      this.updateNav();
     },
   },
 
   created() {
-    this.setNav()
-    this.updateNav()
+    this.setNav();
+    this.updateNav();
   },
 
   methods: {
     setNav() {
-      let nav = navConfig[this.lang]
-      this.nav = [nav[0]].concat(nav[1].children)
-      nav[2].groups.map(group => group.list).forEach(list => {
-        this.nav = this.nav.concat(list)
-      })
+      let nav = navConfig[this.lang];
+      this.nav = [nav[0]].concat(nav[1].children);
+      nav[2].groups
+        .map(group => group.list)
+        .forEach(list => {
+          this.nav = this.nav.concat(list);
+        });
     },
 
     updateNav() {
-      this.currentComponent = '/' + this.$route.path.split('/')[3]
+      this.currentComponent = '/' + this.$route.path.split('/')[3];
       for (let i = 0, len = this.nav.length; i < len; i++) {
         if (this.nav[i].path === this.currentComponent) {
-          this.currentIndex = i
-          break
+          this.currentIndex = i;
+          break;
         }
       }
-      this.leftNav = this.nav[this.currentIndex - 1]
-      this.rightNav = this.nav[this.currentIndex + 1]
+      this.leftNav = this.nav[this.currentIndex - 1];
+      this.rightNav = this.nav[this.currentIndex + 1];
     },
 
     handleNavClick(direction) {
-      this.$router.push(`/${ this.lang }/component${ direction === 'prev' ? this.leftNav.path : this.rightNav.path }`)
+      this.$router.push(
+        `/${this.lang}/component${
+          direction === 'prev' ? this.leftNav.path : this.rightNav.path
+        }`,
+      );
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
-  .footer-nav {
-    padding: 40px 0;
-    color: #333;
-    font-size: 14px;
+.footer-nav {
+  padding: 40px 0;
+  color: #333;
+  font-size: 14px;
 
-    &::after {
-      content: '';
-      display: block;
-      clear: both;
-    }
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  & i {
+    transition: 0.3s;
+    color: #999;
+    vertical-align: baseline;
+  }
+}
+
+.footer-nav-link {
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    color: #409eff;
 
     & i {
-      transition: .3s;
-      color: #999;
-      vertical-align: baseline;
+      color: #409eff;
     }
   }
+}
 
-  .footer-nav-link {
-    cursor: pointer;
-    transition: .3s;
+.footer-nav-left {
+  float: left;
+  margin-left: -4px;
+}
 
-    &:hover {
-      color: #409EFF;
-
-      & i {
-        color: #409EFF;
-      }
-    }
-  }
-
-  .footer-nav-left {
-    float: left;
-    margin-left: -4px;
-  }
-
-  .footer-nav-right {
-    float: right;
-    margin-right: -4px;
-  }
+.footer-nav-right {
+  float: right;
+  margin-right: -4px;
+}
 </style>
