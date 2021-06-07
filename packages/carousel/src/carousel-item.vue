@@ -1,12 +1,12 @@
 <template>
-  <div></div>
+  <div class="ra-carousel__carousel-item"><slot></slot></div>
 </template>
 
 <script lang="ts">
 import { defineComponent, getCurrentInstance } from 'vue';
 import { CarouselProps } from './carousel';
 export default defineComponent({
-  name: 'CarouselItem',
+  name: 'RaCarouselItem',
   props: {
     raName: {
       type: String,
@@ -17,7 +17,7 @@ export default defineComponent({
       defalut: '',
     },
   },
-  setup(props: CarouselProps, { emit }) {
+  setup(props: CarouselProps) {
     const instance = getCurrentInstance();
     function transformItem(index: number, activeIndex: number) {}
 

@@ -5,16 +5,20 @@
 
 @include b(carousel) {
   position: relative;
-  width: max-content;
-  display: inline-flex;
   box-sizing: border-box;
-  
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+
   @include e(arrow) {
     outline: none;
     border: none;
     position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     border-radius: 50%;
     cursor: pointer;
+    flex-shrink: 0;
 
     @include m(left) {
         left: 16px;

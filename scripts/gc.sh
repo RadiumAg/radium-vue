@@ -64,7 +64,7 @@ EOF
 
 cat > $DIRNAME/package.json <<EOF
 {
-  "name": "@radium-plus/$INPUT_NAME",
+  "name": "@radium-vue/$INPUT_NAME",
   "version": "0.0.0",
   "main": "dist/index.js",
   "license": "MIT",

@@ -4,6 +4,7 @@
   "license": "ISC",
   "main": "dist/index.js",
   "dependencies": {
-      "@radium-vue/carousel" : "0.0.0"
+      "@radium-vue/carousel" : "0.0.0",
+      "@radium-vue/carousel-item" : "0.0.0"
   }
 }
