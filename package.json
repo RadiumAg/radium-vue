@@ -20,7 +20,7 @@
     "build:utils": "cross-env BABEL_ENV=utils babel packages/utils --extensions .ts --out-dir lib/utils",
     "build:locale": "cross-env BABEL_ENV=utils babel packages/locale --extensions .ts --out-dir lib/locale",
     "build:locale-umd": "node ./build/build-locale.js",
-    "build:theme": "rimraf packages/theme-chalk/lib && gulp build --gulpfile packages/theme-chalk/gulpfile.js && cp-cli packages/theme-chalk/lib lib/theme-chalk && rimraf packages/theme-chalk/lib",
+    "build:theme": "rimraf packages/theme-brush/lib && gulp build --gulpfile packages/theme-brush/gulpfile.js && cp-cli packages/theme-brush/lib lib/theme-brush && rimraf packages/theme-brush/lib",
     "build:helper": "node build/build-helper.js",
     "lint": "eslint ./packages --ext .vue,.js,.ts",
     "lint-fix": "eslint --fix ./packages --ext .vue,.js,.ts",
@@ -116,7 +116,9 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@babel/preset-typescript": "^7.13.0"
+    "@babel/preset-typescript": "^7.13.0",
+    "dayjs": "^1.10.5",
+    "mitt": "^2.1.0"
   },
   "workspaces": [
     "packages/*"

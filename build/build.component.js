@@ -17,7 +17,7 @@ const runBuild = async () => {
   const inputs = pkgs
     .map(pkg => pkg.name)
     .filter(name =>
-      name.includes('@element-plus') &&
+      name.includes('@radium-vue') &&
       !name.includes('utils'),
     ).slice(process.argv[2], process.argv[3])
 
@@ -26,7 +26,7 @@ const runBuild = async () => {
   async function build(name) {
     if (!name) return
     const inputOptions = {
-      input: path.resolve(__dirname, `../packages/${name.split('@element-plus/')[1]}/index.ts`),
+      input: path.resolve(__dirname, `../packages/${name.split('@radium-vue/')[1]}/index.ts`),
       plugins: [
         nodeResolve(),
         css(),
@@ -49,12 +49,12 @@ const runBuild = async () => {
       ],
       external(id) {
         return /^vue/.test(id)
-          || /^@element-plus/.test(id)
+          || /^@radium-vue/.test(id)
           || deps.some(k => new RegExp('^' + k).test(id))
       },
     }
     const getOutFile = () => {
-      const compName = name.split('@element-plus/')[1]
+      const compName = name.split('@radium-vue/')[1]
       if(noElPrefixFile.test(name)) {
         return `lib/${compName}/index.js`
       }
@@ -64,9 +64,9 @@ const runBuild = async () => {
       format: 'es',
       file: getOutFile(),
       paths(id) {
-        if (/^@element-plus/.test(id)) {
-          if (noElPrefixFile.test(id)) return id.replace('@element-plus', '..')
-          return id.replace('@element-plus/', '../el-')
+        if (/^@radium-vue/.test(id)) {
+          if (noElPrefixFile.test(id)) return id.replace('@radium-vue', '..')
+          return id.replace('@radium-vue/', '../el-')
         }
       },
     }

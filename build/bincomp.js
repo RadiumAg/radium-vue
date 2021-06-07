@@ -8,7 +8,7 @@ const spinner = ora(`${chalk.blue('Building...')}`).start()
 const pkgs = getPackagesSync()
   .map(pkg => pkg.name)
   .filter(name =>
-    name.includes('@element-plus') &&
+    name.includes('@radium-vue') &&
     !name.includes('transition') &&
     !name.includes('utils'),
   )

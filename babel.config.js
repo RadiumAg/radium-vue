@@ -46,9 +46,9 @@ module.exports = {
         [
           'babel-plugin-module-resolver',
           {
-            root: ['element-plus'],
+            root: ['radium-vue'],
             alias: {
-              '@element-plus': 'element-plus/lib',
+              '@radium-vue': 'radium-vue/lib',
             },
           },
         ],

@@ -8,7 +8,7 @@ if (tagVer) {
   version = require('../package.json').version
 }
 fs.writeFileSync(
-  path.resolve(__dirname, '../packages/element-plus/version.ts'),
+  path.resolve(__dirname, '../packages/radium-vue/version.ts'),
   `export const version = '${version}'
 `,
 )

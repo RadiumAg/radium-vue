@@ -11,7 +11,7 @@ const vue = require('rollup-plugin-vue')
 
 export default [
   {
-    input: path.resolve(__dirname, '../packages/element-plus/index.ts'),
+    input: path.resolve(__dirname, '../packages/radium-vue/index.ts'),
     output: {
       format: 'es',
       file: 'lib/index.esm.js',

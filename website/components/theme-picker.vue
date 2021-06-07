@@ -13,7 +13,7 @@ const ORIGINAL_THEME = '#409EFF'
 export default {
   data() {
     return {
-      chalk: '', // content of theme-chalk css
+      chalk: '', // content of theme-brush css
       docs: '', // content of docs css
       theme: ORIGINAL_THEME,
     }
@@ -43,7 +43,7 @@ export default {
       const docsHandler = getHandler('docs', 'docs-style')
 
       if (!this.chalk) {
-        const url = `https://unpkg.com/element-ui@${ version }/lib/theme-chalk/index.css`
+        const url = `https://unpkg.com/element-ui@${ version }/lib/theme-brush/index.css`
         this.getCSSString(url, chalkHandler, 'chalk')
       } else {
         chalkHandler()

@@ -20,7 +20,7 @@ const plugins = [
   // new BundleAnalyzerPlugin(),
 ]
 
-const entry = path.resolve(__dirname, '../packages/element-plus/index.ts')
+const entry = path.resolve(__dirname, '../packages/radium-vue/index.ts')
 
 if (!isFullMode) {
   externals.push({

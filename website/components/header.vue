@@ -7,12 +7,12 @@
             <!-- logo -->
             <slot>
               <img
-                src="../assets/images/element-plus-logo.svg"
+                src="../assets/images/radium-vue-logo.svg"
                 alt="element-logo"
                 class="nav-logo"
               >
               <img
-                src="../assets/images/element-plus-logo-small.svg"
+                src="../assets/images/radium-vue-logo-small.svg"
                 alt="element-logo"
                 class="nav-logo-small"
               >

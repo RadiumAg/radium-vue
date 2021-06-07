@@ -52,7 +52,7 @@ fs.readdirSync(libDirPath).forEach(comp => {
     if (fs.lstatSync(srcPath).isDirectory()) {
       fs.readdir(srcPath, 'utf-8', (err, data) => {
         if (err) return
-        // replace all @element-plus in src/*.d.ts
+        // replace all @radium-vue in src/*.d.ts
         data.forEach(f => {
           if (!fs.lstatSync(path.resolve(srcPath, f)).isDirectory()) {
             const imp = fs.readFileSync(path.resolve(srcPath, f)).toString()

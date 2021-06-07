@@ -18,9 +18,9 @@ import 'dayjs/locale/zh-cn';
 dayjs.locale('zh-cn'); // todo: locale based on Doc site lang
 
 import App from './app.vue';
-import ElementPlus from 'element-plus';
-import '../packages/theme-chalk/src/index.scss';
-import '../packages/theme-chalk/src/display.scss';
+import ElementPlus from 'radium-vue';
+import '../packages/theme-brush/src/index.scss';
+import '../packages/theme-brush/src/display.scss';
 
 const app = createApp(App);
 

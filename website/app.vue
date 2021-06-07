@@ -9,16 +9,16 @@ import {
   onMounted,
 } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
-import { ElScrollbar } from 'element-plus';
-import { ElMessageBox } from 'element-plus';
+import { ElScrollbar } from 'radium-vue';
+import { ElMessageBox } from 'radium-vue';
 import MainHeader from './components/header';
 import MainFooter from './components/footer';
-import { use } from '@element-plus/locale';
-import zhLocale from '@element-plus/locale/lang/zh-cn';
-import enLocale from '@element-plus/locale/lang/en';
-import esLocale from '@element-plus/locale/lang/es';
-import frLocale from '@element-plus/locale/lang/fr';
-import jaLocale from '@element-plus/locale/lang/ja';
+import { use } from '@radium-vue/locale';
+import zhLocale from '@radium-vue/locale/lang/zh-cn';
+import enLocale from '@radium-vue/locale/lang/en';
+import esLocale from '@radium-vue/locale/lang/es';
+import frLocale from '@radium-vue/locale/lang/fr';
+import jaLocale from '@radium-vue/locale/lang/ja';
 import { Language } from './enums/language';
 
 const lang = location.hash.replace('#', '').split('/')[1] || Language.CN;
@@ -57,7 +57,7 @@ export default defineComponent({
 
       const href = location.href;
       const preferGithub = localStorage.getItem('PREFER_GITHUB');
-      const cnHref = href.indexOf('element-plus.gitee.io') > -1;
+      const cnHref = href.indexOf('radium-vue.gitee.io') > -1;
       if (cnHref || preferGithub) return;
       setTimeout(() => {
         if (lang.value !== Language.CN) return;
@@ -66,7 +66,7 @@ export default defineComponent({
           '提示',
         )
           .then(() => {
-            location.replace('https://element-plus.gitee.io');
+            location.replace('https://radium-vue.gitee.io');
           })
           .catch(() => {
             localStorage.setItem('PREFER_GITHUB', 'true');
