@@ -9,35 +9,18 @@ import {
   onMounted,
 } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
-import { ElScrollbar } from 'radium-vue';
-import { ElMessageBox } from 'radium-vue';
 import MainHeader from './components/header';
 import MainFooter from './components/footer';
 import { use } from '@radium-vue/locale';
 import zhLocale from '@radium-vue/locale/lang/zh-cn';
-import enLocale from '@radium-vue/locale/lang/en';
-import esLocale from '@radium-vue/locale/lang/es';
-import frLocale from '@radium-vue/locale/lang/fr';
-import jaLocale from '@radium-vue/locale/lang/ja';
 import { Language } from './enums/language';
+import { ElScrollbar } from 'element-plus';
 
 const lang = location.hash.replace('#', '').split('/')[1] || Language.CN;
 const localize = lang => {
   switch (lang) {
     case Language.CN:
       use(zhLocale);
-      break;
-    case Language.ES:
-      use(esLocale);
-      break;
-    case Language.FR:
-      use(frLocale);
-      break;
-    case Language.JP:
-      use(jaLocale);
-      break;
-    default:
-      use(enLocale);
   }
 };
 localize(lang);
@@ -101,7 +84,7 @@ export default defineComponent({
 
     const mainHeader = notPlay
       ? h(MainHeader, {
-        style: 'position: fixed;top: 0;width: 100%;z-index: 2000',
+          style: 'position: fixed;top: 0;width: 100%;z-index: 2000',
       })
       : null;
 

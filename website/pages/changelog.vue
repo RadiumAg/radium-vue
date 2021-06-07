@@ -5,7 +5,8 @@
         <a
           href="https://github.com/radium-vue/radium-vue/releases"
           target="_blank"
-        >GitHub Releases</a>
+          >GitHub Releases</a
+        >
       </el-button>
       {{ langConfig[1] }}
     </div>

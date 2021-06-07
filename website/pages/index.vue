@@ -7,14 +7,14 @@
       </div>
     </div>
     <div ref="indexMainImg" class="jumbotron">
-      <img src="~examples/assets/images/theme-index-blue.png" alt="">
+      <img src="~examples/assets/images/theme-index-blue.png" alt="" >
       <div
         class="jumbotron-red"
         :style="{
-          height: mainImgOffset + 'px'
+          height: mainImgOffset + 'px',
         }"
       >
-        <img src="~examples/assets/images/theme-index-red.png" alt="">
+        <img src="~examples/assets/images/theme-index-red.png" alt="" >
       </div>
     </div>
     <div class="sponsors">
@@ -23,7 +23,7 @@
         href="https://bit.dev/?from=element-ui"
         target="_blank"
       >
-        <img width="45" src="~examples/assets/images/bit.svg" alt="bit">
+        <img width="45" src="~examples/assets/images/bit.svg" alt="bit" >
         <div>
           <p>{{ sponsorLabel }} <span class="name">bit</span></p>
           <p>Share Code</p>
@@ -34,12 +34,12 @@
       <ul class="container">
         <li>
           <div class="card">
-            <img src="~examples/assets/images/guide.png" alt="">
+            <img src="~examples/assets/images/guide.png" alt="" >
             <h3>{{ langConfig[3] }}</h3>
             <p>{{ langConfig[4] }}</p>
             <router-link
               active-class="active"
-              :to="`/${ lang }/guide/design`"
+              :to="`/${lang}/guide/design`"
               exact
             >
               {{ langConfig[5] }}
@@ -48,12 +48,12 @@
         </li>
         <li>
           <div class="card">
-            <img src="~examples/assets/images/component.png" alt="">
+            <img src="~examples/assets/images/component.png" alt="" >
             <h3>{{ langConfig[6] }}</h3>
             <p>{{ langConfig[7] }}</p>
             <router-link
               active-class="active"
-              :to="`/${ lang }/component/layout`"
+              :to="`/${lang}/component/layout`"
               exact
             >
               {{ langConfig[5] }}
@@ -62,14 +62,10 @@
         </li>
         <li>
           <div class="card">
-            <img src="~examples/assets/images/resource.png" alt="">
+            <img src="~examples/assets/images/resource.png" alt="" >
             <h3>{{ langConfig[8] }}</h3>
             <p>{{ langConfig[9] }}</p>
-            <router-link
-              active-class="active"
-              :to="`/${ lang }/resource`"
-              exact
-            >
+            <router-link active-class="active" :to="`/${lang}/resource`" exact>
               {{ langConfig[5] }}
             </router-link>
           </div>
@@ -79,49 +75,54 @@
   </div>
 </template>
 <script>
-import pageLang from '../i18n/page.json'
-import { throttle } from 'throttle-debounce'
+import pageLang from '../i18n/page.json';
+import { throttle } from 'throttle-debounce';
 
 export default {
   data() {
     return {
       lang: this.$route.meta.lang,
       mainImgOffset: 0,
-    }
+    };
   },
   computed: {
     sponsorLabel() {
-      return this.lang === 'zh-CN' ? '赞助商' : 'Sponsored by'
+      return this.lang === 'zh-CN' ? '赞助商' : 'Sponsored by';
     },
     langConfig() {
-      return pageLang.filter(config => config.lang === this.lang)[0].pages.index
+      return pageLang.filter(config => config.lang === this.lang)[0].pages
+        .index;
     },
   },
   created() {
     this.throttledHandleScroll = throttle(10, true, index => {
-      this.handleScroll(index)
-    })
+      this.handleScroll(index);
+    });
   },
   beforeUnmount() {
-    const dom = document.querySelector('#app>.el-scrollbar>.el-scrollbar__wrap.el-scrollbar__wrap--hidden-default')
-    dom.removeEventListener('scroll', this.throttledHandleScroll)
+    const dom = document.querySelector(
+      '#app>.el-scrollbar>.el-scrollbar__wrap.el-scrollbar__wrap--hidden-default',
+    );
+    dom.removeEventListener('scroll', this.throttledHandleScroll);
   },
   mounted() {
-    const dom = document.querySelector('#app>.el-scrollbar>.el-scrollbar__wrap.el-scrollbar__wrap--hidden-default')
-    dom.addEventListener('scroll', this.throttledHandleScroll)
+    const dom = document.querySelector(
+      '#app>.el-scrollbar>.el-scrollbar__wrap.el-scrollbar__wrap--hidden-default',
+    );
+    dom.addEventListener('scroll', this.throttledHandleScroll);
   },
   methods: {
     handleScroll() {
-      const ele = this.$refs.indexMainImg
-      const rect = ele.getBoundingClientRect()
-      const eleHeight = ele.clientHeight + 55
-      let calHeight = (180 - rect.top) * 2
-      if (calHeight < 0) calHeight = 0
-      if (calHeight > eleHeight) calHeight = eleHeight
-      this.mainImgOffset = calHeight
+      const ele = this.$refs.indexMainImg;
+      const rect = ele.getBoundingClientRect();
+      const eleHeight = ele.clientHeight + 55;
+      let calHeight = (180 - rect.top) * 2;
+      if (calHeight < 0) calHeight = 0;
+      if (calHeight > eleHeight) calHeight = eleHeight;
+      this.mainImgOffset = calHeight;
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .banner {
@@ -185,11 +186,11 @@ export default {
     width: 100%;
   }
   .jumbotron-red {
-    transition: height .1s;
-    background: #FFF;
+    transition: height 0.1s;
+    background: #fff;
     position: absolute;
     left: 0;
-    top:0;
+    top: 0;
     overflow: hidden;
   }
 }
@@ -201,15 +202,15 @@ export default {
     padding: 0;
     margin: 0 -11px;
     width: auto;
-    &::before, &::after {
+    &::before,
+    &::after {
       display: table;
-      content: "";
+      content: '';
     }
     &::after {
       clear: both;
     }
   }
-
 
   li {
     width: 33.3%;
@@ -227,13 +228,13 @@ export default {
 .card {
   height: 430px;
   width: 100%;
-  background:#ffffff;
-  border:1px solid #eaeefb;
-  border-radius:5px;
+  background: #ffffff;
+  border: 1px solid #eaeefb;
+  border-radius: 5px;
   box-sizing: border-box;
   text-align: center;
   position: relative;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   bottom: 0;
 
   img {
@@ -255,7 +256,7 @@ export default {
     height: 53px;
     line-height: 52px;
     font-size: 14px;
-    color: #409EFF;
+    color: #409eff;
     text-align: center;
     border: 0;
     border-top: 1px solid #eaeefb;
@@ -267,18 +268,18 @@ export default {
     left: 0;
     background-color: #fff;
     border-radius: 0 0 5px 5px;
-    transition: all .3s;
+    transition: all 0.3s;
     text-decoration: none;
     display: block;
 
     &:hover {
       color: #fff;
-      background: #409EFF;
+      background: #409eff;
     }
   }
   &:hover {
     bottom: 6px;
-    box-shadow: 0 6px 18px 0 rgba(232,237,250,0.50);
+    box-shadow: 0 6px 18px 0 rgba(232, 237, 250, 0.5);
   }
 }
 @media (max-width: 1140px) {
@@ -344,7 +345,7 @@ export default {
   bottom: 0;
   z-index: 200;
   .intro-banner {
-    position: absolute
+    position: absolute;
   }
   img {
     width: 300px;
@@ -355,7 +356,7 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    color: #FFF;
+    color: #fff;
     text-align: center;
     font-weight: bold;
     font-size: 20px;
@@ -375,14 +376,14 @@ export default {
   top: 0;
   bottom: 0;
   z-index: 200;
-  .mask{
+  .mask {
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
     background: #000;
-    opacity: .5;
+    opacity: 0.5;
   }
   .intro-banner {
     top: 50%;
@@ -406,7 +407,7 @@ export default {
         margin: 0;
         font-size: 48px;
         font-weight: bold;
-        color: #FFF;
+        color: #fff;
       }
     }
   }

@@ -16,11 +16,13 @@ import icon from './icon.json';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 dayjs.locale('zh-cn'); // todo: locale based on Doc site lang
-
 import App from './app.vue';
-import ElementPlus from 'radium-vue';
+import radiumVue from 'radium-vue';
+import ElementPlus from 'element-plus';
 import '../packages/theme-brush/src/index.scss';
 import '../packages/theme-brush/src/display.scss';
+
+import 'element-plus/packages/theme-chalk/src/index.scss';
 
 const app = createApp(App);
 
@@ -37,6 +39,7 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
+app.use(radiumVue);
 app.use(ElementPlus);
 app.use(router);
 router.isReady().then(() => {
