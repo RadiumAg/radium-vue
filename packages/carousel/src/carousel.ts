@@ -13,7 +13,7 @@ export interface CarouselProps {
 export interface CarouselItem {
   active: boolean;
   key: string;
-  transformItem: () => {};
+  transformItem: () => void;
 }
 
 export interface CarouselItemProps {

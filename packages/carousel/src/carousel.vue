@@ -1,7 +1,15 @@
 <template>
   <div ref="root" style="{height: height}">
     <transition>
-      <button></button>
+      <button>
+        <i class="ra-icon-arrow-right"> </i>
+      </button>
+    </transition>
+
+    <transition>
+      <button>
+        <i class="ra-icon-arrow-left"> </i>
+      </button>
     </transition>
     <slot></slot>
   </div>
@@ -11,7 +19,7 @@
 import { defineComponent, nextTick, onMounted, provide, ref, watch } from 'vue';
 import { CarouselItem, CarouselProps } from './carousel';
 export default defineComponent({
-  name: 'Carousel',
+  name: 'RaCarousel',
   emit: ['raChange'],
   props: {
     raHeight: {
@@ -52,6 +60,8 @@ export default defineComponent({
     },
   },
   setup(props: CarouselProps, { emit }) {
+    //ref
+
     const ItemRef = ref<CarouselItem[]>();
     const root = ref<HTMLDivElement>();
     const currentIndex = ref<number>();
@@ -73,9 +83,6 @@ export default defineComponent({
 
     const transformItem = () => {};
 
-    const carouselProvide = { ItemRef };
-    provide('carouselProvide', carouselProvide);
-
     const RaSetActiveItem = (targetIndex: number) => {};
 
     const RaPrev = () => {
@@ -84,6 +91,9 @@ export default defineComponent({
     const RaNext = () => {
       activeIndex.value = activeIndex.value + 1;
     };
+
+    const carouselProvide = { ItemRef };
+    provide('carouselProvide', carouselProvide);
     return {
       props,
       root,
