@@ -1,13 +1,25 @@
 <template>
   <div ref="root" class="ra-carousel" :style="{ height: raHeight }">
     <transition>
-      <button class="ra-carousel__arrow ra-carousel__arrow--left">
+      <button
+        class="ra-carousel__arrow ra-carousel__arrow--left"
+        @click="
+          --activeIndex;
+          thottledArrowClick();
+        "
+      >
         <i class="ra-icon-arrow-left"> </i>
       </button>
     </transition>
 
     <transition>
-      <button class="ra-carousel__arrow ra-carousel__arrow--right">
+      <button
+        class="ra-carousel__arrow ra-carousel__arrow--right"
+        @click="
+          ++activeIndex;
+          thottledArrowClick();
+        "
+      >
         <i class="ra-icon-arrow-right"> </i>
       </button>
     </transition>
@@ -16,11 +28,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, onMounted, provide, ref, watch } from 'vue';
-import { CarouselItem, CarouselProps } from './carousel';
+import { throttle } from 'lodash';
+import {
+  defineComponent,
+  nextTick,
+  onMounted,
+  provide,
+  reactive,
+  ref,
+  watch,
+} from 'vue';
+import {
+  CAROUSEL_ITEM_PROVIDETOKEN,
+  ICarouselItem,
+  ICarouselProps,
+} from './carousel';
 export default defineComponent({
   name: 'RaCarousel',
-  emit: ['raChange'],
   props: {
     raHeight: {
       type: String,
@@ -59,47 +83,71 @@ export default defineComponent({
       defalut: false,
     },
   },
-  setup(props: CarouselProps, { emit }) {
+  emits: ['raChange'],
+  setup(props: ICarouselProps, { emit }) {
     //ref
-    const ItemRef = ref<CarouselItem[]>();
+    const itemReact = reactive<ICarouselItem[]>([]);
     const root = ref<HTMLDivElement>();
-    const currentIndex = ref<number>();
-    const offsetWidht = ref<number>();
+    const offsetWidth = ref<number>();
     const activeIndex = ref<number>(0);
 
-    console.log(props.raHeight);
-    // watch the change and commit
-    watch(currentIndex, () => {
+    // watch
+    watch(activeIndex, () => {
       emit('raChange');
     });
 
+    // mounted
     onMounted(() => {
       nextTick(() => {
         if (root.value) {
-          offsetWidht.value = root.value.offsetWidth;
+          offsetWidth.value = root.value.offsetWidth;
         }
+        resetItemTransition();
       });
     });
 
-    const transformItem = () => {};
+    //function
+    function resetItemTransition() {
+      itemReact.forEach((item, index) => {
+        item.transformItem(index, activeIndex.value);
+      });
+    }
 
-    const RaSetActiveItem = (targetIndex: number) => {};
+    function transformItem() {
+      itemReact.forEach((item, index) => {
+        item.transformItem(index, activeIndex.value);
+      });
+    }
 
-    const RaPrev = () => {
-      activeIndex.value = activeIndex.value - 1;
-    };
-    const RaNext = () => {
-      activeIndex.value = activeIndex.value + 1;
-    };
+    function RaSetActiveItem(targetIndex: number) {
+      activeIndex.value = targetIndex;
+    }
 
-    const carouselProvide = { ItemRef };
-    provide('carouselProvide', carouselProvide);
+    const thottledArrowClick = throttle(
+      () => {
+        processActiveIndex();
+        transformItem();
+      },
+      300,
+      { trailing: true },
+    );
+
+    function processActiveIndex() {
+      if (activeIndex.value < 0) {
+        activeIndex.value = itemReact.length - 1;
+      } else if (activeIndex.value > itemReact.length - 1) {
+        activeIndex.value = 0;
+      }
+    }
+
+    const carouselProvide = { itemReact, offsetWidth };
+    provide(CAROUSEL_ITEM_PROVIDETOKEN, carouselProvide);
     return {
       props,
       root,
-      RaPrev,
-      RaNext,
+      thottledArrowClick,
       RaSetActiveItem,
+      activeIndex,
     };
   },
 });

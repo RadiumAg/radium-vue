@@ -1,4 +1,6 @@
-export interface CarouselProps {
+import { Ref } from 'vue';
+
+export interface ICarouselProps {
   raHeight: string;
   raInitialIndex: number;
   raAutoplay: boolean;
@@ -10,13 +12,18 @@ export interface CarouselProps {
   raPauseOnHover: boolean;
 }
 
-export interface CarouselItem {
-  active: boolean;
-  key: string;
-  transformItem: () => void;
+export interface ICarouselItem {
+  uid: number;
+  transformItem: (index: number, activeIndex: number) => void;
 }
 
-export interface CarouselItemProps {
+export interface ICarouselItemProps {
   raName: string;
   raLabel: string;
 }
+
+export interface ICarouselProvide {
+  offsetWidth: Ref<number>;
+  itemReact: ICarouselItem[];
+}
+export const CAROUSEL_ITEM_PROVIDETOKEN = 'CAROUSEL_PROVIDE';

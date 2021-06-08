@@ -6,16 +6,16 @@
 @include b(carousel) {
   position: relative;
   box-sizing: border-box;
-  display: flex;
-  flex-wrap: nowrap;
   overflow: hidden;
 
   @include e(arrow) {
+    z-index: 2;
     outline: none;
     border: none;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    background-color: $--carousel-arrow-background;
     border-radius: 50%;
     cursor: pointer;
     flex-shrink: 0;
@@ -23,6 +23,7 @@
     @include m(left) {
         left: 16px;
     }
+
     @include m(right) {
         right: 16px;
     }

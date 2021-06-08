@@ -78,9 +78,9 @@ fs.readdirSync(libDirPath).forEach(comp => {
         data.forEach(f => {
           if (!fs.lstatSync(path.resolve(srcPath, f)).isDirectory()) {
             const imp = fs.readFileSync(path.resolve(srcPath, f)).toString();
-            if (imp.includes('@radium-plus/')) {
+            if (imp.includes('@radium-vue/')) {
               const newImp = imp
-                .replace(/@radium-plus\//g, '../../el-')
+                .replace(/@radium-vue\//g, '../../el-')
                 .replace('el-utils', 'utils')
                 .replace('el-locale', 'locale');
               fs.writeFileSync(path.resolve(srcPath, f), newImp);

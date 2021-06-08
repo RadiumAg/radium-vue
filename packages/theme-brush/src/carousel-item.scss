@@ -1,15 +1,21 @@
 @use "sass:math";
 
-
 @import './mixins/mixins';
 @import './common/var';
 
 @include b(carousel) {
-    @include e(carousel-item){
-         flex-basis: 100%;
-         flex-shrink: 0;
-         display: flex;
-         align-content:center;
-         justify-content: center;
-    }
+  @include e(carousel-item) {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include when(animating) {
+        transition: transform .4s ease-in-out;
+      }
+  }
 }

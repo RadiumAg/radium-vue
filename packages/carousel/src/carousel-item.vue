@@ -1,10 +1,27 @@
 <template>
-  <div class="ra-carousel__carousel-item"><slot></slot></div>
+  <div
+    class="ra-carousel__carousel-item"
+    :style="{ transform: itemStyle }"
+    :class="{ 'is-animating': data.animating }"
+  >
+    <slot></slot>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance } from 'vue';
-import { CarouselProps } from './carousel';
+import {
+  defineComponent,
+  getCurrentInstance,
+  inject,
+  reactive,
+  ref,
+} from 'vue';
+import fa from '../../locale/lang/fa';
+import {
+  CAROUSEL_ITEM_PROVIDETOKEN,
+  ICarouselItemProps,
+  ICarouselProvide,
+} from './carousel';
 export default defineComponent({
   name: 'RaCarouselItem',
   props: {
@@ -17,13 +34,65 @@ export default defineComponent({
       defalut: '',
     },
   },
-  setup(props: CarouselProps) {
+  setup(props: ICarouselItemProps) {
     const instance = getCurrentInstance();
-    function transformItem(index: number, activeIndex: number) {}
+    const itemStyle = ref<string>('');
+    const CAROUSEL_PROVIDE = inject<ICarouselProvide>(
+      CAROUSEL_ITEM_PROVIDETOKEN,
+    );
+    const data = reactive<{
+      active: boolean;
+      animating: boolean;
+    }>({ active: false, animating: false });
 
-    function calcTransform(index, activeIndex) {}
+    // fun
+    function transformItem(index: number, activeIndex: number) {
+      if (
+        index === activeIndex ||
+        index === activeIndex - 1 ||
+        index === activeIndex + 1
+      ) {
+        data.animating = true;
+      } else {
+        data.animating = false;
+      }
 
-    return { props };
+      index = processIndex(
+        index,
+        activeIndex,
+        CAROUSEL_PROVIDE.itemReact.length,
+      );
+      calcTransform(index, activeIndex);
+    }
+
+    function calcTransform(index: number, activeIndex: number) {
+      itemStyle.value = `translateX(${(index - activeIndex) *
+        CAROUSEL_PROVIDE.offsetWidth.value}px)`;
+    }
+
+    function addCarouseItem() {
+      CAROUSEL_PROVIDE.itemReact.push({
+        transformItem,
+        uid: instance.uid,
+      });
+    }
+
+    function processIndex(index: number, activeIndex: number, length: number) {
+      if (activeIndex === 0 && index === length - 1) {
+        return -1;
+      } else if (activeIndex === length - 1 && index === 0) {
+        return length;
+      } else if (index < activeIndex - 1 && activeIndex - index >= length / 2) {
+        return length + 1;
+      } else if (index > activeIndex + 1 && index - activeIndex >= length / 2) {
+        return -2;
+      }
+      return index;
+    }
+
+    addCarouseItem();
+
+    return { props, itemStyle, data };
   },
 });
 </script>
