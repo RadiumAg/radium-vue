@@ -19,21 +19,21 @@
             src="~examples/assets/images/navbar_1.png"
             alt="{{ langConfig[7] }}"
             @click="enlarge(846, $event)"
-          />
+          >
           <h5>{{ langConfig[7] }}</h5>
           <p>{{ langConfig[8] }}</p>
           <img
             src="~examples/assets/images/navbar_2.png"
             alt="{{ langConfig[9] }}"
             @click="enlarge(846, $event)"
-          />
+          >
           <h5>{{ langConfig[9] }}</h5>
           <p>{{ langConfig[10] }}</p>
           <img
             src="~examples/assets/images/navbar_3.png"
             alt="{{ langConfig[11] }}"
             @click="enlarge(846, $event)"
-          />
+          >
           <h5>{{ langConfig[11] }}</h5>
           <p>{{ langConfig[12] }}</p>
         </el-col>
@@ -50,7 +50,7 @@
             src="~examples/assets/images/navbar_0.png"
             alt=""
             @click="enlarge(846, $event)"
-          />
+          >
           <p>{{ langConfig[15] }}</p>
         </el-col>
       </el-row>
@@ -66,7 +66,7 @@
         @click="showDialog = false"
       >
         <div class="imgWrap" :style="imgStyle">
-          <img :src="imgUrl" alt="" >
+          <img :src="imgUrl" alt="" />
         </div>
       </div>
     </transition>

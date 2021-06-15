@@ -12,7 +12,8 @@
             <a
               onclick="ga('send', 'event', 'ResourceDownload', 'Download', 'Axure');"
               href="https://github.com/ElementUI/Resources/raw/master/Element_Components_v2.1.0.rplib"
-            >{{ langConfig[5] }}</a>
+              >{{ langConfig[5] }}</a
+            >
           </div>
         </li>
         <li>
@@ -23,7 +24,8 @@
             <a
               onclick="ga('send', 'event', 'ResourceDownload', 'Download', 'Sketch');"
               href="https://github.com/ElementUI/Resources/raw/master/Element%20UI%20Kit_v2.0.sketch"
-            >{{ langConfig[5] }}</a>
+              >{{ langConfig[5] }}</a
+            >
           </div>
         </li>
       </ul>
