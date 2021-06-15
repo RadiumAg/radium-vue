@@ -3,7 +3,10 @@
 ```
   <div class="block">
     <span class="demonstration">测试</span>
-    <ra-carousel raHeight="150px">
+    <ra-carousel 
+        raHeight="150px" 
+        :raInterval="1000"     
+        :raAutoplay="true">
         <ra-carousel-item v-for="item in 4" :key="item" style="background:grey;">
                <h3 class="small">{{ item }}</h3>
       </ra-carousel-item>

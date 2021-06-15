@@ -26,4 +26,7 @@ export interface ICarouselProvide {
   offsetWidth: Ref<number>;
   itemReact: ICarouselItem[];
 }
+
 export const CAROUSEL_ITEM_PROVIDETOKEN = 'CAROUSEL_PROVIDE';
+
+export type TClickType = 'left' | 'right';

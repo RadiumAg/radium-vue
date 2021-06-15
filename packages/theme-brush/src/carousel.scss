@@ -14,18 +14,36 @@
     border: none;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    font-size: $--carousel-arrow-font-size;
     background-color: $--carousel-arrow-background;
+    transform: translateY(-50%);
     border-radius: 50%;
     cursor: pointer;
+    width: $--carousel-arrow-size;
+    height: $--carousel-arrow-size;
     flex-shrink: 0;
+    transition: all 0.5 ease-in-out;
 
     @include m(left) {
-        left: 16px;
+      left: 16px;
     }
 
     @include m(right) {
-        right: 16px;
+      right: 16px;
     }
+
   }
+}
+
+
+.carousel-arrow-left-enter-from,
+.carousel-arrow-left-leave-active {
+  transform: translateY(-50%) translateX(-10px);
+  opacity: 0;
+}
+
+.carousel-arrow-right-enter-from,
+.carousel-arrow-right-leave-active {
+  transform: translateY(-50%) translateX(10px);
+  opacity: 0;
 }

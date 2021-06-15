@@ -1,12 +1,16 @@
 <template>
-  <div ref="root" class="ra-carousel" :style="{ height: raHeight }">
+  <div
+    ref="root"
+    class="ra-carousel"
+    :style="{ height: raHeight }"
+    @mouseenter.stop="handleMouseEnter"
+    @mouseleave.stop="handleMouseLeave"
+  >
     <transition>
       <button
         class="ra-carousel__arrow ra-carousel__arrow--left"
-        @click="
-          --activeIndex;
-          thottledArrowClick();
-        "
+        :class="{ 'is-hover': data.hover }"
+        @click.stop="thottledArrowClick('left')"
       >
         <i class="ra-icon-arrow-left"> </i>
       </button>
@@ -15,10 +19,8 @@
     <transition>
       <button
         class="ra-carousel__arrow ra-carousel__arrow--right"
-        @click="
-          ++activeIndex;
-          thottledArrowClick();
-        "
+        :class="{ 'is-hover': data.hover }"
+        @click.stop="thottledArrowClick('right')"
       >
         <i class="ra-icon-arrow-right"> </i>
       </button>
@@ -33,6 +35,7 @@ import {
   defineComponent,
   nextTick,
   onMounted,
+  onUnmounted,
   provide,
   reactive,
   ref,
@@ -42,6 +45,7 @@ import {
   CAROUSEL_ITEM_PROVIDETOKEN,
   ICarouselItem,
   ICarouselProps,
+  TClickType,
 } from './carousel';
 export default defineComponent({
   name: 'RaCarousel',
@@ -90,6 +94,10 @@ export default defineComponent({
     const root = ref<HTMLDivElement>();
     const offsetWidth = ref<number>();
     const activeIndex = ref<number>(0);
+    const timerSign = ref<NodeJS.Timer>(null);
+    const data = reactive({
+      hover: false,
+    });
 
     // watch
     watch(activeIndex, () => {
@@ -98,12 +106,22 @@ export default defineComponent({
 
     // mounted
     onMounted(() => {
+      autoplay();
       nextTick(() => {
         if (root.value) {
           offsetWidth.value = root.value.offsetWidth;
+          window.addEventListener('resize', () => {
+            offsetWidth.value = root.value.offsetWidth;
+            resetItemTransition();
+          });
         }
         resetItemTransition();
       });
+    });
+
+    // ondestroy
+    onUnmounted(() => {
+      clearInterval(timerSign.value);
     });
 
     //function
@@ -111,6 +129,16 @@ export default defineComponent({
       itemReact.forEach((item, index) => {
         item.transformItem(index, activeIndex.value);
       });
+    }
+
+    function handleMouseEnter() {
+      data.hover = true;
+      clearInterval(timerSign.value);
+    }
+
+    function handleMouseLeave() {
+      data.hover = false;
+      autoplay();
     }
 
     function transformItem() {
@@ -123,14 +151,15 @@ export default defineComponent({
       activeIndex.value = targetIndex;
     }
 
-    const thottledArrowClick = throttle(
-      () => {
-        processActiveIndex();
-        transformItem();
-      },
-      300,
-      { trailing: true },
-    );
+    const thottledArrowClick = throttle((clickType: TClickType) => {
+      if (clickType === 'left') {
+        activeIndex.value = activeIndex.value - 1;
+      } else if (clickType === 'right') {
+        activeIndex.value = activeIndex.value + 1;
+      }
+      processActiveIndex();
+      transformItem();
+    }, 400);
 
     function processActiveIndex() {
       if (activeIndex.value < 0) {
@@ -140,14 +169,27 @@ export default defineComponent({
       }
     }
 
+    //methods
+    function autoplay() {
+      if (!props.raAutoplay) return;
+      timerSign.value = setInterval(() => {
+        activeIndex.value++;
+        processActiveIndex();
+        transformItem();
+      }, props.raInterval);
+    }
+
     const carouselProvide = { itemReact, offsetWidth };
     provide(CAROUSEL_ITEM_PROVIDETOKEN, carouselProvide);
     return {
       props,
       root,
       thottledArrowClick,
+      data,
       RaSetActiveItem,
       activeIndex,
+      handleMouseEnter,
+      handleMouseLeave,
     };
   },
 });
