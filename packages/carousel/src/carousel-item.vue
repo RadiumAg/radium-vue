@@ -46,18 +46,6 @@ export default defineComponent({
 
     // fun
     function transformItem(index: number, activeIndex: number) {
-      // if (
-      //   index === activeIndex ||
-      //   index === activeIndex - 1 ||
-      //   index === activeIndex ||
-      //   index === 0 ||
-      //   index === CAROUSEL_PROVIDE.itemReact.length - 1
-      // ) {
-      //   data.animating = true;
-      // } else {
-      //   data.animating = false;
-      // }
-
       index = processIndex(
         index,
         activeIndex,
