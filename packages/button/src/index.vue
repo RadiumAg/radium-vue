@@ -8,7 +8,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'ElButton',
   props: {},
-  setup(props) {
+  setup() {
     // init here
   },
 });

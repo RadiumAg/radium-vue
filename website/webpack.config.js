@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
-const webpack = require('webpack')
-const { VueLoaderPlugin } = require('vue-loader')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const path = require('path');
+const webpack = require('webpack');
+const { VueLoaderPlugin } = require('vue-loader');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
-const isProd = process.env.NODE_ENV === 'production'
-const isPlay = !!process.env.PLAY_ENV
+const isProd = process.env.NODE_ENV === 'production';
+const isPlay = !!process.env.PLAY_ENV;
 
 const config = {
   mode: isProd ? 'production' : 'development',
@@ -86,11 +86,9 @@ const config = {
   },
   optimization: {
     minimize: true,
-    minimizer: [
-      new CssMinimizerPlugin(),
-    ],
+    minimizer: [new CssMinimizerPlugin()],
   },
-}
+};
 
 const cssRule = {
   test: /\.(sass|scss|css)$/,
@@ -103,7 +101,7 @@ const cssRule = {
       },
     },
   ],
-}
+};
 
 // if (isProd) {
 config.plugins.push(
@@ -115,10 +113,10 @@ config.plugins.push(
     __VUE_OPTIONS_API__: JSON.stringify(true),
     __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
   }),
-)
-cssRule.use.unshift(MiniCssExtractPlugin.loader)
+);
+cssRule.use.unshift(MiniCssExtractPlugin.loader);
 // } else {
-cssRule.use.unshift('style-loader')
+cssRule.use.unshift('style-loader');
 // }
-config.module.rules.push(cssRule)
-module.exports = config
+config.module.rules.push(cssRule);
+module.exports = config;

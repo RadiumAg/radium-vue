@@ -6,20 +6,20 @@
     @mouseenter.stop="handleMouseEnter"
     @mouseleave.stop="handleMouseLeave"
   >
-    <transition>
+    <transition name="carousel-arrow-left">
       <button
+        v-if="data.hover"
         class="ra-carousel__arrow ra-carousel__arrow--left"
-        :class="{ 'is-hover': data.hover }"
         @click.stop="thottledArrowClick('left')"
       >
         <i class="ra-icon-arrow-left"> </i>
       </button>
     </transition>
 
-    <transition>
+    <transition name="carousel-arrow-right">
       <button
+        v-if="data.hover"
         class="ra-carousel__arrow ra-carousel__arrow--right"
-        :class="{ 'is-hover': data.hover }"
         @click.stop="thottledArrowClick('right')"
       >
         <i class="ra-icon-arrow-right"> </i>
