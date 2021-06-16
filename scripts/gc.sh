@@ -38,7 +38,7 @@ cat > $DIRNAME/src/index.vue <<EOF
 <script lang='ts'>
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'El${NAME}',
+  name: 'Ra${NAME}',
   props: { },
   setup(props) {
     // init here

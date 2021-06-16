@@ -1,0 +1,46 @@
+@use "sass:math";
+
+@import './mixins/mixins';
+@import './common/var';
+
+@include b(row) {
+  display: flex;
+  
+  @include e(host) {
+
+    // align-items
+    @include m(top) {
+      align-items: top;
+    }
+    
+    @include m(middle) {
+      align-items: center;
+    }
+
+    @include m(bottom) {
+      align-items: flex-end;
+    }
+
+    
+   // justify
+    @include m(start) {
+      justify-content: flex-start;
+    }
+
+    @include m(center) {
+      justify-content: center;
+    }
+
+    @include m(end) {
+      justify-content: flex-end;
+    }
+
+    @include m(space-around){
+      justify-content: space-around;
+    }
+
+    @include m(space-between){
+        justify-content: space-between;
+    }
+  }
+}
