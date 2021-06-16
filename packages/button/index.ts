@@ -1,5 +1,5 @@
 import { App } from 'vue';
-import Button from './src/index.vue';
+import Button from './src/button.vue';
 import { SFCWithInstall } from '@radium-vue/utils/types';
 
 Button.install = (app: App): void => {
