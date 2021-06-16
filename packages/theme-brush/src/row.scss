@@ -5,14 +5,13 @@
 
 @include b(row) {
   display: flex;
-  
-  @include e(host) {
 
+  @include e(host) {
     // align-items
     @include m(top) {
       align-items: top;
     }
-    
+
     @include m(middle) {
       align-items: center;
     }
@@ -21,8 +20,7 @@
       align-items: flex-end;
     }
 
-    
-   // justify
+    // justify
     @include m(start) {
       justify-content: flex-start;
     }
@@ -35,12 +33,12 @@
       justify-content: flex-end;
     }
 
-    @include m(space-around){
+    @include m(space-around) {
       justify-content: space-around;
     }
 
-    @include m(space-between){
-        justify-content: space-between;
+    @include m(space-between) {
+      justify-content: space-between;
     }
   }
 }

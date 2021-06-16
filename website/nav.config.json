@@ -40,8 +40,8 @@
           "groupName": "Basic",
           "list": [
             {
-              "path": "/layout",
-              "title": "Layout 布局"
+              "path": "/grid",
+              "title": "grid 栅格布局"
             },
             {
               "path": "/container",

@@ -1,22 +1,22 @@
 <template>
   <div
     class="ra-row"
-    :class="
-      ({ 'ra-row__host--top': raAlign === 'top' },
+    :class="[
+      { 'ra-row__host--top': raAlign === 'top' },
       { 'ra-row__host--middle': raAlign === 'middle' },
       { 'ra-row__host--bottom': raAlign === 'bottom' },
-      { 'ra-row__host--start ': raJustify === 'start' },
-      { 'ra-row__host--center ': raJustify === 'center' },
-      { 'ra-row__host--end ': raJustify === 'end' },
-      { 'ra-row__host--space-around': raJustify === ' space-around' },
-      { 'ra-row__host--space-between': raJustify === 'space-between' })
-    "
+      { 'ra-row__host--start': raJustify === 'start' },
+      { 'ra-row__host--center': raJustify === 'center' },
+      { 'ra-row__host--end': raJustify === 'end' },
+      { 'ra-row__host--space-around': raJustify === 'space-around' },
+      { 'ra-row__host--space-between': raJustify === 'space-between' },
+    ]"
   >
     <slot></slot>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, inject, PropType, provide } from 'vue';
+import { defineComponent, PropType, provide } from 'vue';
 import { ROW_INJECT_EOKEN } from './grid';
 export default defineComponent({
   name: 'RaRow',
@@ -30,13 +30,13 @@ export default defineComponent({
       defalut: null,
     },
     raJustify: {
-      type: Array,
-      defalut: 0,
+      type: String,
+      defalut: 'flex-start',
     },
   },
   setup(props) {
     // init here
-
+    debugger;
     provide(ROW_INJECT_EOKEN, {
       gutter: props.raGutter,
     });
