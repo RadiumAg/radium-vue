@@ -303,16 +303,16 @@ ${this.codepen.style}
       ).trim()}\n`;
       let jsTpl = script
         ? script
-            .replace(/export default/, 'var Main =')
-            .trim()
-            .replace(
-              /import ({.*}) from 'vue'/g,
-              (s, s1) => `const ${s1} = Vue`,
-            )
-            .replace(
-              /import ({.*}) from 'radium-vue'/g,
-              (s, s1) => `const ${s1} = ElementPlus`,
-            )
+          .replace(/export default/, 'var Main =')
+          .trim()
+          .replace(
+            /import ({.*}) from 'vue'/g,
+            (s, s1) => `const ${s1} = Vue`,
+          )
+          .replace(
+            /import ({.*}) from 'radium-vue'/g,
+            (s, s1) => `const ${s1} = ElementPlus`,
+          )
         : 'var Main = {}';
       jsTpl +=
         '\n;const app = Vue.createApp(Main);\napp.use(ElementPlus);\napp.mount("#app")';

@@ -1,5 +1,5 @@
 <template>
-  <div :style="gutterStyle">
+  <div :style="gutterStyle" :class="classList">
     <slot></slot>
   </div>
 </template>
@@ -8,7 +8,7 @@ import { computed, defineComponent, inject, PropType } from 'vue';
 import { IRowInject, ROW_INJECT_EOKEN, SizeObject } from './grid';
 
 export default defineComponent({
-  name: 'ElGrid',
+  name: 'RaCol',
   props: {
     raFlex: {
       type: Object,
@@ -28,7 +28,7 @@ export default defineComponent({
     },
     raPush: {
       type: Number,
-      defalut: null,
+      defalut: 24,
     },
     raSpan: {
       type: Number,
@@ -80,9 +80,34 @@ export default defineComponent({
       }
     });
 
+    const classList = computed(() => {
+      const ret = [];
+      const prNormalKey = ['raSpan', 'raPull', 'raPush', 'raSpan'] as const;
+      const prSizeKey = ['raXs', 'raSm', 'raMd', 'raLg', 'raXl', 'raXXl'];
+
+      prNormalKey.forEach(pr => {
+        if (pr === 'raSpan' && props[pr]) ret.push(`ra-col-${props[pr]}`);
+        else if (props[pr]) ret.push(`ra-col-${pr}-${props[pr]}`);
+      });
+      return ret;
+
+      prSizeKey.forEach(pr => {
+        if (typeof pr === 'number') ret.push(`ra-col-${pr}-${props[pr]}`);
+        else if (typeof pr === 'object') {
+          const sizeProp = props[pr] as { span: number; offset: number };
+          if (sizeProp.span) {
+            ret.push(`ra-col-${pr}-${props[pr]}`);
+          } else if (sizeProp.offset) {
+            ret.push(`ra-col-${pr}-offset-${props[pr]}`);
+          }
+        }
+      });
+    });
+
     return {
       props,
       gutterStyle,
+      classList,
     };
   },
 });

@@ -36,7 +36,6 @@ export default defineComponent({
   },
   setup(props) {
     // init here
-    debugger;
     provide(ROW_INJECT_EOKEN, {
       gutter: props.raGutter,
     });
