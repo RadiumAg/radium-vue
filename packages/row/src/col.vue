@@ -1,5 +1,5 @@
 <template>
-  <div :style="gutterStyle" :class="classList">
+  <div :style="gutterStyle" :class="classList" class="ra-grid">
     <slot></slot>
   </div>
 </template>
@@ -67,15 +67,18 @@ export default defineComponent({
     const gutterStyle = computed(() => {
       if (typeof gutter === 'number') {
         return {
+          ['margin-left']: -(gutter / 2) + 'px',
           ['padding-left']: gutter / 2 + 'px',
           ['padding-right']: gutter / 2 + 'px',
         };
       } else if (typeof gutter === 'object') {
         return {
-          ['padding-left']: gutter[0] / 2 + 'px',
-          ['padding-right']: gutter[1] / 2 + 'px',
-          ['padding-bottom']: gutter[2] / 2 + 'px',
-          ['padding-top']: gutter[3] / 2 + 'px',
+          ['margin-left']: -(gutter[0] || 0) / 2 + 'px',
+          ['padding-left']: (gutter[0] || 0) / 2 + 'px',
+          ['padding-right']: (gutter[0] || 0) / 2 + 'px',
+          ['margin-top']: -(gutter[1] || 0) / 2 + 'px',
+          ['padding-top']: (gutter[1] || 0) / 2 + 'px',
+          ['padding-bottom']: (gutter[1] || 0) / 2 + 'px',
         };
       }
     });
@@ -92,8 +95,9 @@ export default defineComponent({
       return ret;
 
       prSizeKey.forEach(pr => {
-        if (typeof pr === 'number') ret.push(`ra-col-${pr}-${props[pr]}`);
-        else if (typeof pr === 'object') {
+        if (typeof props[pr] === 'number')
+          ret.push(`ra-col-${pr}-${props[pr]}`);
+        else if (typeof props[pr] === 'object') {
           const sizeProp = props[pr] as { span: number; offset: number };
           if (sizeProp.span) {
             ret.push(`ra-col-${pr}-${props[pr]}`);
@@ -112,4 +116,3 @@ export default defineComponent({
   },
 });
 </script>
-<style></style>

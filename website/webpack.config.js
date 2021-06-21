@@ -26,7 +26,8 @@ const config = {
     rules: [
       {
         test: /\.vue$/,
-        use: 'vue-loader',
+        use: ['vue-loader'],
+        exclude: /node_modules/,
       },
       {
         test: /\.(ts|js)x?$/,
@@ -40,7 +41,7 @@ const config = {
             loader: 'vue-loader',
             options: {
               compilerOptions: {
-                preserveWhitespace: false,
+                preserveWhitespace: true,
               },
             },
           },

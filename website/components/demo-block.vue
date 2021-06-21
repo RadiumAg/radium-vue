@@ -75,6 +75,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import { nextTick } from 'vue';
 import hljs from 'highlight.js';
@@ -99,11 +100,13 @@ const stripTemplateAndRemoveTemplate = code => {
   }
   return result;
 };
+
 const sanitizeHTML = str => {
   const temp = document.createElement('div');
   temp.textContent = str;
   return temp.innerHTML;
 };
+
 export default {
   data() {
     return {
@@ -228,16 +231,12 @@ export default {
       nextTick(() => {
         const highlight = this.$el.querySelector('.highlight');
         const hlcode = highlight.querySelector('pre code');
-        const innerScript = `<script>
-  ${this.displayDemoCode}
-${'</sc' + 'ript>'}
-`;
-        hlcode.innerHTML = sanitizeHTML(`<template>
-  ${this.codepen.html}
-</template>
-
-${this.displayDemoCode ? innerScript : ''}`);
-
+        const innerScript = `\<script>${this.displayDemoCode}\<\/script\>`;
+        hlcode.innerHTML = sanitizeHTML(
+          `<template>${this.codepen.html}</template>${
+            this.displayDemoCode ? innerScript : ''
+          }`,
+        );
         nextTick(() => {
           if (this.$el.getElementsByClassName('description').length === 0) {
             highlight.style.width = '100%';
@@ -251,25 +250,17 @@ ${this.displayDemoCode ? innerScript : ''}`);
         });
       });
     },
+
     onSwitchSyntax() {
       this.showSetup = !this.showSetup;
       this.prettyCode();
       this.$nextTick(this.setCodeAreaHeight);
     },
+
     copy() {
-      const res = clipboardCopy(`
-<template>
-${this.codepen.html}
-</template>
-
-<script>
-${'  ' + this.codepen.script}
-\<\/script>
-
-<style>
-${this.codepen.style}
-</style>
-`);
+      const res = clipboardCopy(`\<template\>${this.codepen.html}\<\/template\>
+      \<script\>${this.codepen.script}\<\/script\>
+      \<style\>${this.codepen.style}\<\/style\>`);
 
       res
         .then(() => {
@@ -290,17 +281,12 @@ ${this.codepen.style}
     goCodepen() {
       // since 2.6.2 use code rather than jsfiddle https://blog.codepen.io/documentation/api/prefill/
       const { script, html, style } = this.codepen;
-      const resourcesTpl =
-        '<scr' +
-        'ipt src="//unpkg.com/vue@next"></scr' +
-        'ipt>' +
-        '\n<scr' +
-        `ipt src="//unpkg.com/radium-vue/lib/index.full.js"></scr` +
-        'ipt>';
-      let htmlTpl = `${resourcesTpl}\n<div id="app">\n${html.trim()}\n</div>`;
-      let cssTpl = `@import url("//unpkg.com/radium-vue/lib/theme-brush/index.css");\n${(
+      const resourcesTpl = `\<script src="//unpkg.com/vue@next"\>\<\/script\>
+                           \<script src="//unpkg.com/radium-vue/lib/index.full.js"\>\<\/script\>`;
+      let htmlTpl = `${resourcesTpl}<div id="app">${html.trim()}</div>`;
+      let cssTpl = `@import url("//unpkg.com/radium-vue/lib/theme-brush/index.css");${(
         style || ''
-      ).trim()}\n`;
+      ).trim()}`;
       let jsTpl = script
         ? script
           .replace(/export default/, 'var Main =')
@@ -311,19 +297,17 @@ ${this.codepen.style}
           )
           .replace(
             /import ({.*}) from 'radium-vue'/g,
-            (s, s1) => `const ${s1} = ElementPlus`,
+            (s, s1) => `const ${s1} = RadiumVue`,
           )
         : 'var Main = {}';
-      jsTpl +=
-        '\n;const app = Vue.createApp(Main);\napp.use(ElementPlus);\napp.mount("#app")';
+      jsTpl += `;const app = Vue.createApp(Main);app.use(RadiumVue);app.mount("#app")`;
       const data = {
         js: jsTpl,
         css: cssTpl,
         html: htmlTpl,
       };
       const form =
-        document.getElementById('fiddle-form') ||
-        document.createElement('form');
+        document.getElementById('fiddle-form') || ocument.createElement('form');
       while (form.firstChild) {
         form.removeChild(form.firstChild);
       }
@@ -360,9 +344,10 @@ ${this.codepen.style}
   },
 };
 </script>
+
 <style lang="scss" scoped>
 .demo-block {
-  border: solid 1px #ebebeb;
+  border: 1px solid #ebebeb;
   border-radius: 3px;
   transition: 0.2s;
 

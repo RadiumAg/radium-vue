@@ -5,7 +5,6 @@
 :::demo  使用ra-carousel 和ra-carousel-item 形成一个走马灯
 
 ```html
-<template>  
   <div class="block">
     <span class="demonstration">默认设置</span>
     <ra-carousel 
@@ -17,7 +16,6 @@
       </ra-carousel-item>
     </ra-carousel>
   </div>
-</template>
 ```
 
 :::

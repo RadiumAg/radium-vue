@@ -5,6 +5,7 @@
 
 @include b(row) {
   display: flex;
+  flex-wrap: wrap;
 
   @include e(host) {
     // align-items
