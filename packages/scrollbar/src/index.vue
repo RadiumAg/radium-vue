@@ -51,6 +51,7 @@ export default defineComponent({
     const data = reactive<{ direction: 'x' | 'y' }>({ direction: 'x' });
     const scrollBarRef = ref<HTMLElement>(null);
     const moveY = ref<number>(0);
+    const moveX = ref<number>(0);
 
     const style = computed(() => {
       const res = [];
@@ -75,7 +76,7 @@ export default defineComponent({
       moveY.value =
         (scrollBarRef.value.scrollTop / scrollBarRef.value.clientHeight) * 100;
       console.log(moveY.value);
-      emit('scroll');
+      emit('scroll', [moveY.value, moveX.value]);
     }
 
     provide(SCROLL_BAR_INJECT_TOKEN, {
