@@ -240,14 +240,25 @@
 /* Break-point
 --------------------------*/
 .ra-scrollbar {
-  overflow: auto;
   position: relative;
 }
+.ra-scrollbar__container {
+  overflow: auto;
+}
+
+.ra-scrollbar--scrollbar_hidden {
+  scrollbar-width: 0;
+}
+.ra-scrollbar--scrollbar_hidden::-webkit-scrollbar {
+  display: none;
+}
+
 .ra-scrollbar__horizontal {
   position: absolute;
   bottom: 0;
   left: 0;
   height: 6px;
+  width: 100%;
 }
 
 .ra-scrollbar__vertical {
@@ -255,4 +266,9 @@
   top: 0;
   right: 0;
   width: 6px;
+  height: 100%;
+}
+
+.ra-scrollbar__bar {
+  background-color: aqua;
 }

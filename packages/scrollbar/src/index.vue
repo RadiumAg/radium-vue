@@ -1,13 +1,30 @@
 <template>
-  <div ref="scrollBarRef" class="ra-scrollbar">
-    <slot></slot>
-  </div>
-  <div>
-    <bar />
+  <div class="ra-scrollbar ra-scrollbar--scrollbar_hidden">
+    <div
+      ref="scrollBarRef"
+      class="ra-scrollbar--scrollbar_hidden ra-scrollbar__container"
+      :style="style"
+      @scroll="scroll"
+    >
+      <slot></slot>
+    </div>
+    <div v-if="data.direction === 'x'" class="ra-scrollbar__horizontal">
+      <bar :axis="x" />
+    </div>
+    <div v-if="data.direction === 'y'" class="ra-scrollbar__vertical">
+      <bar :axis="y" />
+    </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, provide, reactive } from 'vue';
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  provide,
+  reactive,
+  ref,
+} from 'vue';
 import { SCROLL_BAR_INJECT_TOKEN } from '.';
 import bar from './bar.vue';
 export default defineComponent({
@@ -30,17 +47,49 @@ export default defineComponent({
     },
   },
   emits: ['scroll'],
-  setup(props) {
-    const scrollBarRef = reactive<HTMLElement>(null);
+  setup(props, { emit }) {
+    const data = reactive<{ direction: 'x' | 'y' }>({ direction: 'x' });
+    const scrollBarRef = ref<HTMLElement>(null);
+    const moveY = ref<number>(0);
+
+    const style = computed(() => {
+      const res = [];
+      if (props.raHeight) {
+        res.push({ height: props.raHeight });
+      } else if (props.raMaxHeight) {
+        res.push({ ['max-height']: props.raMaxHeight });
+      }
+      return res;
+    });
+
+    onMounted(() => {
+      if (scrollBarRef.value.scrollHeight) {
+        data.direction = 'y';
+      } else if (scrollBarRef.value.scrollWidth) {
+        data.direction = 'x';
+      }
+    });
+
+    // fun
+    function scroll() {
+      moveY.value =
+        (scrollBarRef.value.scrollTop / scrollBarRef.value.clientHeight) * 100;
+      console.log(moveY.value);
+      emit('scroll');
+    }
 
     provide(SCROLL_BAR_INJECT_TOKEN, {
       scrollBarRef,
+      moveY,
     });
+
     return {
+      style,
+      data,
       props,
       scrollBarRef,
+      scroll,
     };
   },
 });
 </script>
-<style></style>
