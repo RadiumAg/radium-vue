@@ -1,0 +1,26 @@
+@use "sass:math";
+
+@import './mixins/mixins';
+@import './common/var';
+
+@include b(scrollbar) {
+    overflow: auto;
+    position: relative; 
+
+    @include e(horizontal) {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 6px;           
+    }
+
+    @include e(vertical) {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 6px;
+    }
+   
+}
+
+
