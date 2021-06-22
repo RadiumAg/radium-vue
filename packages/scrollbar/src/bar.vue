@@ -73,6 +73,9 @@ export default defineComponent({
 
     function mouseUpHandler() {
       off(barRef.value, 'mousemove', mouseMoveHandler);
+      mouse.startY = 0;
+      mouse.endY = 0;
+      move.value = 0;
     }
 
     function mouseDownHandler(e: MouseEvent) {
