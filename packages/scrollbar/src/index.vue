@@ -9,10 +9,10 @@
       <slot></slot>
     </div>
     <div v-if="data.direction === 'x'" class="ra-scrollbar__horizontal">
-      <bar :axis="x" />
+      <bar :axis="data.direction" />
     </div>
     <div v-if="data.direction === 'y'" class="ra-scrollbar__vertical">
-      <bar :axis="y" />
+      <bar :axis="data.direction" />
     </div>
   </div>
 </template>
@@ -64,9 +64,12 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      if (scrollBarRef.value.scrollHeight) {
+      debugger;
+      if (scrollBarRef.value.scrollHeight > scrollBarRef.value.clientHeight) {
         data.direction = 'y';
-      } else if (scrollBarRef.value.scrollWidth) {
+      } else if (
+        scrollBarRef.value.scrollWidth > scrollBarRef.value.clientWidth
+      ) {
         data.direction = 'x';
       }
     });
