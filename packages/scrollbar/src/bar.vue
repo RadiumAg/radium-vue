@@ -54,12 +54,14 @@ export default defineComponent({
     const minScrollDistance = 0;
 
     // func
-    function mouseUpHandler() {
+    function mouseUpHandler(e: MouseEvent) {
+      e.stopPropagation();
       off(document, 'mousemove', mouseMoveHandler);
       mouse[currPro.value.mouseStart] = 0;
       mouse[currPro.value.mouseEnd] = 0;
       document.onselectstart = null;
       scrollInject.isActive.value = false;
+      scrollInject.isMouseHover.value || (scrollInject.isHover.value = false);
     }
 
     function mouseDownHandler(e: MouseEvent) {

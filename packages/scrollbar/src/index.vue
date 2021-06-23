@@ -59,14 +59,15 @@ export default defineComponent({
   },
   emits: ['scroll'],
   setup(props, { emit }) {
-    const isActive = ref<boolean>(false);
+    const isActive = ref(false);
     const data = reactive<Partial<{ direction: 'x' | 'y' }>>({
       direction: 'x',
     });
     const scrollBarRef = ref<HTMLElement>(null);
-    const moveY = ref<number>(0);
-    const moveX = ref<number>(0);
-    const isHover = ref<boolean>(false);
+    const moveY = ref(0);
+    const moveX = ref(0);
+    const isHover = ref(false);
+    const isMouseHover = ref(false);
 
     const style = computed(() => {
       const res = [];
@@ -89,9 +90,11 @@ export default defineComponent({
 
     function mouseenterHandler() {
       isHover.value = true;
+      isMouseHover.value = true;
     }
 
     function mouseleaveHandler() {
+      isMouseHover.value = false;
       if (isActive.value) return;
       isHover.value = false;
     }
@@ -113,6 +116,7 @@ export default defineComponent({
       moveX,
       isHover,
       isActive,
+      isMouseHover,
     });
 
     return {

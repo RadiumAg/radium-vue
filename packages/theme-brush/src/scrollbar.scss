@@ -40,11 +40,10 @@
        position: relative;
        cursor: pointer;
 
-       @include when(hover) {
-
+       &:active{
+           background-color: $--scrollbar-hover-background-color;
        }
-    }
-   
+    } 
 }
 
 .#{$namespace}-scrollbar-fade-enter-active,

@@ -4,6 +4,7 @@ export interface scrollBarInject {
   moveY: Ref<number>;
   isHover: Ref<boolean>;
   isActive: Ref<boolean>;
+  isMouseHover: Ref<boolean>;
 }
 
 export const SCROLL_BAR_INJECT_TOKEN = 'SCROLL BAR INJECT TOKEN';
