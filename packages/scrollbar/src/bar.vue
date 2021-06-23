@@ -11,9 +11,10 @@
 </template>
 
 <script lang="ts">
-import { SCROLL_BAR_INJECT_TOKEN } from '@radium-vue/scrollbar/src';
-import { off } from '@radium-vue/utils/dom';
+import { PROP_MAP, SCROLL_BAR_INJECT_TOKEN } from '@radium-vue/scrollbar/src';
+import { off, on } from '@radium-vue/utils/dom';
 import {
+  computed,
   defineComponent,
   inject,
   onMounted,
@@ -23,87 +24,90 @@ import {
   watch,
 } from 'vue';
 import { scrollBarInject } from '.';
-import { on } from '../../utils/dom';
 
 export default defineComponent({
   name: 'RaBar',
   props: {
-    axis: {
-      type: String,
-      defalut: '',
-    },
+    axis: String,
   },
   setup(props) {
-    console.log(props);
     const barStyle = reactive<{ transform?: string; height?: string }>({});
     const barRef = ref<HTMLElement>(null);
     const scrollInject = inject<scrollBarInject>(SCROLL_BAR_INJECT_TOKEN);
-    const move = ref(0);
+    const currPro = computed(() => PROP_MAP[props.axis + '']);
+    let currentPosition = 0;
     const mouse = {
+      startX: 0,
+      endX: 0,
       startY: 0,
       endY: 0,
     };
 
-    watch(scrollInject.moveY, () => {
-      barStyle.transform = `translateY(${scrollInject.moveY.value}%)`;
-    });
+    // func
+    function mouseUpHandler() {
+      off(document, 'mousemove', mouseMoveHandler);
+      mouse[currPro.value.mouseStart] = 0;
+      mouse[currPro.value.mouseEnd] = 0;
+    }
 
-    watch(move, () => {
-      console.log(move.value);
-      if (move.value) {
+    function mouseDownHandler(e: MouseEvent) {
+      e.stopPropagation();
+      window.getSelection().removeAllRanges();
+      mouse[currPro.value.mouseStart] = e[currPro.value.pageCoordinate];
+      currentPosition =
+        (scrollInject[currPro.value.move].value / 100) *
+        barRef.value[currPro.value.clinetSize];
+      on(document, 'mousemove', mouseMoveHandler);
+    }
+
+    function mouseMoveHandler(e: MouseEvent) {
+      mouse[currPro.value.mouseEnd] = e[currPro.value.pageCoordinate];
+      if (scrollInject.scrollBarRef.value[currPro.value.scrollDirection] < 0) {
+        scrollInject.scrollBarRef.value[currPro.value.scrollDirection] = 0;
+        return;
+      }
+      if (
+        scrollInject.scrollBarRef.value[currPro.value.scrollDirection] >
+        scrollInject.scrollBarRef.value[currPro.value.scrollSize] -
+          scrollInject.scrollBarRef.value[currPro.value.clinetSize]
+      ) {
+        scrollInject.scrollBarRef.value[currPro.value.scrollDirection] =
+          scrollInject.scrollBarRef.value[currPro.value.scrollSize] -
+          scrollInject.scrollBarRef.value[currPro.value.clinetSize];
+        return;
       }
 
-      scrollInject.scrollBarRef.value.scrollTop = -move.value;
+      scrollInject.scrollBarRef.value[currPro.value.scrollDirection] =
+        ((mouse[currPro.value.mouseEnd] - mouse[currPro.value.mouseStart]) /
+          barRef.value.clientHeight) *
+        scrollInject.scrollBarRef.value[currPro.value.scrollSize];
+    }
+
+    watch(scrollInject[currPro.value.move], () => {
+      barStyle.transform = `${currPro.value.translate}(${
+        scrollInject[currPro.value.move].value
+      }%)`;
     });
 
+    // lifeCycle
     onMounted(() => {
-      barStyle.height =
-        (scrollInject.scrollBarRef.value.clientHeight /
-          scrollInject.scrollBarRef.value.scrollHeight) *
+      barStyle[currPro.value.size] =
+        (scrollInject.scrollBarRef.value[currPro.value.clinetSize] /
+          scrollInject.scrollBarRef.value[currPro.value.scrollSize]) *
           100 +
         '%';
     });
 
     onMounted(() => {
       on(barRef.value, 'mousedown', mouseDownHandler);
-      on(barRef.value, 'mouseup', mouseUpHandler);
+      on(document, 'mouseup', mouseUpHandler);
+      on(document, 'mouseleave', mouseUpHandler);
     });
-
-    // func
-
-    function mouseUpHandler() {
-      off(barRef.value, 'mousemove', mouseMoveHandler);
-      mouse.startY = 0;
-      mouse.endY = 0;
-      move.value = 0;
-    }
-
-    function mouseDownHandler(e: MouseEvent) {
-      e.stopPropagation();
-      window.getSelection().removeAllRanges();
-      console.log('mousedown');
-      if (props.axis === 'x') {
-      } else if (props.axis === 'y') {
-        mouse.startY = e.clientY;
-      }
-
-      on(barRef.value, 'mousemove', mouseMoveHandler);
-    }
-
-    function mouseMoveHandler(e: MouseEvent) {
-      console.log('mouseMove');
-      if (props.axis === 'y') {
-        mouse.endY = e.clientY;
-        move.value =
-          ((mouse.startY - mouse.endY) /
-            scrollInject.scrollBarRef.value.clientHeight) *
-          scrollInject.scrollBarRef.value.scrollHeight;
-      }
-    }
 
     onUnmounted(() => {
       off(barRef.value, 'mousedown', mouseDownHandler);
-      off(barRef.value, 'mouseup', mouseUpHandler);
+      off(document, 'mouseleave', mouseUpHandler);
+      off(document, 'mouseup', mouseUpHandler);
     });
 
     return {

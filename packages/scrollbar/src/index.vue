@@ -64,7 +64,6 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      debugger;
       if (scrollBarRef.value.scrollHeight > scrollBarRef.value.clientHeight) {
         data.direction = 'y';
       } else if (
@@ -78,13 +77,15 @@ export default defineComponent({
     function scroll() {
       moveY.value =
         (scrollBarRef.value.scrollTop / scrollBarRef.value.clientHeight) * 100;
-      console.log(moveY.value);
+      moveX.value =
+        (scrollBarRef.value.scrollLeft / scrollBarRef.value.clientWidth) * 100;
       emit('scroll', [moveY.value, moveX.value]);
     }
 
     provide(SCROLL_BAR_INJECT_TOKEN, {
       scrollBarRef,
       moveY,
+      moveX,
     });
 
     return {
