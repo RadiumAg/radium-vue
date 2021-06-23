@@ -31,17 +31,23 @@ export default defineComponent({
     axis: String,
   },
   setup(props) {
+    let currentPosition = 0;
     const barStyle = reactive<{ transform?: string; height?: string }>({});
     const barRef = ref<HTMLElement>(null);
     const scrollInject = inject<scrollBarInject>(SCROLL_BAR_INJECT_TOKEN);
     const currPro = computed(() => PROP_MAP[props.axis + '']);
-    let currentPosition = 0;
     const mouse = {
       startX: 0,
       endX: 0,
       startY: 0,
       endY: 0,
     };
+    const maxScrollDistance = computed(
+      () =>
+        scrollInject.scrollBarRef.value[currPro.value.scrollSize] -
+        scrollInject.scrollBarRef.value[currPro.value.clinetSize],
+    );
+    const minScrollDistance = 0;
 
     // func
     function mouseUpHandler() {
@@ -60,27 +66,39 @@ export default defineComponent({
       on(document, 'mousemove', mouseMoveHandler);
     }
 
-    function mouseMoveHandler(e: MouseEvent) {
-      mouse[currPro.value.mouseEnd] = e[currPro.value.pageCoordinate];
-      if (scrollInject.scrollBarRef.value[currPro.value.scrollDirection] < 0) {
-        scrollInject.scrollBarRef.value[currPro.value.scrollDirection] = 0;
-        return;
+    function IsMoreMaxOrMin() {
+      let flag = false;
+      if (
+        scrollInject.scrollBarRef.value[currPro.value.scrollDirection] <
+        minScrollDistance
+      ) {
+        scrollInject.scrollBarRef.value[
+          currPro.value.scrollDirection
+        ] = minScrollDistance;
+        return (flag = true);
       }
       if (
         scrollInject.scrollBarRef.value[currPro.value.scrollDirection] >
-        scrollInject.scrollBarRef.value[currPro.value.scrollSize] -
-          scrollInject.scrollBarRef.value[currPro.value.clinetSize]
+        maxScrollDistance.value
       ) {
         scrollInject.scrollBarRef.value[currPro.value.scrollDirection] =
-          scrollInject.scrollBarRef.value[currPro.value.scrollSize] -
-          scrollInject.scrollBarRef.value[currPro.value.clinetSize];
+          maxScrollDistance.value;
+        return (flag = true);
+      }
+      return flag;
+    }
+
+    function mouseMoveHandler(e: MouseEvent) {
+      if (IsMoreMaxOrMin()) {
         return;
       }
-
+      mouse[currPro.value.mouseEnd] = e[currPro.value.pageCoordinate];
       scrollInject.scrollBarRef.value[currPro.value.scrollDirection] =
-        ((mouse[currPro.value.mouseEnd] - mouse[currPro.value.mouseStart]) /
-          barRef.value.clientHeight) *
-        scrollInject.scrollBarRef.value[currPro.value.scrollSize];
+        ((mouse[currPro.value.mouseEnd] -
+          mouse[currPro.value.mouseStart] +
+          currentPosition) /
+          barRef.value[currPro.value.clinetSize]) *
+        scrollInject.scrollBarRef.value[currPro.value.clinetSize];
     }
 
     watch(scrollInject[currPro.value.move], () => {
