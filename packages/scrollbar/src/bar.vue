@@ -1,13 +1,16 @@
 <template>
-  <div
-    ref="barRef"
-    class="ra-scrollbar__bar"
-    :style="{
-      width: axis === 'y' ? '100%' : 0,
-      height: axis === 'x' ? '100%' : 0,
-      ...barStyle,
-    }"
-  ></div>
+  <transition name="ra-scrollbar-fade">
+    <div
+      v-show="isHover"
+      ref="barRef"
+      class="ra-scrollbar__bar"
+      :style="{
+        width: axis === 'y' ? '100%' : 0,
+        height: axis === 'x' ? '100%' : 0,
+        ...barStyle,
+      }"
+    ></div>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -35,13 +38,14 @@ export default defineComponent({
     const barStyle = reactive<{ transform?: string; height?: string }>({});
     const barRef = ref<HTMLElement>(null);
     const scrollInject = inject<scrollBarInject>(SCROLL_BAR_INJECT_TOKEN);
-    const currPro = computed(() => PROP_MAP[props.axis + '']);
+    const currPro = computed(() => PROP_MAP['' + props.axis]);
     const mouse = {
       startX: 0,
       endX: 0,
       startY: 0,
       endY: 0,
     };
+
     const maxScrollDistance = computed(
       () =>
         scrollInject.scrollBarRef.value[currPro.value.scrollSize] -
@@ -54,16 +58,20 @@ export default defineComponent({
       off(document, 'mousemove', mouseMoveHandler);
       mouse[currPro.value.mouseStart] = 0;
       mouse[currPro.value.mouseEnd] = 0;
+      document.onselectstart = null;
+      scrollInject.isActive.value = false;
     }
 
     function mouseDownHandler(e: MouseEvent) {
       e.stopPropagation();
+      scrollInject.isActive.value = true;
       window.getSelection().removeAllRanges();
       mouse[currPro.value.mouseStart] = e[currPro.value.pageCoordinate];
       currentPosition =
         (scrollInject[currPro.value.move].value / 100) *
         barRef.value[currPro.value.clinetSize];
       on(document, 'mousemove', mouseMoveHandler);
+      document.onselectstart = () => false;
     }
 
     function IsMoreMaxOrMin() {
@@ -109,6 +117,7 @@ export default defineComponent({
 
     // lifeCycle
     onMounted(() => {
+      debugger;
       barStyle[currPro.value.size] =
         (scrollInject.scrollBarRef.value[currPro.value.clinetSize] /
           scrollInject.scrollBarRef.value[currPro.value.scrollSize]) *
@@ -124,7 +133,7 @@ export default defineComponent({
 
     onUnmounted(() => {
       off(barRef.value, 'mousedown', mouseDownHandler);
-      off(document, 'mouseleave', mouseUpHandler);
+      off(window, 'mouseleave', mouseUpHandler);
       off(document, 'mouseup', mouseUpHandler);
     });
 
@@ -132,6 +141,7 @@ export default defineComponent({
       barRef,
       props,
       barStyle,
+      isHover: scrollInject.isHover,
     };
   },
 });

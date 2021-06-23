@@ -2,6 +2,8 @@ import { Ref } from 'vue';
 export interface scrollBarInject {
   scrollBarRef: Ref<HTMLElement>;
   moveY: Ref<number>;
+  isHover: Ref<boolean>;
+  isActive: Ref<boolean>;
 }
 
 export const SCROLL_BAR_INJECT_TOKEN = 'SCROLL BAR INJECT TOKEN';
@@ -22,7 +24,7 @@ export const PROP_MAP: {
   x: {
     size: 'width',
     move: 'moveX',
-    clinetSize: 'clientWidht',
+    clinetSize: 'clientWidth',
     scrollSize: 'scrollWidth',
     mouseStart: 'startX',
     mouseEnd: 'endX',

@@ -5,6 +5,7 @@
 
 @include b(scrollbar) {
     position: relative;
+    width: 100%;
     
     @include e(container){
         overflow: auto;
@@ -34,12 +35,24 @@
     }
 
     @include e(bar) {
-       background-color: aqua;
+       background-color: $--scrollbar-background-color;
        border-radius: 4px;
        position: relative;
        cursor: pointer;
+
+       @include when(hover) {
+
+       }
     }
    
 }
 
+.#{$namespace}-scrollbar-fade-enter-active,
+.#{$namespace}-scrollbar-fade-leave-active {
+    transition: $--fade-transition;
+}
 
+.#{$namespace}-scrollbar-fade-enter-from,
+.#{$namespace}-scrollbar-fade-leave-to {
+    opacity: 0;
+}

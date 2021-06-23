@@ -1,9 +1,14 @@
+# 滚动条
 
-:::demo 
+​	支持横向滚动和竖向滚动
+
+### 竖向滚动
+
+:::demo 定义raMaxHeight或者raHeight之后，内部元素超过容器就会显示
 
 ```html
-<ra-scrollbar :ra-max-height="'200px'">
-     <div v-for="(item,index) in 20" :key="index">
+<ra-scrollbar :ra-max-height="'200px'" >
+     <div v-for="(item,index) in 20" :key="index" class = "item-blue-vertical">
          {{index}}
     </div>
 </ra-scrollbar>
@@ -11,3 +16,19 @@
 
 :::
 
+
+
+### 横向滚动
+
+:::demo默认容器的宽度为100%
+```html
+<ra-scrollbar :ra-max-height="'200px'" >
+    <div class="item-blue-horizontal-container">
+     <div v-for="(item,index) in 20" :key="index" class = "item-blue-horizontal">
+         {{index}}
+    </div>
+    <div>
+</ra-scrollbar>
+```
+
+:::
