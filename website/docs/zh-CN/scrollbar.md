@@ -32,3 +32,14 @@
 ```
 
 :::
+
+
+
+### Scrollbar Attributes
+
+|    参数     |         说明         |      类型      | 可选值 | 默认值 |
+| :---------: | :------------------: | :------------: | :----: | :----: |
+|  raHeight   |      滚动条高度      | string\|number |   无   |   无   |
+| raMaxHeight |    滚动条最大高度    | string\|number |   无   |   无   |
+|  raNative   | 是否显示与原始滚动条 |    boolean     |   无   | false  |
+

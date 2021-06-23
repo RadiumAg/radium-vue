@@ -1,27 +1,27 @@
 .demo-scrollbar {
-    .item-blue-vertical {
-        color: #fff;
-        background-color: aqua;
-        border-radius: 4px;
-        line-height: 40px;
-        text-align: center;
-        margin-bottom: 5px;
-        margin-right: 10px;
-        box-sizing: border-box;
-    }
-    .item-blue-horizontal-container{
-     width: max-content;
+  .item-blue-vertical {
+    color: #fff;
+    background-color: aqua;
+    border-radius: 4px;
+    line-height: 40px;
+    text-align: center;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    box-sizing: border-box;
+  }
+  .item-blue-horizontal-container {
+    width: max-content;
     .item-blue-horizontal {
-        color: #fff;
-        background-color: aqua;
-        border-radius: 4px;
-        line-height: 40px;
-        text-align: center;
-        margin-bottom: 5px;
-        margin-right: 10px;
-        box-sizing: border-box;
-        display: inline-block;
-        width: 100px;
+      color: #fff;
+      background-color: yellowgreen;
+      border-radius: 4px;
+      line-height: 40px;
+      text-align: center;
+      margin-bottom: 5px;
+      margin-right: 10px;
+      box-sizing: border-box;
+      display: inline-block;
+      width: 100px;
     }
+  }
 }
-}          
