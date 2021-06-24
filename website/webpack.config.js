@@ -25,8 +25,8 @@ module.exports = {
         },
       },
       {
-        test: /\.s(ca)+ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader', 'vue-style-loader'],
+        test: /\.s(c|a)ss$/,
+        use: ['vue-style-loader', 'style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.vue$/,
@@ -61,6 +61,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      Docs: resolve(__dirname, 'src/doc/'),
+      Pages: resolve(__dirname, 'src/pages/'),
+    },
   },
   plugins: [
     new VueLoaderPlugin(),
@@ -77,3 +81,4 @@ module.exports = {
     },
   },
 };
+https://webpack.docschina.org/configuration/dev-server/
