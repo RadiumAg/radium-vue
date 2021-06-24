@@ -25,26 +25,12 @@ module.exports = {
         },
       },
       {
-        test: /\.vue$/,
-        use: 'vue-loader',
+        test: /\.s(ca)+ss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader', 'vue-style-loader'],
       },
       {
-        test: /\.(s)+css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          {
-            loader: 'scss-loader',
-            options: {
-              indentedSyntax: true,
-              // sass-loader version >= 8
-              sassOptions: {
-                indentedSyntax: true,
-              },
-            },
-          },
-          'vue-style-loader',
-        ],
+        test: /\.vue$/,
+        use: 'vue-loader',
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -81,7 +67,13 @@ module.exports = {
     new HtmlWebpackPlugin({ template: resolve(__dirname, 'index.html') }),
   ],
   devServer: {
-    port: 9000,
+    port: 4500,
     hot: true,
+    open: true,
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
   },
 };
