@@ -5,13 +5,18 @@ module.exports = {
   // See https://github.com/babel/babel/issues/12066
   presets: [
     [
-      '@babel/env',
+      '@babel/preset-env',
       {
-        loose: true,
-        modules: false,
+        useBuiltIns: 'usage', // 按需引入 polyfill
+        corejs: 3,
       },
     ],
-    '@babel/typescript',
+    [
+      '@babel/preset-typescript', // 引用Typescript插件
+      {
+        allExtensions: true, // 支持所有文件扩展名，否则在vue文件中使用ts会报错
+      },
+    ],
   ],
   plugins: [
     '@vue/babel-plugin-jsx',
