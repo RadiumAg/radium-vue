@@ -1,19 +1,29 @@
 import type { App } from 'vue';
 
-import Carousel from '@radium-vue/carousel';
-import CarouselItem from '@radium-vue/carousel-item';
-import Row from '@radium-vue/row';
-import Col from '@radium-vue/col';
-import ScrollBar from '@radium-vue/scrollbar';
+import RaCarousel from '@radium-vue/carousel';
+import RaCarouselItem from '@radium-vue/carousel-item';
+import RaRow from '@radium-vue/row';
+import RaCol from '@radium-vue/col';
+import RaScrollBar from '@radium-vue/scrollbar';
 
 
-const components = [Carousel,CarouselItem,Row,Col,ScrollBar];
+const components = [RaCarousel,RaCarouselItem,RaRow,RaCol,RaScrollBar];
 
 const  install = (app:App)=>{
   components.forEach(compoennt=>{
     app.component(compoennt.name,compoennt);
   });
 };
+
 export  default {
   install,
 };
+
+export {
+  RaCarousel,
+  RaCarouselItem ,
+  RaRow ,
+  RaCol,
+  RaScrollBar,
+};
+

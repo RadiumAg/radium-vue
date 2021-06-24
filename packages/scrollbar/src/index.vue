@@ -14,24 +14,26 @@
       <slot></slot>
     </div>
     <div
-      v-if="!raNative && data.direction === 'x'"
+      v-if="!raNative && data.direction.includes('x')"
       class="ra-scrollbar__horizontal"
     >
-      <bar :axis="data.direction" />
+      <bar :axis="'x'" />
     </div>
     <div
-      v-if="!raNative && data.direction === 'y'"
+      v-if="!raNative && data.direction.includes('y')"
       class="ra-scrollbar__vertical"
     >
-      <bar :axis="data.direction" />
+      <bar :axis="'y'" />
     </div>
   </div>
 </template>
 <script lang="ts">
+import { off, on } from '@radium-vue/utils/dom';
 import {
   computed,
   defineComponent,
   onMounted,
+  onUnmounted,
   provide,
   reactive,
   ref,
@@ -60,8 +62,8 @@ export default defineComponent({
   emits: ['scroll'],
   setup(props, { emit }) {
     const isActive = ref(false);
-    const data = reactive<Partial<{ direction: 'x' | 'y' }>>({
-      direction: 'x',
+    const data = reactive<Partial<{ direction: [('x' | 'y')?] }>>({
+      direction: [],
     });
     const scrollBarRef = ref<HTMLElement>(null);
     const moveY = ref(0);
@@ -73,7 +75,8 @@ export default defineComponent({
       const res = [];
       if (props.raHeight) {
         res.push({ height: props.raHeight });
-      } else if (props.raMaxHeight) {
+      }
+      if (props.raMaxHeight) {
         res.push({ ['max-height']: props.raMaxHeight });
       }
       return res;
@@ -99,16 +102,26 @@ export default defineComponent({
       isHover.value = false;
     }
 
+    function update() {
+      if (scrollBarRef.value.scrollHeight > scrollBarRef.value.clientHeight) {
+        data.direction.push('y');
+      }
+      if (scrollBarRef.value.scrollWidth > scrollBarRef.value.clientWidth) {
+        data.direction.push('x');
+      }
+    }
+
     // lifeCycle
     onMounted(() => {
-      if (scrollBarRef.value.scrollHeight > scrollBarRef.value.clientHeight) {
-        data.direction = 'y';
-      } else if (
-        scrollBarRef.value.scrollWidth > scrollBarRef.value.clientWidth
-      ) {
-        data.direction = 'x';
-      }
+      update();
+      on(scrollBarRef.value, 'resize', update);
     });
+
+    onUnmounted(() => {
+      off(scrollBarRef.value, 'resize', update);
+    });
+
+    console.log(props.raMaxHeight);
 
     provide(SCROLL_BAR_INJECT_TOKEN, {
       scrollBarRef,

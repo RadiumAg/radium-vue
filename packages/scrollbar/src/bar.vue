@@ -119,7 +119,6 @@ export default defineComponent({
 
     // lifeCycle
     onMounted(() => {
-      debugger;
       barStyle[currPro.value.size] =
         (scrollInject.scrollBarRef.value[currPro.value.clinetSize] /
           scrollInject.scrollBarRef.value[currPro.value.scrollSize]) *
