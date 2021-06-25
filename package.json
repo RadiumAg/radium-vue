@@ -7,7 +7,7 @@
     "gen": "bash ./scripts/gc.sh",
     "gen:version": "node build/gen-version.js",
     "website-build": "cross-env NODE_ENV=production webpack --config ./website/webpack.config.js",
-    "website-dev": "webpack-dev-server --config ./website/webpack.config.js",
+    "website-dev": "cross-env NODE_ENV=production webpack-dev-server --config ./website/webpack.config.js",
     "website-dev:play": "cross-env PLAY_ENV=true yarn website-dev",
     "upgrade:vue": "bash ./scripts/update-versions.sh",
     "fast-build": "sh ./scripts/build.sh",
@@ -110,6 +110,7 @@
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.13.0",
+    "babel-plugin-module-alias": "^1.6.0",
     "dayjs": "^1.10.5",
     "mitt": "^2.1.0"
   },

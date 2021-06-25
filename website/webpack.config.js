@@ -3,13 +3,14 @@ const { resolve } = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: process.env.NODE_ENV === 'production' ? 'source-map' : false,
   mode: process.env.NODE_ENV,
   entry: resolve(__dirname, 'main.ts'),
   output: {
     filename: '[name].js',
     path: resolve(__dirname + '../../' + 'website-dist'),
     clean: true,
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -61,24 +62,32 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
-    alias: {
-      Docs: resolve(__dirname, 'src/doc/'),
-      Pages: resolve(__dirname, 'src/pages/'),
-    },
   },
   plugins: [
     new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({ template: resolve(__dirname, 'index.html') }),
+    new HtmlWebpackPlugin({
+      template: resolve(__dirname, 'index.html'),
+      filename: './index.html',
+    }),
   ],
   devServer: {
     port: 4500,
     hot: true,
     open: true,
+    hotOnly: true,
+    publicPath: '/',
+    overlay: true,
+    contentBase: __dirname,
+    stats: 'minimal',
   },
   optimization: {
     splitChunks: {
       chunks: 'all',
     },
   },
+  performance: {
+    hints: 'error',
+    maxEntrypointSize: 400000,
+    maxAssetSize: 300000,
+  },
 };
-https://webpack.docschina.org/configuration/dev-server/

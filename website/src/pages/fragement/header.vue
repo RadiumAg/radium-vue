@@ -1,5 +1,7 @@
 <template>
-  <div class="header">111</div>
+  <div class="header">
+    <div>radium ui</div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -11,8 +13,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .header {
+  display: flex;
+  align-items: center;
   background-color: #fff;
-  height: 100px;
+  height: 50px;
   width: 100%;
+  padding-left: 10px;
+  box-shadow: 0 8px 24px -2px rgb(0 0 0 / 5%);
 }
 </style>

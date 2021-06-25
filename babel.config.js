@@ -1,3 +1,6 @@
+const { resolve } = require('path');
+
+__dirname;
 module.exports = {
   // ATTENTION!!
   // Preset ordering is reversed, so `@babel/typescript` will called first
@@ -23,6 +26,15 @@ module.exports = {
     '@babel/proposal-class-properties',
     '@babel/transform-runtime',
     'lodash',
+    [
+      'module-resolver',
+      {
+        alias: {
+          Pages: resolve(__dirname, './website/src/pages'),
+          Docs: resolve(__dirname, './website/src/docs'),
+        },
+      },
+    ],
   ],
   overrides: [
     {
