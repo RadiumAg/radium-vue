@@ -30,7 +30,8 @@ export default defineComponent({
   .header_right_link {
     font-size: 14px;
     cursor: pointer;
-    color: aqua;
+    color: #4d5164;
+    text-decoration: none;
   }
 }
 </style>

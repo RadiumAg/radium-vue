@@ -24,9 +24,21 @@ function getDefineAsyncComponent(func: () => Promise<unknown>) {
 
 const routes: RouteRecordRaw[] = [
   {
+    path: '/',
+    redirect: '/component',
+    component: null,
+  },
+  {
     name: 'component',
     path: '/component',
     component: getDefineAsyncComponent(() => import('Pages/component.vue')),
+    children: [
+      {
+        name: 'test',
+        path: 'test',
+        component: getDefineAsyncComponent(() => import(`./src/doc/test.md`)),
+      },
+    ],
   },
 ];
 

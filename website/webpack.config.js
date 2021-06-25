@@ -26,6 +26,16 @@ module.exports = {
         },
       },
       {
+        test: /\.md$/,
+        exclude: /node_modules/,
+        use: [
+          'vue-loader',
+          {
+            loader: resolve(__dirname + '/webpack-loader/md-loader'),
+          },
+        ],
+      },
+      {
         test: /\.s(c|a)ss$/,
         use: ['vue-style-loader', 'css-loader', 'sass-loader'],
       },
@@ -73,6 +83,7 @@ module.exports = {
   devServer: {
     port: 4500,
     hot: true,
+    hotOnly: true,
     open: true,
     publicPath: '/',
     overlay: true,
