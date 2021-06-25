@@ -8,7 +8,7 @@ module.exports = {
   entry: resolve(__dirname, 'main.ts'),
   output: {
     filename: '[name].js',
-    path: resolve(__dirname + '../../' + 'website-dist'),
+    path: resolve(__dirname + '../website-dist'),
     clean: true,
     publicPath: '/',
   },
@@ -27,7 +27,7 @@ module.exports = {
       },
       {
         test: /\.s(c|a)ss$/,
-        use: ['vue-style-loader', 'style-loader', 'css-loader', 'sass-loader'],
+        use: ['vue-style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.vue$/,
@@ -67,14 +67,13 @@ module.exports = {
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       template: resolve(__dirname, 'index.html'),
-      filename: './index.html',
+      filename: 'index.html',
     }),
   ],
   devServer: {
     port: 4500,
     hot: true,
     open: true,
-    hotOnly: true,
     publicPath: '/',
     overlay: true,
     contentBase: __dirname,

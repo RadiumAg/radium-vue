@@ -1,6 +1,9 @@
 <template>
   <div class="header">
-    <div>radium ui</div>
+    <div>RADIUM</div>
+    <div class="header_right">
+      <router-link class="header_right_link" to="/component">组件</router-link>
+    </div>
   </div>
 </template>
 
@@ -14,11 +17,20 @@ export default defineComponent({
 <style lang="scss" scoped>
 .header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   background-color: #fff;
   height: 50px;
   width: 100%;
-  padding-left: 10px;
+  padding: 10px 50px;
   box-shadow: 0 8px 24px -2px rgb(0 0 0 / 5%);
+}
+
+.header_right {
+  .header_right_link {
+    font-size: 14px;
+    cursor: pointer;
+    color: aqua;
+  }
 }
 </style>
