@@ -5,13 +5,13 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, inject, PropType } from 'vue';
-import { IRowInject, ROW_INJECT_EOKEN, SizeObject } from './grid';
+import { IRowInject, IrowProps, ROW_INJECT_EOKEN, SizeObject } from './grid';
 
 export default defineComponent({
   name: 'RaCol',
   props: {
     raFlex: {
-      type: Object,
+      type: Number,
       defalut: null,
     },
     raOffset: {
@@ -59,7 +59,7 @@ export default defineComponent({
       defalut: null,
     },
   },
-  setup(props) {
+  setup(props: IrowProps) {
     const ROW_INJECT = inject<IRowInject>(ROW_INJECT_EOKEN);
     const { gutter } = ROW_INJECT;
 

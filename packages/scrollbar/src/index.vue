@@ -7,8 +7,8 @@
     <div
       ref="scrollBarRef"
       class="ra-scrollbar__container"
-      :style="style"
-      :class="{ 'ra-scrollbar--scrollbar_hidden': !raNative }"
+      :style="{ ...wrapStyle, ...style }"
+      :class="[!raNative ? 'ra-scrollbar--scrollbar_hidden' : '', ...wrapClass]"
       @scroll="scroll"
     >
       <slot></slot>
@@ -32,13 +32,14 @@ import { off, on } from '@radium-vue/utils/dom';
 import {
   computed,
   defineComponent,
+  nextTick,
   onMounted,
   onUnmounted,
   provide,
   reactive,
   ref,
 } from 'vue';
-import { SCROLL_BAR_INJECT_TOKEN } from '.';
+import { IIndexProps, SCROLL_BAR_INJECT_TOKEN } from '.';
 import bar from './bar.vue';
 export default defineComponent({
   name: 'RaScrollbar',
@@ -58,9 +59,26 @@ export default defineComponent({
       type: Boolean,
       defalut: true,
     },
+    raWrapStyle: {
+      type: [String],
+      defalut: '',
+    },
+    raWrapClass: {
+      type: [String],
+      defalut: '',
+    },
   },
   emits: ['scroll'],
-  setup(props, { emit }) {
+  setup(
+    props: {
+      raHeight: string | number;
+      raMaxHeight: string | number;
+      raNative: boolean;
+      raWrapStyle: string[];
+      raWwrapClass: string[];
+    },
+    { emit },
+  ) {
     const isActive = ref(false);
     const data = reactive<Partial<{ direction: [('x' | 'y')?] }>>({
       direction: [],
@@ -103,6 +121,7 @@ export default defineComponent({
     }
 
     function update() {
+      console.log(scrollBarRef.value);
       if (scrollBarRef.value.scrollHeight > scrollBarRef.value.clientHeight) {
         data.direction.push('y');
       }
@@ -113,15 +132,15 @@ export default defineComponent({
 
     // lifeCycle
     onMounted(() => {
-      update();
-      on(scrollBarRef.value, 'resize', update);
+      nextTick(() => {
+        update();
+        on(scrollBarRef.value, 'resize', update);
+      });
     });
 
     onUnmounted(() => {
       off(scrollBarRef.value, 'resize', update);
     });
-
-    console.log(props.raMaxHeight);
 
     provide(SCROLL_BAR_INJECT_TOKEN, {
       scrollBarRef,

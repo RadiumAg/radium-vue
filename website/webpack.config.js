@@ -7,7 +7,7 @@ module.exports = {
   mode: process.env.NODE_ENV,
   entry: resolve(__dirname, 'main.ts'),
   output: {
-    filename: '[name].js',
+    filename: '[name].[hash].js',
     path: resolve(__dirname + '../website-dist'),
     clean: true,
     publicPath: '/',
@@ -15,15 +15,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'ts-loader',
-          options: {
-            configFile: resolve(__dirname, '../tsconfig.json'),
-            appendTsSuffixTo: [/\.vue$/],
-          },
-        },
+        test: /\.vue$/,
+        use: 'vue-loader',
       },
       {
         test: /\.md$/,
@@ -36,13 +29,30 @@ module.exports = {
         ],
       },
       {
+        test: /\.(t|j)s$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+        ],
+      },
+      {
+        test: /\.tsx?$/,
+        exclude: [/node_modules/, /packages/],
+        use: {
+          loader: 'ts-loader',
+          options: {
+            configFile: resolve(__dirname, '../tsconfig.json'),
+            appendTsSuffixTo: [/\.vue$/, /\.md$/],
+          },
+        },
+      },
+      {
         test: /\.s(c|a)ss$/,
         use: ['vue-style-loader', 'css-loader', 'sass-loader'],
       },
-      {
-        test: /\.vue$/,
-        use: 'vue-loader',
-      },
+
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/image',
@@ -59,19 +69,13 @@ module.exports = {
         test: /\.xml$/i,
         use: ['xml-loader'],
       },
-      {
-        test: /\.(t|j)s$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-          },
-        ],
-      },
     ],
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      'markdone-vue-loader': resolve(__dirname + '/webpack-loader/md-loader'),
+    },
   },
   plugins: [
     new VueLoaderPlugin(),
@@ -86,8 +90,8 @@ module.exports = {
     hotOnly: true,
     open: true,
     publicPath: '/',
+    historyApiFallback: true,
     overlay: true,
-    contentBase: __dirname,
     stats: 'minimal',
   },
   optimization: {

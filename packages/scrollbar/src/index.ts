@@ -45,3 +45,11 @@ export const PROP_MAP: {
     translate: 'translateY',
   },
 };
+
+export interface IIndexProps {
+  raHeight: string | number;
+  raMaxHeight: string | number;
+  raNative: boolean;
+  raWrapStyle: string[];
+  raWwrapClass: string[];
+}

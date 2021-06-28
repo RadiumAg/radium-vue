@@ -16,7 +16,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .header {
-  display: flex;
+  display: inline-flex;
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
@@ -24,6 +24,7 @@ export default defineComponent({
   width: 100%;
   padding: 10px 50px;
   box-shadow: 0 8px 24px -2px rgb(0 0 0 / 5%);
+  position: fixed;
 }
 
 .header_right {

@@ -17,7 +17,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, provide } from 'vue';
-import { ROW_INJECT_EOKEN } from './grid';
+import { IColProps, ROW_INJECT_EOKEN } from './grid';
 export default defineComponent({
   name: 'RaRow',
   props: {
@@ -34,7 +34,7 @@ export default defineComponent({
       defalut: 'flex-start',
     },
   },
-  setup(props) {
+  setup(props: IColProps) {
     // init here
     provide(ROW_INJECT_EOKEN, {
       gutter: props.raGutter,

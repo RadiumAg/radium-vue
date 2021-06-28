@@ -33,7 +33,7 @@ export default defineComponent({
   props: {
     axis: String,
   },
-  setup(props) {
+  setup(props: { axis: string }) {
     let currentPosition = 0;
     const barStyle = reactive<{ transform?: string; height?: string }>({});
     const barRef = ref<HTMLElement>(null);

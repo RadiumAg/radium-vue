@@ -6,7 +6,6 @@ import RaRow from '@radium-vue/row';
 import RaCol from '@radium-vue/col';
 import RaScrollBar from '@radium-vue/scrollbar';
 
-
 const components = [RaCarousel,RaCarouselItem,RaRow,RaCol,RaScrollBar];
 
 const  install = (app:App)=>{
@@ -15,9 +14,6 @@ const  install = (app:App)=>{
   });
 };
 
-export  default {
-  install,
-};
 
 export {
   RaCarousel,
@@ -25,5 +21,9 @@ export {
   RaRow ,
   RaCol,
   RaScrollBar,
+};
+
+export default {
+  install,
 };
 

@@ -1,6 +1,9 @@
 import { defineAsyncComponent, defineComponent } from 'vue';
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import ComponentDocConfig from './nav.config.json';
 import 'Pages/component.vue';
+
+const componentChildrenRouters: RouteRecordRaw[] = [];
 
 //error
 // eslint-disable-next-line vue/one-component-per-file
@@ -13,6 +16,10 @@ const loadingComponent = defineComponent({
   template: '<p>稍等</p>',
 });
 
+const getDocComponent = (path: string) => {
+  return getDefineAsyncComponent(() => import(`./src/docs/${path}.md`));
+};
+
 function getDefineAsyncComponent(func: () => Promise<unknown>) {
   return defineAsyncComponent({
     timeout: 3000,
@@ -22,6 +29,20 @@ function getDefineAsyncComponent(func: () => Promise<unknown>) {
   });
 }
 
+// set router
+Object.keys(ComponentDocConfig).forEach(language => {
+  ComponentDocConfig[language].forEach(comObj => {
+    comObj['groups'].forEach(comObj => {
+      const component = getDocComponent(`${comObj['name']}.${language}`);
+      componentChildrenRouters.push({
+        path: `${language}/${comObj['name']}`,
+        component: component,
+      });
+    });
+  });
+});
+
+console.log(componentChildrenRouters);
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -32,13 +53,7 @@ const routes: RouteRecordRaw[] = [
     name: 'component',
     path: '/component',
     component: getDefineAsyncComponent(() => import('Pages/component.vue')),
-    children: [
-      {
-        name: 'test',
-        path: 'test',
-        component: getDefineAsyncComponent(() => import(`./src/doc/test.md`)),
-      },
-    ],
+    children: componentChildrenRouters,
   },
 ];
 

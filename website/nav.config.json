@@ -1,0 +1,21 @@
+{
+  "zh": [
+    {
+      "name": "组件",
+      "groups": [
+        {
+          "path": "carousel",
+          "name": "carousel"
+        },
+        {
+          "path": "scrollbar",
+          "name": "scrollbar"
+        },
+        {
+          "path": "grid",
+          "name": "grid"
+        }
+      ]
+    }
+  ]
+}
