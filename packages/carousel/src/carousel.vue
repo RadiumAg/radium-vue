@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { throttle } from 'lodash';
+import { flatten, throttle } from 'lodash';
 import {
   defineComponent,
   nextTick,
@@ -44,7 +44,7 @@ import {
 import {
   CAROUSEL_ITEM_PROVIDETOKEN,
   ICarouselItem,
-  ICarouselProps,
+  TCarouselProps,
   TClickType,
 } from './carousel';
 export default defineComponent({
@@ -75,8 +75,8 @@ export default defineComponent({
       defalut: undefined,
     },
     raLoop: {
-      type: String,
-      defalut: '',
+      type: Boolean,
+      defalut: true,
     },
     raDirection: {
       type: String,
@@ -88,13 +88,13 @@ export default defineComponent({
     },
   },
   emits: ['raChange'],
-  setup(props: ICarouselProps, { emit }) {
+  setup(props: Readonly<TCarouselProps>, { emit }) {
     //ref
     const itemReact = reactive<ICarouselItem[]>([]);
     const root = ref<HTMLDivElement>();
     const offsetWidth = ref<number>();
     const activeIndex = ref<number>(0);
-    const timerSign = ref<NodeJS.Timer>(null);
+    const timerSign = ref<any>(null);
     const data = reactive({
       hover: false,
     });

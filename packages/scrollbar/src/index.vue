@@ -7,8 +7,11 @@
     <div
       ref="scrollBarRef"
       class="ra-scrollbar__container"
-      :style="{ ...wrapStyle, ...style }"
-      :class="[!raNative ? 'ra-scrollbar--scrollbar_hidden' : '', ...wrapClass]"
+      :style="{ ...raWrapStyle, ...style }"
+      :class="[
+        !raNative ? 'ra-scrollbar--scrollbar_hidden' : '',
+        ...raWrapClass,
+      ]"
       @scroll="scroll"
     >
       <slot></slot>
@@ -35,11 +38,12 @@ import {
   nextTick,
   onMounted,
   onUnmounted,
+  PropType,
   provide,
   reactive,
   ref,
 } from 'vue';
-import { IIndexProps, SCROLL_BAR_INJECT_TOKEN } from '.';
+import { SCROLL_BAR_INJECT_TOKEN, TIndexProps } from '.';
 import bar from './bar.vue';
 export default defineComponent({
   name: 'RaScrollbar',
@@ -60,25 +64,21 @@ export default defineComponent({
       defalut: true,
     },
     raWrapStyle: {
-      type: [String],
-      defalut: '',
+      type: [] as PropType<string[]>,
+      default: () => {
+        debugger;
+        return [];
+      },
     },
     raWrapClass: {
-      type: [String],
-      defalut: '',
+      type: [] as PropType<string[]>,
+      default: () => {
+        return [];
+      },
     },
   },
   emits: ['scroll'],
-  setup(
-    props: {
-      raHeight: string | number;
-      raMaxHeight: string | number;
-      raNative: boolean;
-      raWrapStyle: string[];
-      raWwrapClass: string[];
-    },
-    { emit },
-  ) {
+  setup(props: Readonly<TIndexProps>, { emit }) {
     const isActive = ref(false);
     const data = reactive<Partial<{ direction: [('x' | 'y')?] }>>({
       direction: [],
@@ -121,7 +121,6 @@ export default defineComponent({
     }
 
     function update() {
-      console.log(scrollBarRef.value);
       if (scrollBarRef.value.scrollHeight > scrollBarRef.value.clientHeight) {
         data.direction.push('y');
       }

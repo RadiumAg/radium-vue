@@ -36,27 +36,39 @@ export default defineComponent({
     },
     raXs: {
       type: [Object, Object] as PropType<number | SizeObject>,
-      defalut: null,
+      defalut: () => {
+        return 0;
+      },
     },
     raSm: {
       type: [Object, Object] as PropType<number | SizeObject>,
-      defalut: null,
+      defalut: () => {
+        return 0;
+      },
     },
     raMd: {
       type: [Object, Object] as PropType<number | SizeObject>,
-      defalut: null,
+      defalut: () => {
+        return 0;
+      },
     },
     raLg: {
       type: [Object, Object] as PropType<number | SizeObject>,
-      defalut: null,
+      defalut: () => {
+        return 0;
+      },
     },
     raXl: {
       type: [Object, Object] as PropType<number | SizeObject>,
-      defalut: null,
+      defalut: () => {
+        return 0;
+      },
     },
     raXXl: {
       type: [Object, Object] as PropType<number | SizeObject>,
-      defalut: null,
+      defalut: () => {
+        return 0;
+      },
     },
   },
   setup(props: IrowProps) {

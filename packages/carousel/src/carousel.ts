@@ -1,16 +1,16 @@
 import { Ref } from 'vue';
 
-export interface ICarouselProps {
+export type TCarouselProps = {
+  raAutoplay: boolean;
+  raPauseOnHover: boolean;
+  raLoop: boolean;
   raHeight: string;
   raInitialIndex: number;
-  raAutoplay: boolean;
   raInterval: number;
-  raArrow: 'always' | 'hover' | 'never';
-  raType: 'card';
-  raLoop: boolean;
-  raDirection: 'horizontal' | 'vertical';
-  raPauseOnHover: boolean;
-}
+  raArrow: string;
+  raType: string;
+  raDirection: string;
+} & {};
 
 export interface ICarouselItem {
   uid: number;

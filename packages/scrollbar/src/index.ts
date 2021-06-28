@@ -46,10 +46,10 @@ export const PROP_MAP: {
   },
 };
 
-export interface IIndexProps {
+export type TIndexProps = {
   raHeight: string | number;
   raMaxHeight: string | number;
-  raNative: boolean;
   raWrapStyle: string[];
-  raWwrapClass: string[];
-}
+  raWrapClass: string[];
+  raNative: boolean;
+};

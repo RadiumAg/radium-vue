@@ -28,7 +28,7 @@ function getDefineAsyncComponent(func: () => Promise<unknown>) {
     loader: func,
   });
 }
-
+debugger;
 // set router
 Object.keys(ComponentDocConfig).forEach(language => {
   ComponentDocConfig[language].forEach(comObj => {
