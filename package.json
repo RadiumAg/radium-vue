@@ -11,7 +11,8 @@
     "website-dev:play": "cross-env PLAY_ENV=true yarn website-dev",
     "upgrade:vue": "bash ./scripts/update-versions.sh",
     "fast-build": "sh ./scripts/build.sh",
-    "clear-node_module": "rimraf node_modules"
+    "clear-node_module": "rimraf node_modules",
+    "npm i ":" npm i --legacy-peer-deps"
   },
   "repository": {
     "type": "git",

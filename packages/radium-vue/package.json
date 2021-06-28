@@ -6,7 +6,7 @@
   "dependencies": {
       "@radium-vue/carousel" : "0.0.0",
       "@radium-vue/carousel-item" : "0.0.0",
-      "@radium-vue/grid":"0.0.0",
+      "@radium-vue/row":"0.0.0",
       "@radium-vue/scrollbar":"0.0.0"
 
   }

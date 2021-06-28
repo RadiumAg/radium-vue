@@ -28,21 +28,19 @@ function getDefineAsyncComponent(func: () => Promise<unknown>) {
     loader: func,
   });
 }
-debugger;
 // set router
 Object.keys(ComponentDocConfig).forEach(language => {
   ComponentDocConfig[language].forEach(comObj => {
-    comObj['groups'].forEach(comObj => {
-      const component = getDocComponent(`${comObj['name']}.${language}`);
+    comObj['groups'].forEach(com => {
+      const component = getDocComponent(`${com['name']}.${language}`);
       componentChildrenRouters.push({
-        path: `${language}/${comObj['name']}`,
+        path: `${language}/${com['path']}`,
         component: component,
       });
     });
   });
 });
 
-console.log(componentChildrenRouters);
 const routes: RouteRecordRaw[] = [
   {
     path: '/',

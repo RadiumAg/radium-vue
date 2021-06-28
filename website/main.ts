@@ -1,11 +1,12 @@
 import { createApp } from 'vue';
 import RadiumUI from 'radium-vue';
 import App from './src/App.vue';
+import '../packages/theme-brush/src/index.scss';
 import router from './router.config';
 import './doc-style/index.scss';
 import './style.scss';
 
 createApp(App)
-  .use(router)
   .use(RadiumUI)
+  .use(router)
   .mount('#app');
