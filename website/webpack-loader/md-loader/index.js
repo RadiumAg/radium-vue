@@ -1,12 +1,7 @@
-const markDownIt = require('markdown-it')();
 //plugin
-const markDownAnchor = require('markdown-it-anchor');
-const markDownItChain = require('markdown-it-chain');
-
-const render = require('./render');
-
+const toComponentRender = require('./render');
+const mdInstanceFactory = require('./config');
 module.exports = function(source = '') {
-  const result = markDownIt.render(source);
-  let renderResult = render(result);
+  const renderResult = toComponentRender(mdInstanceFactory().render(source));
   return renderResult;
 };

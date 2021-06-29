@@ -10,7 +10,7 @@ export type TCarouselProps = {
   raArrow: string;
   raType: string;
   raDirection: string;
-} & {};
+};
 
 export interface ICarouselItem {
   uid: number;

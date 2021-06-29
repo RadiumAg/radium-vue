@@ -2,6 +2,7 @@ import { defineAsyncComponent, defineComponent } from 'vue';
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import ComponentDocConfig from './nav.config.json';
 import 'Pages/component.vue';
+import { getLocalLanguage } from './src/core/common';
 
 const componentChildrenRouters: RouteRecordRaw[] = [];
 
@@ -17,7 +18,9 @@ const loadingComponent = defineComponent({
 });
 
 const getDocComponent = (path: string) => {
-  return getDefineAsyncComponent(() => import(`./src/docs/${path}.md`));
+  return getDefineAsyncComponent(() =>
+    import(`./src/docs/${getLocalLanguage()}/${path}.md`),
+  );
 };
 
 function getDefineAsyncComponent(func: () => Promise<unknown>) {
@@ -31,9 +34,16 @@ function getDefineAsyncComponent(func: () => Promise<unknown>) {
 // set router
 Object.keys(ComponentDocConfig).forEach(language => {
   ComponentDocConfig[language].forEach(comObj => {
-    comObj['groups'].forEach(com => {
+    comObj['groups'].forEach((com, index) => {
+      if (index === 0) {
+        componentChildrenRouters.push({
+          path: '',
+          redirect: { name: com['name'] },
+        });
+      }
       const component = getDocComponent(`${com['name']}.${language}`);
       componentChildrenRouters.push({
+        name: com['name'],
         path: `${language}/${com['path']}`,
         component: component,
       });
@@ -41,6 +51,7 @@ Object.keys(ComponentDocConfig).forEach(language => {
   });
 });
 
+console.log(componentChildrenRouters);
 const routes: RouteRecordRaw[] = [
   {
     path: '/',

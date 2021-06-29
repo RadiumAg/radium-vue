@@ -55,11 +55,11 @@ module.exports = {
 
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/image',
+        type: 'asset/resource',
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/fonts',
+        type: 'asset/resource',
       },
       {
         test: /\.(csv|tsv)$/i,
@@ -101,7 +101,7 @@ module.exports = {
   },
   performance: {
     hints: 'error',
-    maxEntrypointSize: 400000,
-    maxAssetSize: 300000,
+    maxEntrypointSize: 1000000000,
+    maxAssetSize: 1000000000,
   },
 };

@@ -1,20 +1,17 @@
 <template>
   <div class="nav">
-    <ra-scrollbar :ra-wrap-style="[{ width: '100%' }]">
+    <ra-scrollbar :ra-wrap-style="[{ width: '100%', height: '100%' }]">
       <div v-for="(nav_item, index) in nav" :key="index" class="nav_item">
         <h4 class="nav_group_title">{{ nav_item['name'] }}</h4>
-        <div
+        <router-link
           v-for="(item, i) in nav_item['groups']"
           :key="i"
-          class="nav_groups"
+          class="nav_item_link"
+          active-class="nav_item_link--active"
+          :to="routerNav(item.path)"
         >
-          <router-link
-            active-class="nav_group_title--active"
-            :to="routerNav(item.path)"
-          >
-            {{ item['name'] }}
-          </router-link>
-        </div>
+          {{ item['name'] }}
+        </router-link>
       </div>
     </ra-scrollbar>
   </div>
@@ -40,7 +37,7 @@ export default defineComponent({
   },
   methods: {
     routerNav(path: string) {
-      return `../${this.localLanguage}/${path}`;
+      return `${path}`;
     },
   },
 });
@@ -63,29 +60,36 @@ $padding: 10px 50px;
     width: 100%;
   }
 
-  .nav_groups {
-    width: 100%;
-    height: 100%;
-  }
-
   .nav_group_title {
     font-size: 14px;
     padding: $padding;
-    text-align: left;
+    text-align: center;
   }
 
-  .nav_group_title--active {
-    position: relative;
+  .nav_item_link {
     width: 100%;
-    height: 100%;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    padding: 10px 0;
     &::after {
       content: '';
-      display: inline-block;
-      position: absolute;
       width: 4px;
-      height: 100%;
-      border-right: 4px solid aqua;
+      position: absolute;
+      display: inline-block;
+      height: 0;
       right: 0;
+      top: 0;
+      border-right: 4px solid aqua;
+    }
+  }
+
+  .nav_item_link--active {
+    color: aqua;
+    background: linear-gradient(270deg, #f8faff, rgba(248, 250, 255, 0));
+    &::after {
+      transition: all 0.3s ease-in-out;
+      height: 100%;
     }
   }
 }

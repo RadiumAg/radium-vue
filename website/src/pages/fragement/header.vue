@@ -2,7 +2,7 @@
   <div class="header">
     <div>RADIUM</div>
     <div class="header_right">
-      <router-link class="header_right_link" to="/component">组件</router-link>
+      <router-link class="header_right_link" :to="router">组件</router-link>
     </div>
   </div>
 </template>
@@ -11,6 +11,11 @@
 import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'Header',
+  computed: {
+    router() {
+      return `/component/`;
+    },
+  },
 });
 </script>
 

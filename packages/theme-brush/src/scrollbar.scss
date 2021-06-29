@@ -4,54 +4,54 @@
 @import './common/var';
 
 @include b(scrollbar) {
-    position: relative;
+  position: relative;
+  width: 100%;
+
+  @include e(container) {
+    overflow: auto;
+  }
+
+  @include m(scrollbar_hidden) {
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @include e(horizontal) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 6px;
     width: 100%;
-    
-    @include e(container){
-        overflow: auto;
+  }
+
+  @include e(vertical) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;
+    height: 100%;
+  }
+
+  @include e(bar) {
+    background-color: $--scrollbar-background-color;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+
+    &:active {
+      background-color: $--scrollbar-hover-background-color;
     }
-
-    @include m(scrollbar_hidden) {
-        scrollbar-width: 0;
-        &::-webkit-scrollbar {
-            display: none;
-        }
-    }
-
-    @include e(horizontal) {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          height: 6px;
-          width: 100%;           
-    }
-
-    @include e(vertical) {
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 6px;
-          height: 100%;
-    }
-
-    @include e(bar) {
-       background-color: $--scrollbar-background-color;
-       border-radius: 4px;
-       position: relative;
-       cursor: pointer;
-
-       &:active{
-           background-color: $--scrollbar-hover-background-color;
-       }
-    } 
+  }
 }
 
 .#{$namespace}-scrollbar-fade-enter-active,
 .#{$namespace}-scrollbar-fade-leave-active {
-    transition: $--fade-transition;
+  transition: $--fade-transition;
 }
 
 .#{$namespace}-scrollbar-fade-enter-from,
 .#{$namespace}-scrollbar-fade-leave-to {
-    opacity: 0;
+  opacity: 0;
 }

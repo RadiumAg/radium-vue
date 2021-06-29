@@ -7,9 +7,9 @@
     <div
       ref="scrollBarRef"
       class="ra-scrollbar__container"
-      :style="{ ...raWrapStyle, ...style }"
+      :style="[...raWrapStyle, ...style]"
       :class="[
-        !raNative ? 'ra-scrollbar--scrollbar_hidden' : '',
+        raNative ? '' : 'ra-scrollbar--scrollbar_hidden',
         ...raWrapClass,
       ]"
       @scroll="scroll"
@@ -17,13 +17,13 @@
       <slot></slot>
     </div>
     <div
-      v-if="!raNative && data.direction.includes('x')"
+      v-if="raNative && data.direction.includes('x')"
       class="ra-scrollbar__horizontal"
     >
       <bar :axis="'x'" />
     </div>
     <div
-      v-if="!raNative && data.direction.includes('y')"
+      v-if="raNative && data.direction.includes('y')"
       class="ra-scrollbar__vertical"
     >
       <bar :axis="'y'" />
@@ -61,7 +61,7 @@ export default defineComponent({
     },
     raNative: {
       type: Boolean,
-      defalut: true,
+      defalut: false,
     },
     raWrapStyle: {
       type: [] as PropType<string[]>,

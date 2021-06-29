@@ -5,11 +5,24 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "pwa-chrome",
+            "name": "Launch localhost",
+            "type": "firefox",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
+            "reAttach": true,
+            "url": "http://localhost:4500",
             "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "Attach",
+            "type": "firefox",
+            "request": "attach"
+        },
+        {
+            "name": "Launch WebExtension",
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "addonPath": "${workspaceFolder}"
         }
     ]
 }
