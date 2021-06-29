@@ -13,10 +13,6 @@ module.exports = () => {
         permalink: true,
         permalinkBefore: true,
       },
-    ])
-    .end()
-    .plugin('container')
-    .use();
-
+    ]);
   return md.toMd();
 };
