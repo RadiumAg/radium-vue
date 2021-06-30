@@ -41,7 +41,7 @@ Object.keys(ComponentDocConfig).forEach(language => {
           redirect: { name: com['name'] },
         });
       }
-      const component = getDocComponent(`${com['name']}.${language}`);
+      const component = getDocComponent(`${com['name']}`);
       componentChildrenRouters.push({
         name: com['name'],
         path: `${language}/${com['path']}`,

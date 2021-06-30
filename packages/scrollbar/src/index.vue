@@ -17,13 +17,13 @@
       <slot></slot>
     </div>
     <div
-      v-if="raNative && data.direction.includes('x')"
+      v-if="!raNative && data.direction.includes('x')"
       class="ra-scrollbar__horizontal"
     >
       <bar :axis="'x'" />
     </div>
     <div
-      v-if="raNative && data.direction.includes('y')"
+      v-if="!raNative && data.direction.includes('y')"
       class="ra-scrollbar__vertical"
     >
       <bar :axis="'y'" />
@@ -121,6 +121,10 @@ export default defineComponent({
     }
 
     function update() {
+      console.log(
+        scrollBarRef.value.scrollHeight,
+        scrollBarRef.value.clientHeight,
+      );
       if (scrollBarRef.value.scrollHeight > scrollBarRef.value.clientHeight) {
         data.direction.push('y');
       }

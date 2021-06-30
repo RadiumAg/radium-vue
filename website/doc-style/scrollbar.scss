@@ -1,0 +1,11 @@
+@import '/packages/theme-brush/src/mixins/config.scss';
+
+
+.#{$namespace}-scrollbar-item {
+     margin: 10px 10px;
+     background: #ecf5ff;
+     color: #409eff;
+     border-radius: 10px;
+     text-align:center;
+     line-height: 50px;
+}

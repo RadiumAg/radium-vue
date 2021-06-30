@@ -23,6 +23,7 @@ export default defineComponent({
   $component_right: 15px 90px;
   padding-top: 50px;
   height: 100%;
+  width: 100%;
   display: inline-flex;
   & > .component_right {
     padding: $component_right;
