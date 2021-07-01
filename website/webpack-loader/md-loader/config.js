@@ -40,9 +40,9 @@ module.exports = () => {
             return `<demo>
             <template v-slot:doc>${content}</template>
             <template v-slot:source>
-            <pre v-pre><code class="language-html">${md
-    .toMd()
-    .utils.escapeHtml(content)}
+            <pre v-pre ref="componentRightRef"><code class="language-html">${md
+              .toMd()
+              .utils.escapeHtml(content)}
             </code></pre>
             </template>`;
           } else {

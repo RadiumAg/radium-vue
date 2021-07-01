@@ -5,10 +5,10 @@ const { VueLoaderPlugin } = require('vue-loader');
 module.exports = {
   devtool: process.env.NODE_ENV === 'production' ? 'source-map' : false,
   mode: process.env.NODE_ENV,
-  entry: resolve(__dirname, 'main.ts'),
+  entry: resolve(__dirname, './website/main.ts'),
   output: {
     filename: '[name].[hash].js',
-    path: resolve(__dirname + '../website-dist'),
+    path: resolve(__dirname + './website-dist'),
     clean: true,
     publicPath: '/',
   },
@@ -19,40 +19,37 @@ module.exports = {
         use: 'vue-loader',
       },
       {
-        test: /\.md$/,
-        exclude: /node_modules/,
-        use: [
-          'vue-loader',
-          {
-            loader: resolve(__dirname + '/webpack-loader/md-loader'),
-          },
-        ],
-      },
-      {
-        test: /\.(t|j)s$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-          },
-        ],
-      },
-      {
         test: /\.tsx?$/,
         exclude: [/node_modules/],
         use: {
           loader: 'ts-loader',
           options: {
-            configFile: resolve(__dirname, '../tsconfig.json'),
+            configFile: resolve(__dirname, './tsconfig.json'),
             appendTsSuffixTo: [/\.vue$/, /\.md$/],
           },
         },
       },
+
+      {
+        test: /\.(t|j)s$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.md$/,
+        exclude: /node_modules/,
+        use: [
+          'vue-loader',
+          {
+            loader: resolve(__dirname + '/website/webpack-loader/md-loader'),
+          },
+        ],
+      },
+
       {
         test: /\.s(c|a)ss$/,
         use: ['vue-style-loader', 'css-loader', 'sass-loader'],
       },
-
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
@@ -73,14 +70,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
-    alias: {
-      'markdone-vue-loader': resolve(__dirname + '/webpack-loader/md-loader'),
-    },
   },
   plugins: [
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
-      template: resolve(__dirname, 'index.html'),
+      template: resolve(__dirname, './website/index.html'),
       filename: 'index.html',
     }),
   ],
@@ -106,3 +100,5 @@ module.exports = {
     maxAssetSize: 1000000000,
   },
 };
+
+console.log(resolve(__dirname, './src/pages'));

@@ -2,7 +2,7 @@ import {
   componentLinkState,
   ComponentLinkStore,
   SET_EL_MUTATION,
-} from './state/component.link';
+} from './state/component-ink';
 import { createStore, Store, useStore as baseUseStore } from 'vuex';
 import { InjectionKey } from 'vue';
 export interface IrootModules {

@@ -3,9 +3,9 @@ module.exports = function(source = '') {
          <template>${source}</template>
          <script lang="ts">
               import demo from 'Pages/component/demo.vue';
-              import { defineComponent,watch,ref } from 'vue';
               import { useRootStore } from 'Core/vux-module';
-              import { SET_EL_MUTATION } from 'Core/vux-module/state/component.link';
+              import { SET_EL_MUTATION } from 'Core/vux-module/state/component-link';
+              import { defineComponent,watch,ref } from 'vue';
               export default defineComponent({
                    components: {
                      demo

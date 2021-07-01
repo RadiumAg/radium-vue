@@ -1,6 +1,6 @@
 const { resolve } = require('path');
 
-__dirname;
+console.log(resolve(__dirname + '/website/'));
 module.exports = {
   // ATTENTION!!
   // Preset ordering is reversed, so `@babel/typescript` will called first
@@ -27,12 +27,13 @@ module.exports = {
     '@babel/transform-runtime',
     'lodash',
     [
-      'module-resolver',
+      require.resolve('babel-plugin-module-resolver'),
       {
+        root: ['./'],
         alias: {
-          Pages: resolve(__dirname, './website/src/pages'),
-          Docs: resolve(__dirname, './website/src/docs'),
-          Core: resolve(__dirname, './website/src/core'),
+          Pages: './website/src/pages',
+          Docs: './website/src/docs',
+          Core: './website/src/core',
         },
       },
     ],
@@ -55,17 +56,7 @@ module.exports = {
           },
         ],
       ],
-      plugins: [
-        [
-          'babel-plugin-module-resolver',
-          {
-            root: ['radium-vue'],
-            alias: {
-              '@radium-vue': 'radium-vue/lib',
-            },
-          },
-        ],
-      ],
+      plugins: [],
     },
   },
 };
