@@ -2,6 +2,7 @@ const Config = require('markdown-it-chain');
 const markDownAnchor = require('markdown-it-anchor');
 const markDownContainer = require('markdown-it-container');
 const hljs = require('highlight.js');
+const slugify = require('transliteration').slugify;
 module.exports = () => {
   const highlight = (str, lang) => {
     if (!lang || !hljs.getLanguage(lang)) {
@@ -19,6 +20,8 @@ module.exports = () => {
     .plugin('achor')
     .use(markDownAnchor, [
       {
+        level: 3,
+        slugify: slugify,
         permalink: true,
         permalinkBefore: true,
       },
@@ -37,7 +40,7 @@ module.exports = () => {
             return `<demo>
             <template v-slot:doc>${content}</template>
             <template v-slot:source>
-            <pre v-pre><code class="html hljs xml">${md
+            <pre v-pre><code class="language-html">${md
     .toMd()
     .utils.escapeHtml(content)}
             </code></pre>

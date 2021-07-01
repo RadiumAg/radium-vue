@@ -92,6 +92,7 @@ module.exports = {
     publicPath: '/',
     historyApiFallback: true,
     overlay: true,
+    contentBase: resolve(__dirname),
     stats: 'minimal',
   },
   optimization: {

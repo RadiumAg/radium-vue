@@ -32,6 +32,7 @@ module.exports = {
         alias: {
           Pages: resolve(__dirname, './website/src/pages'),
           Docs: resolve(__dirname, './website/src/docs'),
+          Core: resolve(__dirname, './website/src/core'),
         },
       },
     ],

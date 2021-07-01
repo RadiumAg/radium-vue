@@ -51,7 +51,7 @@ $padding: 10px 50px;
   justify-content: stretch;
   height: 100%;
   width: 200px;
-  border-right: 1px solid grey;
+  border-right: 1px solid #ebebeb;
 
   .nav_item {
     color: #454d64;
