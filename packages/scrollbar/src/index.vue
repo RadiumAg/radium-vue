@@ -121,10 +121,6 @@ export default defineComponent({
     }
 
     function update() {
-      console.log(
-        scrollBarRef.value.scrollHeight,
-        scrollBarRef.value.clientHeight,
-      );
       if (scrollBarRef.value.scrollHeight > scrollBarRef.value.clientHeight) {
         data.direction.push('y');
       }

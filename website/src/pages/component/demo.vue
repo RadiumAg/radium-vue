@@ -7,51 +7,48 @@
       <div
         class="demo_source_content"
         :style="{
-          height: demo_source_height + 'px',
+          height: demoSourceHeight + 'px',
         }"
       >
         <slot name="source"></slot>
       </div>
-      <div class="demo_drawer" @click="demo_drawer_click">
-        {{ demo_drawer_title }}
+      <div class="demo_drawer" @click="demoDrawerClick">
+        {{ demoDrawerTitle }}
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, ref } from 'vue';
-import { DEMO_COMPONENT_TOKEN } from '../../core/token';
 import hljs from 'highlight.js';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 
 export default defineComponent({
   name: 'Demo',
-  data() {
+  setup(props, { slots }) {
+    const demoSourceHeight = ref(0);
+    const sourceSlotHeight = ref(0);
+    const demoSourceState = ref(false);
+    const demoDrawerTitle = computed(() => {
+      return demoSourceState.value ? '关闭代码' : '查看代码';
+    });
+
+    onMounted(() => {
+      hljs.highlightAll();
+    });
+
+    function demoDrawerClick() {
+      this.demoSourceHeight = this.demoSourceHeight ? 0 : this.sourceSlotHeight;
+      this.demoSourceState = !this.demoSourceState;
+    }
+
     return {
-      demo_source_height: 0,
-      source_slot_height: 0,
-      demo_source_state: false,
+      demoDrawerClick,
+      demoSourceHeight,
+      demoDrawerTitle,
+      sourceSlotHeight,
+      demoSourceState,
     };
-  },
-  computed: {
-    demo_drawer_title() {
-      return this.demo_source_state ? '关闭代码' : '查看代码';
-    },
-  },
-  mounted() {
-    const HtmlRef = ref();
-    const sourceSolt = this.$slots['source']()[0]['el'] as HTMLElement;
-    HtmlRef.value = sourceSolt;
-    hljs.highlightAll();
-    this.source_slot_height = sourceSolt.offsetHeight;
-  },
-  methods: {
-    demo_drawer_click() {
-      this.demo_source_height = this.demo_source_height
-        ? 0
-        : this.source_slot_height;
-      this.demo_source_state = !this.demo_source_state;
-    },
   },
 });
 </script>

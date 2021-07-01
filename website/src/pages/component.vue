@@ -1,7 +1,7 @@
 <template>
   <div class="component">
     <component-nav />
-    <div class="component_right">
+    <div ref="componentRightRef" class="component_right">
       <router-view />
     </div>
     <component-link />

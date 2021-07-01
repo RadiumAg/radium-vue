@@ -5,9 +5,12 @@ export const SET_EL_MUTATION = 'SET_EL_MUTATION';
 export interface componentLinkState {
   sourceSlotEl: HTMLElement;
 }
-export const key: InjectionKey<Store<componentLinkState>> = Symbol();
 
-export const ComponentLinkModule = createStore<componentLinkState>({
+export const componentLinkKey: InjectionKey<Store<
+  componentLinkState
+>> = Symbol();
+
+export const ComponentLinkStore = createStore<componentLinkState>({
   state: {
     sourceSlotEl: null,
   },
