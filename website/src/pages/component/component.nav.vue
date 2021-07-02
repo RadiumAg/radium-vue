@@ -46,13 +46,16 @@ export default defineComponent({
 <style lang="scss" scoped>
 $padding: 10px 50px;
 .nav {
+  position: absolute;
+  left: 0;
+  top: 50px;
   background-color: #fff;
   display: flex;
   justify-content: stretch;
   height: 100%;
   width: 200px;
-  flex-shrink: 0;
   border-right: 1px solid #ebebeb;
+  z-index: 1000;
 
   .nav_item {
     color: #454d64;

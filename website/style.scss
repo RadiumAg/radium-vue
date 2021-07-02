@@ -1,19 +1,42 @@
 * {
-    padding:0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-html,body {
-    width: 100%;
-    height: 100%;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 div#app {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+//demo_block
+
+.demo_block {
+  $font-color: #606266;
+  z-index: 999;
+  h1,
+  h2,
+  h3,
+  h4 {
+    padding: 10px 5px;
+    color: $font-color;
+    font-weight: 400;
+  }
+
+  p {
+    color: $font-color;
+    font-size: 12px;
+  }
 }

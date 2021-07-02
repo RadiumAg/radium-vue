@@ -5,6 +5,7 @@
     </div>
     <div class="demo_source">
       <div
+        ref="sourceRef"
         class="demo_source_content"
         :style="{
           height: demoSourceHeight + 'px',
@@ -21,22 +22,24 @@
 
 <script lang="ts">
 import hljs from 'highlight.js';
-import { computed, defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, nextTick, onMounted, ref } from 'vue';
 
 export default defineComponent({
   name: 'Demo',
-  setup(props, { slots }) {
+  setup(props) {
     const demoSourceHeight = ref(0);
     const sourceSlotHeight = ref(0);
     const demoSourceState = ref(false);
     const demoDrawerTitle = computed(() => {
       return demoSourceState.value ? '关闭代码' : '查看代码';
     });
+    const sourceRef = ref<HTMLElement>();
 
     onMounted(() => {
       hljs.highlightAll();
-      sourceSlotHeight.value = (slots['source']()[0]
-        .el as HTMLElement).offsetHeight;
+      sourceSlotHeight.value = sourceRef.value.getElementsByTagName(
+        'pre',
+      )[0].offsetHeight;
     });
 
     function demoDrawerClick() {
@@ -50,6 +53,7 @@ export default defineComponent({
       demoDrawerClick,
       demoSourceHeight,
       demoDrawerTitle,
+      sourceRef,
       sourceSlotHeight,
       demoSourceState,
     };

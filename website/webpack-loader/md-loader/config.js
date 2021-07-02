@@ -20,7 +20,7 @@ module.exports = () => {
     .plugin('achor')
     .use(markDownAnchor, [
       {
-        level: 3,
+        level: 2,
         slugify: slugify,
         permalink: true,
         permalinkBefore: true,

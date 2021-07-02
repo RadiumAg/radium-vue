@@ -1,6 +1,6 @@
 module.exports = function(source = '') {
   return `
-         <template><div ref="componentRightRef">${source}</div></template>
+         <template><div ref="componentRightRef" class="demo_block">${source}</div></template>
          <script lang="ts">
               import demo from 'Pages/component/demo.vue';
               import { useRootStore } from 'Core';
@@ -15,9 +15,7 @@ module.exports = function(source = '') {
                     const rootStore = useRootStore();
                     watch(componentRightRef, () => {
                         rootStore.commit(SET_EL_MUTATION, { el: componentRightRef });
-                        console.log(rootStore.state.componentLink);
                     });
-                
                     return {
                       componentRightRef,
                     };

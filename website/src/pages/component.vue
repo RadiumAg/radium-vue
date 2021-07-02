@@ -1,8 +1,13 @@
 <template>
   <div class="component">
     <component-nav />
-    <div ref="componentRightRef" class="component_center">
-      <router-view />
+    <div class="component_center">
+      <ra-scrollbar
+        ra-height="100%"
+        :ra-wrap-style="[{ padding: '0px 280px 0px 280px' }]"
+      >
+        <router-view />
+      </ra-scrollbar>
     </div>
     <component-link />
   </div>
@@ -23,15 +28,13 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .component {
-  $component_padding: 15px 90px 90px 90px;
-  padding-top: 50px;
   height: 100%;
   width: 100%;
-  display: inline-flex;
   & > .component_center {
+    padding-top: 50px;
+    height: 100%;
     overflow: hidden;
-    padding: $component_padding;
-    flex-grow: 1;
+    min-width: 200px;
   }
 }
 </style>

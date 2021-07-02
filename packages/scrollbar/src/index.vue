@@ -31,7 +31,6 @@
   </div>
 </template>
 <script lang="ts">
-import { off, on } from '@radium-vue/utils/dom';
 import {
   computed,
   defineComponent,
@@ -45,6 +44,8 @@ import {
 } from 'vue';
 import { SCROLL_BAR_INJECT_TOKEN, TIndexProps } from '.';
 import bar from './bar.vue';
+import ResizeObserver from 'resize-observer-polyfill';
+import { off, on } from '@radium-vue/utils/dom';
 export default defineComponent({
   name: 'RaScrollbar',
   components: {
@@ -88,6 +89,13 @@ export default defineComponent({
     const moveX = ref(0);
     const isHover = ref(false);
     const isMouseHover = ref(false);
+    const updateBarSize = ref<() => void>(null);
+    const ro = new ResizeObserver(() => {
+      if (updateBarSize.value) {
+        updateBarSize.value();
+      }
+      update();
+    });
 
     const style = computed(() => {
       const res = [];
@@ -121,6 +129,11 @@ export default defineComponent({
     }
 
     function update() {
+      console.log(
+        scrollBarRef.value.scrollHeight,
+        scrollBarRef.value.clientHeight,
+      );
+      data.direction = [];
       if (scrollBarRef.value.scrollHeight > scrollBarRef.value.clientHeight) {
         data.direction.push('y');
       }
@@ -131,14 +144,14 @@ export default defineComponent({
 
     // lifeCycle
     onMounted(() => {
-      nextTick(() => {
-        update();
-        on(scrollBarRef.value, 'resize', update);
-      });
+      nextTick(update);
+      ro.observe(scrollBarRef.value);
+      on(window, 'resize', update);
     });
 
     onUnmounted(() => {
-      off(scrollBarRef.value, 'resize', update);
+      ro.unobserve(scrollBarRef.value);
+      off(window, 'resize', update);
     });
 
     provide(SCROLL_BAR_INJECT_TOKEN, {
@@ -148,6 +161,7 @@ export default defineComponent({
       isHover,
       isActive,
       isMouseHover,
+      updateBarSize,
     });
 
     return {

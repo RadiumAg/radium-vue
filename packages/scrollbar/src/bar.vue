@@ -52,6 +52,7 @@ export default defineComponent({
         scrollInject.scrollBarRef.value[currPro.value.clinetSize],
     );
     const minScrollDistance = 0;
+    scrollInject.updateBarSize.value = setTheBarSize;
 
     // func
     function mouseUpHandler(e: MouseEvent) {
@@ -111,6 +112,14 @@ export default defineComponent({
         scrollInject.scrollBarRef.value[currPro.value.clinetSize];
     }
 
+    function setTheBarSize() {
+      barStyle[currPro.value.size] =
+        (scrollInject.scrollBarRef.value[currPro.value.clinetSize] /
+          scrollInject.scrollBarRef.value[currPro.value.scrollSize]) *
+          100 +
+        '%';
+    }
+
     watch(scrollInject[currPro.value.move], () => {
       barStyle.transform = `${currPro.value.translate}(${
         scrollInject[currPro.value.move].value
@@ -119,14 +128,7 @@ export default defineComponent({
 
     // lifeCycle
     onMounted(() => {
-      barStyle[currPro.value.size] =
-        (scrollInject.scrollBarRef.value[currPro.value.clinetSize] /
-          scrollInject.scrollBarRef.value[currPro.value.scrollSize]) *
-          100 +
-        '%';
-    });
-
-    onMounted(() => {
+      setTheBarSize();
       on(barRef.value, 'mousedown', mouseDownHandler);
       on(document, 'mouseup', mouseUpHandler);
       on(document, 'mouseleave', mouseUpHandler);

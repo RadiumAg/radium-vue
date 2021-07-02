@@ -30,6 +30,7 @@ export default defineComponent({
   padding: 10px 50px;
   box-shadow: 0 8px 24px -2px rgb(0 0 0 / 5%);
   position: fixed;
+  z-index: 1001;
 }
 
 .header_right {

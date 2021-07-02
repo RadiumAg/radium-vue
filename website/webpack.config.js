@@ -80,7 +80,7 @@ module.exports = {
     port: 4500,
     hot: true,
     hotOnly: true,
-    open: true,
+    // open: true,
     publicPath: '/',
     historyApiFallback: true,
     overlay: true,

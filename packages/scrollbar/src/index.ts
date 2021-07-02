@@ -5,6 +5,7 @@ export interface scrollBarInject {
   isHover: Ref<boolean>;
   isActive: Ref<boolean>;
   isMouseHover: Ref<boolean>;
+  updateBarSize: Ref<() => void>;
 }
 
 export const SCROLL_BAR_INJECT_TOKEN = 'SCROLL BAR INJECT TOKEN';

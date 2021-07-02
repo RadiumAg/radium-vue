@@ -14,8 +14,42 @@
 </ra-scrollbar>	
 ```
 
+:::
+
+#### 竖向滚动
+
+  最基本得滚动，设置"ra-height"滚动条高度后就可以使用
+
+:::demo 
+
+```html
+<ra-scrollbar ra-height="230px">
+	<div v-for="(item,index) in 20" :key="index" class="ra-scrollbar-item">
+   		 {{item}}
+	</div>
+</ra-scrollbar>	
+```
 
 :::
+
+#### 竖向滚动
+
+  最基本得滚动，设置"ra-height"滚动条高度后就可以使用
+
+:::demo 
+
+```html
+<ra-scrollbar ra-height="230px">
+	<div v-for="(item,index) in 20" :key="index" class="ra-scrollbar-item">
+   		 {{item}}
+	</div>
+</ra-scrollbar>	
+```
+
+
+:::
+
+
 
 
 

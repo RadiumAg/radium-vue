@@ -1,4 +1,4 @@
-import { defineAsyncComponent, defineComponent } from 'vue';
+import { defineAsyncComponent } from 'vue';
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import ComponentDocConfig from './nav.config.json';
 import 'Pages/component.vue';
@@ -7,15 +7,13 @@ import { getLocalLanguage } from './src/core/common';
 const componentChildrenRouters: RouteRecordRaw[] = [];
 
 //error
-// eslint-disable-next-line vue/one-component-per-file
-const errorComponent = defineComponent({
+const errorComponent = {
   template: '<p>似乎并没有找到<p>',
-});
+};
 
-// eslint-disable-next-line vue/one-component-per-file
-const loadingComponent = defineComponent({
+const loadingComponent = {
   template: '<p>稍等</p>',
-});
+};
 
 const getDocComponent = (path: string) => {
   return getDefineAsyncComponent(() =>
@@ -25,9 +23,10 @@ const getDocComponent = (path: string) => {
 
 function getDefineAsyncComponent(func: () => Promise<unknown>) {
   return defineAsyncComponent({
-    timeout: 3000,
-    errorComponent,
+    timeout: 30000,
+    delay: 0,
     loadingComponent,
+    errorComponent,
     loader: func,
   });
 }
