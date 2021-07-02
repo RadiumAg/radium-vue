@@ -1,7 +1,7 @@
 <template>
   <div class="component">
     <component-nav />
-    <div ref="componentRightRef" class="component_right">
+    <div ref="componentRightRef" class="component_center">
       <router-view />
     </div>
     <component-link />
@@ -23,12 +23,13 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .component {
-  $component_padding: 15px 290px 100px 90px;
+  $component_padding: 15px 90px 90px 90px;
   padding-top: 50px;
   height: 100%;
   width: 100%;
   display: inline-flex;
-  & > .component_right {
+  & > .component_center {
+    overflow: hidden;
     padding: $component_padding;
     flex-grow: 1;
   }

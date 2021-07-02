@@ -10,12 +10,18 @@
     "noLib": false,
     "target": "es6",
     "sourceMap": true,
+    "baseUrl":".",
+    "paths": {
+      "Pages/*": ["website/src/pages/*"],
+      "Docs/*":["website/src/docs"],
+      "Core/*":["website/src/core/*"]
+    },
     "lib": [
       "ESNext",
       "DOM"
     ],
     "allowSyntheticDefaultImports": true,
-    "noImplicitUseStrict": true
+    "noImplicitUseStrict": true,
   },
   "exclude": [
     "node_modules"

@@ -1,6 +1,5 @@
-const { resolve } = require('path');
-
-console.log(resolve(__dirname + '/website/'));
+const path = require('path');
+console.log(path.resolve('./'));
 module.exports = {
   // ATTENTION!!
   // Preset ordering is reversed, so `@babel/typescript` will called first
@@ -29,11 +28,11 @@ module.exports = {
     [
       require.resolve('babel-plugin-module-resolver'),
       {
-        root: ['./'],
+        root: [path.resolve('./')],
         alias: {
           Pages: './website/src/pages',
           Docs: './website/src/docs',
-          Core: './website/src/core',
+          Core: './website/src/core/vux-module',
         },
       },
     ],
@@ -56,7 +55,6 @@ module.exports = {
           },
         ],
       ],
-      plugins: [],
     },
   },
 };

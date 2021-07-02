@@ -1,10 +1,10 @@
 module.exports = function(source = '') {
   return `
-         <template>${source}</template>
+         <template><div ref="componentRightRef">${source}</div></template>
          <script lang="ts">
               import demo from 'Pages/component/demo.vue';
-              import { useRootStore } from 'Core/vux-module';
-              import { SET_EL_MUTATION } from 'Core/vux-module/state/component-link';
+              import { useRootStore } from 'Core';
+              import { SET_EL_MUTATION } from 'Core/state/component-link';
               import { defineComponent,watch,ref } from 'vue';
               export default defineComponent({
                    components: {

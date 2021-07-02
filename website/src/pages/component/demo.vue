@@ -35,11 +35,15 @@ export default defineComponent({
 
     onMounted(() => {
       hljs.highlightAll();
+      sourceSlotHeight.value = (slots['source']()[0]
+        .el as HTMLElement).offsetHeight;
     });
 
     function demoDrawerClick() {
-      this.demoSourceHeight = this.demoSourceHeight ? 0 : this.sourceSlotHeight;
-      this.demoSourceState = !this.demoSourceState;
+      demoSourceHeight.value = demoSourceHeight.value
+        ? 0
+        : sourceSlotHeight.value;
+      demoSourceState.value = !demoSourceState.value;
     }
 
     return {
@@ -57,11 +61,10 @@ export default defineComponent({
 .demo {
   overflow: hidden;
   margin-top: 10px;
-  width: 100%;
   height: max-content;
-  min-width: 500px;
   border: 1px solid #ebebeb;
   background: #fff;
+  margin-bottom: 50px;
   border-radius: 4px;
 
   &:hover {

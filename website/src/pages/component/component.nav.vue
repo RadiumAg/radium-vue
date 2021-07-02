@@ -51,6 +51,7 @@ $padding: 10px 50px;
   justify-content: stretch;
   height: 100%;
   width: 200px;
+  flex-shrink: 0;
   border-right: 1px solid #ebebeb;
 
   .nav_item {

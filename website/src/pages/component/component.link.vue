@@ -3,9 +3,9 @@
     <a
       v-for="(link_item, index) in links"
       :key="index"
-      :href="link_item.link"
-      >{{ link_item.text }}</a
-    >
+      :title="link_item.link"
+      href="javascript:void 0"
+    >{{ link_item.text }}</a>
   </div>
 </template>
 <script lang="ts">
@@ -18,13 +18,18 @@ export default defineComponent({
     const links = reactive([]);
 
     watch(store.state, () => {
-      console.log(store.state);
       if (store.state.componentLink.sourceSlotEl) {
         const linkTags = store.state.componentLink.sourceSlotEl.getElementsByClassName(
           'header-anchor',
         );
         Array.from(linkTags).forEach(el => {
-          links.push({ text: el.innerHTML, link: el.getAttribute('href') });
+          const linkHTag = document.getElementById(
+            el.getAttribute('href').replace('#', ''),
+          );
+          links.push({
+            text: linkHTag.textContent.replace('¶', ''),
+            link: `#${linkHTag.getAttribute('id')}`,
+          });
         });
       }
     });
@@ -38,8 +43,16 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .component-link {
-  position: fixed;
-  right: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  flex-shrink: 0;
   border-left: 1px solid #ebebeb;
+
+  a {
+    color: #606266;
+    font-size: 12px;
+    margin-top: 10px;
+  }
 }
 </style>
