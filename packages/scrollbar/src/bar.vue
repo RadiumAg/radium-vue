@@ -113,11 +113,12 @@ export default defineComponent({
     }
 
     function setTheBarSize() {
-      barStyle[currPro.value.size] =
-        (scrollInject.scrollBarRef.value[currPro.value.clinetSize] /
-          scrollInject.scrollBarRef.value[currPro.value.scrollSize]) *
-          100 +
-        '%';
+      scrollInject.scrollBarRef.value &&
+        (barStyle[currPro.value.size] =
+          (scrollInject.scrollBarRef.value[currPro.value.clinetSize] /
+            scrollInject.scrollBarRef.value[currPro.value.scrollSize]) *
+            100 +
+          '%');
     }
 
     watch(scrollInject[currPro.value.move], () => {

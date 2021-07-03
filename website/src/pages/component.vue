@@ -30,11 +30,12 @@ export default defineComponent({
 .component {
   height: 100%;
   width: 100%;
+  min-width: 1000px;
+  position: relative;
   & > .component_center {
     padding-top: 50px;
     height: 100%;
     overflow: hidden;
-    min-width: 200px;
   }
 }
 </style>

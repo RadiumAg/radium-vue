@@ -129,17 +129,18 @@ export default defineComponent({
     }
 
     function update() {
-      console.log(
-        scrollBarRef.value.scrollHeight,
-        scrollBarRef.value.clientHeight,
-      );
-      data.direction = [];
-      if (scrollBarRef.value.scrollHeight > scrollBarRef.value.clientHeight) {
-        data.direction.push('y');
-      }
-      if (scrollBarRef.value.scrollWidth > scrollBarRef.value.clientWidth) {
-        data.direction.push('x');
-      }
+      scrollBarRef.value &&
+        (() => {
+          data.direction = [];
+          if (
+            scrollBarRef.value.scrollHeight > scrollBarRef.value.clientHeight
+          ) {
+            data.direction.push('y');
+          }
+          if (scrollBarRef.value.scrollWidth > scrollBarRef.value.clientWidth) {
+            data.direction.push('x');
+          }
+        })();
     }
 
     // lifeCycle
@@ -150,7 +151,7 @@ export default defineComponent({
     });
 
     onUnmounted(() => {
-      ro.unobserve(scrollBarRef.value);
+      ro && scrollBarRef.value && ro.unobserve(scrollBarRef.value);
       off(window, 'resize', update);
     });
 

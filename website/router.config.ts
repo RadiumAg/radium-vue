@@ -44,13 +44,12 @@ Object.keys(ComponentDocConfig).forEach(language => {
       componentChildrenRouters.push({
         name: com['name'],
         path: `${language}/${com['path']}`,
-        component: component,
+        component,
       });
     });
   });
 });
 
-console.log(componentChildrenRouters);
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
