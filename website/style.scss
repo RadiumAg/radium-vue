@@ -25,18 +25,46 @@ div#app {
 
 .demo_block {
   $font-color: #606266;
+  $font-title-color: #000;
   z-index: 999;
+
   h1,
   h2,
   h3,
   h4 {
     padding: 10px 5px;
-    color: $font-color;
+    color: #000;
     font-weight: 400;
   }
 
   p {
     color: $font-color;
     font-size: 12px;
+  }
+
+  table {
+    width: 100%;
+    height: max-content;
+    border-collapse: unset;
+    border: none;
+    border-spacing: unset;
+
+    th,
+    td {
+      border-bottom: 1px solid $font-color;
+      line-height: 40px;
+      text-align: left;
+    }
+
+    th {
+      color: $font-title-color;
+      font-size: 13px;
+      font-weight: 400;
+    }
+
+    td {
+      color: $font-color;
+      font-size: 12px;
+    }
   }
 }

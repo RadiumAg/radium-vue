@@ -4,7 +4,7 @@
     <div class="component_center">
       <ra-scrollbar
         ra-height="100%"
-        :ra-wrap-style="[{ padding: '0px 280px 0px 280px' }]"
+        :ra-wrap-style="[{ padding: '0px 280px 100px 280px' }]"
       >
         <router-view />
       </ra-scrollbar>

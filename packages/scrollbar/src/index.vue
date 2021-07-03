@@ -78,7 +78,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['scroll'],
+  emits: ['raScroll'],
   setup(props: Readonly<TIndexProps>, { emit }) {
     const isActive = ref(false);
     const data = reactive<Partial<{ direction: [('x' | 'y')?] }>>({
@@ -114,7 +114,7 @@ export default defineComponent({
         (scrollBarRef.value.scrollTop / scrollBarRef.value.clientHeight) * 100;
       moveX.value =
         (scrollBarRef.value.scrollLeft / scrollBarRef.value.clientWidth) * 100;
-      emit('scroll', [moveY.value, moveX.value]);
+      emit('raScroll', [moveY.value, moveX.value]);
     }
 
     function mouseenterHandler() {
