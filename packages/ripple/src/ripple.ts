@@ -17,13 +17,9 @@ export const ripple: Directive & { name: string } = {
     function change() {
       const rippleScale =
         Number.parseFloat(
-          rippleEl.style.transform.match(/([0-1].?[0-9]*))/)[0],
+          rippleEl.style.transform.match(/[0-1]\.?([0-9]+)?/)[0],
         ) + 0.1;
-      console.log(
-        Number.parseFloat(
-          rippleEl.style.transform.match(/([0-1](.[0-9])*)/)[0],
-        ),
-      );
+      console.log(rippleScale);
       rippleEl.style.transform = `translate(-50%,-50%) scale(${rippleScale})`;
       animateSign = requestAnimationFrame(change);
       if (rippleScale > 1) {
