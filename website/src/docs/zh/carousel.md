@@ -5,9 +5,11 @@
 ::: demo
 
 ```html
-<ra-caroulse>
-   <ra-carousel-item></ra-carousel-item>
-</ra-caroulse>
+<ra-carousel ra-height="150px">
+   <ra-carousel-item v-for="(item,index) in 4">
+      <div class="ra-carousel-item">{{index}}</div>
+   </ra-carousel-item>
+</ra-carousel>
 ```
 
 :::

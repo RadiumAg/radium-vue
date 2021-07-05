@@ -46,6 +46,7 @@ import { SCROLL_BAR_INJECT_TOKEN, TIndexProps } from '.';
 import bar from './bar.vue';
 import ResizeObserver from 'resize-observer-polyfill';
 import { off, on } from '@radium-vue/utils/dom';
+import { addUnit } from '@radium-vue/utils/common';
 export default defineComponent({
   name: 'RaScrollbar',
   components: {
@@ -100,10 +101,10 @@ export default defineComponent({
     const style = computed(() => {
       const res = [];
       if (props.raHeight) {
-        res.push({ height: props.raHeight });
+        res.push({ height: addUnit(props.raHeight) });
       }
       if (props.raMaxHeight) {
-        res.push({ ['max-height']: props.raMaxHeight });
+        res.push({ ['max-height']: addUnit(props.raMaxHeight) });
       }
       return res;
     });

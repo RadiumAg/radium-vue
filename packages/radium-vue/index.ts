@@ -5,6 +5,7 @@ import RaCarouselItem from '@radium-vue/carousel-item';
 import RaRow from '@radium-vue/row';
 import RaCol from '@radium-vue/col';
 import RaScrollBar from '@radium-vue/scrollbar';
+import Directive from  '@radium-vue/';
 
 const components = [RaCarousel,RaCarouselItem,RaRow,RaCol,RaScrollBar];
 

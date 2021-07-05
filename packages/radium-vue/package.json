@@ -8,6 +8,5 @@
       "@radium-vue/carousel-item" : "0.0.0",
       "@radium-vue/row":"0.0.0",
       "@radium-vue/scrollbar":"0.0.0"
-
   }
 }

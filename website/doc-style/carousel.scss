@@ -1,0 +1,25 @@
+@import '/packages/theme-brush/src/mixins/config.scss';
+
+.ra-carousel__carousel-item:nth-child(odd) {
+  .#{$namespace}-carousel-item {
+    width: 100%;
+    height: 100%;
+    background-color: aqua;
+    color: cadetblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.ra-carousel__carousel-item:nth-child(even) {
+  .#{$namespace}-carousel-item {
+    width: 100%;
+    height: 100%;
+    background-color: aliceblue;
+    color: cadetblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
