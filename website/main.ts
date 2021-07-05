@@ -12,5 +12,4 @@ createApp(App)
   .use(appVuexModule, moduleKey)
   .use(RadiumUI)
   .use(router)
-  .use()
   .mount('#app');
