@@ -43,11 +43,15 @@ export default defineComponent({
       active: boolean;
       animating: boolean;
     }>({ active: false, animating: false });
-    let oldActiveIndex = 0;
 
     // fun
-    function transformItem(index: number, activeIndex: number) {
-      isAnimating(index, activeIndex, CAROUSEL_PROVIDE.itemReact.length);
+    function transformItem(
+      index: number,
+      activeIndex: number,
+      isAnimate = true,
+    ) {
+      if (isAnimate)
+        isAnimating(index, activeIndex, CAROUSEL_PROVIDE.itemReact.length);
       index = processIndex(
         index,
         activeIndex,
@@ -85,22 +89,19 @@ export default defineComponent({
       if (index === activeIndex) {
         data.animating = true;
       }
-      if (activeIndex > oldActiveIndex) {
-        if (activeIndex === length - 1 && index === activeIndex - 1) {
+      if (CAROUSEL_PROVIDE.direction.value === 'left') {
+        if (activeIndex === length - 1 && index === 0) {
           data.animating = true;
-        } else if (activeIndex !== length - 1 && index === activeIndex - 1) {
+        } else if (index === activeIndex + 1) {
           data.animating = true;
         }
-      } else if (activeIndex < oldActiveIndex) {
+      } else if (CAROUSEL_PROVIDE.direction.value === 'right') {
         if (activeIndex === 0 && index === length - 1) {
           data.animating = true;
-        } else if (activeIndex === length - 1 && index === 0) {
-          data.animating = true;
-        } else if (activeIndex !== length - 1 && index === activeIndex - 1) {
+        } else if (index === activeIndex - 1) {
           data.animating = true;
         }
       }
-      oldActiveIndex = activeIndex;
     }
 
     addCarouseItem();

@@ -14,7 +14,11 @@ export type TCarouselProps = {
 
 export interface ICarouselItem {
   uid: number;
-  transformItem: (index: number, activeIndex: number) => void;
+  transformItem: (
+    index: number,
+    activeIndex: number,
+    isAnimate?: boolean,
+  ) => void;
 }
 
 export interface ICarouselItemProps {
@@ -25,6 +29,7 @@ export interface ICarouselItemProps {
 export interface ICarouselProvide {
   offsetWidth: Ref<number>;
   itemReact: ICarouselItem[];
+  direction: Ref<TClickType>;
 }
 
 export const CAROUSEL_ITEM_PROVIDETOKEN = 'CAROUSEL_PROVIDE';

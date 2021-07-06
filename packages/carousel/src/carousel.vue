@@ -30,11 +30,10 @@
 </template>
 
 <script lang="ts">
-import { flatten, throttle } from 'lodash';
+import { throttle } from 'lodash';
 import {
   defineComponent,
   nextTick,
-  onBeforeMount,
   onMounted,
   onUnmounted,
   provide,
@@ -96,6 +95,7 @@ export default defineComponent({
     const offsetWidth = ref<number>();
     const activeIndex = ref<number>(0);
     const timerSign = ref<any>(null);
+    const direction = ref<TClickType>('right');
     const data = reactive({
       hover: false,
     });
@@ -127,9 +127,8 @@ export default defineComponent({
     //function
     function resetItemTransition() {
       itemReact.forEach((item, index) => {
-        item.transformItem(index, activeIndex.value);
+        item.transformItem(index, activeIndex.value, false);
       });
-      console.log(itemReact);
     }
 
     function handleMouseEnter() {
@@ -154,8 +153,10 @@ export default defineComponent({
 
     const thottledArrowClick = throttle((clickType: TClickType) => {
       if (clickType === 'left') {
+        direction.value = 'left';
         activeIndex.value = activeIndex.value - 1;
       } else if (clickType === 'right') {
+        direction.value = 'right';
         activeIndex.value = activeIndex.value + 1;
       }
       processActiveIndex();
@@ -180,7 +181,7 @@ export default defineComponent({
       }, props.raInterval);
     }
 
-    const carouselProvide = { itemReact, offsetWidth };
+    const carouselProvide = { itemReact, offsetWidth, direction };
     provide(CAROUSEL_ITEM_PROVIDETOKEN, carouselProvide);
     return {
       props,
