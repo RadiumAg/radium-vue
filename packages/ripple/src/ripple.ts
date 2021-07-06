@@ -1,57 +1,69 @@
 import { on } from '@radium-vue/utils/dom';
-import { Directive } from 'vue';
+import { TRadiumDirectvie } from '@radium-vue/utils/types';
+import { RadiumSqrt } from '@radium-vue/utils/common';
 
-export const ripple: Directive & { name: string } = {
+const processSpeed = 0.03;
+const translationDuration = 200;
+
+export const ripple: TRadiumDirectvie = {
   name: 'ripple',
   mounted(el: HTMLElement) {
-    console.log(2);
-    let animateSign = 0;
-    const rippleEl = document.createElement('div');
+    const rippleContainer = document.createElement('div');
     const clientReact = el.getBoundingClientRect();
     let diameter = 0;
-    function restart() {
-      // rippleEl.style.transition = '';
-      // rippleEl.style.transform = 'scale(0)';
-    }
-
-    function change() {
+    rippleContainer.className = 'ra-ripple';
+    el.appendChild(rippleContainer);
+    function change(rippleEl: HTMLElement) {
       const rippleScale =
         Number.parseFloat(
-          rippleEl.style.transform.match(/([0-1].?[0-9]*))/)[0],
-        ) + 0.1;
-      console.log(
-        Number.parseFloat(
-          rippleEl.style.transform.match(/([0-1](.[0-9])*)/)[0],
-        ),
-      );
+          rippleEl.style.transform.match(/[0-1]\.?[0-9]{0,4}/g)[2],
+        ) + processSpeed;
       rippleEl.style.transform = `translate(-50%,-50%) scale(${rippleScale})`;
-      animateSign = requestAnimationFrame(change);
       if (rippleScale > 1) {
-        rippleEl.style.transform = `translate(-50%,-50%) scale(0)`;
-        cancelAnimationFrame(animateSign);
+        endFadeOut(rippleEl);
+        return;
       }
+      requestAnimationFrame(() => {
+        change(rippleEl);
+      });
     }
 
-    function startFadeOut(event: MouseEvent) {
+    const startFadeIn = (event: MouseEvent) => {
+      const rippleEl = document.createElement('div');
+      diameter = RadiumSqrt(el.clientHeight, el.clientWidth) * 2;
       rippleEl.style.top = event.clientY - clientReact.y + 'px';
       rippleEl.style.left = event.clientX - clientReact.x + 'px';
-      requestAnimationFrame(change);
+      rippleEl.style.transform = `translate(-50%,-50%) scale(0)`;
+      setTheRippleEL(rippleEl);
+      setTheRippleElSize(rippleEl);
+      rippleContainer.appendChild(rippleEl);
+      change(rippleEl);
+    };
+
+    function endFadeOut(rippleEl: HTMLElement) {
+      rippleEl.style.opacity = '0';
+      const timerSign = setTimeout(() => {
+        rippleContainer.removeChild(rippleEl);
+        clearTimeout(timerSign);
+      }, 400);
     }
 
-    if (el.offsetWidth >= el.offsetHeight) {
-      diameter = el.offsetHeight + 20;
-    } else if (el.offsetHeight >= el.offsetWidth) {
-      diameter = el.offsetWidth + 20;
+    function setTheRippleEL(rippleEl: HTMLElement) {
+      rippleEl.style.transition = `opacity ${translationDuration /
+        1000}s  ease-in-out`;
+      rippleEl.classList.add('ra-ripple__item');
+      rippleEl.style.transform = 'translate(-50%,-50%) scale(0) ';
     }
-    rippleEl.style.height = diameter + 'px';
-    rippleEl.style.width = diameter + 'px';
-    rippleEl.style.backgroundColor = 'rgba(0,0,0,.3)';
-    rippleEl.style.transform = 'translate(-50%,-50%) scale(0) ';
-    rippleEl.style.position = 'absolute';
-    rippleEl.style.transformOrigin = '50% 50%';
-    rippleEl.style.borderRadius = '50%';
-    rippleEl.style.zIndex = '9999';
-    el.appendChild(rippleEl);
-    on(el, 'click', startFadeOut);
+
+    function setTheRippleElSize(rippleEl: HTMLElement) {
+      rippleEl.style.height = diameter + 'px';
+      rippleEl.style.width = diameter + 'px';
+    }
+
+    on(el, 'mousedown', startFadeIn);
+  },
+
+  unmounted(el: HTMLElement) {
+    console.log(el);
   },
 };
