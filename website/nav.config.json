@@ -5,19 +5,19 @@
       "groups": [
         {
           "path": "carousel",
-          "name": "carousel"
+          "name": "carousel 走马灯"
         },
         {
           "path": "scrollbar",
-          "name": "scrollbar"
+          "name": "scrollbar 滚动条"
         },
         {
           "path": "grid",
-          "name": "grid"
+          "name": "grid 栅格布局"
         },
         {
           "path": "button",
-          "name": "button"
+          "name": "button 按钮"
         }
       ]
     }

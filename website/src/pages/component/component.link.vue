@@ -5,7 +5,8 @@
       :key="index"
       :title="link_item.link"
       href="javascript:void 0"
-    >{{ link_item.text }}</a>
+      >{{ link_item.text }}</a
+    >
   </div>
 </template>
 <script lang="ts">

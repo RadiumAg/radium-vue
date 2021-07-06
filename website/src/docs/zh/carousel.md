@@ -2,6 +2,8 @@
 
 #### 基本使用
 
+配合ra-carousel和ra-carousel-item就能完成一个基本的轮播
+
 ::: demo
 
 ```html

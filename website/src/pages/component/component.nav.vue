@@ -76,6 +76,9 @@ $padding: 10px 50px;
     display: inline-block;
     text-align: center;
     padding: 10px 0;
+    &:active {
+      color: unset;
+    }
     &::after {
       content: '';
       width: 4px;
