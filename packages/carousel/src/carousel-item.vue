@@ -67,14 +67,8 @@ export default defineComponent({
     }
 
     function processIndex(index: number, activeIndex: number, length: number) {
-      if (activeIndex === 0 && index === length - 1) {
-        return -1;
-      } else if (activeIndex === length - 1 && index === 0) {
-        return length;
-      } else if (index < activeIndex - 1 && activeIndex - index >= length / 2) {
-        return length + 1;
-      } else if (index > activeIndex + 1 && index - activeIndex >= length / 2) {
-        return -2;
+      if (activeIndex === length - 1 && index === 0) {
+        index = length;
       }
       return index;
     }
