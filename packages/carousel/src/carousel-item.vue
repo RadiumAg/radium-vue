@@ -43,9 +43,11 @@ export default defineComponent({
       active: boolean;
       animating: boolean;
     }>({ active: false, animating: false });
+    let oldActiveIndex = 0;
 
     // fun
     function transformItem(index: number, activeIndex: number) {
+      isAnimating(index, activeIndex, CAROUSEL_PROVIDE.itemReact.length);
       index = processIndex(
         index,
         activeIndex,
@@ -70,11 +72,38 @@ export default defineComponent({
       if (activeIndex === length - 1 && index === 0) {
         index = length;
       }
+
+      if (activeIndex === 0 && index === length - 1) {
+        index = -1;
+      }
       return index;
     }
 
-    addCarouseItem();
+    // difficult to resolve
+    function isAnimating(index: number, activeIndex: number, length: number) {
+      data.animating = false;
+      if (index === activeIndex) {
+        data.animating = true;
+      }
+      if (activeIndex > oldActiveIndex) {
+        if (activeIndex === length - 1 && index === activeIndex - 1) {
+          data.animating = true;
+        } else if (activeIndex !== length - 1 && index === activeIndex - 1) {
+          data.animating = true;
+        }
+      } else if (activeIndex < oldActiveIndex) {
+        if (activeIndex === 0 && index === length - 1) {
+          data.animating = true;
+        } else if (activeIndex === length - 1 && index === 0) {
+          data.animating = true;
+        } else if (activeIndex !== length - 1 && index === activeIndex - 1) {
+          data.animating = true;
+        }
+      }
+      oldActiveIndex = activeIndex;
+    }
 
+    addCarouseItem();
     return { props, itemStyle, data };
   },
 });
