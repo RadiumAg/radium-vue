@@ -1,53 +1,81 @@
 import { on } from '@radium-vue/utils/dom';
-import { Directive } from 'vue';
+import { TRadiumDirectvie } from '@radium-vue/utils/types';
+import { RadiumSqrt } from '@radium-vue/utils/common';
+import { isNull } from 'lodash';
 
-export const ripple: Directive & { name: string } = {
+const processSpeed = 0.03;
+const translationDuration = 200;
+
+export const ripple: TRadiumDirectvie = {
   name: 'ripple',
   mounted(el: HTMLElement) {
-    console.log(2);
-    let animateSign = 0;
-    const rippleEl = document.createElement('div');
+    const rippleContainer = document.createElement('div');
     const clientReact = el.getBoundingClientRect();
     let diameter = 0;
-    function restart() {
-      // rippleEl.style.transition = '';
-      // rippleEl.style.transform = 'scale(0)';
-    }
-
-    function change() {
+    rippleContainer.className = 'ra-ripple';
+    el.appendChild(rippleContainer);
+    function change(rippleEl: HTMLElement) {
       const rippleScale =
         Number.parseFloat(
-          rippleEl.style.transform.match(/[0-1]\.?([0-9]+)?/)[0],
-        ) + 0.1;
-      console.log(rippleScale);
-      rippleEl.style.transform = `translate(-50%,-50%) scale(${rippleScale})`;
-      animateSign = requestAnimationFrame(change);
-      if (rippleScale > 1) {
-        rippleEl.style.transform = `translate(-50%,-50%) scale(0)`;
-        cancelAnimationFrame(animateSign);
+          rippleEl.style.transform.match(/[0-1]\.?[0-9]{0,4}/g)[2],
+        ) + processSpeed;
+
+      console.log(Reflect.get(rippleEl, 'isMouseUp'));
+      if (rippleScale > 1 && Reflect.get(rippleEl, 'isMouseUp')) {
+        endFadeOut(rippleEl);
+        return;
+      } else if (rippleScale <= 1) {
+        rippleEl.style.transform = `translate(-50%,-50%) scale(${rippleScale})`;
       }
+      requestAnimationFrame(() => {
+        change(rippleEl);
+      });
     }
 
-    function startFadeOut(event: MouseEvent) {
-      rippleEl.style.top = event.clientY - clientReact.y + 'px';
-      rippleEl.style.left = event.clientX - clientReact.x + 'px';
-      requestAnimationFrame(change);
+    const startFadeIn = (event: MouseEvent) => {
+      if (event.button === 2) {
+        return;
+      }
+      const rippleEl = document.createElement('div');
+      diameter = RadiumSqrt(el.clientHeight, el.clientWidth) * 2;
+      rippleEl.style.top = event.clientY - clientReact.top + 'px';
+      rippleEl.style.left = event.clientX - clientReact.left + 'px';
+      setTheRippleEL(rippleEl);
+      setTheRippleElSize(rippleEl);
+      rippleContainer.appendChild(rippleEl);
+      change(rippleEl);
+    };
+
+    function endFadeOut(rippleEl: HTMLElement) {
+      rippleEl.style.opacity = '0';
+      const timerSign = setTimeout(() => {
+        rippleContainer.removeChild(rippleEl);
+        rippleEl.onmouseup = null;
+        clearTimeout(timerSign);
+      }, 400);
     }
 
-    if (el.offsetWidth >= el.offsetHeight) {
-      diameter = el.offsetHeight + 20;
-    } else if (el.offsetHeight >= el.offsetWidth) {
-      diameter = el.offsetWidth + 20;
+    function setTheRippleEL(rippleEl: HTMLElement) {
+      if (isNull(rippleEl.onmouseup)) {
+        rippleEl.onmouseup = () => {
+          Reflect.set(rippleEl, 'isMouseUp', true);
+        };
+        rippleEl.onmouseout = () => {
+          Reflect.set(rippleEl, 'isMouseUp', true);
+        };
+      }
+      Reflect.set(rippleEl, 'isMouseUp', false);
+      rippleEl.style.transition = `opacity ${translationDuration /
+        1000}s  ease-in-out`;
+      rippleEl.style.transform = 'translate(-50%,-50%) scale(0) ';
+      rippleEl.classList.add('ra-ripple__item');
     }
-    rippleEl.style.height = diameter + 'px';
-    rippleEl.style.width = diameter + 'px';
-    rippleEl.style.backgroundColor = 'rgba(0,0,0,.3)';
-    rippleEl.style.transform = 'translate(-50%,-50%) scale(0) ';
-    rippleEl.style.position = 'absolute';
-    rippleEl.style.transformOrigin = '50% 50%';
-    rippleEl.style.borderRadius = '50%';
-    rippleEl.style.zIndex = '9999';
-    el.appendChild(rippleEl);
-    on(el, 'click', startFadeOut);
+
+    function setTheRippleElSize(rippleEl: HTMLElement) {
+      rippleEl.style.height = diameter + 'px';
+      rippleEl.style.width = diameter + 'px';
+    }
+
+    on(rippleContainer, 'mousedown', startFadeIn);
   },
 };

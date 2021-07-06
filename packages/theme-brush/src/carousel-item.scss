@@ -13,7 +13,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform .4s ease-in-out;
 
     @include when(animating) {
         transition: transform .4s ease-in-out;

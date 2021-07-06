@@ -26,6 +26,7 @@ div#app {
 .demo_block {
   $font-color: #606266;
   $font-title-color: #000;
+  $border-color: #dcdfe6;
   z-index: 999;
 
   h1,
@@ -51,7 +52,7 @@ div#app {
 
     th,
     td {
-      border-bottom: 1px solid $font-color;
+      border-bottom: 1px solid $border-color;
       line-height: 40px;
       text-align: left;
     }

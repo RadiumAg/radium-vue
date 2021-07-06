@@ -55,7 +55,7 @@ $padding: 10px 50px;
   height: 100%;
   width: 200px;
   border-right: 1px solid #ebebeb;
-  z-index: 1000;
+  z-index: 2;
 
   .nav_item {
     color: #454d64;

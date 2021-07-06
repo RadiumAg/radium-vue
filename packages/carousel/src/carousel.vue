@@ -34,6 +34,7 @@ import { flatten, throttle } from 'lodash';
 import {
   defineComponent,
   nextTick,
+  onBeforeMount,
   onMounted,
   onUnmounted,
   provide,
@@ -112,10 +113,9 @@ export default defineComponent({
           offsetWidth.value = root.value.offsetWidth;
           window.addEventListener('resize', () => {
             offsetWidth.value = root.value.offsetWidth;
-            resetItemTransition();
           });
+          resetItemTransition();
         }
-        resetItemTransition();
       });
     });
 
@@ -129,6 +129,7 @@ export default defineComponent({
       itemReact.forEach((item, index) => {
         item.transformItem(index, activeIndex.value);
       });
+      console.log(itemReact);
     }
 
     function handleMouseEnter() {
