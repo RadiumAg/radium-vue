@@ -22,7 +22,8 @@
     width: $--carousel-arrow-size;
     height: $--carousel-arrow-size;
     flex-shrink: 0;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    // overflow: hidden;
 
     @include m(left) {
       left: 16px;
@@ -31,7 +32,6 @@
     @include m(right) {
       right: 16px;
     }
-
   }
 }
 

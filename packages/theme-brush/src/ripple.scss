@@ -6,11 +6,15 @@
 @include b(ripple) {
   left: 0;
   top: 0;
+  width: 100%;
+  height: 100%;
   position: absolute;
+  overflow: hidden;
+
   @include e(item) {
-    background-color: rgba(0, 0, 0, 0.1);
-    transform-origin: 50% 50%;
     position: absolute;
+    background-color: rgba(0, 0, 0, .1);
+    transform-origin: 50% 50%;
     border-radius: 50%;
     z-index: 9999;
     opacity: 1;
