@@ -9,7 +9,7 @@ export type TCarouselProps = {
   raInterval: number;
   raArrow: string;
   raType: string;
-  raDirection: string;
+  raDirection: 'horizontal' | 'vertical';
 };
 
 export interface ICarouselItem {
@@ -21,12 +21,24 @@ export interface ICarouselItem {
   ) => void;
 }
 
+export const CarouselItemConfig = {
+  horizontal: {
+    translate: 'translateX',
+    offset: 'offsetWidth',
+  },
+  vertical: {
+    translate: 'translateY',
+    offset: 'offsetHeight',
+  },
+};
+
 export interface ICarouselItemProps {
   raName: string;
   raLabel: string;
 }
 
 export interface ICarouselProvide {
+  offsetHeight: Ref<number>;
   offsetWidth: Ref<number>;
   itemReact: ICarouselItem[];
   direction: Ref<TClickType>;

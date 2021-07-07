@@ -12,61 +12,61 @@ export default defineComponent({
   props: {
     raFlex: {
       type: Number,
-      defalut: null,
+      default: null,
     },
     raOffset: {
       type: Number,
-      defalut: null,
+      default: null,
     },
     raOrder: {
       type: Number,
-      defalut: null,
+      default: null,
     },
     raPull: {
       type: Number,
-      defalut: null,
+      default: null,
     },
     raPush: {
       type: Number,
-      defalut: 24,
+      default: 24,
     },
     raSpan: {
       type: Number,
-      defalut: null,
+      default: null,
     },
     raXs: {
       type: [Object, Object] as PropType<number | SizeObject>,
-      defalut: () => {
+      default: () => {
         return 0;
       },
     },
     raSm: {
       type: [Object, Object] as PropType<number | SizeObject>,
-      defalut: () => {
+      default: () => {
         return 0;
       },
     },
     raMd: {
       type: [Object, Object] as PropType<number | SizeObject>,
-      defalut: () => {
+      default: () => {
         return 0;
       },
     },
     raLg: {
       type: [Object, Object] as PropType<number | SizeObject>,
-      defalut: () => {
+      default: () => {
         return 0;
       },
     },
     raXl: {
       type: [Object, Object] as PropType<number | SizeObject>,
-      defalut: () => {
+      default: () => {
         return 0;
       },
     },
     raXXl: {
       type: [Object, Object] as PropType<number | SizeObject>,
-      defalut: () => {
+      default: () => {
         return 0;
       },
     },

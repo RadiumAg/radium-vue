@@ -1,7 +1,7 @@
 /* Element Chalk Variables */
 @use "sass:math";
 
-@import "../mixins/config";
+@import '../mixins/config';
 
 // Special comment for theme configurator
 // type|skipAutoTranslation|Category|Order
@@ -9,36 +9,74 @@
 
 /* Transition
 -------------------------- */
-$--all-transition: all .3s cubic-bezier(.645, .045, .355, 1) !default;
+$--all-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !default;
 $--fade-transition: opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) !default;
 $--fade-linear-transition: opacity 200ms linear !default;
-$--md-fade-transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1), opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) !default;
-$--border-transition-base: border-color .2s cubic-bezier(.645, .045, .355, 1) !default;
-$--color-transition-base: color .2s cubic-bezier(.645, .045, .355, 1) !default;
+$--md-fade-transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1),
+  opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) !default;
+$--border-transition-base: border-color 0.2s
+  cubic-bezier(0.645, 0.045, 0.355, 1) !default;
+$--color-transition-base: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1) !default;
 
 /* Color
 -------------------------- */
 /// color|1|Brand Color|0
-$--color-primary: #409EFF !default;
+$--color-primary: #409eff !default;
 /// color|1|Background Color|4
-$--color-white: #FFFFFF !default;
+$--color-white: #ffffff !default;
 /// color|1|Background Color|4
 $--color-black: #000000 !default;
-$--color-primary-light-1: mix($--color-white, $--color-primary, 10%) !default; /* 53a8ff */
-$--color-primary-light-2: mix($--color-white, $--color-primary, 20%) !default; /* 66b1ff */
-$--color-primary-light-3: mix($--color-white, $--color-primary, 30%) !default; /* 79bbff */
-$--color-primary-light-4: mix($--color-white, $--color-primary, 40%) !default; /* 8cc5ff */
-$--color-primary-light-5: mix($--color-white, $--color-primary, 50%) !default; /* a0cfff */
-$--color-primary-light-6: mix($--color-white, $--color-primary, 60%) !default; /* b3d8ff */
-$--color-primary-light-7: mix($--color-white, $--color-primary, 70%) !default; /* c6e2ff */
-$--color-primary-light-8: mix($--color-white, $--color-primary, 80%) !default; /* d9ecff */
-$--color-primary-light-9: mix($--color-white, $--color-primary, 90%) !default; /* ecf5ff */
+$--color-primary-light-1: mix(
+  $--color-white,
+  $--color-primary,
+  10%
+) !default; /* 53a8ff */
+$--color-primary-light-2: mix(
+  $--color-white,
+  $--color-primary,
+  20%
+) !default; /* 66b1ff */
+$--color-primary-light-3: mix(
+  $--color-white,
+  $--color-primary,
+  30%
+) !default; /* 79bbff */
+$--color-primary-light-4: mix(
+  $--color-white,
+  $--color-primary,
+  40%
+) !default; /* 8cc5ff */
+$--color-primary-light-5: mix(
+  $--color-white,
+  $--color-primary,
+  50%
+) !default; /* a0cfff */
+$--color-primary-light-6: mix(
+  $--color-white,
+  $--color-primary,
+  60%
+) !default; /* b3d8ff */
+$--color-primary-light-7: mix(
+  $--color-white,
+  $--color-primary,
+  70%
+) !default; /* c6e2ff */
+$--color-primary-light-8: mix(
+  $--color-white,
+  $--color-primary,
+  80%
+) !default; /* d9ecff */
+$--color-primary-light-9: mix(
+  $--color-white,
+  $--color-primary,
+  90%
+) !default; /* ecf5ff */
 /// color|1|Functional Color|1
-$--color-success: #67C23A !default;
+$--color-success: #67c23a !default;
 /// color|1|Functional Color|1
-$--color-warning: #E6A23C !default;
+$--color-warning: #e6a23c !default;
 /// color|1|Functional Color|1
-$--color-danger: #F56C6C !default;
+$--color-danger: #f56c6c !default;
 /// color|1|Functional Color|1
 $--color-info: #909399 !default;
 
@@ -58,19 +96,19 @@ $--color-text-regular: #606266 !default;
 /// color|1|Font Color|2
 $--color-text-secondary: #909399 !default;
 /// color|1|Font Color|2
-$--color-text-placeholder: #C0C4CC !default;
+$--color-text-placeholder: #c0c4cc !default;
 /// color|1|Border Color|3
-$--border-color-base: #DCDFE6 !default;
+$--border-color-base: #dcdfe6 !default;
 /// color|1|Border Color|3
-$--border-color-light: #E4E7ED !default;
+$--border-color-light: #e4e7ed !default;
 /// color|1|Border Color|3
-$--border-color-lighter: #EBEEF5 !default;
+$--border-color-lighter: #ebeef5 !default;
 /// color|1|Border Color|3
-$--border-color-extra-light: #F2F6FC !default;
+$--border-color-extra-light: #f2f6fc !default;
 
 // Background
 /// color|1|Background Color|4
-$--background-color-base: #F5F7FA !default;
+$--background-color-base: #f5f7fa !default;
 
 /* Link
 -------------------------- */
@@ -92,12 +130,12 @@ $--border-radius-circle: 100% !default;
 
 // Box-shadow
 /// boxShadow|1|Shadow|1
-$--box-shadow-base: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04) !default;
+$--box-shadow-base: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04) !default;
 /// boxShadow|1|Shadow|1
 $--box-shadow-light: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !default;
 /* Svg
 --------------- */
-$--svg-monochrome-grey: #DCDDE0 !default;
+$--svg-monochrome-grey: #dcdde0 !default;
 
 /* Fill
 -------------------------- */
@@ -199,7 +237,6 @@ $--checkbox-button-checked-background-color: $--color-primary !default;
 $--checkbox-button-checked-font-color: $--color-white !default;
 /// color||Color|0
 $--checkbox-button-checked-border-color: $--color-primary !default;
-
 
 /* Radio
 -------------------------- */
@@ -544,7 +581,6 @@ $--button-info-background-color: $--color-info !default;
 $--button-hover-tint-percent: 20% !default;
 $--button-active-shade-percent: 10% !default;
 
-
 /* Switch
 -------------------------- */
 /// color||Color|0
@@ -588,7 +624,7 @@ $--table-row-hover-background-color: $--background-color-base !default;
 $--table-current-row-background-color: $--color-primary-light-9 !default;
 /// color||Color|0
 $--table-header-background-color: $--color-white !default;
-$--table-fixed-box-shadow: 0 0 10px rgba(0, 0, 0, .12) !default;
+$--table-fixed-box-shadow: 0 0 10px rgba(0, 0, 0, 0.12) !default;
 
 /* Pagination
 -------------------------- */
@@ -732,8 +768,11 @@ $--menu-item-hover-fill: $--color-primary-light-9 !default;
 
 /* Scrollbar
 --------------------------*/
-$--scrollbar-background-color: rgba($--color-text-secondary, .3) !default;
-$--scrollbar-hover-background-color: rgba($--color-text-secondary, .5) !default;
+$--scrollbar-background-color: rgba($--color-text-secondary, 0.3) !default;
+$--scrollbar-hover-background-color: rgba(
+  $--color-text-secondary,
+  0.5
+) !default;
 
 /* Carousel
 --------------------------*/
@@ -742,10 +781,13 @@ $--carousel-arrow-font-size: 12px !default;
 $--carousel-arrow-size: 36px !default;
 $--carousel-arrow-background: rgba(31, 45, 61, 0.11) !default;
 $--carousel-arrow-hover-background: rgba(31, 45, 61, 0.23) !default;
-/// width||Other|4
 $--carousel-indicator-width: 30px !default;
-/// height||Other|4
+$--carousel-indicator-vertical-width: 10px !default;
 $--carousel-indicator-height: 2px !default;
+$--carousel-indicator-padding: 5px 5px !default;
+$--carousel-indicator-color: rgba(31, 45, 61, 0.23) !default;
+$--carousel-indicator-active-color: #fff !default;
+$--carousel-indicator-active-scale: 1.2 !default;
 $--carousel-indicator-padding-horizontal: 4px !default;
 $--carousel-indicator-padding-vertical: 12px !default;
 $--carousel-indicator-out-color: $--border-color-hover !default;
@@ -815,7 +857,6 @@ $--backtop-font-color: $--color-primary !default;
 /// color||Color|0
 $--backtop-hover-background-color: $--border-color-extra-light !default;
 
-
 /* Break-point
 --------------------------*/
 $--sm: 768px !default;
@@ -824,23 +865,23 @@ $--lg: 1200px !default;
 $--xl: 1920px !default;
 
 $--breakpoints: (
-  'xs' : "(max-width: #{$--sm})",
-  'sm' : "(min-width: #{$--sm})",
-  'md' : "(min-width: #{$--md})",
-  'lg' : "(min-width: #{$--lg})",
-  'xl' : "(min-width: #{$--xl})"
+  'xs': '(max-width: #{$--sm})',
+  'sm': '(min-width: #{$--sm})',
+  'md': '(min-width: #{$--md})',
+  'lg': '(min-width: #{$--lg})',
+  'xl': '(min-width: #{$--xl})',
 ) !default;
 
 $--breakpoints-spec: (
-  'xs-only' : "(max-width: #{$--sm})",
-  'sm-and-up' : "(min-width: #{$--sm})",
-  'sm-only': "(min-width: #{$--sm}) and (max-width: #{$--md})",
-  'sm-and-down': "(max-width: #{$--md})",
-  'md-and-up' : "(min-width: #{$--md})",
-  'md-only': "(min-width: #{$--md}) and (max-width: #{$--lg})",
-  'md-and-down': "(max-width: #{$--lg})",
-  'lg-and-up' : "(min-width: #{$--lg})",
-  'lg-only': "(min-width: #{$--lg}) and (max-width: #{$--xl})",
-  'lg-and-down': "(max-width: #{$--xl})",
-  'xl-only' : "(min-width: #{$--xl})",
+  'xs-only': '(max-width: #{$--sm})',
+  'sm-and-up': '(min-width: #{$--sm})',
+  'sm-only': '(min-width: #{$--sm}) and (max-width: #{$--md})',
+  'sm-and-down': '(max-width: #{$--md})',
+  'md-and-up': '(min-width: #{$--md})',
+  'md-only': '(min-width: #{$--md}) and (max-width: #{$--lg})',
+  'md-and-down': '(max-width: #{$--lg})',
+  'lg-and-up': '(min-width: #{$--lg})',
+  'lg-only': '(min-width: #{$--lg}) and (max-width: #{$--xl})',
+  'lg-and-down': '(max-width: #{$--xl})',
+  'xl-only': '(min-width: #{$--xl})',
 ) !default;

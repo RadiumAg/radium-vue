@@ -15,10 +15,12 @@ import {
   inject,
   reactive,
   ref,
+  watchEffect,
 } from 'vue';
 import {
   CAROUSEL_ITEM_PROVIDETOKEN,
   ICarouselItemProps,
+  CarouselItemConfig,
   ICarouselProvide,
 } from './carousel';
 export default defineComponent({
@@ -26,11 +28,11 @@ export default defineComponent({
   props: {
     raName: {
       type: String,
-      defalut: '',
+      default: '',
     },
     raLabel: {
       type: String,
-      defalut: '',
+      default: '',
     },
   },
   setup(props: ICarouselItemProps) {
@@ -43,6 +45,15 @@ export default defineComponent({
       active: boolean;
       animating: boolean;
     }>({ active: false, animating: false });
+    console.log(CAROUSEL_PROVIDE);
+    let direction: 'horizontal' | 'vertical' = undefined;
+
+    watchEffect(() => {
+      direction = CAROUSEL_PROVIDE.offsetWidth.value
+        ? 'horizontal'
+        : 'vertical';
+      console.log(direction);
+    });
 
     // fun
     function transformItem(
@@ -61,8 +72,9 @@ export default defineComponent({
     }
 
     function calcTransform(index: number, activeIndex: number) {
-      itemStyle.value = `translateX(${(index - activeIndex) *
-        CAROUSEL_PROVIDE.offsetWidth.value}px)`;
+      itemStyle.value = `${CarouselItemConfig[direction].translate}(${(index -
+        activeIndex) *
+        CAROUSEL_PROVIDE[CarouselItemConfig[direction].offset].value}px)`;
     }
 
     function addCarouseItem() {

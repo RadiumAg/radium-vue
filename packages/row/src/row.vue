@@ -23,15 +23,15 @@ export default defineComponent({
   props: {
     raAlign: {
       type: String,
-      defalut: '',
+      default: '',
     },
     raGutter: {
       type: [Number, Object] as PropType<number | Array<number>>,
-      defalut: null,
+      default: null,
     },
     raJustify: {
       type: String,
-      defalut: 'flex-start',
+      default: 'flex-start',
     },
   },
   setup(props: IColProps) {

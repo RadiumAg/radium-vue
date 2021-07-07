@@ -63,7 +63,7 @@ export default defineComponent({
     },
     raNative: {
       type: Boolean,
-      defalut: false,
+      default: false,
     },
     raWrapStyle: {
       type: [] as PropType<string[]>,

@@ -33,6 +33,50 @@
       right: 16px;
     }
   }
+
+  @include e(indicator) {
+    position: absolute;
+    display: flex;
+    cursor: pointer;
+
+    @include m(horizontal) {
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @include m(vertical) {
+      right: 6px;
+      top: 50%;
+      transform-origin: 100% 50%;
+      transform: rotate(90deg) translateX(50%);
+    }
+
+    @include e(item) {
+      padding: $--carousel-indicator-padding;
+
+      @include e(button) {
+        border: none;
+        background-color: $--carousel-indicator-color;
+        height: $--carousel-indicator-height;
+
+        @include m(horizontal) {
+          width: $--carousel-indicator-width;
+        }
+
+        @include m(vertical) {
+          width: $--carousel-indicator-vertical-width;
+        }
+
+        @include when(active) {
+          transform-origin: 0% 50%;
+          transition: transform 0.3s ease-in-out;
+          transform: scale($--carousel-indicator-active-scale);
+          background-color: $--carousel-indicator-active-color;
+        }
+      }
+    }
+  }
 }
 
 .carousel-arrow-left-enter-from,

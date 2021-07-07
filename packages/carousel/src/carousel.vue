@@ -8,7 +8,7 @@
   >
     <transition name="carousel-arrow-left">
       <button
-        v-if="data.hover"
+        v-if="raDirection === 'horizontal' && data.hover"
         class="ra-carousel__arrow ra-carousel__arrow--left"
         @click.stop="thottledArrowClick('left')"
       >
@@ -18,7 +18,7 @@
 
     <transition name="carousel-arrow-right">
       <button
-        v-if="data.hover"
+        v-if="raDirection === 'horizontal' && data.hover"
         class="ra-carousel__arrow ra-carousel__arrow--right"
         @click.stop="thottledArrowClick('right')"
       >
@@ -26,11 +26,38 @@
       </button>
     </transition>
     <slot></slot>
+    <div
+      class="ra-carousel__indicator"
+      :class="[
+        raDirection === 'horizontal'
+          ? 'ra-carousel__indicator--horizontal'
+          : raDirection === 'vertical'
+            ? 'ra-carousel__indicator--vertical'
+            : '',
+      ]"
+    >
+      <div
+        v-for="(item, index) in data.itemReactLength"
+        :key="index"
+        class="ra-carousel__item"
+        @click="indicatorClick(index)"
+      >
+        <button
+          class="ra-carousel__button"
+          :class="{
+            'is-active': index === activeIndex,
+            'ra-carousel__button--horizontal': raDirection === 'horizontal',
+            'ra-carousel__button--vertical': raDirection === 'vertical',
+          }"
+        ></button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { throttle } from 'lodash';
+import ResizeObserver from 'resize-observer-polyfill';
 import {
   defineComponent,
   nextTick,
@@ -52,52 +79,55 @@ export default defineComponent({
   props: {
     raHeight: {
       type: String,
-      defalut: '',
+      default: '',
     },
     raInitialIndex: {
       type: Number,
-      defalut: 0,
+      default: 0,
     },
     raAutoplay: {
       type: Boolean,
-      defalut: false,
+      default: false,
     },
     raInterval: {
       type: Number,
-      defalut: 0,
+      default: 0,
     },
     raArrow: {
       type: String,
-      defalut: 'always',
+      default: 'always',
     },
     raType: {
       type: String,
-      defalut: undefined,
+      default: undefined,
     },
     raLoop: {
       type: Boolean,
-      defalut: true,
+      default: true,
     },
     raDirection: {
       type: String,
-      defalut: 'horizontal',
+      default: 'horizontal',
     },
     raPauseOnHover: {
       type: Boolean,
-      defalut: false,
+      default: false,
     },
   },
   emits: ['raChange'],
-  setup(props: Readonly<TCarouselProps>, { emit }) {
+  setup(props: TCarouselProps, { emit }) {
     //ref
     const itemReact = reactive<ICarouselItem[]>([]);
     const root = ref<HTMLDivElement>();
     const offsetWidth = ref<number>();
+    const offsetHeight = ref<number>();
     const activeIndex = ref<number>(0);
     const timerSign = ref<any>(null);
     const direction = ref<TClickType>('right');
+    const ro = new ResizeObserver(setTheOffset);
     const data = reactive({
       hover: false,
+      itemReactLength: 0,
     });
 
     // watch
@@ -108,19 +138,17 @@ export default defineComponent({
     // mounted
     onMounted(() => {
       autoplay();
+      ro.observe(root.value);
+      setTheOffset();
       nextTick(() => {
-        if (root.value) {
-          offsetWidth.value = root.value.offsetWidth;
-          window.addEventListener('resize', () => {
-            offsetWidth.value = root.value.offsetWidth;
-          });
-          resetItemTransition();
-        }
+        resetItemTransition();
       });
+      data.itemReactLength = itemReact.length;
     });
 
     // ondestroy
     onUnmounted(() => {
+      ro.unobserve(root.value);
       clearInterval(timerSign.value);
     });
 
@@ -129,6 +157,12 @@ export default defineComponent({
       itemReact.forEach((item, index) => {
         item.transformItem(index, activeIndex.value, false);
       });
+    }
+
+    function setTheOffset() {
+      props.raDirection === 'horizontal'
+        ? (offsetWidth.value = root.value.offsetWidth)
+        : (offsetHeight.value = root.value.offsetHeight);
     }
 
     function handleMouseEnter() {
@@ -149,6 +183,13 @@ export default defineComponent({
 
     function RaSetActiveItem(targetIndex: number) {
       activeIndex.value = targetIndex;
+    }
+
+    function indicatorClick(index: number) {
+      if (activeIndex.value > index) direction.value = 'left';
+      else if (activeIndex.value < index) direction.value = 'right';
+      activeIndex.value = index;
+      transformItem();
     }
 
     const thottledArrowClick = throttle((clickType: TClickType) => {
@@ -181,9 +222,10 @@ export default defineComponent({
       }, props.raInterval);
     }
 
-    const carouselProvide = { itemReact, offsetWidth, direction };
+    const carouselProvide = { offsetHeight, itemReact, offsetWidth, direction };
     provide(CAROUSEL_ITEM_PROVIDETOKEN, carouselProvide);
     return {
+      indicatorClick,
       props,
       root,
       thottledArrowClick,
