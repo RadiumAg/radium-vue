@@ -5,7 +5,8 @@ module.exports = function(source = '') {
               import demo from 'Pages/component/demo.vue';
               import { useRootStore } from 'Core';
               import { SET_EL_MUTATION } from 'Core/state/component-link';
-              import { defineComponent,watch,ref } from 'vue';
+              import { defineComponent,watch,ref,onMounted } from 'vue';
+              import hljs from 'highlight.js';
               export default defineComponent({
                    components: {
                      demo
@@ -15,6 +16,9 @@ module.exports = function(source = '') {
                     const rootStore = useRootStore();
                     watch(componentRightRef, () => {
                         rootStore.commit(SET_EL_MUTATION, { el: componentRightRef });
+                    });
+                    onMounted(() => {
+                      hljs.highlightAll();
                     });
                     return {
                       componentRightRef,

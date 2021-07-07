@@ -53,6 +53,7 @@
     }
 
     @include e(item) {
+      display: inline-flex;
       padding: $--carousel-indicator-padding;
 
       @include e(button) {

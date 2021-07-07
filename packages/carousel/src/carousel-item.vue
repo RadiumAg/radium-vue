@@ -45,14 +45,12 @@ export default defineComponent({
       active: boolean;
       animating: boolean;
     }>({ active: false, animating: false });
-    console.log(CAROUSEL_PROVIDE);
     let direction: 'horizontal' | 'vertical' = undefined;
 
     watchEffect(() => {
       direction = CAROUSEL_PROVIDE.offsetWidth.value
         ? 'horizontal'
         : 'vertical';
-      console.log(direction);
     });
 
     // fun
@@ -87,9 +85,7 @@ export default defineComponent({
     function processIndex(index: number, activeIndex: number, length: number) {
       if (activeIndex === length - 1 && index === 0) {
         index = length;
-      }
-
-      if (activeIndex === 0 && index === length - 1) {
+      } else if (activeIndex === 0 && index === length - 1) {
         index = -1;
       }
       return index;
@@ -98,19 +94,34 @@ export default defineComponent({
     // difficult to resolve
     function isAnimating(index: number, activeIndex: number, length: number) {
       data.animating = false;
-      if (index === activeIndex) {
+      if (
+        index === activeIndex ||
+        index === CAROUSEL_PROVIDE.oldActiveIndex.value
+      ) {
         data.animating = true;
       }
-      if (CAROUSEL_PROVIDE.direction.value === 'left') {
-        if (activeIndex === length - 1 && index === 0) {
-          data.animating = true;
-        } else if (index === activeIndex + 1) {
+
+      if (
+        (activeIndex === 0 &&
+          CAROUSEL_PROVIDE.oldActiveIndex.value === length - 1) ||
+        (activeIndex === length - 1 &&
+          CAROUSEL_PROVIDE.oldActiveIndex.value === 0)
+      ) {
+        return;
+      }
+
+      if (activeIndex > CAROUSEL_PROVIDE.oldActiveIndex.value) {
+        if (
+          index <= activeIndex &&
+          index >= CAROUSEL_PROVIDE.oldActiveIndex.value
+        ) {
           data.animating = true;
         }
-      } else if (CAROUSEL_PROVIDE.direction.value === 'right') {
-        if (activeIndex === 0 && index === length - 1) {
-          data.animating = true;
-        } else if (index === activeIndex - 1) {
+      } else if (activeIndex < CAROUSEL_PROVIDE.oldActiveIndex.value) {
+        if (
+          index >= activeIndex &&
+          index <= CAROUSEL_PROVIDE.oldActiveIndex.value
+        ) {
           data.animating = true;
         }
       }

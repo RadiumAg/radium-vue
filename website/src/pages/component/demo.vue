@@ -13,16 +13,16 @@
       >
         <slot name="source"></slot>
       </div>
-      <div class="demo_drawer" @click="demoDrawerClick">
-        {{ demoDrawerTitle }}
-      </div>
+    </div>
+    <div class="demo_drawer" @click="demoDrawerClick">
+      {{ demoDrawerTitle }}
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import hljs from 'highlight.js';
-import { computed, defineComponent, nextTick, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 
 export default defineComponent({
   name: 'Demo',
@@ -63,7 +63,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .demo {
-  overflow: hidden;
   margin-top: 10px;
   height: max-content;
   border: 1px solid #ebebeb;
@@ -77,28 +76,25 @@ export default defineComponent({
   }
 
   .demo_source_content {
-    transition: all 0.3s ease-in-out;
+    transition: all 0.1s ease-in-out;
   }
 
   .demo_source {
-    width: 100%;
     overflow: hidden;
-    padding-top: 20px;
+    width: 100%;
     border-top: 1px solid #ebebeb;
     position: relative;
   }
 
   .demo_drawer {
+    color: aqua;
     width: 100%;
     display: flex;
     font-size: 14px;
     align-content: center;
     justify-content: center;
     overflow: hidden;
-    height: 21px;
-    position: absolute;
-    color: aqua;
-    bottom: 0;
+    line-height: 50px;
     user-select: none;
     cursor: pointer;
     border-top: 1px solid #ebebeb;

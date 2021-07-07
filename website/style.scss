@@ -41,6 +41,12 @@ div#app {
   p {
     color: $font-color;
     font-size: 12px;
+    & > code {
+      background-color: #f9fafc;
+      padding: 0 4px;
+      border: 1px solid #eaeefb;
+      border-radius: 4px;
+    }
   }
 
   table {

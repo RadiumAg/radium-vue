@@ -40,8 +40,8 @@ export interface ICarouselItemProps {
 export interface ICarouselProvide {
   offsetHeight: Ref<number>;
   offsetWidth: Ref<number>;
+  oldActiveIndex: Ref<number>;
   itemReact: ICarouselItem[];
-  direction: Ref<TClickType>;
 }
 
 export const CAROUSEL_ITEM_PROVIDETOKEN = 'CAROUSEL_PROVIDE';

@@ -32,8 +32,8 @@
         raDirection === 'horizontal'
           ? 'ra-carousel__indicator--horizontal'
           : raDirection === 'vertical'
-            ? 'ra-carousel__indicator--vertical'
-            : '',
+          ? 'ra-carousel__indicator--vertical'
+          : '',
       ]"
     >
       <div
@@ -71,6 +71,7 @@ import {
 import {
   CAROUSEL_ITEM_PROVIDETOKEN,
   ICarouselItem,
+  ICarouselProvide,
   TCarouselProps,
   TClickType,
 } from './carousel';
@@ -122,8 +123,8 @@ export default defineComponent({
     const offsetWidth = ref<number>();
     const offsetHeight = ref<number>();
     const activeIndex = ref<number>(0);
+    const oldActiveIndex = ref<number>(0);
     const timerSign = ref<any>(null);
-    const direction = ref<TClickType>('right');
     const ro = new ResizeObserver(setTheOffset);
     const data = reactive({
       hover: false,
@@ -132,6 +133,7 @@ export default defineComponent({
 
     // watch
     watch(activeIndex, () => {
+      transformItem();
       emit('raChange');
     });
 
@@ -181,27 +183,19 @@ export default defineComponent({
       });
     }
 
-    function RaSetActiveItem(targetIndex: number) {
-      activeIndex.value = targetIndex;
-    }
-
     function indicatorClick(index: number) {
-      if (activeIndex.value > index) direction.value = 'left';
-      else if (activeIndex.value < index) direction.value = 'right';
+      setTheOldActiveIndex();
       activeIndex.value = index;
-      transformItem();
     }
 
     const thottledArrowClick = throttle((clickType: TClickType) => {
+      setTheOldActiveIndex();
       if (clickType === 'left') {
-        direction.value = 'left';
         activeIndex.value = activeIndex.value - 1;
       } else if (clickType === 'right') {
-        direction.value = 'right';
         activeIndex.value = activeIndex.value + 1;
       }
       processActiveIndex();
-      transformItem();
     }, 400);
 
     function processActiveIndex() {
@@ -212,28 +206,49 @@ export default defineComponent({
       }
     }
 
-    //methods
     function autoplay() {
       if (!props.raAutoplay) return;
       timerSign.value = setInterval(() => {
+        setTheOldActiveIndex();
         activeIndex.value++;
         processActiveIndex();
-        transformItem();
       }, props.raInterval);
     }
 
-    const carouselProvide = { offsetHeight, itemReact, offsetWidth, direction };
-    provide(CAROUSEL_ITEM_PROVIDETOKEN, carouselProvide);
+    function setTheOldActiveIndex() {
+      oldActiveIndex.value = activeIndex.value;
+    }
+
+    //methods
+    function raSetActiveItem(targetIndex: number) {
+      setTheOldActiveIndex();
+      activeIndex.value = targetIndex;
+    }
+
+    function raPrev() {
+      setTheOldActiveIndex();
+      activeIndex.value--;
+    }
+
+    const carouselProvide = {
+      offsetHeight,
+      itemReact,
+      offsetWidth,
+      oldActiveIndex,
+    };
+    provide<ICarouselProvide>(CAROUSEL_ITEM_PROVIDETOKEN, carouselProvide);
+
     return {
       indicatorClick,
       props,
       root,
       thottledArrowClick,
       data,
-      RaSetActiveItem,
+      raSetActiveItem,
       activeIndex,
       handleMouseEnter,
       handleMouseLeave,
+      raPrev,
     };
   },
 });
