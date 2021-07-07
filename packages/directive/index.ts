@@ -1,4 +1,4 @@
-import { ripple } from '@radium-vue/ripple';
+import ripple from '@radium-vue/ripple';
 import { App } from 'vue';
 
 const directives = [ripple];

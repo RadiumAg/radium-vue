@@ -6,7 +6,7 @@ import { isNull } from 'lodash';
 const processSpeed = 0.03;
 const translationDuration = 200;
 
-export const ripple: TRadiumDirectvie = {
+const ripple: TRadiumDirectvie = {
   name: 'ripple',
   mounted(el: HTMLElement) {
     const rippleContainer = document.createElement('div');
@@ -20,7 +20,6 @@ export const ripple: TRadiumDirectvie = {
           rippleEl.style.transform.match(/[0-1]\.?[0-9]{0,4}/g)[2],
         ) + processSpeed;
 
-      console.log(Reflect.get(rippleEl, 'isMouseUp'));
       if (rippleScale > 1 && Reflect.get(rippleEl, 'isMouseUp')) {
         endFadeOut(rippleEl);
         return;
@@ -79,3 +78,5 @@ export const ripple: TRadiumDirectvie = {
     on(rippleContainer, 'mousedown', startFadeIn);
   },
 };
+
+export default ripple;

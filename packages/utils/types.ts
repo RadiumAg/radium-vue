@@ -1,5 +1,7 @@
-import type { App, Directive } from 'vue';
+import { App, Directive } from 'vue';
 
-export type SFCWithInstall<T> = T & { install(app: App): void; }
+export type SFCWithInstall<T> = T & { install(app: App): void };
 
-export type TRadiumDirectvie = Directive & { name:string } &{[key:string]:unknown};
+export type TRadiumDirectvie = Directive & { name: string } & {
+  [key: string]: unknown;
+};

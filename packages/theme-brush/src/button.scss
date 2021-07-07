@@ -1,0 +1,23 @@
+@use "sass:math";
+
+@import './mixins/mixins';
+@import './common/var';
+
+
+@include b(button) {
+    color:$--button-default-font-color;
+    background-color: $--button-default-background-color;
+    border: 1px solid $--button-default-border-color;
+    font-size: $--button-font-size;
+    font-weight: $--button-font-weight;
+    padding: #{$--button-padding-vertical} #{$--button-padding-horizontal};
+    border-radius: $--button-border-radius;
+    cursor: pointer;
+
+
+    @include m(pirmary){
+        border: $--button-primary-border-color;
+        color: $--button-primary-font-color;
+        background-color:  $--button-primary-background-color;
+    }
+}
