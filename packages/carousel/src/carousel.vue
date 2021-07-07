@@ -150,7 +150,7 @@ export default defineComponent({
 
     // ondestroy
     onUnmounted(() => {
-      ro.unobserve(root.value);
+      ro && ro.unobserve(root.value);
       clearInterval(timerSign.value);
     });
 

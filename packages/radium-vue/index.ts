@@ -1,31 +1,31 @@
-import type { App } from 'vue';
+import { App } from 'vue';
 
+import directiveInstall from '@radium-vue/directive';
 import RaCarousel from '@radium-vue/carousel';
 import RaCarouselItem from '@radium-vue/carousel-item';
 import RaRow from '@radium-vue/row';
 import RaCol from '@radium-vue/col';
 import RaScrollBar from '@radium-vue/scrollbar';
-import directiveInstall from  '@radium-vue/directive';
+import RaButton from '@radium-vue/button';
 
-const components = [RaCarousel,RaCarouselItem,RaRow,RaCol,RaScrollBar];
+const components = [
+  RaCarousel,
+  RaCarouselItem,
+  RaRow,
+  RaCol,
+  RaScrollBar,
+  RaButton,
+];
 
-const  install = (app:App)=>{
-  components.forEach(compoennt=>{
-    app.component(compoennt.name,compoennt);
+const install = (app: App) => {
+  components.forEach(compoennt => {
+    app.component(compoennt.name, compoennt);
   });
   directiveInstall(app);
 };
 
-
-export {
-  RaCarousel,
-  RaCarouselItem ,
-  RaRow ,
-  RaCol,
-  RaScrollBar,
-};
+export { RaCarousel, RaCarouselItem, RaRow, RaCol, RaScrollBar };
 
 export default {
   install,
 };
-

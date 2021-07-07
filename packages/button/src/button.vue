@@ -1,10 +1,10 @@
 <template>
-  <button></button>
+  <button v-ripple style="position:relative">1</button>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 export default defineComponent({
-  name: 'ElButton',
+  name: 'RaButton',
   props: {},
   setup() {
     // init here
