@@ -1,5 +1,6 @@
 @use "sass:math";
 
+@import './mixins/button';
 @import './mixins/mixins';
 @import './common/var';
 
@@ -10,46 +11,86 @@
   font-size: $--button-font-size;
   border-radius: $--button-border-radius;
   overflow: hidden;
-  
+  outline: none;
+  user-select: none;
+
+  @include when(round) {
+    border-radius: 25px;
+  }
+
+  @include when(circle) {
+    border-radius: 50%;
+    padding: 15px;
+  }
   // type
   @include m(default) {
+    border: 1px solid $--button-default-border-color;
     color: $--button-default-font-color;
     background-color: $--button-default-background-color;
-    border: 1px solid $--button-default-border-color;
 
-    @include when(plain){}
+    &:focus {
+      background-color: $--ripple-background-color;
+    }
+
+    @include when(plain) {
+      background-color: $--color-white;
+    }
   }
 
   @include m(primary) {
-    border: $--button-primary-border-color;
-    color: $--button-primary-font-color;
-    background-color: $--button-primary-background-color;
+    @include button-type(
+      $--button-primary-border-color,
+      $--button-primary-font-color,
+      $--button-primary-background-color
+    );
   }
 
   @include m(success) {
-    border: $--button-success-border-color;
-    color: $--button-success-font-color;
-    background-color: $--button-success-background-color;
+    @include button-type(
+      $--button-success-border-color,
+      $--button-success-font-color,
+      $--button-success-background-color
+    );
   }
 
   @include m(warning) {
-    border: $--button-warning-border-color;
-    color: $--button-warning-font-color;
-    background-color: $--button-warning-background-color;
+    @include button-type(
+      $--button-warning-border-color,
+      $--button-warning-font-color,
+      $--button-warning-background-color
+    );
   }
 
   @include m(danger) {
-    border: $--button-danger-border-color;
-    color: $--button-danger-font-color;
-    background-color: $--button-danger-background-color;
+    @include button-type(
+      $--button-danger-border-color,
+      $--button-danger-font-color,
+      $--button-danger-background-color
+    );
   }
 
   @include m(info) {
-    border: $--button-info-border-color;
-    color: $--button-info-font-color;
-    background-color: $--button-info-background-color;
+    @include button-type(
+      $--button-info-border-color,
+      $--button-info-font-color,
+      $--button-info-background-color
+    );
   }
-  
+
+  @include m(text) {
+    border: none;
+    background-color: transparent;
+    color: mix($--color-white, $--button-primary-background-color, 60%);
+
+    &:active {
+      color: $--button-primary-background-color;
+    }
+
+    @include when(disabled) {
+      color: mix($--color-white, $--button-primary-background-color, 40%);
+      cursor: not-allowed;
+    }
+  }
 
   // size
   @include m(medium) {

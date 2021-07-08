@@ -39,6 +39,12 @@ div#app {
     font-weight: 400;
   }
 
+  pre > code {
+    background-color: #f9fafc;
+    padding-bottom: 10px;
+    border: 1px solid #eaeefb;
+  }
+
   p {
     color: $font-color;
     font-size: 12px;

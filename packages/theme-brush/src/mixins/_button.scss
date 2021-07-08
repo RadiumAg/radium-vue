@@ -1,0 +1,62 @@
+@import '../common/var';
+
+// mixin
+@mixin button-type($border-color, $font-color, $background-color) {
+  background-color: $background-color;
+  border: 1px solid $border-color;
+  color: $font-color;
+
+  &:focus {
+    background-color: mix(
+      $--color-white,
+      $background-color,
+      $--button-hover-tint-percent
+    );
+    border-color: mix(
+      $--color-white,
+      $border-color,
+      $--button-hover-tint-percent
+    );
+  }
+
+  @include when(disabled) {
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      color: $--color-white;
+      background-color: mix($background-color, $--color-white);
+      border-color: mix($border-color, $--color-white);
+      cursor: not-allowed;
+    }
+  }
+
+  @include when(plain) {
+    @include button-plain($border-color);
+  }
+}
+
+@mixin button-plain($font-color) {
+  color: $font-color;
+  background-color: mix($--color-white, $font-color, 90%);
+  border-color: mix($--color-white, $font-color, 60%);
+
+  &:hover,
+  &:focus {
+    background-color: $font-color;
+    border-color: $font-color;
+    color: $--color-white;
+  }
+
+  @include when(disabled) {
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      color: mix($--color-white, $font-color, 40%);
+      background-color: mix($--color-white, $font-color, 90%);
+      border-color: mix($--color-white, $font-color, 80%);
+      cursor: not-allowed;
+    }
+  }
+}

@@ -13,7 +13,7 @@
 
   @include e(item) {
     position: absolute;
-    background-color: rgba(0, 0, 0, .1);
+    background-color: $--ripple-background-color;
     transform-origin: 50% 50%;
     border-radius: 50%;
     opacity: 1;

@@ -82,7 +82,6 @@ export default defineComponent({
   .demo_source {
     overflow: hidden;
     width: 100%;
-    border-top: 1px solid #ebebeb;
     position: relative;
   }
 

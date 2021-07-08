@@ -847,3 +847,6 @@ $--breakpoints-spec: (
   'lg-and-down': '(max-width: #{$--xl})',
   'xl-only': '(min-width: #{$--xl})',
 ) !default;
+
+// ripple
+$--ripple-background-color: rgba(0, 0, 0, .1);

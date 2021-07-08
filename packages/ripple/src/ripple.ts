@@ -1,16 +1,18 @@
 import { on } from '@radium-vue/utils/dom';
-import { TRadiumDirectvie } from '@radium-vue/utils/types';
+import { TRadiumDirective } from '@radium-vue/utils/types';
 import { RadiumSqrt } from '@radium-vue/utils/common';
 import { isNull } from 'lodash';
 
 const processSpeed = 0.03;
 const translationDuration = 200;
 
-const ripple: TRadiumDirectvie = {
+const ripple: TRadiumDirective<HTMLElement, boolean> = {
   name: 'ripple',
-  mounted(el: HTMLElement) {
+  mounted(el, binding) {
+    if (!binding.value) {
+      return;
+    }
     const rippleContainer = document.createElement('div');
-    const clientReact = el.getBoundingClientRect();
     let diameter = 0;
     rippleContainer.className = 'ra-ripple';
     el.appendChild(rippleContainer);
@@ -35,10 +37,11 @@ const ripple: TRadiumDirectvie = {
       if (event.button === 2) {
         return;
       }
+      const clientReact = el.getBoundingClientRect();
       const rippleEl = document.createElement('div');
       diameter = RadiumSqrt(el.clientHeight, el.clientWidth) * 2;
-      rippleEl.style.top = event.clientY - clientReact.top + 'px';
-      rippleEl.style.left = event.clientX - clientReact.left + 'px';
+      rippleEl.style.top = event.clientY - clientReact.y + 'px';
+      rippleEl.style.left = event.clientX - clientReact.x + 'px';
       setTheRippleEL(rippleEl);
       setTheRippleElSize(rippleEl);
       rippleContainer.appendChild(rippleEl);

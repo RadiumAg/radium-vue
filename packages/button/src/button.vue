@@ -1,18 +1,19 @@
 <template>
   <button
-    v-ripple
+    v-ripple="!raDisabled && raType !== 'text'"
     class="ra-button"
     :class="[...buttonClass]"
     style="position:relative"
   >
-    <slot></slot>
+    <i v-if="raLoading" class="ra-icon-loading"></i>
+    <slot v-if="$slots.default"></slot>
     <i v-if="iconClass.length != 0" :class="iconClass"></i>
   </button>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { IButtonPorps } from './button';
+import { IButtonProps } from './button';
 export default defineComponent({
   name: 'RaButton',
   props: {
@@ -26,24 +27,45 @@ export default defineComponent({
     },
     raIcon: {
       type: String,
-      defalut: '',
+      default: '',
     },
     raPlain: {
       type: Boolean,
-      defalut: false,
+      default: false,
+    },
+    raRound: {
+      type: Boolean,
+      default: false,
+    },
+    raCircle: {
+      type: Boolean,
+      default: false,
+    },
+    raDisabled: {
+      type: Boolean,
+      default: false,
+    },
+    raLoading: {
+      type: Boolean,
+      default: false,
     },
   },
-  setup(porps: IButtonPorps) {
+  setup(props: IButtonProps) {
     // init here
     const buttonClass = computed(() => {
       const res = [];
-      res.push(`ra-button--${porps.raType}`);
-      res.push(`ra-button--${porps.raSize}`);
+      props.raType && res.push(`ra-button--${props.raType}`);
+      props.raSize && res.push(`ra-button--${props.raSize}`);
+      props.raPlain && res.push('is-plain');
+      props.raRound && res.push('is-round');
+      props.raCircle && res.push('is-circle');
+      props.raDisabled && res.push('is-disabled');
       return res;
     });
+
     const iconClass = computed(() => {
       const res = [];
-      res.push(porps.raIcon);
+      res.push(props.raIcon);
       return res;
     });
 

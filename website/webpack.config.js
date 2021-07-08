@@ -7,7 +7,7 @@ module.exports = {
   mode: process.env.NODE_ENV,
   entry: resolve(__dirname, './main.ts'),
   output: {
-    filename: '[name].[hash].js',
+    filename: '[name].[contenthash].js',
     path: resolve(__dirname + '../website-dist'),
     clean: true,
     publicPath: '/',
