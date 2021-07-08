@@ -42,6 +42,7 @@ export interface ICarouselProvide {
   offsetWidth: Ref<number>;
   oldActiveIndex: Ref<number>;
   itemReact: ICarouselItem[];
+  isLoop: Ref<boolean>;
 }
 
 export const CAROUSEL_ITEM_PROVIDETOKEN = 'CAROUSEL_PROVIDE';

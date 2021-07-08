@@ -35,6 +35,9 @@ export default defineComponent({
       return componentNavConfigs[this.localLanguage];
     },
   },
+  mounted() {
+    console.log(this.$refs);
+  },
   methods: {
     routerNav(path: string) {
       return `${path}`;

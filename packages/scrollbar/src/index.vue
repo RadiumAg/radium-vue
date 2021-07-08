@@ -152,7 +152,7 @@ export default defineComponent({
     });
 
     onUnmounted(() => {
-      ro && scrollBarRef.value && ro.unobserve(scrollBarRef.value);
+      ro.disconnect();
       off(window, 'resize', update);
     });
 

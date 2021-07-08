@@ -1,5 +1,16 @@
-import { PropType } from 'vue';
+export type TButtonType =
+  | 'primary'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'info'
+  | 'text'
+  | 'default';
 
-export type TButtonType = PropType<
-  'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text' | 'default'
->;
+export type TButtonSize = 'medium' | 'small' | 'mini';
+
+export interface IButtonPorps {
+  raType: TButtonType;
+  raSize: TButtonSize;
+  raIcon: string;
+}

@@ -200,10 +200,33 @@
 /* Break-point
 --------------------------*/
 .ra-button {
-  color: #606266;
-  background-color: #ffffff;
-  border: 1px solid #dcdfe6;
-  font-size: 14px;
   font-weight: 500;
   padding: 12px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  color: "$--button-default-font-color";
+  background-color: "$--button-default-background-color";
+  border: 1px solid "$--button-default-border-color";
+  color: "$--button-primary-font-color";
+  background-color: "$--button-primary-background-color";
+  border: 1px solid "$--button-primary-border-color";
+  color: "$--button-success-font-color";
+  background-color: "$--button-success-background-color";
+  border: 1px solid "$--button-success-border-color";
+  color: "$--button-warning-font-color";
+  background-color: "$--button-warning-background-color";
+  border: 1px solid "$--button-warning-border-color";
+  color: "$--button-danger-font-color";
+  background-color: "$--button-danger-background-color";
+  border: 1px solid "$--button-danger-border-color";
+  color: "$--button-info-font-color";
+  background-color: "$--button-info-background-color";
+  border: 1px solid "$--button-info-border-color";
+  color: "$--button-text-font-color";
+  background-color: "$--button-text-background-color";
+  border: 1px solid "$--button-text-border-color";
+  font-size: "$--button-medium-font-size";
+  border-radius: "$--button-medium-border-radius";
+  padding: "$--button-medium-padding-vertical" "$--button-medium-padding-horizontal";
 }

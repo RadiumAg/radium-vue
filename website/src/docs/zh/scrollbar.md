@@ -48,5 +48,5 @@
 
 | 参数      | 说明               | 回调参数               |
 | :-------- | :----------------- | ---------------------- |
-| ra-height | 滚动时报告滚动位置 | [scrollLeft,ScrollTop] |
+| ra-scroll | 滚动时报告滚动位置 | [scrollLeft,ScrollTop] |
 

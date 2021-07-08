@@ -92,16 +92,16 @@ export default defineComponent({
     },
     raInterval: {
       type: Number,
-      default: 0,
+      default: 1000,
     },
-    raArrow: {
-      type: String,
-      default: 'always',
-    },
-    raType: {
-      type: String,
-      default: undefined,
-    },
+    // raArrow: {
+    //   type: String,
+    //   default: 'always',
+    // },
+    // raType: {
+    //   type: String,
+    //   default: undefined,
+    // },
     raLoop: {
       type: Boolean,
       default: true,
@@ -134,11 +134,12 @@ export default defineComponent({
     // watch
     watch(activeIndex, () => {
       transformItem();
-      emit('raChange');
+      emit('raChange', activeIndex);
     });
 
     // mounted
     onMounted(() => {
+      activeIndex.value = props.raInitialIndex;
       autoplay();
       ro.observe(root.value);
       setTheOffset();
@@ -150,7 +151,7 @@ export default defineComponent({
 
     // ondestroy
     onUnmounted(() => {
-      ro && ro.unobserve(root.value);
+      ro.disconnect();
       clearInterval(timerSign.value);
     });
 
@@ -230,13 +231,18 @@ export default defineComponent({
       activeIndex.value--;
     }
 
-    const carouselProvide = {
+    function raNext() {
+      setTheOldActiveIndex();
+      activeIndex.value++;
+    }
+
+    provide<ICarouselProvide>(CAROUSEL_ITEM_PROVIDETOKEN, {
       offsetHeight,
       itemReact,
       offsetWidth,
       oldActiveIndex,
-    };
-    provide<ICarouselProvide>(CAROUSEL_ITEM_PROVIDETOKEN, carouselProvide);
+      isLoop: ref(props.raLoop),
+    });
 
     return {
       indicatorClick,
@@ -249,6 +255,7 @@ export default defineComponent({
       handleMouseEnter,
       handleMouseLeave,
       raPrev,
+      raNext,
     };
   },
 });

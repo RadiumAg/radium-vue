@@ -3,21 +3,69 @@
 @import './mixins/mixins';
 @import './common/var';
 
-
 @include b(button) {
-    color:$--button-default-font-color;
+  font-weight: $--button-font-weight;
+  padding: #{$--button-padding-vertical} #{$--button-padding-horizontal};
+  cursor: pointer;
+  font-size: $--button-font-size;
+  border-radius: $--button-border-radius;
+  overflow: hidden;
+  
+  // type
+  @include m(default) {
+    color: $--button-default-font-color;
     background-color: $--button-default-background-color;
     border: 1px solid $--button-default-border-color;
-    font-size: $--button-font-size;
-    font-weight: $--button-font-weight;
-    padding: #{$--button-padding-vertical} #{$--button-padding-horizontal};
-    border-radius: $--button-border-radius;
-    cursor: pointer;
 
+    @include when(plain){}
+  }
 
-    @include m(pirmary){
-        border: $--button-primary-border-color;
-        color: $--button-primary-font-color;
-        background-color:  $--button-primary-background-color;
-    }
+  @include m(primary) {
+    border: $--button-primary-border-color;
+    color: $--button-primary-font-color;
+    background-color: $--button-primary-background-color;
+  }
+
+  @include m(success) {
+    border: $--button-success-border-color;
+    color: $--button-success-font-color;
+    background-color: $--button-success-background-color;
+  }
+
+  @include m(warning) {
+    border: $--button-warning-border-color;
+    color: $--button-warning-font-color;
+    background-color: $--button-warning-background-color;
+  }
+
+  @include m(danger) {
+    border: $--button-danger-border-color;
+    color: $--button-danger-font-color;
+    background-color: $--button-danger-background-color;
+  }
+
+  @include m(info) {
+    border: $--button-info-border-color;
+    color: $--button-info-font-color;
+    background-color: $--button-info-background-color;
+  }
+  
+
+  // size
+  @include m(medium) {
+    font-size: $--button-medium-font-size;
+    padding: #{$--button-medium-padding-vertical} #{$--button-medium-padding-horizontal};
+  }
+
+  @include m(small) {
+    font-size: $--button-small-font-size;
+    border-radius: $--button-small-border-radius;
+    padding: #{$--button-small-padding-vertical} #{$--button-small-padding-horizontal};
+  }
+
+  @include m(mini) {
+    font-size: $--button-mini-font-size;
+    border-radius: 1px solid $--button-mini-border-radius;
+    padding: #{$--button-mini-padding-vertical} #{$--button-medium-padding-horizontal};
+  }
 }
