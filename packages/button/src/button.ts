@@ -13,4 +13,5 @@ export interface IButtonPorps {
   raType: TButtonType;
   raSize: TButtonSize;
   raIcon: string;
+  raPlain: boolean;
 }
