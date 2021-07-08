@@ -60,3 +60,14 @@
     }
   }
 }
+
+@mixin button-size(
+  $font-size,
+  $padding-vertical,
+  $padding-horizontal,
+  $border-radius: unset
+) {
+  font-size: $font-size;
+  padding: $padding-vertical $padding-horizontal;
+  border-radius: $border-radius;
+}

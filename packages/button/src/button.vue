@@ -1,6 +1,6 @@
 <template>
   <button
-    v-ripple="!raDisabled && raType !== 'text'"
+    v-ripple="!raDisabled && raType !== 'text' && !raLoading"
     class="ra-button"
     :class="[...buttonClass]"
     style="position:relative"
@@ -60,6 +60,7 @@ export default defineComponent({
       props.raRound && res.push('is-round');
       props.raCircle && res.push('is-circle');
       props.raDisabled && res.push('is-disabled');
+      props.raLoading && res.push('is-disabled');
       return res;
     });
 

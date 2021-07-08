@@ -163,10 +163,23 @@
        <ra-button ra-disabled ra-type="text">文字按钮</ra-button>
     </ra-col>
 </ra-row>
-
 ```
 
 :::
 
 
+
+#### 加载按钮
+
+::: demo
+
+```html
+<ra-row class="ra-button-demo" :ra-gutter="[10,10]">
+    <ra-col>
+       <ra-button :ra-loading="true" ra-type="primary">加载中</ra-button>
+    </ra-col>
+</ra-row>
+```
+
+:::
 

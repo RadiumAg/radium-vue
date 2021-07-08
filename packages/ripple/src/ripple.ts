@@ -9,7 +9,7 @@ const translationDuration = 200;
 const ripple: TRadiumDirective<HTMLElement, boolean> = {
   name: 'ripple',
   mounted(el, binding) {
-    if (!binding.value) {
+    if (binding.value !== undefined && !binding.value) {
       return;
     }
     const rippleContainer = document.createElement('div');

@@ -71,6 +71,8 @@ $padding: 10px 50px;
   }
 
   .nav_item_link {
+    font-family: ubuntu, -apple-system, SF UI Text, Arial, PingFang SC,
+      Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
     width: 100%;
     position: relative;
     display: inline-block;
@@ -87,12 +89,12 @@ $padding: 10px 50px;
       height: 0;
       right: 0;
       top: 0;
-      border-right: 4px solid aqua;
+      border-right: 4px solid #409eff;
     }
   }
 
   .nav_item_link--active {
-    color: aqua;
+    color: #409eff;
     background: linear-gradient(270deg, #f8faff, rgba(248, 250, 255, 0));
     &::after {
       transition: all 0.3s ease-in-out;

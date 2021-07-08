@@ -1,6 +1,6 @@
 @use "sass:math";
 
-@import './mixins/button';
+@import './mixins/_button';
 @import './mixins/mixins';
 @import './common/var';
 
@@ -94,19 +94,28 @@
 
   // size
   @include m(medium) {
-    font-size: $--button-medium-font-size;
-    padding: #{$--button-medium-padding-vertical} #{$--button-medium-padding-horizontal};
+    @include button-size(
+      $--button-medium-font-size,
+      $--button-medium-padding-vertical,
+      $--button-medium-padding-horizontal
+    );
   }
 
   @include m(small) {
-    font-size: $--button-small-font-size;
-    border-radius: $--button-small-border-radius;
-    padding: #{$--button-small-padding-vertical} #{$--button-small-padding-horizontal};
+    @include button-size(
+      $--button-small-font-size,
+      $--button-small-padding-vertical,
+      $--button-small-padding-horizontal,
+      $--button-small-border-radius
+    );
   }
 
   @include m(mini) {
-    font-size: $--button-mini-font-size;
-    border-radius: 1px solid $--button-mini-border-radius;
-    padding: #{$--button-mini-padding-vertical} #{$--button-medium-padding-horizontal};
+    @include button-size(
+      $--button-mini-font-size,
+      $--button-mini-padding-vertical,
+      $--button-medium-padding-horizontal,
+      $--button-mini-border-radius
+    );
   }
 }
