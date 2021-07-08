@@ -5,4 +5,9 @@
 
 
 
-@include b(button-group){}
+@include b(button-group){
+    .ra-button {
+        border-radius: 0;
+    }
+    .ra-button:first-child
+}
