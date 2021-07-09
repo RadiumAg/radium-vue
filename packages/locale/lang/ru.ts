@@ -118,4 +118,4 @@ export default {
       cancelButtonText: 'Отмена',
     },
   },
-}
+};

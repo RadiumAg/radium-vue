@@ -1,7 +1,7 @@
-import { mount } from '@vue/test-utils'
-import CarouselItem from '../src/index.vue'
+import { mount } from '@vue/test-utils';
+import CarouselItem from '../src/index.vue';
 
-const AXIOM = 'Rem is the best girl'
+const AXIOM = 'Rem is the best girl';
 
 describe('CarouselItem.vue', () => {
   test('render test', () => {
@@ -9,7 +9,7 @@ describe('CarouselItem.vue', () => {
       slots: {
         default: AXIOM,
       },
-    })
-    expect(wrapper.text()).toEqual(AXIOM)
-  })
-})
+    });
+    expect(wrapper.text()).toEqual(AXIOM);
+  });
+});

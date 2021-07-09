@@ -1,7 +1,7 @@
-import { mount } from '@vue/test-utils'
-import Grid from '../src/index.vue'
+import { mount } from '@vue/test-utils';
+import Grid from '../src/index.vue';
 
-const AXIOM = 'Rem is the best girl'
+const AXIOM = 'Rem is the best girl';
 
 describe('Grid.vue', () => {
   test('render test', () => {
@@ -9,7 +9,7 @@ describe('Grid.vue', () => {
       slots: {
         default: AXIOM,
       },
-    })
-    expect(wrapper.text()).toEqual(AXIOM)
-  })
-})
+    });
+    expect(wrapper.text()).toEqual(AXIOM);
+  });
+});
