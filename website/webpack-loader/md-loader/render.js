@@ -3,8 +3,8 @@ module.exports = function(source = '') {
          <template><div ref="componentRightRef" class="demo_block">${source}</div></template>
          <script lang="ts">
               import demo from 'Pages/component/demo.vue';
-              import { useRootStore } from 'Core';
-              import { SET_EL_MUTATION } from 'Core/state/component-link';
+              import { useRootStore } from 'Core/vux-module';
+              import { SET_EL_MUTATION } from 'Core/vux-module/state/component-link';
               import { defineComponent,watch,ref,onMounted } from 'vue';
               import hljs from 'highlight.js';
               export default defineComponent({

@@ -115,7 +115,10 @@ export default defineComponent({
         (scrollBarRef.value.scrollTop / scrollBarRef.value.clientHeight) * 100;
       moveX.value =
         (scrollBarRef.value.scrollLeft / scrollBarRef.value.clientWidth) * 100;
-      emit('raScroll', [moveY.value, moveX.value]);
+      emit('raScroll', [
+        scrollBarRef.value.scrollLeft,
+        scrollBarRef.value.scrollTop,
+      ]);
     }
 
     function mouseenterHandler() {

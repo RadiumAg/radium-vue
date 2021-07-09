@@ -79,6 +79,7 @@ module.exports = {
   devServer: {
     port: 4500,
     hot: true,
+    host: '0.0.0.0',
     hotOnly: true,
     // open: true,
     publicPath: '/',

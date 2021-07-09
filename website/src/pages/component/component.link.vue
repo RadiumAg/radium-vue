@@ -5,6 +5,8 @@
       :key="index"
       :title="link_item.link"
       href="javascript:void 0"
+      :class="{ 'is-active': activeFlag[index] }"
+      @click="scrollTo(index)"
       >{{ link_item.text }}</a
     >
   </div>
@@ -16,13 +18,51 @@ export default defineComponent({
   name: 'ComponentLink',
   setup() {
     const store = useRootStore();
-    let links = ref([]);
-    watch(store.state, () => {
+    const activeFlag = ref<boolean[]>([]);
+    let links = ref<{ text: string; link: string }[]>([]);
+    let linkTagList = ref<HTMLElement[]>([]);
+
+    // methods
+    function scrollTo(index: number) {
+      scrollActive(index);
+      (store.state.component.scrollbarEl.refs[
+        'scrollBarRef'
+      ] as HTMLElement).scrollTo({
+        top: linkTagList.value[index].offsetTop,
+        behavior: 'smooth',
+      });
+    }
+
+    function scrollActive(index: number) {
+      activeFlag.value = activeFlag.value.map(() => false);
+      activeFlag.value[index] = true;
+    }
+
+    // watch
+    watch(store.state.component, () => {
+      linkTagList.value.forEach((el, index, array) => {
+        if (
+          Math.floor(store.state.component.scrollTop) >=
+          Math.floor(el.offsetTop)
+        ) {
+          scrollActive(index);
+        } else if (
+          Math.floor(store.state.component.scrollTop) <= el.offsetTop &&
+          index === 0
+        ) {
+          scrollActive(index);
+        }
+      });
+    });
+
+    watch(store.state.componentLink, () => {
       links.value = [];
       if (store.state.componentLink.sourceSlotEl) {
         const linkTags = store.state.componentLink.sourceSlotEl.getElementsByClassName(
           'header-anchor',
         );
+        linkTagList.value = Array.from(linkTags) as HTMLElement[];
+        setTheActiveFlag();
         Array.from(linkTags).forEach(el => {
           const linkHTag = document.getElementById(
             el.getAttribute('href').replace('#', ''),
@@ -35,8 +75,16 @@ export default defineComponent({
       }
     });
 
+    // func
+    function setTheActiveFlag() {
+      activeFlag.value.push(false);
+    }
+
     return {
       links,
+      scrollTo,
+      scrollActive,
+      activeFlag,
     };
   },
 });
@@ -60,6 +108,9 @@ export default defineComponent({
     font-size: 12px;
     padding-left: 10px;
     margin-top: 10px;
+    &.is-active {
+      color: #409eff;
+    }
   }
 }
 </style>

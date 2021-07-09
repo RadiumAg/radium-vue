@@ -32,7 +32,7 @@ module.exports = {
         alias: {
           Pages: './website/src/pages',
           Docs: './website/src/docs',
-          Core: './website/src/core/vux-module',
+          Core: './website/src/core',
         },
       },
     ],

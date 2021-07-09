@@ -3,8 +3,10 @@
     <component-nav />
     <div class="component_center">
       <ra-scrollbar
+        ref="componentCenterRef"
         ra-height="100%"
         :ra-wrap-style="[{ padding: '0px 280px 100px 280px' }]"
+        @ra-scroll="scroll($event)"
       >
         <router-view />
       </ra-scrollbar>
@@ -14,14 +16,41 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { ComponentInternalInstance, defineComponent, ref, watch } from 'vue';
 import ComponentNav from './component/component.nav.vue';
 import ComponentLink from './component/component.link.vue';
+import { useRootStore } from 'Core/vux-module';
+import {
+  SET_EL_COMPONENT_SCROLLBAR,
+  SET_EL_COMPONENT_SCROLLBAR_TOP,
+} from 'Core/vux-module/state/component';
+import { throttle } from 'lodash';
 export default defineComponent({
   name: 'Component',
   components: {
     ComponentNav,
     ComponentLink,
+  },
+  setup() {
+    const rootStore = useRootStore();
+    const componentCenterRef = ref<ComponentInternalInstance>(null);
+
+    watch(componentCenterRef, () => {
+      componentCenterRef.value &&
+        rootStore.commit(SET_EL_COMPONENT_SCROLLBAR, {
+          el: componentCenterRef.value['_'],
+        });
+    });
+
+    //func
+    const scroll = throttle(([scrollLeft, scrollTop]: [number, number]) => {
+      rootStore.commit(SET_EL_COMPONENT_SCROLLBAR_TOP, { scrollTop });
+    }, 500);
+
+    return {
+      componentCenterRef,
+      scroll,
+    };
   },
 });
 </script>
