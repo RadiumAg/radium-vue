@@ -47,7 +47,7 @@ div#app {
 
   p {
     color: $font-color;
-    font-size: 12px;
+    font-size: 14px;
     & > code {
       background-color: #f9fafc;
       padding: 0 4px;
@@ -66,19 +66,19 @@ div#app {
     th,
     td {
       border-bottom: 1px solid $border-color;
-      line-height: 40px;
+      line-height: 45px;
       text-align: left;
     }
 
     th {
       color: $font-title-color;
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 400;
     }
 
     td {
       color: $font-color;
-      font-size: 12px;
+      font-size: 14px;
     }
   }
 }

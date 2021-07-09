@@ -86,7 +86,7 @@ export default defineComponent({
   }
 
   .demo_drawer {
-    color: aqua;
+    color: #909399;
     width: 100%;
     display: flex;
     font-size: 14px;
