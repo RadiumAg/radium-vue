@@ -7,6 +7,7 @@ import RaRow from '@radium-vue/row';
 import RaCol from '@radium-vue/col';
 import RaScrollBar from '@radium-vue/scrollbar';
 import RaButton from '@radium-vue/button';
+import RaButtonGroup from '@radium-vue/button-group';
 
 const components = [
   RaCarousel,
@@ -15,11 +16,12 @@ const components = [
   RaCol,
   RaScrollBar,
   RaButton,
+  RaButtonGroup,
 ];
 
 const install = (app: App) => {
-  components.forEach(compoennt => {
-    app.component(compoennt.name, compoennt);
+  components.forEach(component => {
+    app.component(component.name, component);
   });
   directiveInstall(app);
 };

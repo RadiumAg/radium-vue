@@ -2,7 +2,7 @@
 
 #### 基础使用
 
-::: demo
+::: demo 
 
 ```html
 <ra-row class="ra-button-demo" :ra-gutter="[10,10]">
@@ -10,7 +10,7 @@
        <ra-button>默认按钮</ra-button>
     </ra-col>
      <ra-col>
-       <ra-button ra-type="primary">默认按钮</ra-button>
+       <ra-button ra-type="primary">主要按钮</ra-button>
     </ra-col>
      <ra-col>
        <ra-button ra-type="success">成功按钮</ra-button>
@@ -49,10 +49,10 @@
 
 <ra-row class="ra-button-demo" :ra-gutter="[10,10]">
     <ra-col>
-       <ra-button ra-round>朴素按钮</ra-button>
+       <ra-button ra-round>默认按钮</ra-button>
     </ra-col>
      <ra-col>
-       <ra-button ra-type="primary" ra-round>默认按钮</ra-button>
+       <ra-button ra-type="primary" ra-round>主要按钮</ra-button>
     </ra-col>
      <ra-col>
        <ra-button ra-type="success" ra-round>成功按钮</ra-button>
@@ -95,8 +95,6 @@
 
 
 #### 禁用状态
-
-
 
 ::: demo
 
@@ -150,8 +148,6 @@
 
 #### 文字按钮
 
-
-
 ::: demo
 
 ```html
@@ -177,6 +173,29 @@
 <ra-row class="ra-button-demo" :ra-gutter="[10,10]">
     <ra-col>
        <ra-button :ra-loading="true" ra-type="primary">加载中</ra-button>
+    </ra-col>
+</ra-row>
+```
+
+:::
+
+
+
+
+
+#### 按钮组
+
+按钮更为紧凑，组成一组关联按钮
+
+::: demo
+
+```html
+<ra-row class="ra-button-demo" :ra-gutter="[10,10]">
+    <ra-col>
+        <ra-button-group>
+              <ra-button  ra-type="primary">提交</ra-button>
+              <ra-button   ra-type="primary">重置</ra-button>
+        </ra-button-group>
     </ra-col>
 </ra-row>
 ```

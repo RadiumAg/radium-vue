@@ -30,10 +30,31 @@
 
     &:focus {
       background-color: $--ripple-background-color;
+      color: $--button-primary-border-color;
+    }
+
+    @include when(disabled) {
+      &,
+      &:hover,
+      &:focus,
+      &:active {
+        color: $--button-default-border-color;
+        background-color: mix(
+          $--color-white,
+          $--button-default-background-color
+        );
+        border-color: mix($--color-white, $--button-default-border-color);
+        cursor: not-allowed;
+      }
     }
 
     @include when(plain) {
       background-color: $--color-white;
+
+      &:focus {
+        color: $--button-primary-border-color;
+        border-color: mix($--color-white, $--button-primary-border-color);
+      }
     }
   }
 

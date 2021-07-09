@@ -3,12 +3,16 @@
 @import './mixins/mixins';
 @import './common/var';
 
+@include b(button-group) {
+  border-radius: 4px;
+  overflow: hidden;
+  .#{$namespace}-button {
+    border-radius: 0px;
+    border-right-color: $--color-white;
 
-
-@include b(button-group){
-     border-radius: 4px;
-     overflow: hidden;
-     .#{$namespace}-button {
-         border-radius: 0px;
-     }
+    &:not(:first-child),
+    &:not(:last-child) {
+      border-right-color: unset;
+    }
+  }
 }
