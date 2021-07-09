@@ -5,4 +5,10 @@
 
 
 
-@include b(button-group){}
+@include b(button-group){
+     border-radius: 4px;
+     overflow: hidden;
+     .#{$namespace}-button {
+         border-radius: 0px;
+     }
+}
