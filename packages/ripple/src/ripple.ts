@@ -15,6 +15,7 @@ const ripple: TRadiumDirective<HTMLElement, boolean> = {
     const rippleContainer = document.createElement('div');
     let diameter = 0;
     rippleContainer.className = 'ra-ripple';
+    on(rippleContainer, 'mousedown', startFadeIn);
     el.appendChild(rippleContainer);
     function change(rippleEl: HTMLElement) {
       const rippleScale =
@@ -33,7 +34,7 @@ const ripple: TRadiumDirective<HTMLElement, boolean> = {
       });
     }
 
-    const startFadeIn = (event: MouseEvent) => {
+    function startFadeIn(event: MouseEvent) {
       if (event.button === 2) {
         return;
       }
@@ -46,7 +47,7 @@ const ripple: TRadiumDirective<HTMLElement, boolean> = {
       setTheRippleElSize(rippleEl);
       rippleContainer.appendChild(rippleEl);
       change(rippleEl);
-    };
+    }
 
     function endFadeOut(rippleEl: HTMLElement) {
       rippleEl.style.opacity = '0';
@@ -77,8 +78,6 @@ const ripple: TRadiumDirective<HTMLElement, boolean> = {
       rippleEl.style.height = diameter + 'px';
       rippleEl.style.width = diameter + 'px';
     }
-
-    on(rippleContainer, 'mousedown', startFadeIn);
   },
 };
 
