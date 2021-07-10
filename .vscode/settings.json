@@ -1,0 +1,6 @@
+{
+    "npm-scripts.showStartNotification": false,
+    "npm.enableTouchbar": true,
+    "npm.useRootDirectory": true,
+    "npm.scriptExplorerAction": "open",
+}

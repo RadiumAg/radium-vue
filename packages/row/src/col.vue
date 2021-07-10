@@ -83,7 +83,7 @@ export default defineComponent({
           ['padding-left']: gutter / 2 + 'px',
           ['padding-right']: gutter / 2 + 'px',
         };
-      } else if (typeof gutter === 'object') {
+      } else if (gutter instanceof Array) {
         return {
           ['margin-left']: -(gutter[0] || 0) / 2 + 'px',
           ['padding-left']: (gutter[0] || 0) / 2 + 'px',
@@ -100,12 +100,6 @@ export default defineComponent({
       const prNormalKey = ['raSpan', 'raPull', 'raPush', 'raSpan'] as const;
       const prSizeKey = ['raXs', 'raSm', 'raMd', 'raLg', 'raXl', 'raXXl'];
 
-      prNormalKey.forEach(pr => {
-        if (pr === 'raSpan' && props[pr]) ret.push(`ra-col-${props[pr]}`);
-        else if (props[pr]) ret.push(`ra-col-${pr}-${props[pr]}`);
-      });
-      return ret;
-
       prSizeKey.forEach(pr => {
         if (typeof props[pr] === 'number')
           ret.push(`ra-col-${pr}-${props[pr]}`);
@@ -118,6 +112,12 @@ export default defineComponent({
           }
         }
       });
+
+      prNormalKey.forEach(pr => {
+        if (pr === 'raSpan' && props[pr]) ret.push(`ra-col-${props[pr]}`);
+        else if (props[pr]) ret.push(`ra-col-${pr}-${props[pr]}`);
+      });
+      return ret;
     });
 
     return {

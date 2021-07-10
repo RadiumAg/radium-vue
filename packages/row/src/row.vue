@@ -27,7 +27,9 @@ export default defineComponent({
     },
     raGutter: {
       type: [Number, Object] as PropType<number | Array<number>>,
-      default: null,
+      default: () => {
+        return 0;
+      },
     },
     raJustify: {
       type: String,
