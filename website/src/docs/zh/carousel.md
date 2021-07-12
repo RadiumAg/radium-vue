@@ -14,8 +14,8 @@
 </ra-carousel>
 
 <script lang="ts">
-  import { defineComponent, ref, watch } from 'vue';
-  export default defineComponent({})
+ import { defineComponent } from 'vue';
+ export default defineComponent({})
 </script>
 ```
 

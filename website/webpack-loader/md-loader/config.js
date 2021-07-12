@@ -52,7 +52,7 @@ module.exports = () => {
             const content = tokens[index + 1].content;
             const scriptString = getScriptInline(content);
             const templateString = getTemplateInline(content);
-            scriptString && console.log(compileScript(scriptString));
+            let democomponentExport = '';
             id = id + 1;
 
             const compileOption = {
@@ -75,17 +75,35 @@ module.exports = () => {
               },
             };
 
-            // if (scriptString) {
-            //   scriptString = scriptString
-            //     .replace('<script>')
-            //     .replace('</script>')
-            //     .replace('/import {.*} from "vue"/g');
-            // }
+            if (scriptString) {
+              democomponentExport = scriptString
+                .replace('<script lang="ts">', '')
+                .replace('</script>', '')
+                .replace(
+                  /import ({.+}) from 'vue'/g,
+                  (s, s1) => `const ${s1} = Vue`,
+                )
+                .replace(/export\s+default/, 'const democomponentExport =')
+                .replace(
+                  /import ({.*}) from 'radium-vue'/g,
+                  (s, s1) => `const ${s1} = require('radium-vue')`,
+                );
+            } else {
+              democomponentExport = '';
+            }
+
+            console.log(democomponentExport);
 
             const code = compileTemplate(compileOption).code;
             components[`docDemo${id}`] = `(function() {
               const Vue = require('vue');
+              ${democomponentExport}
               ${code}
+
+              return {
+                render,
+                ...democomponentExport
+              }
              })()`;
             return `<doc-demo${id}>`;
           }
@@ -93,6 +111,5 @@ module.exports = () => {
         },
       },
     ]);
-
   return [md.toMd(), components];
 };
