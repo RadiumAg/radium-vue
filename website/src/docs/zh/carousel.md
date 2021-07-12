@@ -12,6 +12,11 @@
       <div class="ra-carousel-item" >{{index}}</div>
    </ra-carousel-item>
 </ra-carousel>
+
+<script lang="ts">
+  import { defineComponent, ref, watch } from 'vue';
+  export default defineComponent({})
+</script>
 ```
 
 :::

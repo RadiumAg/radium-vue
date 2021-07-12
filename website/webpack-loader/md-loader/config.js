@@ -1,9 +1,19 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const Config = require('markdown-it-chain');
 const markDownAnchor = require('markdown-it-anchor');
 const markDownContainer = require('markdown-it-container');
 const hljs = require('highlight.js');
 const slugify = require('transliteration').slugify;
+const {
+  compileTemplate,
+  compileScript,
+  TemplateCompiler,
+} = require('@vue/compiler-sfc');
+const { getScriptInline, getTemplateInline } = require('./util');
+
 module.exports = () => {
+  let id = 0;
+  let components = {};
   const highlight = (str, lang) => {
     if (!lang || !hljs.getLanguage(lang)) {
       return '<pre><code class="hljs">' + str + '</code></pre>';
@@ -12,6 +22,7 @@ module.exports = () => {
     return `<pre><code class="hljs language-${lang}">${html}</code></pre>`;
   };
   const md = new Config();
+
   md.options
     .html(true)
     .linkify(true)
@@ -31,26 +42,57 @@ module.exports = () => {
     .use(markDownContainer, [
       'demo',
       {
+        // 匹配::: demo标签
         validate: params => {
           return params.trim().match(/^demo\s*(.*)$/);
         },
+        // the ::: demo  content
         render: (tokens, index) => {
           if (tokens[index].nesting === 1) {
             const content = tokens[index + 1].content;
-            return `<demo>
-            <template v-slot:doc>${content}</template>
-            <template v-slot:source>
-            <pre v-pre><code class="language-html">${md
+            const scriptString = getScriptInline(content);
+            const templateString = getTemplateInline(content);
+            scriptString && console.log(compileScript(scriptString));
+            id = id + 1;
+
+            const compileOption = {
+              source: `<demo>
+                <template v-slot:doc>${templateString}</template>
+                <template v-slot:source>
+                  <pre v-pre>
+                    <code class="language-html">${md
     .toMd()
-    .utils.escapeHtml(content)}
-            </code></pre>
-            </template>`;
-          } else {
-            return '</demo>';
+    .utils.escapeHtml(templateString)}
+                    </code>
+                  </pre>
+                </template>
+              </demo>
+                `,
+              filename: 'inline-component',
+              compiler: TemplateCompiler,
+              compilerOptions: {
+                mode: 'function',
+              },
+            };
+
+            // if (scriptString) {
+            //   scriptString = scriptString
+            //     .replace('<script>')
+            //     .replace('</script>')
+            //     .replace('/import {.*} from "vue"/g');
+            // }
+
+            const code = compileTemplate(compileOption).code;
+            components[`docDemo${id}`] = `(function() {
+              const Vue = require('vue');
+              ${code}
+             })()`;
+            return `<doc-demo${id}>`;
           }
+          return `</doc-demo${id}>`;
         },
       },
-    ])
-    .end();
-  return md.toMd();
+    ]);
+
+  return [md.toMd(), components];
 };
