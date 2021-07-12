@@ -4,11 +4,7 @@ const markDownAnchor = require('markdown-it-anchor');
 const markDownContainer = require('markdown-it-container');
 const hljs = require('highlight.js');
 const slugify = require('transliteration').slugify;
-const {
-  compileTemplate,
-  compileScript,
-  TemplateCompiler,
-} = require('@vue/compiler-sfc');
+const { compileTemplate, TemplateCompiler } = require('@vue/compiler-sfc');
 const { getScriptInline, getTemplateInline } = require('./util');
 
 module.exports = () => {
@@ -61,8 +57,8 @@ module.exports = () => {
                 <template v-slot:source>
                   <pre v-pre>
                     <code class="language-html">${md
-    .toMd()
-    .utils.escapeHtml(templateString)}
+                  .toMd()
+                  .utils.escapeHtml(templateString)}
                     </code>
                   </pre>
                 </template>
@@ -92,14 +88,11 @@ module.exports = () => {
               democomponentExport = '';
             }
 
-            console.log(democomponentExport);
-
             const code = compileTemplate(compileOption).code;
             components[`docDemo${id}`] = `(function() {
               const Vue = require('vue');
               ${democomponentExport}
               ${code}
-
               return {
                 render,
                 ...democomponentExport

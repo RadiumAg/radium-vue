@@ -2,7 +2,7 @@
 
 const toComponentRender = require('./render');
 const mdInstanceFactory = require('./config');
-module.exports = function(source = '') {
+module.exports = (source = '') => {
   const [renderInstance, componentObj] = mdInstanceFactory();
   const renderResult = renderInstance.render(source);
   const result = toComponentRender(renderResult, componentObj);
