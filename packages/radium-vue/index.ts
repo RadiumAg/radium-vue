@@ -8,6 +8,7 @@ import RaCol from '@radium-vue/col';
 import RaScrollBar from '@radium-vue/scrollbar';
 import RaButton from '@radium-vue/button';
 import RaButtonGroup from '@radium-vue/button-group';
+import { Message as RaMessage } from '@radium-vue/message/index';
 
 const components = [
   RaCarousel,
@@ -26,7 +27,7 @@ const install = (app: App) => {
   directiveInstall(app);
 };
 
-export { RaCarousel, RaCarouselItem, RaRow, RaCol, RaScrollBar };
+export { RaCarousel, RaCarouselItem, RaRow, RaCol, RaScrollBar, RaMessage };
 
 export default {
   install,

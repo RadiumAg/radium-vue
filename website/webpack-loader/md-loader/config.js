@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable  prettier/prettier */
+
 const Config = require('markdown-it-chain');
 const markDownAnchor = require('markdown-it-anchor');
 const markDownContainer = require('markdown-it-container');
@@ -50,15 +52,14 @@ module.exports = () => {
             const templateString = getTemplateInline(content);
             let democomponentExport = '';
             id = id + 1;
-
             const compileOption = {
               source: `<demo>
                 <template v-slot:doc>${templateString}</template>
                 <template v-slot:source>
                   <pre v-pre>
                     <code class="language-html">${md
-                  .toMd()
-                  .utils.escapeHtml(templateString)}
+    .toMd()
+    .utils.escapeHtml(templateString)}
                     </code>
                   </pre>
                 </template>
@@ -73,8 +74,8 @@ module.exports = () => {
 
             if (scriptString) {
               democomponentExport = scriptString
-                .replace('<script lang="ts">', '')
-                .replace('</script>', '')
+                .replace(/<script>/, '')
+                .replace(/<\/script>/, '')
                 .replace(
                   /import ({.+}) from 'vue'/g,
                   (s, s1) => `const ${s1} = Vue`,
@@ -88,7 +89,7 @@ module.exports = () => {
               democomponentExport = '';
             }
 
-            const code = compileTemplate(compileOption).code;
+            const code = compileTemplate(compileOption).code.replace('return function render','function render');
             components[`docDemo${id}`] = `(function() {
               const Vue = require('vue');
               ${democomponentExport}
@@ -98,6 +99,7 @@ module.exports = () => {
                 ...democomponentExport
               }
              })()`;
+
             return `<doc-demo${id}>`;
           }
           return `</doc-demo${id}>`;

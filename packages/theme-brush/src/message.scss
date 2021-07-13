@@ -1,0 +1,43 @@
+@use "sass:math";
+
+@import './common/var.scss';
+@import './mixins/mixins.scss';
+
+@include b(message) {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  justify-content: space-around;
+  position: fixed;
+  min-width: $--message-min-width;
+  background-color: $--message-background-color;
+  padding: $--message-padding;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  transition: all 0.3s ease-out;
+
+  @include m(info) {
+    color: $--message-info-font-color;
+    border: 1px solid $--message-info-font-color;
+    background-color: mix($--color-white, $--message-info-font-color, 70%);
+  }
+
+  @include m(success) {
+    color: $--message-success-font-color;
+    border: 1px solid mix($--color-white, $--message-success-font-color, 20%);
+    background-color: mix($--color-white, $--message-success-font-color, 70%);
+  }
+
+  @include m(content) {
+  }
+
+  @include e(message) {
+  }
+}
+
+.#{$namespace}-message-fade-enter-from,
+.#{$namespace}-message-fade-leave-to {
+  transform: translateX(-50%) translateY(-100%);
+  opacity: 0;
+}

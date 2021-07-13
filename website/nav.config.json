@@ -18,6 +18,10 @@
         {
           "path": "button",
           "name": "button 按钮"
+        },
+        {
+          "path": "message",
+          "name": "message 全局消息"
         }
       ]
     }
