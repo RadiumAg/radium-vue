@@ -86,7 +86,7 @@ export default defineComponent({
     }
 
     function mouseout() {
-      startCloseTimer;
+      startCloseTimer();
     }
 
     // funs

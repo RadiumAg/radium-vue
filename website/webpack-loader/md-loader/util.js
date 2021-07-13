@@ -1,3 +1,4 @@
+const templateRegex = /<template>([\s\S]+)<\/template>/g;
 module.exports.getScriptInline = (source = '') => {
   return source.trim().match(/<script>(.|\n)+<\/script>/g)
     ? source.trim().match(/<script>(.|\n)+<\/script>/g)[0]
@@ -10,11 +11,9 @@ module.exports.getTemplateInline = (source = '') => {
     return source
       .trim()
       .replace(scriptContent, '')
-      .replace(/<template>/, '')
-      .replace(/<\/template>/, '');
+      .replace(templateRegex, '$1');
   }
-  return source
-    .trim()
-    .replace(/<template>/, '')
-    .replace(/<\/template>/, '');
+  return source.trim().replace(templateRegex, '$1');
 };
+
+module.exports.scriptRegex = /<script>([\s\S]+)<\/script>/g;

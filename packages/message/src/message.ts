@@ -36,7 +36,7 @@ export class Message {
     });
   }
 
-  static success(options: { raOffset: number; raMessage: string }) {
+  static create(options: TMessageOptions) {
     const container = document.createElement('div');
     const offsetVertical = this.getOffsetVertical(options.raOffset);
     const symbol = Symbol();
@@ -45,7 +45,7 @@ export class Message {
       {
         ...options,
         raOffset: offsetVertical,
-        raType: 'success',
+        raType: options.raType,
       },
       isVNode(options.raMessage) ? { default: () => options.raMessage } : null,
     );
@@ -58,5 +58,21 @@ export class Message {
     this.instanceArray.push({ vm, id: symbol });
     render(vm, container);
     document.body.appendChild(container.firstChild);
+  }
+
+  static success(options: { raOffset: number; raMessage: string }) {
+    this.create({ ...options, raType: 'success' });
+  }
+
+  static error(options: { raOffset: number; raMessage: string }) {
+    this.create({ ...options, raType: 'error' });
+  }
+
+  static info(options: { raOffset: number; raMessage: string }) {
+    this.create({ ...options, raType: 'info' });
+  }
+
+  static warning(options: { raOffset: number; raMessage: string }) {
+    this.create({ ...options, raType: 'warning' });
   }
 }

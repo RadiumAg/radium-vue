@@ -7,7 +7,7 @@ const markDownContainer = require('markdown-it-container');
 const hljs = require('highlight.js');
 const slugify = require('transliteration').slugify;
 const { compileTemplate, TemplateCompiler } = require('@vue/compiler-sfc');
-const { getScriptInline, getTemplateInline } = require('./util');
+const { getScriptInline, getTemplateInline,scriptRegex } = require('./util');
 
 module.exports = () => {
   let id = 0;
@@ -59,7 +59,7 @@ module.exports = () => {
                   <pre v-pre>
                     <code class="language-html">${md
     .toMd()
-    .utils.escapeHtml(templateString)}
+    .utils.escapeHtml(content)}
                     </code>
                   </pre>
                 </template>
@@ -74,8 +74,7 @@ module.exports = () => {
 
             if (scriptString) {
               democomponentExport = scriptString
-                .replace(/<script>/, '')
-                .replace(/<\/script>/, '')
+                .replace(scriptRegex, '$1')
                 .replace(
                   /import ({.+}) from 'vue'/g,
                   (s, s1) => `const ${s1} = Vue`,
@@ -86,10 +85,15 @@ module.exports = () => {
                   (s, s1) => `const ${s1} = require('radium-vue')`,
                 );
             } else {
-              democomponentExport = '';
+              democomponentExport = 'const democomponentExport = {}';
             }
 
-            const code = compileTemplate(compileOption).code.replace('return function render','function render');
+            const code = compileTemplate(compileOption)
+              .code
+              .replace('return function render','function render')
+              .replace('</template>', '<\\/template>')
+              .replace('</script>','<\\/script>');
+
             components[`docDemo${id}`] = `(function() {
               const Vue = require('vue');
               ${democomponentExport}
@@ -99,7 +103,6 @@ module.exports = () => {
                 ...democomponentExport
               }
              })()`;
-
             return `<doc-demo${id}>`;
           }
           return `</doc-demo${id}>`;

@@ -8,7 +8,10 @@
 
 ```html
 <template>
-	<ra-button @click="openInfo">消息提示</ra-button>
+	<ra-button @click="openInfo">消息</ra-button>
+	<ra-button @click="openSuccess">成功</ra-button>
+	<ra-button @click="openError">错误</ra-button>
+	<ra-button @click="openWarning">警告</ra-button>
 </template>
 
 <script>
@@ -17,7 +20,16 @@
   export default defineComponent({
       methods:{
           openInfo(){
-              RaMessage.success({ raMessage: '消息提示'});
+              RaMessage.info({ raMessage: '消息'});
+        },
+          openSuccess(){
+              RaMessage.success({ raMessage: '成功'});
+        },
+          openError(){
+              RaMessage.error({ raMessage: '错误'});
+        },
+          openWarning(){
+              RaMessage.warning({ raMessage: '警告'});
         }
       }
   })
