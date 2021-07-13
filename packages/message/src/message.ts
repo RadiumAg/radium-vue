@@ -17,14 +17,15 @@ export type TMessageOptions = Partial<{
 export class Message {
   private static instanceArray: { vm: VNode; id: symbol }[] = [];
 
-  static getOffsetVertical(offset: number) {
-    const offsetVertical = offset || 60;
+  static getOffsetVertical(raOffset: number) {
+    const offsetVertical = raOffset || 20;
     let result = 0;
-
-    this.instanceArray.forEach(() => {
-      result += offsetVertical;
-    });
-
+    if (this.instanceArray.length)
+      this.instanceArray.forEach(obj => {
+        result =
+          result + offsetVertical + (obj.vm.el as HTMLElement).offsetHeight;
+      });
+    elseresult + offsetVertical + (obj.vm.el as HTMLElement).offsetHeight;
     return result;
   }
 
