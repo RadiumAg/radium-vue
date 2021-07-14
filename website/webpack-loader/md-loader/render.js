@@ -6,7 +6,7 @@ module.exports = function(source = '', docDemoComponent = {}) {
   }
 
   return `
-         <template><div ref="componentRightRef" class="demo_block">${source}</div></template>
+         <template><div ref="docRef" class="demo_block">${source}</div></template>
          <script lang="ts">
               import { useRootStore } from 'Core/vux-module';
               import { SET_EL_MUTATION } from 'Core/vux-module/state/component-link';
@@ -17,16 +17,16 @@ module.exports = function(source = '', docDemoComponent = {}) {
                      ${componentString}
                    },
                    setup() {
-                    const componentRightRef = ref<HTMLElement>(null);
+                    const docRef = ref<HTMLElement>(null);
                     const rootStore = useRootStore();
-                    watch(componentRightRef, () => {
-                        rootStore.commit(SET_EL_MUTATION, { el: componentRightRef });
+                    watch(docRef, () => {
+                        rootStore.commit(SET_EL_MUTATION, { el: docRef });
                     });
                     onMounted(() => {
                       hljs.highlightAll();
                     });
                     return {
-                      componentRightRef,
+                      docRef,
                     };
                   },
               });

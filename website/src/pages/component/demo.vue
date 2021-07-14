@@ -21,12 +21,11 @@
 </template>
 
 <script lang="ts">
-import hljs from 'highlight.js';
 import { computed, defineComponent, onMounted, ref } from 'vue';
 
 export default defineComponent({
   name: 'Demo',
-  setup(props) {
+  setup() {
     const demoSourceHeight = ref(0);
     const sourceSlotHeight = ref(0);
     const demoSourceState = ref(false);
@@ -36,9 +35,8 @@ export default defineComponent({
     const sourceRef = ref<HTMLElement>();
 
     onMounted(() => {
-      hljs.highlightAll();
       sourceSlotHeight.value = sourceRef.value.getElementsByTagName(
-        'pre',
+        'code',
       )[0].offsetHeight;
     });
 

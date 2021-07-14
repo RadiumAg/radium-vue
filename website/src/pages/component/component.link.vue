@@ -7,8 +7,7 @@
       href="javascript:void 0"
       :class="{ 'is-active': activeFlag[index] }"
       @click="scrollTo(index)"
-      >{{ link_item.text }}</a
-    >
+    >{{ link_item.text }}</a>
   </div>
 </template>
 <script lang="ts">
