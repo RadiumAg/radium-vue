@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   border-radius: 4px;
-  justify-content: space-around;
+  justify-content: space-between;
   position: fixed;
   min-width: $--message-min-width;
   background-color: $--message-background-color;
@@ -16,6 +16,20 @@
   left: 50%;
   transform: translateX(-50%) translateY(0);
   transition: all 0.3s ease-out;
+
+  @include e(icon-close) {
+     cursor: pointer;
+  }
+
+  @include e(content) {
+    flex-flow: 1;
+    display: flex;
+    align-items: center;
+
+    @include e(type-icon) {
+      margin-right: 10px;
+    }
+  }
 
   @include m(info) {
     color: $--message-info-font-color;
@@ -29,15 +43,21 @@
     background-color: mix($--color-white, $--message-success-font-color, 70%);
   }
 
-  @include m(content) {
+  @include m(warning) {
+    color: $--message-warning-font-color;
+    border: 1px solid $--message-warning-font-color;
+    background-color: mix($--color-white, $--message-warning-font-color, 70%);
   }
 
-  @include e(message) {
+  @include m(error) {
+    color: $--message-danger-font-color;
+    border: 1px solid $--message-danger-font-color;
+    background-color: mix($--color-white, $--message-danger-font-color, 70%);
   }
 }
 
 .#{$namespace}-message-fade-enter-from,
 .#{$namespace}-message-fade-leave-to {
-  transform: translateX(-50%) translateY(-100%);
+  transform: translateX(-50%) translateY(-50%);
   opacity: 0;
 }

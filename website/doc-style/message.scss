@@ -1,0 +1,7 @@
+@import '/packages/theme-brush/src/mixins/config.scss';
+
+.#{$namespace}-message-button {
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

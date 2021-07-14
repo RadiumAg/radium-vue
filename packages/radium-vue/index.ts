@@ -1,6 +1,6 @@
 import { App } from 'vue';
 
-import directiveInstall from '@radium-vue/directive';
+// components
 import RaCarousel from '@radium-vue/carousel';
 import RaCarouselItem from '@radium-vue/carousel-item';
 import RaRow from '@radium-vue/row';
@@ -8,7 +8,12 @@ import RaCol from '@radium-vue/col';
 import RaScrollBar from '@radium-vue/scrollbar';
 import RaButton from '@radium-vue/button';
 import RaButtonGroup from '@radium-vue/button-group';
-import { Message as RaMessage } from '@radium-vue/message/index';
+
+// plugins
+import RaMessage from '@radium-vue/message';
+
+// directives
+import raRipple from '@radium-vue/ripple';
 
 const components = [
   RaCarousel,
@@ -20,14 +25,33 @@ const components = [
   RaButtonGroup,
 ];
 
+const directives = [raRipple];
+
+const plugins = [RaMessage];
+
 const install = (app: App) => {
   components.forEach(component => {
     app.component(component.name, component);
   });
-  directiveInstall(app);
+
+  plugins.forEach(plugin => {
+    app.use(plugin);
+  });
+
+  directives.forEach(directive => {
+    app.directive(directive.name, directive);
+  });
 };
 
-export { RaCarousel, RaCarouselItem, RaRow, RaCol, RaScrollBar, RaMessage };
+export {
+  RaCarousel,
+  RaCarouselItem,
+  RaRow,
+  RaCol,
+  RaScrollBar,
+  RaMessage,
+  raRipple,
+};
 
 export default {
   install,

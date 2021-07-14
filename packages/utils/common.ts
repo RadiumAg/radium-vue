@@ -2,7 +2,7 @@ import warn from './error';
 
 const SCOPE = 'common';
 
-export const EmpetyObject = Object.create(null);
+export const EmptyObject = Object.create(null);
 export const isBool = (val: unknown) => typeof val === 'boolean';
 export const isNumber = (val: unknown) => typeof val === 'number';
 export const isString = (val: unknown) => typeof val === 'string';

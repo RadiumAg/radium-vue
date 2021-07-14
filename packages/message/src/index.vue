@@ -1,21 +1,29 @@
 <template>
   <transition
     name="ra-message-fade"
-    @after-enter="afterEnter"
+    @before-leave="$emit('raClose')"
     @after-leave="$emit('raDestroy')"
   >
     <div
       v-show="isShow"
       class="ra-message"
-      :style="{ zIndex: raZIndex, top: props.raOffset + 'px' }"
+      :style="{ zIndex: raZIndex, top: raOffset + 'px' }"
       :class="messageClass"
       @mouseover="mouseover"
       @mouseout="mouseout"
     >
-      <i :class="iconClass"></i>
-      <p v-if="!raIsUseHtmlString">{{ raMessage }}</p>
-      <p v-if="raIsUseHtmlString" :innerHtml="raMessage"></p>
-      <i class="ra-icon-close"></i>
+      <div class="ra-message__content">
+        <i :class="iconClass" class="ra-message__type-icon"></i>
+        <slot>
+          <p v-if="!raIsUseHtmlString">{{ raMessage }}</p>
+          <p v-else :innerHTML="raMessage"></p>
+        </slot>
+      </div>
+      <i
+        v-if="raShowClose"
+        class="ra-icon-close ra-message__icon-close"
+        @click="close"
+      ></i>
     </div>
   </transition>
 </template>
@@ -57,10 +65,11 @@ export default defineComponent({
       default: 0,
     },
   },
-  emits: ['raDestroy'],
+  emits: ['raDestroy', 'raClose'],
   setup(props) {
     const isShow = ref(false);
     let timer: NodeJS.Timer = null;
+
     const messageClass = computed(() => {
       const ret = [];
       props.raType && ret.push(`ra-message--${props.raType}`);
@@ -77,9 +86,6 @@ export default defineComponent({
       return ret;
     });
     // methods
-    function afterEnter() {
-      isShow.value = true;
-    }
 
     function mouseover() {
       clearTimeout(timer);
@@ -107,7 +113,6 @@ export default defineComponent({
     });
 
     return {
-      afterEnter,
       iconClass,
       messageClass,
       close,

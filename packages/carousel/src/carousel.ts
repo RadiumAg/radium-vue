@@ -45,6 +45,6 @@ export interface ICarouselProvide {
   isLoop: Ref<boolean>;
 }
 
-export const CAROUSEL_ITEM_PROVIDETOKEN = 'CAROUSEL_PROVIDE';
+export const CAROUSEL_ITEM_PROVIDE_TOKEN = 'CAROUSEL_PROVIDE';
 
 export type TClickType = 'left' | 'right';

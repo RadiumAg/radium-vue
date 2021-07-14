@@ -32,8 +32,8 @@
         raDirection === 'horizontal'
           ? 'ra-carousel__indicator--horizontal'
           : raDirection === 'vertical'
-          ? 'ra-carousel__indicator--vertical'
-          : '',
+            ? 'ra-carousel__indicator--vertical'
+            : '',
       ]"
     >
       <div
@@ -69,7 +69,7 @@ import {
   watch,
 } from 'vue';
 import {
-  CAROUSEL_ITEM_PROVIDETOKEN,
+  CAROUSEL_ITEM_PROVIDE_TOKEN,
   ICarouselItem,
   ICarouselProvide,
   TCarouselProps,
@@ -236,7 +236,7 @@ export default defineComponent({
       activeIndex.value++;
     }
 
-    provide<ICarouselProvide>(CAROUSEL_ITEM_PROVIDETOKEN, {
+    provide<ICarouselProvide>(CAROUSEL_ITEM_PROVIDE_TOKEN, {
       offsetHeight,
       itemReact,
       offsetWidth,

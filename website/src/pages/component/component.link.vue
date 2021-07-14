@@ -7,7 +7,8 @@
       href="javascript:void 0"
       :class="{ 'is-active': activeFlag[index] }"
       @click="scrollTo(index)"
-    >{{ link_item.text }}</a>
+      >{{ link_item.text }}</a
+    >
   </div>
 </template>
 <script lang="ts">
@@ -39,7 +40,7 @@ export default defineComponent({
 
     // watch
     watch(store.state.component, () => {
-      linkTagList.value.forEach((el, index, array) => {
+      linkTagList.value.forEach((el, index) => {
         if (
           Math.floor(store.state.component.scrollTop) >=
           Math.floor(el.offsetTop)

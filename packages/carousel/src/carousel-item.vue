@@ -18,7 +18,7 @@ import {
   watchEffect,
 } from 'vue';
 import {
-  CAROUSEL_ITEM_PROVIDETOKEN,
+  CAROUSEL_ITEM_PROVIDE_TOKEN,
   ICarouselItemProps,
   CarouselItemConfig,
   ICarouselProvide,
@@ -39,7 +39,7 @@ export default defineComponent({
     const instance = getCurrentInstance();
     const itemStyle = ref<string>('');
     const CAROUSEL_PROVIDE = inject<ICarouselProvide>(
-      CAROUSEL_ITEM_PROVIDETOKEN,
+      CAROUSEL_ITEM_PROVIDE_TOKEN,
     );
     const data = reactive<{
       active: boolean;

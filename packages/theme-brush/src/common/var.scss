@@ -362,22 +362,14 @@ $--alert-icon-large-size: 28px !default;
 $--messagebox-title-color: $--color-text-primary !default;
 $--msgbox-width: 420px !default;
 $--msgbox-border-radius: 4px !default;
-/// fontSize||Font|1
 $--messagebox-font-size: $--font-size-large !default;
-/// fontSize||Font|1
 $--messagebox-content-font-size: $--font-size-base !default;
-/// color||Color|0
 $--messagebox-content-color: $--color-text-regular !default;
-/// fontSize||Font|1
 $--messagebox-error-font-size: 12px !default;
 $--msgbox-padding-primary: 15px !default;
-/// color||Color|0
 $--messagebox-success-color: $--color-success !default;
-/// color||Color|0
 $--messagebox-info-color: $--color-info !default;
-/// color||Color|0
 $--messagebox-warning-color: $--color-warning !default;
-/// color||Color|0
 $--messagebox-danger-color: $--color-danger !default;
 
 /* Message

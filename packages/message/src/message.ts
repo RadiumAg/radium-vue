@@ -1,4 +1,5 @@
-import { render, VNode } from 'vue';
+import { EmptyObject } from '@radium-vue/utils/common';
+import { App, render, VNode } from 'vue';
 import { createVNode, isVNode } from 'vue';
 import MessageConstructor from './index.vue';
 
@@ -12,12 +13,23 @@ export type TMessageOptions = Partial<{
   raShowClose: boolean;
   raOffset: number;
   raIsUseHtmlString: boolean;
+  raOnClose: () => void;
+}>;
+
+type TShortcutOptions = Partial<{
+  raMessage: string;
+  raDuration: number;
+  raShowClose: boolean;
+  raOffset: number;
+  raIsUseHtmlString: boolean;
+  raOnClose: () => void;
 }>;
 
 export class Message {
   private static instanceArray: { vm: VNode; id: symbol }[] = [];
 
-  static getOffsetVertical(raOffset: number) {
+  static install: (app: App) => void;
+  private static getOffsetVertical(raOffset: number) {
     let result = 0;
     if (this.instanceArray.length) {
       this.instanceArray.forEach((obj, index) => {
@@ -31,21 +43,20 @@ export class Message {
     return result;
   }
 
-  static restartTheOffset(id: symbol, offset: number) {
+  private static restartTheOffset(id: symbol, offset: number) {
     const targetInstanceIndex = this.instanceArray.findIndex(_ => _.id === id);
-    let result = 0;
-    this.instanceArray.splice(targetInstanceIndex, 1);
-    this.instanceArray.forEach((v, index) => {
-      let preInstanceOffsetHeight = 0;
-      if (index > 0) {
-        preInstanceOffsetHeight = (this.instanceArray[index - 1].vm
-          .el as HTMLElement).offsetHeight;
-        result = result + preInstanceOffsetHeight + offset;
-      } else if (index === 0) {
-        result = offset;
-      }
-      v.vm.el.style.top = result + 'px';
-    });
+    const targetInstance = this.instanceArray.splice(targetInstanceIndex, 1);
+    for (
+      let index = targetInstanceIndex;
+      index < this.instanceArray.length;
+      index++
+    ) {
+      const pos =
+        (this.instanceArray[index].vm.component.props.raOffset as number) -
+        targetInstance[0].vm.el.offsetHeight -
+        offset;
+      this.instanceArray[index].vm.component.props.raOffset = pos;
+    }
   }
 
   static create(options: TMessageOptions) {
@@ -53,6 +64,7 @@ export class Message {
     const offsetVertical = options.raOffset || 20;
     const offset = this.getOffsetVertical(offsetVertical);
     const symbol = Symbol();
+
     const vm = createVNode(
       MessageConstructor,
       {
@@ -65,6 +77,10 @@ export class Message {
 
     vm.props.onRaDestroy = () => {
       render(null, container);
+    };
+
+    vm.props.onRaClose = () => {
+      options.raOnClose?.bind(EmptyObject);
       this.restartTheOffset(symbol, offsetVertical);
     };
 
@@ -73,19 +89,19 @@ export class Message {
     document.body.appendChild(container.firstChild);
   }
 
-  static success(options: { raOffset: number; raMessage: string }) {
+  static success(options: TShortcutOptions) {
     this.create({ ...options, raType: 'success' });
   }
 
-  static error(options: { raOffset: number; raMessage: string }) {
+  static error(options: TShortcutOptions) {
     this.create({ ...options, raType: 'error' });
   }
 
-  static info(options: { raOffset: number; raMessage: string }) {
+  static info(options: TShortcutOptions) {
     this.create({ ...options, raType: 'info' });
   }
 
-  static warning(options: { raOffset: number; raMessage: string }) {
+  static warning(options: TShortcutOptions) {
     this.create({ ...options, raType: 'warning' });
   }
 }
