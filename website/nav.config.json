@@ -1,27 +1,42 @@
 {
   "zh": [
     {
-      "name": "组件",
+      "name": "布局",
+      "groups": [
+        {
+          "path": "grid",
+          "name": "Grid 栅格布局"
+        }
+      ]
+    },
+    {
+      "name": "基础组件",
       "groups": [
         {
           "path": "carousel",
-          "name": "carousel 走马灯"
+          "name": "Carousel 走马灯"
         },
         {
           "path": "scrollbar",
-          "name": "scrollbar 滚动条"
+          "name": "Scrollbar 滚动条"
         },
-        {
-          "path": "grid",
-          "name": "grid 栅格布局"
-        },
+
         {
           "path": "button",
-          "name": "button 按钮"
-        },
+          "name": "Button 按钮"
+        }
+      ]
+    },
+    {
+      "name": "消息提示",
+      "groups": [
         {
           "path": "message",
-          "name": "message 全局消息"
+          "name": "Message 全局消息"
+        },
+        {
+          "path": "modal",
+          "name": "Modal 对话框"
         }
       ]
     }

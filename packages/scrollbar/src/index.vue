@@ -66,14 +66,13 @@ export default defineComponent({
       default: false,
     },
     raWrapStyle: {
-      type: [] as PropType<string[]>,
+      type: Array,
       default: () => {
-        debugger;
         return [];
       },
     },
     raWrapClass: {
-      type: [] as PropType<string[]>,
+      type: Array,
       default: () => {
         return [];
       },

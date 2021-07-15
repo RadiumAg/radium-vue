@@ -11,20 +11,20 @@ export default defineComponent({
   name: 'RaCol',
   props: {
     raFlex: {
-      type: Number,
-      default: null,
+      type: [Number],
+      default: 0,
     },
     raOffset: {
       type: Number,
-      default: null,
+      default: 0,
     },
     raOrder: {
       type: Number,
-      default: null,
+      default: 0,
     },
     raPull: {
       type: Number,
-      default: null,
+      default: 0,
     },
     raPush: {
       type: Number,
@@ -32,40 +32,40 @@ export default defineComponent({
     },
     raSpan: {
       type: Number,
-      default: null,
+      default: 0,
     },
     raXs: {
-      type: [Object, Object] as PropType<number | SizeObject>,
+      type: [Number, Object] as PropType<number | SizeObject>,
       default: () => {
         return 0;
       },
     },
     raSm: {
-      type: [Object, Object] as PropType<number | SizeObject>,
+      type: [Number, Object] as PropType<number | SizeObject>,
       default: () => {
         return 0;
       },
     },
     raMd: {
-      type: [Object, Object] as PropType<number | SizeObject>,
+      type: [Number, Object] as PropType<number | SizeObject>,
       default: () => {
         return 0;
       },
     },
     raLg: {
-      type: [Object, Object] as PropType<number | SizeObject>,
+      type: [Number, Object] as PropType<number | SizeObject>,
       default: () => {
         return 0;
       },
     },
     raXl: {
-      type: [Object, Object] as PropType<number | SizeObject>,
+      type: [Number, Object] as PropType<number | SizeObject>,
       default: () => {
         return 0;
       },
     },
     raXXl: {
-      type: [Object, Object] as PropType<number | SizeObject>,
+      type: [Number, Object] as PropType<number | SizeObject>,
       default: () => {
         return 0;
       },

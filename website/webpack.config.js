@@ -1,10 +1,18 @@
+/* eslint-disable @typescript-eslint/no-var-requires*/
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { resolve } = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const vueBundle =
+  process.env.NODE_ENV === 'production'
+    ? 'vue.esm-browser.prod.js'
+    : 'vue.esm-browser.js';
 
 module.exports = {
-  devtool: process.env.NODE_ENV === 'production' ? 'source-map' : false,
-  mode: process.env.NODE_ENV,
+  devtool: process.env.NODE_ENV === 'production' ? false : 'source-map',
+  mode: process.env.NODE_ENV, // development 模式下有热更新作用
   entry: resolve(__dirname, './main.ts'),
   output: {
     filename: '[name].[contenthash].js',
@@ -18,17 +26,6 @@ module.exports = {
         test: /\.vue$/,
         use: 'vue-loader',
       },
-      // {
-      //   test: /\.tsx?$/,
-      //   exclude: [/node_modules/],
-      //   use: {
-      //     loader: 'ts-loader',
-      //     options: {
-      //       configFile: resolve(__dirname, '../tsconfig.json'),
-      //       appendTsSuffixTo: [/\.vue$/, /\.md$/],
-      //     },
-      //   },
-      // },
       {
         test: /\.md$/,
         exclude: /node_modules/,
@@ -46,7 +43,7 @@ module.exports = {
       },
       {
         test: /\.s(c|a)ss$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', 'vue-style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -68,6 +65,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      vue: `vue/dist/${vueBundle}`,
+    },
   },
   plugins: [
     new VueLoaderPlugin(),
@@ -75,8 +75,13 @@ module.exports = {
       template: resolve(__dirname, './index.html'),
       filename: 'index.html',
     }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[id].[contenthash].css',
+    }),
   ],
   devServer: {
+    inline: true,
     port: 4500,
     hot: true,
     host: '0.0.0.0',
@@ -85,17 +90,11 @@ module.exports = {
     publicPath: '/',
     historyApiFallback: true,
     overlay: true,
-    contentBase: resolve(__dirname),
+    contentBase: __dirname,
     stats: 'minimal',
   },
   optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
-  performance: {
-    hints: 'error',
-    maxEntrypointSize: 1000000000,
-    maxAssetSize: 1000000000,
+    minimize: true,
+    minimizer: [new CssMinimizerPlugin()],
   },
 };

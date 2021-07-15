@@ -53,6 +53,7 @@ module.exports = () => {
             let democomponentExport = '';
             id = id + 1;
             const compileOption = {
+              id: id.toString(),
               source: `<demo>
                 <template v-slot:doc>${templateString}</template>
                 <template v-slot:source>

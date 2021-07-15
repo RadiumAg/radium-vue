@@ -17,5 +17,3 @@ app
   .use(RadiumUI)
   .use(router)
   .mount('#app');
-
-console.log(App);

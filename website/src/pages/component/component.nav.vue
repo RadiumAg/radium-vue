@@ -44,7 +44,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-$padding: 10px 50px;
+$padding: 10px 0px 10px 25px;
 .nav {
   position: absolute;
   left: 0;
@@ -65,9 +65,9 @@ $padding: 10px 50px;
   }
 
   .nav_group_title {
-    font-size: 14px;
+    font-size: 16px;
     padding: $padding;
-    text-align: center;
+    text-align: left;
   }
 
   .nav_item_link {
@@ -76,8 +76,8 @@ $padding: 10px 50px;
     width: 100%;
     position: relative;
     display: inline-block;
-    text-align: center;
-    padding: 10px 0;
+    text-align: left;
+    padding: $padding;
     &:active {
       color: unset;
     }
