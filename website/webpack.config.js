@@ -16,7 +16,7 @@ module.exports = {
   entry: resolve(__dirname, './main.ts'),
   output: {
     filename: '[name].[contenthash].js',
-    path: resolve(__dirname + '../website-dist'),
+    path: resolve(__dirname + '../../website-dist'),
     clean: true,
     publicPath: '/',
   },
@@ -43,7 +43,12 @@ module.exports = {
       },
       {
         test: /\.s(c|a)ss$/,
-        use: ['style-loader', 'vue-style-loader', 'css-loader', 'sass-loader'],
+        use: [
+          // 'vue-style-loader',
+          MiniCssExtractPlugin.loader,
+          'css-loader', // 对@import 和 url()进行处理
+          'sass-loader',
+        ],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
