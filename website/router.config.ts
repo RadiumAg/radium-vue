@@ -10,7 +10,7 @@ const componentChildrenRouters: RouteRecordRaw[] = [];
 // eslint-disable-next-line vue/one-component-per-file
 const errorComponent = defineComponent({
   template:
-    '<p style="width:100%;line-height:300px;text-align:center;font-weight:bold;">似乎并没有找到，请稍后再试，或者try again<p>',
+    '<p style="width:100%;line-height:300px;text-align:center;font-weight:bold;">似乎并没有找到，请稍后再试，或者try again</p>',
 });
 
 //loading

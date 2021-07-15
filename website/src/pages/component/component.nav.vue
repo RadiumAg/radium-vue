@@ -77,6 +77,7 @@ $padding: 10px 0px 10px 25px;
     position: relative;
     display: inline-block;
     text-align: left;
+    font-size:12px;
     padding: $padding;
     &:active {
       color: unset;

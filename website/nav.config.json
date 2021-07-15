@@ -33,7 +33,12 @@
         {
           "path": "message",
           "name": "Message 全局消息"
-        },
+        }
+      ]
+    },
+    {
+      "name": "反馈",
+      "groups": [
         {
           "path": "modal",
           "name": "Modal 对话框"
