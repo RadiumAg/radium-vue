@@ -11,6 +11,7 @@ import RaButtonGroup from '@radium-vue/button-group';
 
 // plugins
 import RaMessage from '@radium-vue/message';
+import RaModal from '@radium-vue/modal';
 
 // directives
 import raRipple from '@radium-vue/ripple';
@@ -27,7 +28,7 @@ const components = [
 
 const directives = [raRipple];
 
-const plugins = [RaMessage];
+const plugins = [RaMessage, RaModal];
 
 const install = (app: App) => {
   components.forEach(component => {
@@ -51,6 +52,7 @@ export {
   RaScrollBar,
   RaMessage,
   raRipple,
+  RaModal,
 };
 
 export default {

@@ -1,8 +1,8 @@
 <template>
-  <transition name="ra-modal-fade">
+  <transition name="ra-modal-fade" @after-leave="$emit('raOnAfterClose')">
     <div v-show="isShow" class="ra-modal">
       <div class="ra-modal__content">
-        <h3>raTitle</h3>
+        <slot><h3>{{ raTitle }}</h3></slot>
         <slot></slot>
         <slot name="footer"></slot>
       </div>
@@ -55,9 +55,9 @@ export default defineComponent({
       default: false,
     },
   },
-  emits:['raOnDestroy'],
+  emits:['raOnAfterClose'],
   setup(props) {
-    const isShow = ref(false);
+    const isShow = ref(true);
 
     return {
       isShow,

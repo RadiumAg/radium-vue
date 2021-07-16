@@ -1,9 +1,9 @@
 import { App } from 'vue';
-import Modal from './src/index.vue';
+import { Modal } from './src/modal';
 import { SFCWithInstall } from '@radium-vue/utils/types';
 
 Modal.install = (app: App): void => {
-  app.component(Modal.name, Modal);
+  app.config.globalProperties = Modal;
 };
 const _Modal: SFCWithInstall<typeof Modal> = Modal;
 
