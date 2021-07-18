@@ -1,4 +1,4 @@
-import { App, createVNode, isVNode, render, VNode } from '@vue/runtime-dom';
+import { App, createVNode, isVNode, render, VNode } from 'vue';
 import modalConstructor from './index.vue';
 
 type TModalOption = Partial<{
