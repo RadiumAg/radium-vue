@@ -2,7 +2,6 @@ import { App, createVNode, isVNode, render, VNode } from 'vue';
 import modalConstructor from './index.vue';
 
 type TModalOption = Partial<{
-  raTitle: string;
   raWidth: string | number;
   raFullScreen: boolean;
   raTop: boolean;
@@ -12,8 +11,9 @@ type TModalOption = Partial<{
   raCloseDelay: number;
   raDropClose: boolean;
   raShowClose: boolean;
-  defaultTemplate: VNode;
-  titleTemplate: VNode;
+  raContent: string | VNode;
+  raTitle: string | VNode;
+  raFooter: string | VNode;
   footerTemplate: VNode;
   onRaOnAfterClose: () => void;
 }>;
@@ -25,14 +25,14 @@ export class Modal {
     const container = document.createElement('div');
 
     const vm = createVNode(modalConstructor, options, {
-      default: isVNode(options.defaultTemplate)
-        ? () => options.defaultTemplate
+      default: isVNode(options.raContent)
+        ? () => options.raContent
         : null,
-      title: isVNode(options.titleTemplate)
-        ? () => options.titleTemplate
+      title: isVNode(options.raTitle)
+        ? () => options.raTitle
         : null,
-      footer: isVNode(options.footerTemplate)
-        ? () => options.footerTemplate
+      footer: isVNode(options.raFooter)
+        ? () => options.raFooter
         : null,
     });
 

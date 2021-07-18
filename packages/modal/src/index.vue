@@ -1,34 +1,40 @@
 <template>
-  <transition name="ra-modal-fade" @after-leave="$emit('raOnAfterClose')">
-    <div v-show="isShow" class="ra-modal">
-      <div class="ra-modal__content">
-        <slot><h3>{{ raTitle }}</h3></slot>
-        <slot></slot>
+  <div class="ra-modal" @click="raModalClick">
+    <transition name="ra-modal-fade" @after-leave="$emit('raOnAfterClose')">
+      <div v-show="isShow" class="ra-modal__content" :style="modalStyle">
+        <slot>
+          <h3>{{ raTitle }}</h3>
+        </slot>
+        <slot>{{ raContent }}</slot>
         <slot name="footer"></slot>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </div>
 </template>
 <script lang='ts'>
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 export default defineComponent({
   name: 'RaModal',
   props: {
-    raTitle:{
-      type:String,
+    raTitle: {
+      type: String,
       default: '',
     },
-    raWidth:{
-      type: [String,Number],
-      default:'50%',
+    raContent: {
+      type: String,
+      default: '',
+    },
+    raWidth: {
+      type: [String, Number],
+      default: '50%',
     },
     raFullScreen: {
       type: Boolean,
       default: false,
     },
     raTop: {
-      type: Boolean,
-      default: false,
+      type: String,
+      default: '15vh',
     },
     raModal: {
       type: Boolean,
@@ -55,13 +61,29 @@ export default defineComponent({
       default: false,
     },
   },
-  emits:['raOnAfterClose'],
+  emits: ['raOnAfterClose'],
   setup(props) {
-    const isShow = ref(true);
+    const isShow = ref(false);
+    const modalStyle = computed(() => {
+      const ret = [];
+      props.raTop && ret.push({ top: props.raTop });
+      props.raWidth && ret.push({ width: props.raWidth });
+      return ret;
+    });
 
+    onMounted(() => {
+      isShow.value = true;
+    });
+
+    // funs
+    function raModalClick() {
+      isShow.value = false;
+    }
     return {
       isShow,
       props,
+      modalStyle,
+      raModalClick,
     };
   },
 });

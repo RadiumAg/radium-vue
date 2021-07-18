@@ -92,9 +92,10 @@ module.exports = () => {
             const code = compileTemplate(compileOption)
               .code
               .replace('return function render','function render')
-              .replace('</template>', '<\\/template>')
+              .replace(/<\/template>/g, '<\\/template>')
               .replace('</script>','<\\/script>');
 
+            console.log(code);
             components[`docDemo${id}`] = `(function() {
               const Vue = require('vue');
               ${democomponentExport}

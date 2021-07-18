@@ -9,6 +9,7 @@
 
 ```html
 <template>
+    <template ref="content" #content></template>
     <ra-row>
         <ra-col>
             <ra-button class="ra-message-button" @click="openModal">打开对话框</ra-button>
@@ -20,10 +21,15 @@
   import { defineComponent, h } from 'vue';
   import { RaModal } from 'radium-vue';
   export default defineComponent({
-      methods:{
-          openModal(){
-              RaModal.create({ raMessage: '消息'}).afterClose.then(console.log);
-        }
+      setup(){
+          const content = ref(null);
+          function openModal(){
+              RaModal.create({ raMessage: '消息', raTitle:'提示'}).afterClose.then(console.log);
+          }
+          return {
+              content,
+              openModal
+          }
       }
   })
 </script>
