@@ -8,8 +8,5 @@
 import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'RaButtonGroup',
-  setup(props,{ slots }){
-    console.log(slots.default());
-  },
 });
 </script>

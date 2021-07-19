@@ -9,8 +9,8 @@
 
 ```html
 <template>
-    <template ref="content">
-        <p>消息内容</p>
+    <template  ref="content">
+        <p style="line-height:90px;">消息内容</p>
     </template>
     <ra-row>
         <ra-col>
