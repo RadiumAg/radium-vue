@@ -23,6 +23,7 @@
     box-shadow: $--modal-box-shadow;
     background-color: $--modal-background-color;
     font-size: $--modal-content-font-size;
+    transition: $--all-transition;
   }
 
   @include e(title) {

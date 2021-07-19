@@ -2,10 +2,12 @@
   <div class="ra-modal" @click="raModalClick">
     <transition name="ra-modal-fade" @after-leave="$emit('raOnAfterClose')">
       <div v-show="isShow" class="ra-modal__content" :style="modalStyle">
-        <slot>
+        <slot name="title">
           <h3>{{ raTitle }}</h3>
         </slot>
-        <slot>{{ raContent }}</slot>
+        <slot>
+          <div>{{ raContent }}</div>
+        </slot>
         <slot name="footer"></slot>
       </div>
     </transition>
@@ -21,7 +23,7 @@ export default defineComponent({
       default: '',
     },
     raContent: {
-      type: String,
+      type: [String,Object],
       default: '',
     },
     raWidth: {
@@ -62,8 +64,9 @@ export default defineComponent({
     },
   },
   emits: ['raOnAfterClose'],
-  setup(props) {
+  setup(props,{ emit }) {
     const isShow = ref(false);
+    const contentRef = ref<HTMLTemplateElement>(null);
     const modalStyle = computed(() => {
       const ret = [];
       props.raTop && ret.push({ top: props.raTop });
@@ -79,11 +82,19 @@ export default defineComponent({
     function raModalClick() {
       isShow.value = false;
     }
+
+    // methods
+    function raDestroy(){
+      isShow.value = false;
+      emit('raOnAfterClose');
+    }
     return {
       isShow,
       props,
       modalStyle,
       raModalClick,
+      contentRef,
+      raDestroy,
     };
   },
 });

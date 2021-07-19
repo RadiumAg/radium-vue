@@ -23,18 +23,20 @@ export class Modal {
   static create(options: TModalOption) {
     let afterClose: Promise<void> = undefined;
     const container = document.createElement('div');
+    const slotObject: { [key: string]: unknown } = {};
 
-    const vm = createVNode(modalConstructor, options, {
-      default: isVNode(options.raContent)
-        ? () => options.raContent
-        : null,
-      title: isVNode(options.raTitle)
-        ? () => options.raTitle
-        : null,
-      footer: isVNode(options.raFooter)
-        ? () => options.raFooter
-        : null,
-    });
+    isVNode(options.raContent['__vnode']) &&
+      (slotObject.default = () => options.raContent['__vnode'].children);
+    isVNode(options.raTitle['__vnode']) &&
+      (slotObject.title = () => options.raTitle['__vnode'].children);
+    isVNode(options.raTitle['__vnode']) &&
+      (slotObject.footer = () => options.raFooter['__vnode'].children);
+
+    const vm = createVNode(
+      modalConstructor,
+      options,
+      Object.keys(slotObject).length ? slotObject : null,
+    );
 
     afterClose = new Promise<void>((resolve, reject) => {
       try {

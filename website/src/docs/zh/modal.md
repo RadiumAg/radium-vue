@@ -9,7 +9,9 @@
 
 ```html
 <template>
-    <template ref="content" #content></template>
+    <template ref="content">
+        <p>消息内容</p>
+    </template>
     <ra-row>
         <ra-col>
             <ra-button class="ra-message-button" @click="openModal">打开对话框</ra-button>
@@ -24,7 +26,7 @@
       setup(){
           const content = ref(null);
           function openModal(){
-              RaModal.create({ raMessage: '消息', raTitle:'提示'}).afterClose.then(console.log);
+              RaModal.create({ raContent: content.value, raTitle:'提示'}).afterClose.then(()=>{ console.log('ok') });
           }
           return {
               content,

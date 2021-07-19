@@ -95,7 +95,6 @@ module.exports = () => {
               .replace(/<\/template>/g, '<\\/template>')
               .replace('</script>','<\\/script>');
 
-            console.log(code);
             components[`docDemo${id}`] = `(function() {
               const Vue = require('vue');
               ${democomponentExport}
