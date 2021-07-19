@@ -44,8 +44,8 @@ module.exports = {
       {
         test: /\.s(c|a)ss$/,
         use: [
-          // 'vue-style-loader',
-          MiniCssExtractPlugin.loader,
+          'vue-style-loader',
+          // MiniCssExtractPlugin.loader,
           'css-loader', // 对@import 和 url()进行处理
           'sass-loader',
         ],

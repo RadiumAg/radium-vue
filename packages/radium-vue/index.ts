@@ -8,7 +8,7 @@ import RaCol from '@radium-vue/col';
 import RaScrollBar from '@radium-vue/scrollbar';
 import RaButton from '@radium-vue/button';
 import RaButtonGroup from '@radium-vue/button-group';
-
+import RaSlider from '@radium-vue/slider';
 // plugins
 import RaMessage from '@radium-vue/message';
 import RaModal from '@radium-vue/modal';
@@ -17,13 +17,14 @@ import RaModal from '@radium-vue/modal';
 import raRipple from '@radium-vue/ripple';
 
 const components = [
-  RaCarousel,
-  RaCarouselItem,
   RaRow,
   RaCol,
-  RaScrollBar,
+  RaSlider,
   RaButton,
+  RaCarousel,
+  RaScrollBar,
   RaButtonGroup,
+  RaCarouselItem,
 ];
 
 const directives = [raRipple];

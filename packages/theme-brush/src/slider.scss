@@ -1,0 +1,44 @@
+@use "sass:math";
+
+@import './mixins/mixins';
+@import './common/var';
+
+@include b(slider) {
+  @include e(track) {
+    position: relative;
+    margin: $--slider-margin;
+    background-color: $--slider-track-background-color;
+    border-radius: $--slider-border-radius;
+
+    @include e(progress-bar) {
+      height: $--slider-progress-bar-height;
+      background-color: $--slider-main-background-color;
+      border-radius: $--slider-border-radius;
+    }
+
+    @include e(button-area) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: $--slider-button-area-size;
+      height: $--slider-button-area-size;
+      transform: translate(-50%, -50%);
+
+      @include e(button) {
+        border: 2px solid $--slider-main-background-color;
+        width: $--slider-button-size;
+        height: $--slider-button-size;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.2);
+        }
+        // background-color: $--color-white;
+      }
+    }
+  }
+}
