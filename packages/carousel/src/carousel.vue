@@ -115,7 +115,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['raChange'],
+  emits: ['ra-change'],
   setup(props: TCarouselProps, { emit }) {
     //ref
     const itemReact = reactive<ICarouselItem[]>([]);

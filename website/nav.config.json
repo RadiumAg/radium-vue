@@ -44,6 +44,15 @@
           "name": "Modal 对话框"
         }
       ]
+    },
+    {
+      "name": "表单",
+      "groups":[
+        {
+          "path":"Slider",
+          "name":"Slider滚动条"
+        }
+      ]
     }
   ]
 }

@@ -63,7 +63,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['raOnAfterClose'],
+  emits: ['ra-onafterclose'],
   setup(props,{ emit }) {
     const isShow = ref(false);
     const contentRef = ref<HTMLTemplateElement>(null);

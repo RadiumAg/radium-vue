@@ -1,17 +1,20 @@
 <template>
   <div>
-    <slot></slot>
   </div>
 </template>
 <script lang='ts'>
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'RaSlider',
-  props: { },
-  setup(props) {
-    // init here
+  props: {
+    modalValue: {
+      type: Number,
+      value: 0,
+    },
   },
-})
+  setup(props) {
+  },
+});
 </script>
 <style>
 </style>

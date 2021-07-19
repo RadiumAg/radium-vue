@@ -65,7 +65,7 @@ export default defineComponent({
       default: 0,
     },
   },
-  emits: ['raDestroy', 'raClose'],
+  emits: ['ra-destroy', 'ra-close'],
   setup(props) {
     const isShow = ref(false);
     let timer: NodeJS.Timer = null;

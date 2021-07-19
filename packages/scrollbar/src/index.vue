@@ -37,7 +37,6 @@ import {
   nextTick,
   onMounted,
   onUnmounted,
-  PropType,
   provide,
   reactive,
   ref,
@@ -78,7 +77,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['raScroll'],
+  emits: ['ra-scroll'],
   setup(props: Readonly<TIndexProps>, { emit }) {
     const isActive = ref(false);
     const data = reactive<Partial<{ direction: [('x' | 'y')?] }>>({
@@ -114,7 +113,7 @@ export default defineComponent({
         (scrollBarRef.value.scrollTop / scrollBarRef.value.clientHeight) * 100;
       moveX.value =
         (scrollBarRef.value.scrollLeft / scrollBarRef.value.clientWidth) * 100;
-      emit('raScroll', [
+      emit('ra-scroll', [
         scrollBarRef.value.scrollLeft,
         scrollBarRef.value.scrollTop,
       ]);
