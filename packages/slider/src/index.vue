@@ -2,17 +2,20 @@
   <section class="ra-slider">
     <div class="ra-slider__track">
       <div class="ra-slider__progress-bar" :style="processBarStyle"></div>
-      <div class="ra-slider__button-area">
-        <div class="ra-slider__button"></div>
-      </div>
+      <progress-button :direction="raIsVertical? 'y': 'x'" />
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent, provide, ref } from 'vue';
+import progressButton from './button.vue';
+import { SLIDER_PROVIDE_TOKEN, TSliderProvide } from './slider';
 export default defineComponent({
   name: 'RaSlider',
+  components: {
+    progressButton,
+  },
   props: {
     modalValue: {
       type: Number,
@@ -57,6 +60,10 @@ export default defineComponent({
       const ret = [];
       ret.push({ width: processBarWidth.value + '0%' });
       return ret;
+    });
+
+    provide<TSliderProvide>(SLIDER_PROVIDE_TOKEN,{
+      processBarWidth,
     });
 
     return {

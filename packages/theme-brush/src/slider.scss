@@ -26,17 +26,20 @@
       width: $--slider-button-area-size;
       height: $--slider-button-area-size;
       transform: translate(-50%, -50%);
+      transform-origin: 50% 50%;
+      transition: $--all-transition;
+      cursor: pointer;
+
+      &:hover {
+        transform: translate(-50%, -50%)
+         scale(1.2);
+      }
 
       @include e(button) {
         border: 2px solid $--slider-main-background-color;
         width: $--slider-button-size;
         height: $--slider-button-size;
         border-radius: 50%;
-        cursor: pointer;
-
-        &:hover {
-            transform: scale(1.2);
-        }
         // background-color: $--color-white;
       }
     }
