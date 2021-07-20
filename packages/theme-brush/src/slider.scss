@@ -32,7 +32,12 @@
       user-select: none;
       background-color: transparent;
 
+      &:hover {
+        cursor: grab;
+      }
+
       &:active {
+        cursor: grabbing;
         transform: translate(-50%, -50%) scale(1.2);
       }
 

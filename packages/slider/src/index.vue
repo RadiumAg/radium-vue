@@ -46,7 +46,7 @@ export default defineComponent({
     },
     raStep: {
       type: Number,
-      default: 1,
+      default: 5,
     },
     raShowTooltip: {
       type: Boolean,
@@ -69,6 +69,7 @@ export default defineComponent({
     const trackRef = ref<HTMLElement>();
     const trackWidth = ref(0);
     const sliderDistance = ref(0);
+    const currentValue = ref(0);
     const or = new ResizeObserver(() => {
       if (isNull(trackRef.value)) {
         return;
@@ -85,6 +86,7 @@ export default defineComponent({
       sliderDistance,
       maxValue: ref(props.raMax),
       step: ref(props.raStep),
+      currentValue,
     });
 
     //funs

@@ -8,6 +8,7 @@ export type TSliderProvide = {
   sliderDistance: Ref<number>;
   maxValue: Ref<number>;
   step: Ref<number>;
+  currentValue: Ref<number>;
 };
 
 export const ButtonBarConfig = {

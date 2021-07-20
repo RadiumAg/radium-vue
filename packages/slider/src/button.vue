@@ -31,16 +31,17 @@ export default defineComponent({
     const data = reactive({
       buttonLeft: 0,
     });
-    const maskFlag = computed(() => {
-      const res = sliderToken.trackWidth.value / sliderToken.maxValue.value;
-      return res;
-    });
     const mouse = {
       start: 0,
       end: 0,
       lastLeft: 0,
     };
+    const maskAvg = computed(() => {
+      const res = sliderToken.maxValue.value / sliderToken.trackWidth.value;
+      return res;
+    });
 
+    // funcs
     const buttonMouseUp = () => {
       mouse.lastLeft = data.buttonLeft;
       off(document, 'mouseup', buttonMouseUp);
@@ -49,10 +50,15 @@ export default defineComponent({
       off(buttonRef.value, 'mousemove', buttonDrag);
     };
 
+    const isNoRemainder = (distance: number) => { };
+
     const buttonDrag = (event: MouseEvent) => {
       const distance = mouse.end - mouse.start + mouse.lastLeft;
       mouse.end = event[ButtonBarConfig[props.direction].client];
 
+      if (isNoRemainder(distance)) {
+        return;
+      }
       data.buttonLeft = distance;
       if (data.buttonLeft < 0) {
         data.buttonLeft = 0;
