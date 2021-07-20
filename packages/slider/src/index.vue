@@ -1,14 +1,25 @@
 <template>
   <section class="ra-slider">
-    <div class="ra-slider__track">
-      <div class="ra-slider__progress-bar" :style="processBarStyle"></div>
-      <progress-button :direction="raIsVertical? 'y': 'x'" />
+    <div ref="trackRef" class="ra-slider__track">
+      <div
+        class="ra-slider__progress-bar"
+        :style="{ width: processBarWidth }"
+      ></div>
+      <progress-button :direction="raIsVertical ? 'y' : 'x'" />
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, provide, ref } from 'vue';
+import { isNull } from 'lodash';
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  provide,
+  ref,
+} from 'vue';
 import progressButton from './button.vue';
 import { SLIDER_PROVIDE_TOKEN, TSliderProvide } from './slider';
 export default defineComponent({
@@ -55,21 +66,45 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const processBarWidth = ref(0);
-    const processBarStyle = computed(() => {
-      const ret = [];
-      ret.push({ width: processBarWidth.value + '0%' });
-      return ret;
+    const trackRef = ref<HTMLElement>();
+    const trackWidth = ref(0);
+    const sliderDistance = ref(0);
+    const or = new ResizeObserver(() => {
+      if (isNull(trackRef.value)) {
+        return;
+      }
+      setTheTrackWidth();
+    });
+    const processBarWidth = computed(() => {
+      const res = (sliderDistance.value / trackWidth.value) * 100 + '%';
+      return res;
     });
 
-    provide<TSliderProvide>(SLIDER_PROVIDE_TOKEN,{
-      processBarWidth,
+    provide<TSliderProvide>(SLIDER_PROVIDE_TOKEN, {
+      trackWidth,
+      sliderDistance,
+      maxValue: ref(props.raMax),
+      step: ref(props.raStep),
+    });
+
+    //funs
+    function setTheTrackWidth() {
+      trackWidth.value = trackRef.value.clientWidth;
+    }
+
+    //lifeclycle
+    onMounted(() => {
+      or.observe(trackRef.value);
+    });
+
+    onUnmounted(() => {
+      or.disconnect();
     });
 
     return {
       props,
+      trackRef,
       processBarWidth,
-      processBarStyle,
     };
   },
 });

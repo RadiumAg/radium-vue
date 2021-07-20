@@ -695,8 +695,8 @@ $--slider-height: 6px !default;
 $--slider-button-size: 20px !default;
 $--slider-button-area-size: 36px !default;
 $--slider-button-area-offset: -15px !default;
-$--slider-progress-bar-height:6px;
-
+$-slider-button-transition: transform 0.3s ease-in-out !default;
+$--slider-progress-bar-height: 6px;
 
 /* Menu
 --------------------------*/
@@ -829,4 +829,4 @@ $--breakpoints-spec: (
 ) !default;
 
 // ripple
-$--ripple-background-color: rgba(0, 0, 0, .1);
+$--ripple-background-color: rgba(0, 0, 0, 0.1);

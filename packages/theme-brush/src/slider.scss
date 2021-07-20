@@ -27,15 +27,17 @@
       height: $--slider-button-area-size;
       transform: translate(-50%, -50%);
       transform-origin: 50% 50%;
-      transition: $--all-transition;
+      transition: $-slider-button-transition;
       cursor: pointer;
+      user-select: none;
+      background-color: transparent;
 
-      &:hover {
-        transform: translate(-50%, -50%)
-         scale(1.2);
+      &:active {
+        transform: translate(-50%, -50%) scale(1.2);
       }
 
       @include e(button) {
+        background-color: $--color-white;
         border: 2px solid $--slider-main-background-color;
         width: $--slider-button-size;
         height: $--slider-button-size;

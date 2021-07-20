@@ -1,8 +1,8 @@
 <template>
   <div
-    ref="buttonRrf"
+    ref="buttonRef"
     class="ra-slider__button-area"
-    :style="[{'left': data.processBarWidth * 100 + '%'}]"
+    :style="{ left: data.buttonLeft + 'px' }"
     @mousedown="buttnMouseDown($event)"
   >
     <div class="ra-slider__button"></div>
@@ -10,35 +10,69 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, onMounted, reactive, ref } from '@vue/runtime-core';
-import { on } from 'packages/utils/dom';
-import { SLIDER_PROVIDE_TOKEN, TSliderProvide } from './slider';
+import { computed, defineComponent, inject, reactive, ref } from 'vue';
+import { off, on } from '@radium-vue/utils/dom';
+import {
+  ButtonBarConfig,
+  SLIDER_PROVIDE_TOKEN,
+  TSliderProvide,
+} from './slider';
 export default defineComponent({
-  name:'RaButton',
+  name: 'RaButton',
   props: {
     direction: {
-      type:String,
+      type: String,
       default: 'x',
     },
   },
-  setup(props){
+  setup(props) {
     const sliderToken = inject<TSliderProvide>(SLIDER_PROVIDE_TOKEN);
-    const buttonRrf = ref<HTMLElement>();
+    const buttonRef = ref<HTMLElement>();
     const data = reactive({
-      processBarWidth: sliderToken.processBarWidth,
+      buttonLeft: 0,
     });
-    const mouseDown = {
-      x: {
-        startX:0,
-      },
+    const maskFlag = computed(() => {
+      const res = sliderToken.trackWidth.value / sliderToken.maxValue.value;
+      return res;
+    });
+    const mouse = {
+      start: 0,
+      end: 0,
+      lastLeft: 0,
     };
-    const buttnMouseDown = (event:MouseEvent)=>{
-      mouseDown[props.direction].start = event[props.direction];
+
+    const buttonMouseUp = () => {
+      mouse.lastLeft = data.buttonLeft;
+      off(document, 'mouseup', buttonMouseUp);
+      off(document, 'mousemove', buttonDrag);
+      off(buttonRef.value, 'mouseup', buttonMouseUp);
+      off(buttonRef.value, 'mousemove', buttonDrag);
+    };
+
+    const buttonDrag = (event: MouseEvent) => {
+      const distance = mouse.end - mouse.start + mouse.lastLeft;
+      mouse.end = event[ButtonBarConfig[props.direction].client];
+
+      data.buttonLeft = distance;
+      if (data.buttonLeft < 0) {
+        data.buttonLeft = 0;
+      } else if (data.buttonLeft > sliderToken.trackWidth.value) {
+        data.buttonLeft = sliderToken.trackWidth.value;
+      }
+      sliderToken.sliderDistance.value = data.buttonLeft;
+    };
+
+    const buttnMouseDown = (event: MouseEvent) => {
+      mouse.start = event[ButtonBarConfig[props.direction].client];
+      on(buttonRef.value, 'mouseup', buttonMouseUp);
+      on(buttonRef.value, 'mousemove', buttonDrag);
+      on(document, 'mousemove', buttonDrag);
+      on(document, 'mouseup', buttonMouseUp);
     };
 
     return {
       data,
-      buttonRrf,
+      buttonRef,
       buttnMouseDown,
     };
   },
