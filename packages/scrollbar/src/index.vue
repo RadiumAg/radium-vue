@@ -150,7 +150,6 @@ export default defineComponent({
     onMounted(async () => {
       ro.observe(scrollBarRef.value);
       on(window, 'resize', updateTheConfig);
-      // await updateTheConfig();
     });
 
     onUnmounted(() => {

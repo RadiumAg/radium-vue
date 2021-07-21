@@ -43,14 +43,13 @@ Object.keys(ComponentDocConfig).forEach(language => {
     comObj['groups'].forEach((com, index) => {
       if (index === 0) {
         componentChildrenRouters.push({
-          name: (com['name'] as string).toLowerCase(),
           path: '',
           redirect: { name: com['name'] },
         });
       }
       const component = getDocComponent(`${com['path']}`);
       componentChildrenRouters.push({
-        name: com['name'],
+        name: (com['path'] as string).toLowerCase(),
         path: `${language}/${com['path']}`,
         component,
       });

@@ -1,6 +1,6 @@
 <template>
   <div class="ra-modal" @click="raModalClick">
-    <transition name="ra-modal-fade" @after-leave="$emit('raOnAfterClose')">
+    <transition name="ra-modal-fade" @after-leave="$emit('ra-on-after-close')">
       <div v-show="isShow" class="ra-modal__content" :style="modalStyle">
         <slot name="title">
           <h3>{{ raTitle }}</h3>
@@ -63,7 +63,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['ra-onafterclose'],
+  emits: ['ra-on-after-close'],
   setup(props,{ emit }) {
     const isShow = ref(false);
     const contentRef = ref<HTMLTemplateElement>(null);
@@ -86,7 +86,7 @@ export default defineComponent({
     // methods
     function raDestroy(){
       isShow.value = false;
-      emit('raOnAfterClose');
+      emit('ra-on-after-close');
     }
     return {
       isShow,

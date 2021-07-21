@@ -9,8 +9,11 @@
 
 ```html
 <template>
-    <template  ref="content">
+     <template  ref="content">
         <p style="line-height:90px;">消息内容</p>
+    </template>
+     <template  ref="footer">
+         <ra-button></ra-button>
     </template>
     <ra-row>
         <ra-col>
@@ -25,11 +28,17 @@
   export default defineComponent({
       setup(){
           const content = ref(null);
+          const footer = ref(null);
           function openModal(){
-              RaModal.create({ raContent: content.value, raTitle:'提示'}).afterClose.then(()=>{ console.log('ok') });
+              RaModal.create({ 
+                  raTitle:'提示', 
+                  raFooter: footer.value
+              }).afterClose
+                .then(()=>{ console.log('ok') });
           }
           return {
               content,
+              footer,
               openModal
           }
       }

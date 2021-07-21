@@ -1,4 +1,5 @@
-import { App, createVNode, isVNode, render, VNode } from 'vue';
+import EmptyTemplate from '@radium-vue/emptyTemplate';
+import { App, createVNode, h, isVNode, render, VNode } from 'vue';
 import modalConstructor from './index.vue';
 
 type TModalOption = Partial<{
@@ -25,12 +26,22 @@ export class Modal {
     const container = document.createElement('div');
     const slotObject: { [key: string]: unknown } = {};
 
-    isVNode(options.raContent['__vnode']) &&
+    console.log(options.raFooter['__vnode'].children);
+    isVNode(options.raContent?.__vnode) &&
       (slotObject.default = () => options.raContent['__vnode'].children);
-    isVNode(options.raTitle['__vnode']) &&
+    isVNode(options.raTitle?.__vnode) &&
       (slotObject.title = () => options.raTitle['__vnode'].children);
-    isVNode(options.raTitle['__vnode']) &&
-      (slotObject.footer = () => options.raFooter['__vnode'].children);
+    isVNode(options.raFooter?.__vnode) &&
+      (slotObject.footer = () =>
+        h(
+          EmptyTemplate,
+          { data: { text: 1 } },
+          {
+            default: props => {
+              return options.raFooter['__vnode'].children;
+            },
+          },
+        ));
 
     const vm = createVNode(
       modalConstructor,
