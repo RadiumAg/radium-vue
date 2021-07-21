@@ -4,7 +4,8 @@
     <div class="component_center">
       <ra-scrollbar
         ref="componentCenterRef"
-        ra-height="100%"
+        ra-height="max-content"
+        ra-max-height="100%"
         :ra-wrap-style="[{ padding: '0px 280px 200px 280px' }]"
         @ra-scroll="scroll($event)"
       >

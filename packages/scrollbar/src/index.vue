@@ -89,12 +89,7 @@ export default defineComponent({
     const isHover = ref(false);
     const isMouseHover = ref(false);
     const updateBarSize = ref<() => void>(null);
-    const ro = new ResizeObserver(() => {
-      if (updateBarSize.value) {
-        updateBarSize.value();
-      }
-      update();
-    });
+    const ro = new ResizeObserver(updateTheConfig);
 
     const style = computed(() => {
       const res = [];
@@ -107,7 +102,13 @@ export default defineComponent({
       return res;
     });
 
-    // fun
+    // funs
+    async function updateTheConfig(){
+      await nextTick();
+      update();
+      updateBarSize.value && updateBarSize.value();
+    }
+
     function scroll() {
       moveY.value =
         (scrollBarRef.value.scrollTop / scrollBarRef.value.clientHeight) * 100;
@@ -146,15 +147,15 @@ export default defineComponent({
     }
 
     // lifeCycle
-    onMounted(() => {
-      nextTick(update);
+    onMounted(async () => {
       ro.observe(scrollBarRef.value);
-      on(window, 'resize', update);
+      on(window, 'resize', updateTheConfig);
+      // await updateTheConfig();
     });
 
     onUnmounted(() => {
       ro.disconnect();
-      off(window, 'resize', update);
+      off(window, 'resize', updateTheConfig);
     });
 
     provide(SCROLL_BAR_INJECT_TOKEN, {

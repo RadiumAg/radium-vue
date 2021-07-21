@@ -1,5 +1,5 @@
 <template>
-  <div class="demo">
+  <div class="demo" :class="[className]">
     <div>
       <slot name="doc"></slot>
     </div>
@@ -22,10 +22,12 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'Demo',
   setup() {
+    const router = useRouter();
     const demoSourceHeight = ref(0);
     const sourceSlotHeight = ref(0);
     const demoSourceState = ref(false);
@@ -33,7 +35,9 @@ export default defineComponent({
       return demoSourceState.value ? '关闭代码' : '查看代码';
     });
     const sourceRef = ref<HTMLElement>();
-
+    const className = computed(()=>{
+      return  `demo_${router.currentRoute.value.name.toString().toLowerCase()}`;
+    });
     onMounted(() => {
       sourceSlotHeight.value = sourceRef.value.getElementsByTagName(
         'code',
@@ -54,6 +58,7 @@ export default defineComponent({
       sourceRef,
       sourceSlotHeight,
       demoSourceState,
+      className,
     };
   },
 });
