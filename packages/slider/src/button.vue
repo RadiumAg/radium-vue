@@ -2,7 +2,7 @@
   <div
     ref="buttonRef"
     class="ra-slider__button-area"
-    :style="{ left: data.buttonLeft + 'px' }"
+    :style="{ left: data.buttonLeft + '%' }"
     @mousedown="buttnMouseDown($event)"
   >
     <div class="ra-slider__button"></div>
@@ -26,19 +26,13 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const sliderToken = inject<TSliderProvide>(SLIDER_PROVIDE_TOKEN);
     const buttonRef = ref<HTMLElement>();
-    const data = reactive({
-      buttonLeft: 0,
-    });
-    const mouse = {
-      start: 0,
-      end: 0,
-      lastLeft: 0,
-    };
+    const oldDistancePercent = ref(0);
+    const data = reactive({ buttonLeft: 0 });
+    const mouse = reactive({  start: 0,  end: 0,  lastLeft: 0 });
+    const sliderToken = inject<TSliderProvide>(SLIDER_PROVIDE_TOKEN);
     const maskAvg = computed(() => {
-      const res = sliderToken.maxValue.value / sliderToken.trackWidth.value;
-      return res;
+      return Number.parseFloat((sliderToken.step.value / 100).toFixed(2)) * 100;
     });
 
     // funcs
@@ -50,20 +44,22 @@ export default defineComponent({
       off(buttonRef.value, 'mousemove', buttonDrag);
     };
 
-    const isNoRemainder = (distance: number) => { };
+    const isDistanceValid = (distancePercent:number) => {
+      return Math.abs(Math.round(oldDistancePercent.value - distancePercent))% maskAvg.value === 0;
+    };
 
     const buttonDrag = (event: MouseEvent) => {
-      const distance = mouse.end - mouse.start + mouse.lastLeft;
       mouse.end = event[ButtonBarConfig[props.direction].client];
-
-      if (isNoRemainder(distance)) {
+      const distancePercent = Number.parseFloat(((mouse.end - mouse.start + (mouse.lastLeft / 100) * sliderToken.trackWidth.value) / sliderToken.trackWidth.value).toFixed(2) ) * 100;
+      if (!isDistanceValid(distancePercent)) {
         return;
       }
-      data.buttonLeft = distance;
+      oldDistancePercent.value = distancePercent;
+      data.buttonLeft = distancePercent;
       if (data.buttonLeft < 0) {
         data.buttonLeft = 0;
-      } else if (data.buttonLeft > sliderToken.trackWidth.value) {
-        data.buttonLeft = sliderToken.trackWidth.value;
+      } else if (data.buttonLeft > 100) {
+        data.buttonLeft = 100;
       }
       sliderToken.sliderDistance.value = data.buttonLeft;
     };

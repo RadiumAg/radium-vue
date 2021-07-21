@@ -19,9 +19,10 @@ import {
   onUnmounted,
   provide,
   ref,
+  watchEffect,
 } from 'vue';
 import progressButton from './button.vue';
-import { SLIDER_PROVIDE_TOKEN, TSliderProvide } from './slider';
+import { SLIDER_PROVIDE_TOKEN, TSliderProvide , UPDATE_MODEL_EVENT } from './slider';
 export default defineComponent({
   name: 'RaSlider',
   components: {
@@ -46,7 +47,7 @@ export default defineComponent({
     },
     raStep: {
       type: Number,
-      default: 5,
+      default: 1,
     },
     raShowTooltip: {
       type: Boolean,
@@ -65,7 +66,7 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
     const trackRef = ref<HTMLElement>();
     const trackWidth = ref(0);
     const sliderDistance = ref(0);
@@ -77,7 +78,7 @@ export default defineComponent({
       setTheTrackWidth();
     });
     const processBarWidth = computed(() => {
-      const res = (sliderDistance.value / trackWidth.value) * 100 + '%';
+      const res = sliderDistance.value  + '%';
       return res;
     });
 
@@ -101,6 +102,10 @@ export default defineComponent({
 
     onUnmounted(() => {
       or.disconnect();
+    });
+
+    watchEffect(()=>{
+      emit(UPDATE_MODEL_EVENT, Math.round(sliderDistance.value * props.raMax) / 100);
     });
 
     return {
