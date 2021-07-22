@@ -44,7 +44,7 @@ Object.keys(ComponentDocConfig).forEach(language => {
       if (index === 0) {
         componentChildrenRouters.push({
           path: '',
-          redirect: { name: com['name'] },
+          redirect: { name: (com['path'] as string).toLowerCase() },
         });
       }
       const component = getDocComponent(`${com['path']}`);

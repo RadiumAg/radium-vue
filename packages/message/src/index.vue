@@ -1,8 +1,8 @@
 <template>
   <transition
     name="ra-message-fade"
-    @before-leave="$emit('raClose')"
-    @after-leave="$emit('raDestroy')"
+    @before-leave="$emit('ra-close')"
+    @after-leave="$emit('ra-destroy')"
   >
     <div
       v-show="isShow"

@@ -1,22 +1,43 @@
-import EmptyTemplate from '@radium-vue/emptyTemplate';
-import { App, createVNode, h, isVNode, render, VNode } from 'vue';
+import { App, createVNode, isVNode, render, VNode } from 'vue';
 import modalConstructor from './index.vue';
 
-type TModalOption = Partial<{
-  raWidth: string | number;
+export const modalType = [
+  'confirm',
+  'info',
+  'success',
+  'error',
+  'warning',
+] as const;
+
+type TModalTypeOption = Partial<{
   raFullScreen: boolean;
-  raTop: boolean;
+  raTop: string;
   raModal: boolean;
   raLockScroll: boolean;
-  raOpenDelay: number;
-  raCloseDelay: number;
   raDropClose: boolean;
   raShowClose: boolean;
   raContent: string | VNode;
   raTitle: string | VNode;
-  raFooter: string | VNode;
-  footerTemplate: VNode;
+  raOnOk: () => void;
+  raOnCancel: () => void;
   onRaOnAfterClose: () => void;
+}>;
+
+type TModalOption = Partial<{
+  raType: string;
+  raWidth: string;
+  raTop: string;
+  raModal: boolean;
+  raLockScroll: boolean;
+  raDropClose: boolean;
+  raShowClose: boolean;
+  raOkLabel: string;
+  raCancelLabel: string;
+  raContent: string | VNode;
+  raTitle: string | VNode;
+  raFooter: string | VNode;
+  raOnOk: () => void;
+  raOnCancel: () => void;
 }>;
 
 export class Modal {
@@ -26,22 +47,12 @@ export class Modal {
     const container = document.createElement('div');
     const slotObject: { [key: string]: unknown } = {};
 
-    console.log(options.raFooter['__vnode'].children);
     isVNode(options.raContent?.__vnode) &&
       (slotObject.default = () => options.raContent['__vnode'].children);
     isVNode(options.raTitle?.__vnode) &&
       (slotObject.title = () => options.raTitle['__vnode'].children);
     isVNode(options.raFooter?.__vnode) &&
-      (slotObject.footer = () =>
-        h(
-          EmptyTemplate,
-          { data: { text: 1 } },
-          {
-            default: props => {
-              return options.raFooter['__vnode'].children;
-            },
-          },
-        ));
+      (slotObject.footer = () => options.raFooter['__vnode'].children);
 
     const vm = createVNode(
       modalConstructor,
@@ -65,5 +76,25 @@ export class Modal {
     return {
       afterClose,
     };
+  }
+
+  static warning(option: TModalTypeOption) {
+    return this.create({ raType: 'warning', raWidth: '20%', ...option });
+  }
+
+  static info(option: TModalTypeOption) {
+    return this.create({ raType: 'info', raWidth: '20%', ...option });
+  }
+
+  static success(option: TModalTypeOption) {
+    return this.create({ raType: 'success', raWidth: '20%', ...option });
+  }
+
+  static confirm(option: TModalTypeOption) {
+    return this.create({ raType: 'confirm', raWidth: '20%', ...option });
+  }
+
+  static error(option: TModalTypeOption) {
+    return this.create({ raType: 'error', raWidth: '20%', ...option });
   }
 }
