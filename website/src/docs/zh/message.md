@@ -1,4 +1,4 @@
-# Message全局提示
+# Message 全局提示
 
 直接使用`radium-vue` 暴露的`RaMessage` 类进行创建。
 
