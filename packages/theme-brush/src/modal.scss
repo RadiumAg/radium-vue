@@ -4,6 +4,8 @@
 @import './mixins/mixins.scss';
 
 @include b(modal) {
+  position: relative;
+
   .ra-icon-close {
     position: absolute;
     right: $--modal-padding-primary;

@@ -1,3 +1,5 @@
+import { InstallConfig } from './../utils/config';
+import { setConfig } from './../utils/config';
 import { App } from 'vue';
 
 // components
@@ -31,7 +33,12 @@ const directives = [raRipple];
 
 const plugins = [RaMessage, RaModal];
 
-const install = (app: App) => {
+const defaultConfig: InstallConfig = {
+  zIndex: 2000,
+};
+const install = (app: App, config: InstallConfig) => {
+  const opt = { config, ...defaultConfig };
+  setConfig(opt);
   components.forEach(component => {
     app.component(component.name, component);
   });

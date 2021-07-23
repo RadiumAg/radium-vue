@@ -1,5 +1,5 @@
 <template>
-  <div class="ra-modal">
+  <div class="ra-modal" :style="{zIndex:modalZIndex}">
     <transition name="ra-modal-fade" @after-leave="$emit('ra-on-after-close')">
       <div
         v-show="isShow"
@@ -37,7 +37,6 @@
         </div>
       </div>
     </transition>
-
     <div v-if="raModal" class="ra-modal__mask" @click="raMaskClick"></div>
   </div>
 </template>
@@ -47,6 +46,7 @@ import RaButton from '@radium-vue/button';
 import RaRow from '@radium-vue/row';
 import RaCol from '@radium-vue/col';
 import { modalType } from './modal';
+import PopupManager from '@radium-vue/utils/popup-manager';
 export default defineComponent({
   name: 'RaModal',
   components: {
@@ -118,6 +118,8 @@ export default defineComponent({
     const contentRef = ref<HTMLTemplateElement>(null);
     const isLoading = ref(false);
     const isShowCancel = ref(true);
+    const modalZIndex = ref(PopupManager.getZIndex());
+
     const containerStyle = computed(() => {
       const ret = [];
       props.raTop && ret.push({ top: props.raTop });
@@ -188,6 +190,7 @@ export default defineComponent({
       isLoading,
       iconStyle,
       isShowCancel,
+      modalZIndex,
     };
   },
 });

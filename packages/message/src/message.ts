@@ -2,6 +2,7 @@ import { EmptyObject } from '@radium-vue/utils/common';
 import { App, render, VNode } from 'vue';
 import { createVNode, isVNode } from 'vue';
 import MessageConstructor from './index.vue';
+import PopupManager from '@radium-vue/utils/popup-manager';
 
 type raType = 'success' | 'warning' | 'info' | 'error';
 
@@ -71,6 +72,7 @@ export class Message {
         ...options,
         raOffset: offset,
         raType: options.raType,
+        raZIndex: PopupManager.getZIndex(),
       },
       isVNode(options.raMessage) ? { default: () => options.raMessage } : null,
     );
