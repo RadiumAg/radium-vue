@@ -42,7 +42,7 @@ export default defineComponent({
       linkTagList.value.forEach((el, index) => {
         if (
           Math.floor(store.state.component.scrollTop) >=
-          Math.floor(el.offsetTop)
+          Math.floor(el.offsetTop)-20
         ) {
           scrollActive(index);
         } else if (

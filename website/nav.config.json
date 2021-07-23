@@ -42,6 +42,10 @@
         {
           "path": "modal",
           "name": "Modal 对话框"
+        },
+        {
+          "path": "spin",
+          "name": "Spin 对话框"
         }
       ]
     },

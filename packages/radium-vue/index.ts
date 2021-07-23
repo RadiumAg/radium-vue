@@ -17,6 +17,7 @@ import RaModal from '@radium-vue/modal';
 
 // directives
 import raRipple from '@radium-vue/ripple';
+import raSpin from '@radium-vue/spin';
 
 const components = [
   RaRow,
@@ -29,7 +30,7 @@ const components = [
   RaCarouselItem,
 ];
 
-const directives = [raRipple];
+const directives = [raRipple, raSpin];
 
 const plugins = [RaMessage, RaModal];
 

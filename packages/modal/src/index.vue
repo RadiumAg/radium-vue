@@ -41,7 +41,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watchEffect } from 'vue';
+import { computed, defineComponent, onMounted, ref, watch, watchEffect } from 'vue';
 import RaButton from '@radium-vue/button';
 import RaRow from '@radium-vue/row';
 import RaCol from '@radium-vue/col';
@@ -56,7 +56,7 @@ export default defineComponent({
   },
   props: {
     raTitle: {
-      type: String,
+      type: [String,Object],
       default: '',
     },
     raContent: {
@@ -113,7 +113,7 @@ export default defineComponent({
     },
   },
   emits: ['ra-on-after-close'],
-  setup(props, { emit }) {
+  setup(props) {
     const isShow = ref(false);
     const contentRef = ref<HTMLTemplateElement>(null);
     const isLoading = ref(false);
@@ -147,7 +147,6 @@ export default defineComponent({
       }
     });
 
-
     onMounted(() => {
       isShow.value = true;
     });
@@ -175,7 +174,6 @@ export default defineComponent({
     // methods
     function raDestroy() {
       isShow.value = false;
-      emit('ra-on-after-close');
     }
 
     return {

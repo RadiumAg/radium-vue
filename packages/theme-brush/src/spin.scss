@@ -1,0 +1,35 @@
+@use "sass:math";
+
+@import './common/var.scss';
+@import './mixins/mixins.scss';
+
+@include b(spin) {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  background-color: $--spin-background-color;
+  opacity: 1;
+  transition: $--fade-transition;
+
+  @include e(default-icon) {
+    fill: $--color-primary;
+  }
+
+  @include when(fullscreen) {
+    position: fixed;
+  }
+}
+
+@include b(spin-parent) {
+  position: relative;
+}
+
+.#{$namespace}-spin-fade-enter-from,
+.#{$namespace}-spin-fade-leave-to {
+  opacity: 0;
+}

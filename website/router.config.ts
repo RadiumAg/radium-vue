@@ -16,7 +16,7 @@ const errorComponent = defineComponent({
 //loading
 // eslint-disable-next-line vue/one-component-per-file
 const loadingComponent = defineComponent({
-  template: '<p>稍等</p>',
+  template: `<p v-spin="{isShow:true , background:'hsla(0,0%,100%,.9)'}" style="height:500px"></p>`,
 });
 
 function getDefineAsyncComponent(func: () => Promise<unknown>) {

@@ -1,5 +1,5 @@
 {
-  "name": "@radium-vue/loading",
+  "name": "@radium-vue/spin",
   "version": "0.0.0",
   "main": "dist/index.js",
   "license": "MIT",

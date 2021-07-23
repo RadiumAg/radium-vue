@@ -43,6 +43,66 @@
 
 :::
 
+#### 自定义内容
+
+使用`template`标签 自定义内容，并使用`ref`的方式将模板传递给相应的参数。
+
+:::demo
+
+```html
+<template>
+    <template ref="title">
+       <p style="line-height:20px;">自定义标题</p>
+    </template>
+    <template ref="content">
+       <p style="line-height:20px;">自定义内容</p>
+    </template>
+    <template ref="footer">
+      <ra-row ra-justify="end">
+        <ra-col>
+            <ra-button class="ra-modal-button" ra-type="primary" @click="()=>{modalInstance.close()}">关闭对话框</ra-button>
+        </ra-col>
+     </ra-row>
+    </template>
+    <ra-row>
+        <ra-col>
+            <ra-button class="ra-modal-button" @click="openModal">打开对话框</ra-button>
+        </ra-col>
+     </ra-row>
+</template>
+
+<script>
+  import { defineComponent, h } from 'vue';
+  import { RaModal } from 'radium-vue';
+  export default defineComponent({
+      setup(){
+          const title = ref(null);
+          const content = ref(null);
+          const footer = ref(null);
+          const modalInstance = ref(null);
+          function openModal(){
+             modalInstance.value = RaModal.create({ 
+                  raTitle: title.value,
+                  raContent: content.value,
+                  raFooter:  footer.value,
+                  raWidth: '30%',
+              });
+          }
+          
+          return {
+              title,
+              content,
+              footer,
+              openModal,
+              modalInstance,
+          }
+      }
+  })
+</script>
+```
+
+:::
+
 
 
 #### 异步使用

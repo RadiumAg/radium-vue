@@ -46,6 +46,9 @@ export class Modal {
     let afterClose: Promise<void> = undefined;
     const container = document.createElement('div');
     const slotObject: { [key: string]: unknown } = {};
+    const close = () => {
+      vm.component.proxy['raDestroy']();
+    };
 
     isVNode(options.raContent?.__vnode) &&
       (slotObject.default = () => options.raContent['__vnode'].children);
@@ -75,6 +78,7 @@ export class Modal {
     document.body.appendChild(container.firstChild);
     return {
       afterClose,
+      close,
     };
   }
 
