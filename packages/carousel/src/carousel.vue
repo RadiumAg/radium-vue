@@ -66,6 +66,7 @@ import {
   provide,
   reactive,
   ref,
+  toRefs,
   watch,
 } from 'vue';
 import {
@@ -134,7 +135,7 @@ export default defineComponent({
     // watch
     watch(activeIndex, () => {
       transformItem();
-      emit('raChange', activeIndex);
+      emit('ra-change', activeIndex);
     });
 
     // mounted
@@ -241,7 +242,7 @@ export default defineComponent({
       itemReact,
       offsetWidth,
       oldActiveIndex,
-      isLoop: ref(props.raLoop),
+      isLoop: toRefs(props).raLoop,
     });
 
     return {

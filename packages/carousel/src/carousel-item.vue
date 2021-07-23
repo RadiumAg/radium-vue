@@ -83,7 +83,7 @@ export default defineComponent({
     }
 
     function processIndex(index: number, activeIndex: number, length: number) {
-      if (!CAROUSEL_PROVIDE.isLoop) {
+      if (!CAROUSEL_PROVIDE.isLoop.value) {
         return index;
       }
       if (activeIndex === length - 1 && index === 0) {
@@ -97,7 +97,7 @@ export default defineComponent({
     // difficult to resolve
     function isAnimating(index: number, activeIndex: number, length: number) {
       data.animating = false;
-      if (!CAROUSEL_PROVIDE.isLoop) {
+      if (!CAROUSEL_PROVIDE.isLoop.value) {
         data.animating = true;
         return;
       }
