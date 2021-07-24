@@ -1,7 +1,7 @@
-import { mount } from '@vue/test-utils'
-import Modal from '../src/index.vue'
+import { mount } from '@vue/test-utils';
+import Modal from '../src/index.vue';
 
-const AXIOM = '日后再来'
+const AXIOM = '日后再来';
 
 describe('Modal.vue', () => {
   test('render test', () => {
@@ -9,7 +9,7 @@ describe('Modal.vue', () => {
       slots: {
         default: AXIOM,
       },
-    })
-    expect(wrapper.text()).toEqual(AXIOM)
-  })
-})
+    });
+    expect(wrapper.text()).toEqual(AXIOM);
+  });
+});

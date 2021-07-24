@@ -27,6 +27,7 @@
 
 @include b(spin-parent) {
   position: relative;
+  z-index: 0;
 }
 
 .#{$namespace}-spin-fade-enter-from,
