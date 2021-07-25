@@ -59,9 +59,8 @@ Object.keys(ComponentDocConfig).forEach(language => {
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/',
+    path: '',
     redirect: '/component',
-    component: null,
   },
   {
     name: 'component',

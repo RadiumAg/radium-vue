@@ -74,6 +74,7 @@ $padding: 10px 0px 10px 25px;
     font-family: ubuntu, -apple-system, SF UI Text, Arial, PingFang SC,
       Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
     width: 100%;
+    color: #454d64;
     position: relative;
     display: inline-block;
     text-align: left;
