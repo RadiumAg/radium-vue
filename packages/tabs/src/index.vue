@@ -4,7 +4,8 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
+import { TTabPosition, TTabsType } from '.';
 export default defineComponent({
   name: 'RaTabs',
   props: {
@@ -13,11 +14,24 @@ export default defineComponent({
       defalult: '',
     },
     raType: {
-      type: String,
-      default:
+      type: String as PropType<TTabsType>,
+      default: 'card',
+    },
+    raCloseable: {
+      type: Boolean,
+      default: false,
+    },
+    raTabPosition: {
+      type: String as PropType<TTabPosition>,
+      default: 'top',
     },
   },
-  setup(props) {},
+  emits: ['ra-tab-click', 'ra-tab-remove', 'ra-tab-add', 'ra-edit'],
+  setup(props) {
+    return {
+      props,
+    };
+  },
 });
 </script>
 <style></style>
