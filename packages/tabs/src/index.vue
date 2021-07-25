@@ -3,15 +3,21 @@
     <slot></slot>
   </div>
 </template>
-<script lang='ts'>
-import { defineComponent } from 'vue'
+<script lang="ts">
+import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'RaTabs',
-  props: { },
-  setup(props) {
-    // init here
+  props: {
+    modelValue: {
+      type: String,
+      defalult: '',
+    },
+    raType: {
+      type: String,
+      default:
+    },
   },
-})
+  setup(props) {},
+});
 </script>
-<style>
-</style>
+<style></style>
