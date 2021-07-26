@@ -1,13 +1,18 @@
 <template>
   <div>
     <slot></slot>
+    <tab-bar />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { TTabPosition, TTabsType } from '.';
+import TabBar from './tab-bar.vue';
 export default defineComponent({
   name: 'RaTabs',
+  components: {
+    TabBar,
+  },
   props: {
     modelValue: {
       type: String,
@@ -34,4 +39,3 @@ export default defineComponent({
   },
 });
 </script>
-<style></style>
