@@ -1,0 +1,22 @@
+@use "sass:math";
+
+@import './common/var.scss';
+@import './mixins/mixins.scss';
+
+@include b(tab-panel) {
+  height: max-content;
+  @include e(wrap) {
+    padding: $--tabs-padding;
+    line-height: 40px;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover {
+      color: $--color-primary;
+    }
+
+    @include when(active) {
+      color: $--color-primary;
+    }
+  }
+}

@@ -1,8 +1,23 @@
 <template>
-  <div></div>
+  <div class="ra-tab-bar" :style="barStyle"></div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
-export default defineComponent({});
+import { defineComponent, inject, computed } from 'vue';
+import { TABS_PROVIDE_TOKEN, ITabsProvide } from '.';
+export default defineComponent({
+  setup() {
+    const tabProvide = inject<ITabsProvide>(TABS_PROVIDE_TOKEN);
+    const barStyle = computed(() => {
+      const ret = [];
+      ret.push({ left: tabProvide.currentPosition.value + 'px' });
+      ret.push({ width: tabProvide.currentWidth.value + 'px' });
+      return ret;
+    });
+
+    return {
+      barStyle,
+    };
+  },
+});
 </script>
