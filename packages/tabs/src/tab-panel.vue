@@ -1,15 +1,29 @@
 <template>
-  <div ref="tabPanelRef" class="ra-tab-panel" @click="tabPanelClick">
-    <div class="ra-tab-panel__wrap">
-      <slot>
-        <span>{{ raLabel }}</span>
-      </slot>
+  <div
+    ref="tabPanelRef"
+    class="ra-tab-panel"
+    @click="tabPanelClick"
+  >
+    <div
+      class="ra-tab-panel__wrap"
+      :class="{
+        'is-active': isCurrentIndex,
+      }"
+    >
+      <span>{{ raLabel }}</span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, onMounted, ref } from 'vue';
+import {
+  defineComponent,
+  inject,
+  onMounted,
+  ref,
+  computed,
+  nextTick,
+} from 'vue';
 import { ITabsProvide, TABS_PROVIDE_TOKEN } from '.';
 
 export default defineComponent({
@@ -33,25 +47,35 @@ export default defineComponent({
     const tabIndex = ref(0);
     const tabPanelRef = ref<HTMLElement>(undefined);
     const tabPanelProvide = inject<ITabsProvide>(TABS_PROVIDE_TOKEN);
-    tabPanelProvide.setTabPanelIndex.value = setThePanelIndex;
+    const isCurrentIndex = computed(() => {
+      return tabIndex.value === tabPanelProvide.currentTabIndex.value;
+    });
 
     // funcs
     function setThePanelIndex(index: number) {
       tabIndex.value = index;
     }
-
-    onMounted(() => {
-      tabPanelProvide.tabPanelItems.value.push({width:tabPanelRef.value.offsetWidth,left:tabPanelRef.value.offsetLeft });
+    
+    onMounted(async () => {
+      tabPanelProvide.tabPanelItems.value.push({
+        width: tabPanelRef.value.offsetWidth,
+        left: tabPanelRef.value.offsetLeft,
+        name: props.raName,
+        index: tabIndex.value,
+        setTabPanelIndex: setThePanelIndex,
+      });
     });
 
     //methods
     const tabPanelClick = () => {
-      tabPanelProvide.currentTab.value = props.raName || tabIndex.value;
+      tabPanelProvide.currentTabIndex.value = tabIndex.value;
     };
+    
     return {
       props,
       tabPanelClick,
       tabPanelRef,
+      isCurrentIndex,
     };
   },
 });

@@ -5,12 +5,14 @@ export type TTabPosition = 'top' | 'right' | 'bottom' | 'left';
 export interface ITabPanel {
   width: number;
   left: number;
+  index: number;
+  name?: string;
+  setTabPanelIndex: (index: number) => void;
 }
 
 export interface ITabsProvide {
-  setTabPanelIndex: Ref<(index: number) => void>;
   tabPanelItems: Ref<ITabPanel[]>;
-  currentTab: Ref<string | number>;
+  currentTabIndex: Ref<number>;
   currentPosition: Ref<number>;
   currentWidth: Ref<number>;
 }

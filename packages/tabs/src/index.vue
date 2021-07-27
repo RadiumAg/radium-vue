@@ -8,6 +8,7 @@
       </div>
       <ra-tab-bar />
     </div>
+    <div class="ra-tabs__content"></div>
   </div>
 </template>
 <script lang="ts">
@@ -17,7 +18,8 @@ import {
   PropType,
   provide,
   ref,
-  watchEffect,
+  nextTick,
+  watch,
 } from 'vue';
 import RaTabBar from './tab-bar.vue';
 import {
@@ -26,7 +28,7 @@ import {
   TABS_PROVIDE_TOKEN,
   ITabsProvide,
   TAB_UPDATE_EVENT,
-ITabPanel,
+  ITabPanel,
 } from '.';
 export default defineComponent({
   name: 'RaTabs',
@@ -56,32 +58,46 @@ export default defineComponent({
     'ra-edit',
     TAB_UPDATE_EVENT,
   ],
-  setup(props, { slots, emit }) {
-    const currentTab = ref<string | number>('');
+  setup(props, { emit }) {
+    const currentTabIndex = ref<number>(0);
     const setTabPanelIndex = ref<(index: number) => void>(undefined);
     const currentWidth = ref(0);
     const currentPosition = ref(0);
     const tabPanelItems = ref<ITabPanel[]>([]);
-
-    provide<ITabsProvide>(TABS_PROVIDE_TOKEN, {
+    const provideConfig = {
       setTabPanelIndex,
-      currentTab,
+      currentTabIndex,
       currentWidth,
       currentPosition,
       tabPanelItems,
-    });
+    };
 
+    //funs
+    function updateTheTabBar() {
+      const currentPanel = tabPanelItems.value[currentTabIndex.value];
+      provideConfig.currentWidth.value = currentPanel.width;
+      provideConfig.currentPosition.value = currentPanel.left;
+    } 
+     
     //lifecycle
-    onMounted(() => {
-      Array.of(slots).forEach((s, index) => {
-        setTabPanelIndex.value(index);
+    onMounted(async () => {
+      await nextTick();
+      tabPanelItems.value.forEach((tab, index) => {
+        tab.setTabPanelIndex(index);
       });
+      updateTheTabBar();
     });
 
-    watchEffect(() => {
-      emit(TAB_UPDATE_EVENT, currentTab.value);
+    watch(currentTabIndex, () => {
+      emit(
+        TAB_UPDATE_EVENT,
+        tabPanelItems.value[currentTabIndex.value].name ||
+          tabPanelItems.value[currentTabIndex.value].index,
+      );
+      updateTheTabBar();
     });
 
+    provide<ITabsProvide>(TABS_PROVIDE_TOKEN, provideConfig);
     return {
       props,
     };
