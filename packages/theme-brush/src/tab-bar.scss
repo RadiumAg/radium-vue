@@ -1,0 +1,8 @@
+@use "sass:math";
+
+@import './common/var.scss';
+@import './mixins/mixins.scss';
+
+@include b(tab-bar) {
+  height: $--tabs-bar-height;
+}

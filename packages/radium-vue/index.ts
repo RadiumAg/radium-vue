@@ -12,6 +12,8 @@ import RaButton from '@radium-vue/button';
 import RaButtonGroup from '@radium-vue/button-group';
 import RaSlider from '@radium-vue/slider';
 import RaTabs from '@radium-vue/tabs';
+import RaTabPanel from '@radium-vue/tab-panel';
+import RaTabBar from '@radium-vue/tab-bar';
 // plugins
 import RaMessage from '@radium-vue/message';
 import RaModal from '@radium-vue/modal';
@@ -24,8 +26,10 @@ const components = [
   RaRow,
   RaCol,
   RaTabs,
+  RaTabBar,
   RaSlider,
   RaButton,
+  RaTabPanel,
   RaCarousel,
   RaScrollBar,
   RaButtonGroup,
@@ -56,14 +60,17 @@ const install = (app: App, config: InstallConfig) => {
 };
 
 export {
-  RaCarousel,
-  RaCarouselItem,
   RaRow,
   RaCol,
-  RaScrollBar,
-  RaMessage,
-  raRipple,
   RaModal,
+  RaButton,
+  RaSlider,
+  raRipple,
+  RaMessage,
+  RaCarousel,
+  RaTabPanel,
+  RaScrollBar,
+  RaCarouselItem,
 };
 
 export default {
