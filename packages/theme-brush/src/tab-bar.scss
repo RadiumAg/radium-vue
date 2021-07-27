@@ -5,4 +5,9 @@
 
 @include b(tab-bar) {
   height: $--tabs-bar-height;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  background-color: $--color-primary;
 }

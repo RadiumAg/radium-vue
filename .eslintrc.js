@@ -59,5 +59,6 @@ module.exports = {
     'vue/require-default-prop': 'off',
     'vue/html-closing-bracket-spacing': 'error',
     // preitter
+    'prettier/prettier': 'error',
   },
 };

@@ -26,10 +26,11 @@ import {
   TABS_PROVIDE_TOKEN,
   ITabsProvide,
   TAB_UPDATE_EVENT,
+ITabPanel,
 } from '.';
 export default defineComponent({
   name: 'RaTabs',
-  components: {   RaTabBar },
+  components: { RaTabBar },
   props: {
     modelValue: {
       type: String,
@@ -60,12 +61,14 @@ export default defineComponent({
     const setTabPanelIndex = ref<(index: number) => void>(undefined);
     const currentWidth = ref(0);
     const currentPosition = ref(0);
+    const tabPanelItems = ref<ITabPanel[]>([]);
 
     provide<ITabsProvide>(TABS_PROVIDE_TOKEN, {
       setTabPanelIndex,
       currentTab,
       currentWidth,
       currentPosition,
+      tabPanelItems,
     });
 
     //lifecycle
