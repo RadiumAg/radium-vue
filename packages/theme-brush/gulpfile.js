@@ -14,7 +14,7 @@ function compile() {
     .pipe(autoprefixer({ cascade: false }))
     .pipe(cssmin())
     .pipe(
-      rename(function (path) {
+      rename(function(path) {
         if (!noElPrefixFile.test(path.basename)) {
           path.basename = `el-${path.basename}`;
         }

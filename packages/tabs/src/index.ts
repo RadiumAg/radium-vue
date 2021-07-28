@@ -1,4 +1,4 @@
-import { ReactiveEffect, Ref, Slots } from 'vue';
+import { Ref, Slots } from 'vue';
 export type TTabsType = 'card' | 'border-card';
 export type TTabPosition = 'top' | 'right' | 'bottom' | 'left';
 

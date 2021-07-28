@@ -1,4 +1,4 @@
-import { ComponentInternalInstance, InjectionKey, VNode } from 'vue';
+import { ComponentInternalInstance, InjectionKey } from 'vue';
 import { createStore, Store } from 'vuex';
 export const SET_EL_COMPONENT_SCROLLBAR = 'SET_EL_COMPONENT_SCROLLBAR';
 export const SET_EL_COMPONENT_SCROLLBAR_TOP = 'SET_EL_COMPONENT_SCROLLBAR_TOP';

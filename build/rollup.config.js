@@ -61,7 +61,7 @@ export default inputs.map(name => ({
     return (
       /^vue/.test(id) ||
       /^@radium-vue/.test(id) ||
-      deps.some(k => new RegExp('^' + k).test(id));
+      deps.some(k => new RegExp('^' + k).test(id))
     );
   },
-});
+}));
