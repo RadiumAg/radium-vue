@@ -1,4 +1,4 @@
-import { Ref } from 'vue';
+import { ReactiveEffect, Ref, Slots } from 'vue';
 export type TTabsType = 'card' | 'border-card';
 export type TTabPosition = 'top' | 'right' | 'bottom' | 'left';
 
@@ -7,6 +7,7 @@ export interface ITabPanel {
   left: number;
   index: number;
   name?: string;
+  contentSlots: Slots;
   setTabPanelIndex: (index: number) => void;
 }
 

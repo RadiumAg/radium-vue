@@ -1,6 +1,6 @@
 <template>
   <div class="demo" :class="[className]">
-    <div>
+    <div class="demo_component">
       <slot name="doc"></slot>
     </div>
     <div class="demo_source">
@@ -35,8 +35,8 @@ export default defineComponent({
       return demoSourceState.value ? '关闭代码' : '查看代码';
     });
     const sourceRef = ref<HTMLElement>();
-    const className = computed(()=>{
-      return  `demo_${router.currentRoute.value.name.toString().toLowerCase()}`;
+    const className = computed(() => {
+      return `demo_${router.currentRoute.value.name.toString().toLowerCase()}`;
     });
     onMounted(() => {
       sourceSlotHeight.value = sourceRef.value.getElementsByTagName(
@@ -72,6 +72,10 @@ export default defineComponent({
   background: #fff;
   margin-bottom: 50px;
   border-radius: 4px;
+
+  .demo_component {
+    padding: 20px;
+  }
 
   &:hover {
     box-shadow: 0 0 8px 0 rgb(232 237 250 / 60%),

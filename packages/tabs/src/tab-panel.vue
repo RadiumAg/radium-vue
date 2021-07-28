@@ -1,10 +1,7 @@
 <template>
-  <div
-    ref="tabPanelRef"
-    class="ra-tab-panel"
-    @click="tabPanelClick"
-  >
+  <div class="ra-tab-panel" @click="tabPanelClick">
     <div
+      ref="tabWrapRef"
       class="ra-tab-panel__wrap"
       :class="{
         'is-active': isCurrentIndex,
@@ -16,14 +13,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  inject,
-  onMounted,
-  ref,
-  computed,
-  nextTick,
-} from 'vue';
+import { defineComponent, inject, onMounted, ref, computed } from 'vue';
 import { ITabsProvide, TABS_PROVIDE_TOKEN } from '.';
 
 export default defineComponent({
@@ -43,9 +33,9 @@ export default defineComponent({
     },
   },
 
-  setup(props) {
+  setup(props, { slots }) {
     const tabIndex = ref(0);
-    const tabPanelRef = ref<HTMLElement>(undefined);
+    const tabWrapRef = ref<HTMLElement>(undefined);
     const tabPanelProvide = inject<ITabsProvide>(TABS_PROVIDE_TOKEN);
     const isCurrentIndex = computed(() => {
       return tabIndex.value === tabPanelProvide.currentTabIndex.value;
@@ -55,13 +45,14 @@ export default defineComponent({
     function setThePanelIndex(index: number) {
       tabIndex.value = index;
     }
-    
+
     onMounted(async () => {
       tabPanelProvide.tabPanelItems.value.push({
-        width: tabPanelRef.value.offsetWidth,
-        left: tabPanelRef.value.offsetLeft,
+        width: tabWrapRef.value.clientWidth,
+        left: tabWrapRef.value.offsetLeft,
         name: props.raName,
         index: tabIndex.value,
+        contentSlots: slots,
         setTabPanelIndex: setThePanelIndex,
       });
     });
@@ -70,11 +61,11 @@ export default defineComponent({
     const tabPanelClick = () => {
       tabPanelProvide.currentTabIndex.value = tabIndex.value;
     };
-    
+
     return {
       props,
       tabPanelClick,
-      tabPanelRef,
+      tabWrapRef,
       isCurrentIndex,
     };
   },

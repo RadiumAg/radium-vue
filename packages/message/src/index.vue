@@ -28,7 +28,14 @@
   </transition>
 </template>
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from 'vue';
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  PropType,
+  ref,
+  VNode,
+} from 'vue';
 export default defineComponent({
   name: 'RaMessage',
   props: {
@@ -37,7 +44,7 @@ export default defineComponent({
       default: 2000,
     },
     raMessage: {
-      type: String,
+      type: [String, Object] as PropType<string | VNode>,
       default: '',
     },
     raType: {

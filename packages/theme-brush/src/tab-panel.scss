@@ -5,11 +5,13 @@
 
 @include b(tab-panel) {
   height: max-content;
+  padding: $--tabs-padding;
+
   @include e(wrap) {
-    padding: $--tabs-padding;
     line-height: 40px;
     font-size: 14px;
     cursor: pointer;
+    box-sizing: border-box;
 
     &:hover {
       color: $--color-primary;

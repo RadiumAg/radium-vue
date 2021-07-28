@@ -8,7 +8,7 @@
       </div>
       <ra-tab-bar />
     </div>
-    <div class="ra-tabs__content"></div>
+    <div ref="contentRef" class="ra-tabs__content"></div>
   </div>
 </template>
 <script lang="ts">
@@ -20,6 +20,9 @@ import {
   ref,
   nextTick,
   watch,
+  Slots,
+  createVNode,
+  render,
 } from 'vue';
 import RaTabBar from './tab-bar.vue';
 import {
@@ -30,6 +33,7 @@ import {
   TAB_UPDATE_EVENT,
   ITabPanel,
 } from '.';
+
 export default defineComponent({
   name: 'RaTabs',
   components: { RaTabBar },
@@ -58,18 +62,22 @@ export default defineComponent({
     'ra-edit',
     TAB_UPDATE_EVENT,
   ],
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const currentTabIndex = ref<number>(0);
     const setTabPanelIndex = ref<(index: number) => void>(undefined);
     const currentWidth = ref(0);
     const currentPosition = ref(0);
     const tabPanelItems = ref<ITabPanel[]>([]);
+    const contentSlot = ref<Slots>(undefined);
+    const contentRef = ref<HTMLElement>(undefined);
+
     const provideConfig = {
       setTabPanelIndex,
       currentTabIndex,
       currentWidth,
       currentPosition,
       tabPanelItems,
+      contentSlot,
     };
 
     //funs
@@ -79,13 +87,36 @@ export default defineComponent({
       provideConfig.currentPosition.value = currentPanel.left;
     }
 
+    function setTheContent() {
+      const vmList = [];
+      tabPanelItems.value.forEach((tab, index) => {
+        vmList.push(
+          createVNode(
+            'div',
+            {
+              style: `display:${
+                currentTabIndex.value === index ? 'unset' : 'none'
+              }`,
+            },
+            tab.contentSlots.default ? tab.contentSlots.default() : null,
+          ),
+        );
+      });
+
+      render(createVNode('div', {}, vmList as any), contentRef.value);
+    }
+
     //lifecycle
     onMounted(async () => {
       await nextTick();
       tabPanelItems.value.forEach((tab, index) => {
+        if (tab.name === props.modelValue) {
+          currentTabIndex.value = index;
+        }
         tab.setTabPanelIndex(index);
       });
       updateTheTabBar();
+      setTheContent();
     });
 
     watch(currentTabIndex, () => {
@@ -95,11 +126,14 @@ export default defineComponent({
           tabPanelItems.value[currentTabIndex.value].index,
       );
       updateTheTabBar();
+      setTheContent();
     });
 
     provide<ITabsProvide>(TABS_PROVIDE_TOKEN, provideConfig);
     return {
       props,
+      contentSlot,
+      contentRef,
     };
   },
 });
