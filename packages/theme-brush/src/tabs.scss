@@ -5,6 +5,15 @@
 
 @include b(tabs) {
   height: max-content;
+  position: relative;
+  top: 1px;
+
+  @include when(border-card) {
+    border: 1px solid $--border-color-light;
+    box-shadow: $--box-shadow-light;
+    border-radius: 4px;
+    overflow: hidden;
+  }
 
   @include e(wrap) {
     height: max-content;
@@ -13,29 +22,68 @@
     margin-bottom: 15px;
 
     &::after {
-      position: absolute;
-      left: 0;
-      bottom: 0;
       content: '';
       height: $--tabs-bar-height;
       width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
       background-color: $--tabs-bar-track;
-      border-radius: 4px;
+    }
+
+    @include when(card) {
+      border-bottom: 1px solid $--border-color-light;
+      &::after {
+        content: none;
+      }
+    }
+
+    @include when(border-card) {
+      border-bottom: 1px solid $--border-color-light;
+      background-color: $--background-color-base;
+
+      &::after {
+        content: none;
+      }
     }
 
     @include e(scroll) {
+      width: max-content;
       height: max-content;
       overflow: hidden;
       user-select: none;
+      margin-bottom: -1px;
 
       @include e(nav) {
         display: flex;
-        height: max-content;
+        width: max-content;
+
+        @include when(card) {
+          border: 1px solid $--border-color-light;
+          border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
+          border-bottom: none;
+          overflow: hidden;
+
+          & > div:last-child {
+            border-right: 0;
+          }
+        }
+
+        @include when(border-card) {
+          & > div:first-child {
+            border-left: 1px solid transparent;
+          }
+        }
       }
     }
   }
 
   @include e(content) {
     padding: $--tabs-padding;
+
+    @include when(border-card) {
+      padding: $--tabs-border-content-padding;
+    }
   }
 }

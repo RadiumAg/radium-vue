@@ -1,13 +1,8 @@
 <template>
-  <div class="ra-tab-panel" @click="tabPanelClick">
-    <div
-      ref="tabWrapRef"
-      class="ra-tab-panel__wrap"
-      :class="{
-        'is-active': isCurrentIndex,
-      }"
-    >
-      <span>{{ raLabel }}</span>
+  <div class="ra-tab-panel" :class="panelClass" @click="tabPanelClick">
+    <div ref="tabWrapRef" class="ra-tab-panel__wrap">
+      {{ raLabel }}
+      <i v-if="isCurrentIndex" class="ra-icon-close"></i>
     </div>
   </div>
 </template>
@@ -41,6 +36,14 @@ export default defineComponent({
       return tabIndex.value === tabPanelProvide.currentTabIndex.value;
     });
 
+    const panelClass = computed(() => {
+      const ret = [];
+      tabPanelProvide.tabType &&
+        ret.push(`is-${tabPanelProvide.tabType.value}`);
+      isCurrentIndex.value && ret.push('is-active');
+      return ret;
+    });
+
     // funcs
     function setThePanelIndex(index: number) {
       tabIndex.value = index;
@@ -67,6 +70,7 @@ export default defineComponent({
       tabPanelClick,
       tabWrapRef,
       isCurrentIndex,
+      panelClass,
     };
   },
 });

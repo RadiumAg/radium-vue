@@ -6,18 +6,51 @@
 @include b(tab-panel) {
   height: max-content;
   padding: $--tabs-padding;
+  transition: $--all-transition;
+  border-bottom: 1px solid transparent;
+
+  @include when(active) {
+    color: $--color-primary;
+  }
+
+  @include when(card) {
+    padding: $--tabs-card-padding;
+    cursor: pointer;
+    border-right: 1px solid $--border-color-light;
+
+    @include when(active) {
+      color: $--color-primary;
+      border-bottom: 1px solid $--color-white;
+    }
+  }
+
+  @include when(border-card) {
+    padding: $--tabs-card-padding;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-top: 0;
+    @include when(active) {
+      border-right: 1px solid $--border-color-light;
+      border-left: 1px solid $--border-color-light;
+      color: $--color-primary;
+      border-bottom: 1px solid $--color-white;
+      background-color: $--color-white;
+    }
+  }
 
   @include e(wrap) {
     line-height: 40px;
     font-size: 14px;
     cursor: pointer;
     box-sizing: border-box;
+    transition: $--all-transition;
 
-    &:hover {
-      color: $--color-primary;
+    .#{$namespace}-icon-close {
+      font-size: 10px;
     }
 
-    @include when(active) {
+    &:hover {
       color: $--color-primary;
     }
   }

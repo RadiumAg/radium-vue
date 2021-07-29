@@ -16,6 +16,8 @@ export interface ITabsProvide {
   currentTabIndex: Ref<number>;
   currentPosition: Ref<number>;
   currentWidth: Ref<number>;
+  tabType: Ref<TTabsType>;
+  isCloseable: Ref<boolean>;
 }
 
 export const TABS_PROVIDE_TOKEN = 'TABS_PROVIDE_TOKEN';

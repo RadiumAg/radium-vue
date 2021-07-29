@@ -1,14 +1,14 @@
 <template>
-  <div class="ra-tabs">
-    <div class="ra-tabs__wrap">
+  <div class="ra-tabs" :class="tabClass">
+    <div class="ra-tabs__wrap" :class="wrapClass">
       <div class="ra-tabs__scroll">
-        <div class="ra-tabs__nav">
+        <div class="ra-tabs__nav" :class="navClass">
           <slot> </slot>
         </div>
       </div>
-      <ra-tab-bar />
+      <ra-tab-bar v-if="!raType" />
     </div>
-    <div ref="contentRef" class="ra-tabs__content"></div>
+    <div ref="contentRef" class="ra-tabs__content" :class="contentClass"></div>
   </div>
 </template>
 <script lang="ts">
@@ -24,6 +24,7 @@ import {
   createVNode,
   render,
   VNode,
+  computed,
 } from 'vue';
 import RaTabBar from './tab-bar.vue';
 import {
@@ -45,7 +46,7 @@ export default defineComponent({
     },
     raType: {
       type: String as PropType<TTabsType>,
-      default: 'card',
+      default: '',
     },
     raCloseable: {
       type: Boolean,
@@ -71,6 +72,29 @@ export default defineComponent({
     const tabPanelItems = ref<ITabPanel[]>([]);
     const contentSlot = ref<Slots>(undefined);
     const contentRef = ref<HTMLElement>(undefined);
+    const wrapClass = computed(() => {
+      const ret = [];
+      props.raType && ret.push(`is-${props.raType}`);
+      return ret;
+    });
+
+    const navClass = computed(() => {
+      const ret = [];
+      props.raType && ret.push(`is-${props.raType}`);
+      return ret;
+    });
+
+    const tabClass = computed(() => {
+      const ret = [];
+      props.raType && ret.push(`is-${props.raType}`);
+      return ret;
+    });
+
+    const contentClass = computed(() => {
+      const ret = [];
+      props.raType && ret.push(`is-${props.raType}`);
+      return ret;
+    });
 
     const provideConfig = {
       setTabPanelIndex,
@@ -79,6 +103,8 @@ export default defineComponent({
       currentPosition,
       tabPanelItems,
       contentSlot,
+      tabType: ref(props.raType),
+      raCloseable: ref(props.raCloseable),
     };
 
     //funs
@@ -135,6 +161,10 @@ export default defineComponent({
       props,
       contentSlot,
       contentRef,
+      wrapClass,
+      navClass,
+      tabClass,
+      contentClass,
     };
   },
 });
