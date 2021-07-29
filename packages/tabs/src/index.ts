@@ -3,10 +3,9 @@ export type TTabsType = 'card' | 'border-card';
 export type TTabPosition = 'top' | 'right' | 'bottom' | 'left';
 
 export interface ITabPanel {
-  width: number;
-  left: number;
   index: number;
   name?: string;
+  tabPanelRef: Ref<HTMLElement>;
   contentSlots: Slots;
   setTabPanelIndex: (index: number) => void;
 }

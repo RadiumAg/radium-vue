@@ -110,8 +110,8 @@ export default defineComponent({
     //funs
     function updateTheTabBar() {
       const currentPanel = tabPanelItems.value[currentTabIndex.value];
-      provideConfig.currentWidth.value = currentPanel.width;
-      provideConfig.currentPosition.value = currentPanel.left;
+      provideConfig.currentWidth.value = currentPanel.tabPanelRef.offsetWidth;
+      provideConfig.currentPosition.value = currentPanel.tabPanelRef.offsetLeft;
     }
 
     function setTheContent() {
