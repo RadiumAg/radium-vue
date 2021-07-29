@@ -47,6 +47,7 @@
     transition: $--all-transition;
 
     .#{$namespace}-icon-close {
+      transition: $--all-transition;
       font-size: 10px;
     }
 
@@ -54,4 +55,9 @@
       color: $--color-primary;
     }
   }
+}
+
+.#{$namespace}-tab-transform-enter-from,
+.#{$namespace}-tab-transform-leave-to {
+  width: 0px;
 }

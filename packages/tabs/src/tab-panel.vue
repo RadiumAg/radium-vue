@@ -2,7 +2,9 @@
   <div class="ra-tab-panel" :class="panelClass" @click="tabPanelClick">
     <div ref="tabWrapRef" class="ra-tab-panel__wrap">
       {{ raLabel }}
-      <i v-if="isCurrentIndex" class="ra-icon-close"></i>
+      <transition name="ra-tab-transform">
+        <i v-if="isCurrentIndex" class="ra-icon-close"></i>
+      </transition>
     </div>
   </div>
 </template>
