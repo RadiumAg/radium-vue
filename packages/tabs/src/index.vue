@@ -23,6 +23,7 @@ import {
   Slots,
   createVNode,
   render,
+  VNode,
 } from 'vue';
 import RaTabBar from './tab-bar.vue';
 import {
@@ -88,7 +89,7 @@ export default defineComponent({
     }
 
     function setTheContent() {
-      const vmList = [];
+      const vmList: VNode[] = [];
       tabPanelItems.value.forEach((tab, index) => {
         vmList.push(
           createVNode(
@@ -103,7 +104,7 @@ export default defineComponent({
         );
       });
 
-      render(createVNode('div', {}, vmList as any), contentRef.value);
+      render(createVNode('div', {}, vmList), contentRef.value);
     }
 
     //lifecycle
