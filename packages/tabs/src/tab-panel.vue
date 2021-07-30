@@ -9,7 +9,11 @@
     <div ref="tabWrapRef" class="ra-tab-panel__wrap">
       {{ raLabel }}
       <transition name="ra-tab-transform">
-        <i v-show="isCollpaseShow" class="ra-icon-close"></i>
+        <i
+          v-show="isCollpaseShow"
+          class="ra-icon-close"
+          @click="closeIconClick"
+        ></i>
       </transition>
     </div>
   </div>
@@ -24,6 +28,7 @@ import {
   computed,
   nextTick,
   watch,
+  getCurrentInstance,
 } from 'vue';
 import { ITabsProvide, TABS_PROVIDE_TOKEN } from '.';
 
@@ -45,15 +50,18 @@ export default defineComponent({
   },
 
   setup(props, { slots }) {
+    getCurrentInstance();
     const tabIndex = ref(0);
     const tabWrapRef = ref<HTMLElement>(undefined);
     const tabPanelProvide = inject<ITabsProvide>(TABS_PROVIDE_TOKEN);
     const isHover = ref(false);
     const isCollpaseShow = computed(() => {
-      return (
-        tabPanelProvide.isCloseable?.value &&
-        (isHover.value || isCurrentIndex.value)
-      );
+      if (tabPanelProvide.isCloseable.value) {
+        if (!tabPanelProvide.tabType.value) return true;
+        return isHover.value || isCurrentIndex.value;
+      } else {
+        return tabPanelProvide.isCloseable.value;
+      }
     });
     const isCurrentIndex = computed(() => {
       return tabIndex.value === tabPanelProvide.currentTabIndex.value;
@@ -61,7 +69,7 @@ export default defineComponent({
 
     const panelClass = computed(() => {
       const ret = [];
-      tabPanelProvide.tabType &&
+      tabPanelProvide.tabType.value &&
         ret.push(`is-${tabPanelProvide.tabType.value}`);
       isCurrentIndex.value && ret.push('is-active');
       return ret;
@@ -72,6 +80,7 @@ export default defineComponent({
       tabIndex.value = index;
     }
 
+    // lifecycle
     onMounted(async () => {
       tabPanelProvide.tabPanelItems.value.push({
         tabPanelRef: tabWrapRef,
@@ -87,13 +96,17 @@ export default defineComponent({
       tabPanelProvide.currentTabIndex.value = tabIndex.value;
     };
 
+    const closeIconClick = () => {
+      tabPanelProvide.tabPanelItems.value.splice(tabIndex.value, 1);
+    };
+
     return {
       props,
       isHover,
       tabWrapRef,
       panelClass,
       tabPanelClick,
-      isCurrentIndex,
+      closeIconClick,
       isCollpaseShow,
     };
   },

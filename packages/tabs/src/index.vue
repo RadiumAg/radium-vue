@@ -1,19 +1,7 @@
-<template>
-  <div class="ra-tabs" :class="tabClass">
-    <div class="ra-tabs__wrap" :class="wrapClass">
-      <div class="ra-tabs__scroll">
-        <div class="ra-tabs__nav" :class="navClass">
-          <slot> </slot>
-        </div>
-      </div>
-      <ra-tab-bar v-if="!raType" />
-    </div>
-    <div ref="contentRef" class="ra-tabs__content" :class="contentClass"></div>
-  </div>
-</template>
 <script lang="ts">
 import {
   defineComponent,
+  withDirectives,
   onMounted,
   PropType,
   provide,
@@ -25,6 +13,7 @@ import {
   render,
   VNode,
   computed,
+  h,
 } from 'vue';
 import RaTabBar from './tab-bar.vue';
 import {
@@ -65,46 +54,44 @@ export default defineComponent({
     TAB_UPDATE_EVENT,
   ],
   setup(props, { emit, slots }) {
-    const currentTabIndex = ref<number>(0);
-    const setTabPanelIndex = ref<(index: number) => void>(undefined);
     const currentWidth = ref(0);
     const currentPosition = ref(0);
+    const currentTabIndex = ref<number>(0);
     const tabPanelItems = ref<ITabPanel[]>([]);
     const contentSlot = ref<Slots>(undefined);
-    const contentRef = ref<HTMLElement>(undefined);
     const wrapClass = computed(() => {
-      const ret = [];
+      const ret = ['ra-tabs__wrap'];
       props.raType && ret.push(`is-${props.raType}`);
       return ret;
     });
 
     const navClass = computed(() => {
-      const ret = [];
+      const ret = ['ra-tabs__nav'];
       props.raType && ret.push(`is-${props.raType}`);
       return ret;
     });
 
     const tabClass = computed(() => {
-      const ret = [];
+      const ret = ['ra-tabs'];
       props.raType && ret.push(`is-${props.raType}`);
       return ret;
     });
 
     const contentClass = computed(() => {
-      const ret = [];
+      const ret = ['ra-tabs__content'];
       props.raType && ret.push(`is-${props.raType}`);
       return ret;
     });
+    const contentRef = ref<VNode>(h('div', { class: contentClass.value }));
 
     const provideConfig = {
-      setTabPanelIndex,
-      currentTabIndex,
-      currentWidth,
-      currentPosition,
       tabPanelItems,
+      currentTabIndex,
+      currentPosition,
+      currentWidth,
       contentSlot,
       tabType: ref(props.raType),
-      raCloseable: ref(props.raCloseable),
+      isCloseable: ref(props.raCloseable),
     };
 
     //funs
@@ -129,8 +116,10 @@ export default defineComponent({
           ),
         );
       });
-
-      render(createVNode('div', {}, vmList), contentRef.value);
+      render(
+        createVNode('div', {}, vmList),
+        contentRef.value.el as HTMLElement,
+      );
     }
 
     //lifecycle
@@ -156,16 +145,44 @@ export default defineComponent({
       setTheContent();
     });
 
+    watch(tabPanelItems, () => {
+      setTheContent();
+    });
+
     provide<ITabsProvide>(TABS_PROVIDE_TOKEN, provideConfig);
-    return {
-      props,
-      contentSlot,
-      contentRef,
-      wrapClass,
-      navClass,
-      tabClass,
-      contentClass,
-    };
+
+    return () =>
+      h(
+        'div',
+        {
+          class: tabClass.value,
+        },
+        [
+          h(
+            'div',
+            {
+              class: wrapClass.value,
+            },
+            [
+              h(
+                'div',
+                {
+                  class: 'ra-tabs__scroll',
+                },
+                [
+                  h(
+                    'div',
+                    { class: navClass.value },
+                    { default: () => slots.default() },
+                  ),
+                ],
+              ),
+              props.raType ? null : h(RaTabBar),
+            ],
+          ),
+          contentRef.value,
+        ],
+      );
   },
 });
 </script>
