@@ -1,12 +1,16 @@
 <template>
-  <div class="ra-modal" :style="{zIndex:modalZIndex}">
+  <div class="ra-modal" :style="{ zIndex: modalZIndex }">
     <transition name="ra-modal-fade" @after-leave="$emit('ra-on-after-close')">
-      <div
-        v-show="isShow"
-        class="ra-modal__container"
-        :style="containerStyle"
-      >
-        <i v-if="raShowClose" class="ra-icon-close" @click="()=>{ isShow = false }"></i>
+      <div v-show="isShow" class="ra-modal__container" :style="containerStyle">
+        <i
+          v-if="raShowClose"
+          class="ra-icon-close"
+          @click="
+            () => {
+              isShow = false;
+            }
+          "
+        ></i>
         <i :class="iconStyle" class="ra-modal__type-icon"></i>
         <div>
           <section class="ra-modal__title">
@@ -23,10 +27,16 @@
             <slot name="footer">
               <ra-row ra-justify="end" :ra-gutter="[10]">
                 <ra-col>
-                  <ra-button v-if="isShowCancel" @click="cancelButtonClick">{{ raCancelLabel }}</ra-button>
+                  <ra-button v-if="isShowCancel" @click="cancelButtonClick">
+                    raCancelLabel }}
+                  </ra-button>
                 </ra-col>
                 <ra-col>
-                  <ra-button :ra-disabled="isLoading" ra-type="primary" @click="okButtonClick">
+                  <ra-button
+                    :ra-disabled="isLoading"
+                    ra-type="primary"
+                    @click="okButtonClick"
+                  >
                     <i v-if="isLoading" class="ra-icon-loading"></i>
                     {{ raOkLabel }}
                   </ra-button>
@@ -41,7 +51,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watch, watchEffect } from 'vue';
+import { computed, defineComponent, onMounted, ref, watchEffect } from 'vue';
 import RaButton from '@radium-vue/button';
 import RaRow from '@radium-vue/row';
 import RaCol from '@radium-vue/col';
@@ -56,7 +66,7 @@ export default defineComponent({
   },
   props: {
     raTitle: {
-      type: [String,Object],
+      type: [String, Object],
       default: '',
     },
     raContent: {
@@ -97,19 +107,19 @@ export default defineComponent({
     },
     raOnOk: {
       type: Function,
-      default:()=>{
+      default: () => {
         return null;
       },
     },
     raOnCancel: {
       type: Function,
-      default:()=>{
+      default: () => {
         return null;
       },
     },
     raType: {
-      type:String,
-      default : '',
+      type: String,
+      default: '',
     },
   },
   emits: ['ra-on-after-close'],
@@ -126,11 +136,10 @@ export default defineComponent({
       props.raWidth && ret.push({ width: props.raWidth });
       return ret;
     });
-    const iconStyle = computed(()=>{
+    const iconStyle = computed(() => {
       const ret = [];
-      if(modalType.includes(props.raType as any)){
-
-        if(props.raType ==='confirm'){
+      if (modalType.includes(props.raType as any)) {
+        if (props.raType === 'confirm') {
           ret.push(`ra-icon-${'question'}`);
           return ret;
         }
@@ -139,10 +148,10 @@ export default defineComponent({
       return ret;
     });
 
-    watchEffect(()=>{
-      if(props.raType ==='confirm'){
+    watchEffect(() => {
+      if (props.raType === 'confirm') {
         isShowCancel.value = true;
-      }else if(props.raType) {
+      } else if (props.raType) {
         isShowCancel.value = false;
       }
     });
@@ -156,15 +165,14 @@ export default defineComponent({
       props.raDropClose && (isShow.value = false);
     }
 
-
-    async function  okButtonClick(){
+    async function okButtonClick() {
       isLoading.value = true;
       await (props.raOnOk && props.raOnOk());
       isLoading.value = false;
       isShow.value = false;
     }
 
-    async function cancelButtonClick(){
+    async function cancelButtonClick() {
       isLoading.value = true;
       await (props.raOnCancel && props.raOnCancel());
       isLoading.value = false;

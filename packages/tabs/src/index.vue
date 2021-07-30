@@ -13,6 +13,7 @@ import {
   VNode,
   computed,
   h,
+  reactive,
 } from 'vue';
 import RaTabBar from './tab-bar.vue';
 import {
@@ -56,53 +57,65 @@ export default defineComponent({
     const currentWidth = ref(0);
     const currentPosition = ref(0);
     const currentTabIndex = ref<number>(0);
-    const tabPanelItems = ref<ITabPanel[]>([]);
     const contentSlot = ref<Slots>(undefined);
+    const tabPanelItems = reactive<ITabPanel[]>([]);
     const wrapClass = computed(() => {
       const ret = ['ra-tabs__wrap'];
       props.raType && ret.push(`is-${props.raType}`);
       return ret;
     });
-
+    const raTabRemove = (delValue: number | string) => {
+      emit('ra-tab-remove', delValue);
+    };
     const navClass = computed(() => {
       const ret = ['ra-tabs__nav'];
       props.raType && ret.push(`is-${props.raType}`);
       return ret;
     });
-
     const tabClass = computed(() => {
       const ret = ['ra-tabs'];
       props.raType && ret.push(`is-${props.raType}`);
       return ret;
     });
-
     const contentClass = computed(() => {
       const ret = ['ra-tabs__content'];
       props.raType && ret.push(`is-${props.raType}`);
       return ret;
     });
     const contentRef = ref<VNode>(h('div', { class: contentClass.value }));
-
     const provideConfig = {
       tabPanelItems,
       currentTabIndex,
       currentPosition,
       currentWidth,
       contentSlot,
+      raTabRemove,
       tabType: ref(props.raType),
       isCloseable: ref(props.raCloseable),
     };
 
     //funs
     function updateTheTabBar() {
-      const currentPanel = tabPanelItems.value[currentTabIndex.value];
-      provideConfig.currentWidth.value = currentPanel.tabPanelRef.offsetWidth;
-      provideConfig.currentPosition.value = currentPanel.tabPanelRef.offsetLeft;
+      if (tabPanelItems.length) {
+        const currentPanel = tabPanelItems[currentTabIndex.value];
+        provideConfig.currentWidth.value = currentPanel.tabPanelRef.offsetWidth;
+        provideConfig.currentPosition.value =
+          currentPanel.tabPanelRef.offsetLeft;
+      }
+    }
+
+    function setTabIndex() {
+      tabPanelItems.forEach((tab, index) => {
+        if (tab.name === props.modelValue) {
+          currentTabIndex.value = index;
+        }
+        tab.setTabPanelIndex(index);
+      });
     }
 
     function setTheContent() {
       const vmList: VNode[] = [];
-      tabPanelItems.value.forEach((tab, index) => {
+      tabPanelItems.forEach((tab, index) => {
         vmList.push(
           createVNode(
             'div',
@@ -124,12 +137,7 @@ export default defineComponent({
     //lifecycle
     onMounted(async () => {
       await nextTick();
-      tabPanelItems.value.forEach((tab, index) => {
-        if (tab.name === props.modelValue) {
-          currentTabIndex.value = index;
-        }
-        tab.setTabPanelIndex(index);
-      });
+      setTabIndex();
       updateTheTabBar();
       setTheContent();
     });
@@ -137,15 +145,20 @@ export default defineComponent({
     watch(currentTabIndex, () => {
       emit(
         TAB_UPDATE_EVENT,
-        tabPanelItems.value[currentTabIndex.value].name ||
-          tabPanelItems.value[currentTabIndex.value].index,
+        tabPanelItems[currentTabIndex.value].name ||
+          tabPanelItems[currentTabIndex.value].index,
       );
       updateTheTabBar();
       setTheContent();
     });
 
     watch(tabPanelItems, () => {
+      if (tabPanelItems.length === 1) {
+        currentTabIndex.value = 0;
+      }
+      setTabIndex();
       setTheContent();
+      updateTheTabBar();
     });
 
     provide<ITabsProvide>(TABS_PROVIDE_TOKEN, provideConfig);

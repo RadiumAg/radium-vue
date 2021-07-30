@@ -12,7 +12,7 @@
         <i
           v-show="isCollpaseShow"
           class="ra-icon-close"
-          @click="closeIconClick"
+          @click.stop="closeIconClick"
         ></i>
       </transition>
     </div>
@@ -26,7 +26,7 @@ import {
   onMounted,
   ref,
   computed,
-  getCurrentInstance,
+  onUnmounted,
 } from 'vue';
 import { ITabsProvide, TABS_PROVIDE_TOKEN } from '.';
 
@@ -46,9 +46,7 @@ export default defineComponent({
       default: '',
     },
   },
-  emits: ['ra-close-click'],
-  setup(props, { slots, emit }) {
-    getCurrentInstance();
+  setup(props, { slots }) {
     const tabIndex = ref(0);
     const tabWrapRef = ref<HTMLElement>(undefined);
     const tabPanelProvide = inject<ITabsProvide>(TABS_PROVIDE_TOKEN);
@@ -79,8 +77,8 @@ export default defineComponent({
     }
 
     // lifecycle
-    onMounted(async () => {
-      tabPanelProvide.tabPanelItems.value.push({
+    onMounted(() => {
+      tabPanelProvide.tabPanelItems.push({
         tabPanelRef: tabWrapRef,
         name: props.raName,
         index: tabIndex.value,
@@ -89,14 +87,17 @@ export default defineComponent({
       });
     });
 
+    onUnmounted(() => {
+      tabPanelProvide.tabPanelItems.splice(tabIndex.value, 1);
+    });
+
     //methods
     const tabPanelClick = () => {
       tabPanelProvide.currentTabIndex.value = tabIndex.value;
     };
 
     const closeIconClick = () => {
-      tabPanelProvide.tabPanelItems.value.splice(tabIndex.value, 1);
-      emit('ra-close-click', props.raName);
+      tabPanelProvide.raTabRemove(props.raName || tabIndex.value);
     };
 
     return {

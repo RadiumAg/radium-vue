@@ -100,34 +100,105 @@
 
 :::
 
-#### 增减
+#### 删除标签页
 
 ::: demo
 
 ```html
 <template>
-  <ra-tabs ra-type="border-card" :ra-closeable="true" v-model="modelValue" @ra-close-click="removeClick($event)">
-    <ra-tab-panel raLabel="电脑" raName="computed">电脑</ra-tab-panel>
-    <ra-tab-panel raLabel="手机" raName="phone">手机</ra-tab-panel>
-    <ra-tab-panel raLabel="冰箱" raName="Refrigerator">冰箱</ra-tab-panel>
+  <ra-tabs ra-type="border-card" :ra-closeable="true" v-model="modelValue" @ra-tab-remove="removeClick($event)">
+    <ra-tab-panel v-for="(item,index) in data" :ra-label="item.label" :ra-name="item.name">{{item.label}}
+    </ra-tab-panel>
   </ra-tabs>
 </template>
 
 <script>
-  import { defineComponent, watch } from 'vue';
+  import { defineComponent, watch, ref } from 'vue';
 
   export default defineComponent({
     setup() {
+      const data = ref([{
+          label:'电脑',
+          name:'computed'
+      },{
+          label:'手机',
+          name:'phone'
+      },{
+          label:'冰箱',
+          name:'refrigerator'
+      }]);
       const modelValue = ref('computed');
       const removeClick = (name)=>{
-           console.log(name);
+           data.value = data.value.filter(_=> _.name!==name);
       }
       watch(modelValue, () => {
         console.log(modelValue.value);
       });
       return {
         modelValue,
-          removeClick,
+        removeClick,
+        data
+      };
+    },
+  });
+</script>
+```
+
+:::
+
+
+
+#### 添加标签页
+
+::: demo
+
+```html
+<template>
+  <ra-row>
+      <ra-col><ra-button @click="addTab">添加</ra-button></ra-col>
+  </ra-row>
+  <ra-tabs ra-type="border-card" :ra-closeable="true" v-model="modelValue" @ra-tab-remove="removeClick($event)">
+    <ra-tab-panel v-for="(item,index) in data" :ra-label="item.label" :ra-name="item.name">{{item.label}}
+    </ra-tab-panel>
+  </ra-tabs>
+</template>
+
+<script>
+  import { defineComponent, watch, ref } from 'vue';
+
+  export default defineComponent({
+    setup() {
+      let index = 0;
+      const data = ref([{
+          label:'电脑',
+          name:'computed'
+      },{
+          label:'手机',
+          name:'phone'
+      },{
+          label:'冰箱',
+          name:'refrigerator'
+      }]);
+      const modelValue = ref('computed');
+      const removeClick = (name)=>{
+           console.log(name);
+           data.value = data.value.filter(_=> _.name!==name);
+      }
+      const addTab = () => {
+         index++;
+         data.value.push({
+        	  label:'New Tab ' + index,
+          	  name:'content_' + index
+       });
+      }
+      watch(modelValue, () => {
+        console.log(modelValue.value);
+      });
+      return {
+        modelValue,
+        removeClick,
+        data,
+        addTab
       };
     },
   });
