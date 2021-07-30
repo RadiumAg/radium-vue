@@ -106,7 +106,7 @@
 
 ```html
 <template>
-  <ra-tabs ra-type="border-card" :ra-closeable="true" v-model="modelValue">
+  <ra-tabs ra-type="border-card" :ra-closeable="true" v-model="modelValue" @ra-close-click="removeClick($event)">
     <ra-tab-panel raLabel="电脑" raName="computed">电脑</ra-tab-panel>
     <ra-tab-panel raLabel="手机" raName="phone">手机</ra-tab-panel>
     <ra-tab-panel raLabel="冰箱" raName="Refrigerator">冰箱</ra-tab-panel>
@@ -119,11 +119,15 @@
   export default defineComponent({
     setup() {
       const modelValue = ref('computed');
+      const removeClick = (name)=>{
+           console.log(name);
+      }
       watch(modelValue, () => {
         console.log(modelValue.value);
       });
       return {
         modelValue,
+          removeClick,
       };
     },
   });

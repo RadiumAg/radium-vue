@@ -26,8 +26,6 @@ import {
   onMounted,
   ref,
   computed,
-  nextTick,
-  watch,
   getCurrentInstance,
 } from 'vue';
 import { ITabsProvide, TABS_PROVIDE_TOKEN } from '.';
@@ -48,8 +46,8 @@ export default defineComponent({
       default: '',
     },
   },
-
-  setup(props, { slots }) {
+  emits: ['ra-close-click'],
+  setup(props, { slots, emit }) {
     getCurrentInstance();
     const tabIndex = ref(0);
     const tabWrapRef = ref<HTMLElement>(undefined);
@@ -98,6 +96,7 @@ export default defineComponent({
 
     const closeIconClick = () => {
       tabPanelProvide.tabPanelItems.value.splice(tabIndex.value, 1);
+      emit('ra-close-click', props.raName);
     };
 
     return {
