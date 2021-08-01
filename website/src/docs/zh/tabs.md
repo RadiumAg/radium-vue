@@ -154,7 +154,7 @@
 
 ```html
 <template>
-  <ra-row>
+  <ra-row :ra-gutter="[0,30]">
       <ra-col><ra-button @click="addTab">添加</ra-button></ra-col>
   </ra-row>
   <ra-tabs ra-type="border-card" :ra-closeable="true" v-model="modelValue" @ra-tab-remove="removeClick($event)">

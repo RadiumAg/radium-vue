@@ -14,6 +14,9 @@ import {
   computed,
   h,
   reactive,
+  withDirectives,
+  vShow,
+  onUnmounted,
 } from 'vue';
 import RaTabBar from './tab-bar.vue';
 import {
@@ -46,26 +49,26 @@ export default defineComponent({
       default: 'top',
     },
   },
-  emits: [
-    'ra-tab-click',
-    'ra-tab-remove',
-    'ra-tab-add',
-    'ra-edit',
-    TAB_UPDATE_EVENT,
-  ],
+  emits: ['ra-tab-click', 'ra-tab-remove', TAB_UPDATE_EVENT],
   setup(props, { emit, slots }) {
+    const ro = new ResizeObserver(setTheArrow);
     const currentWidth = ref(0);
     const currentPosition = ref(0);
     const currentTabIndex = ref<number>(0);
     const contentSlot = ref<Slots>(undefined);
+    const scrollRef = ref<HTMLElement>();
+    const isArrowShow = ref(false);
     const tabPanelItems = reactive<ITabPanel[]>([]);
     const wrapClass = computed(() => {
       const ret = ['ra-tabs__wrap'];
       props.raType && ret.push(`is-${props.raType}`);
       return ret;
     });
-    const raTabRemove = (delValue: number | string) => {
+    const tabRemove = (delValue: number | string) => {
       emit('ra-tab-remove', delValue);
+    };
+    const tabClick = (clickValue: number | string) => {
+      emit('ra-tab-click', clickValue);
     };
     const navClass = computed(() => {
       const ret = ['ra-tabs__nav'];
@@ -82,22 +85,58 @@ export default defineComponent({
       props.raType && ret.push(`is-${props.raType}`);
       return ret;
     });
-    const contentRef = ref<VNode>(h('div', { class: contentClass.value }));
+    const scrollClass = computed(() => {
+      const ret = ['ra-tabs__scroll'];
+      isArrowShow.value && ret.push('is-scroll');
+      return ret;
+    });
+    const contentRef = ref<HTMLElement>();
     const provideConfig = {
+      tabClick,
+      tabRemove,
+      contentSlot,
+      currentWidth,
       tabPanelItems,
       currentTabIndex,
       currentPosition,
-      currentWidth,
-      contentSlot,
-      raTabRemove,
       tabType: ref(props.raType),
       isCloseable: ref(props.raCloseable),
     };
 
     //funs
+
+    function arrowClick(direction: 'left' | 'right') {
+      let scrollOffset = 0;
+      scrollOffset =
+        direction === 'left'
+          ? scrollRef.value.scrollLeft - scrollRef.value.offsetWidth
+          : scrollRef.value.scrollLeft + scrollRef.value.offsetWidth;
+
+      if (
+        scrollRef.value.scrollWidth <
+        scrollRef.value.scrollLeft + scrollOffset
+      ) {
+        scrollOffset = scrollOffset;
+      }
+      scrollRef.value.scroll({
+        left: scrollOffset,
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+
+    function setTheArrow() {
+      if (scrollRef.value.scrollWidth > scrollRef.value.clientWidth) {
+        isArrowShow.value = true;
+        scrollRef.value.scrollLeft = scrollRef.value.scrollWidth;
+      } else {
+        isArrowShow.value = false;
+      }
+    }
     function updateTheTabBar() {
       if (tabPanelItems.length) {
         const currentPanel = tabPanelItems[currentTabIndex.value];
+        if (!currentPanel) return;
         provideConfig.currentWidth.value = currentPanel.tabPanelRef.offsetWidth;
         provideConfig.currentPosition.value =
           currentPanel.tabPanelRef.offsetLeft;
@@ -128,10 +167,7 @@ export default defineComponent({
           ),
         );
       });
-      render(
-        createVNode('div', {}, vmList),
-        contentRef.value.el as HTMLElement,
-      );
+      render(createVNode('div', {}, vmList), contentRef.value as HTMLElement);
     }
 
     //lifecycle
@@ -140,6 +176,11 @@ export default defineComponent({
       setTabIndex();
       updateTheTabBar();
       setTheContent();
+      ro.observe(scrollRef.value);
+    });
+
+    onUnmounted(() => {
+      ro.disconnect();
     });
 
     watch(currentTabIndex, () => {
@@ -159,6 +200,7 @@ export default defineComponent({
       setTabIndex();
       setTheContent();
       updateTheTabBar();
+      setTheArrow();
     });
 
     provide<ITabsProvide>(TABS_PROVIDE_TOKEN, provideConfig);
@@ -176,10 +218,22 @@ export default defineComponent({
               class: wrapClass.value,
             },
             [
+              withDirectives(
+                h('i', {
+                  class: 'ra-icon-arrow-left',
+                  onClick: () => {
+                    arrowClick('left');
+                  },
+                }),
+                [[vShow, isArrowShow.value]],
+              ),
               h(
                 'div',
                 {
-                  class: 'ra-tabs__scroll',
+                  class: scrollClass.value,
+                  ref: (ref: HTMLElement) => {
+                    scrollRef.value = ref;
+                  },
                 },
                 [
                   h(
@@ -189,10 +243,24 @@ export default defineComponent({
                   ),
                 ],
               ),
+              withDirectives(
+                h('i', {
+                  class: 'ra-icon-arrow-right',
+                  onClick: () => {
+                    arrowClick('right');
+                  },
+                }),
+                [[vShow, isArrowShow.value]],
+              ),
               props.raType ? null : h(RaTabBar),
             ],
           ),
-          contentRef.value,
+          h('div', {
+            class: contentClass.value,
+            ref: (ref: HTMLElement) => {
+              contentRef.value = ref;
+            },
+          }),
         ],
       );
   },

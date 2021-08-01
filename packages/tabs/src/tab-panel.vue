@@ -94,10 +94,11 @@ export default defineComponent({
     //methods
     const tabPanelClick = () => {
       tabPanelProvide.currentTabIndex.value = tabIndex.value;
+      tabPanelProvide.tabClick(props.raName || tabIndex.value);
     };
 
     const closeIconClick = () => {
-      tabPanelProvide.raTabRemove(props.raName || tabIndex.value);
+      tabPanelProvide.tabRemove(props.raName || tabIndex.value);
     };
 
     return {

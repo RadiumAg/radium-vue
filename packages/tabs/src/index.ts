@@ -11,13 +11,14 @@ export interface ITabPanel {
 }
 
 export interface ITabsProvide {
+  tabType: Ref<TTabsType>;
   tabPanelItems: ITabPanel[];
   currentTabIndex: Ref<number>;
   currentPosition: Ref<number>;
   currentWidth: Ref<number>;
-  tabType: Ref<TTabsType>;
   isCloseable: Ref<boolean>;
-  raTabRemove: (delValue: number | string) => void;
+  tabRemove: (delValue: number | string) => void;
+  tabClick: (clickValue: number | string) => void;
 }
 
 export const TABS_PROVIDE_TOKEN = 'TABS_PROVIDE_TOKEN';
