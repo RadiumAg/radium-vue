@@ -2,8 +2,8 @@ import { moduleKey, appVuexModule } from './src/core/vux-module/index';
 import { createApp } from 'vue';
 import RadiumUI from 'radium-vue';
 import App from './src/App.vue';
-import demo from 'Pages/component/demo.vue'; //
-import '../packages/theme-brush/src/index.scss';
+import demo from 'Pages/component/demo.vue';
+import '../packages/theme-chalk/src/index.scss';
 import router from './router.config';
 import './doc-style/index.scss';
 import './style.scss';

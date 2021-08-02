@@ -16,7 +16,7 @@ function compile() {
     .pipe(
       rename(function(path) {
         if (!noElPrefixFile.test(path.basename)) {
-          path.basename = `el-${path.basename}`;
+          path.basename = `ra-${path.basename}`;
         }
       }),
     )

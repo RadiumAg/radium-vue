@@ -10,9 +10,10 @@
     "website-dev": "cross-env NODE_ENV=development webpack-dev-server --config ./website/webpack.config.js",
     "upgrade:vue": "bash ./scripts/update-versions.sh",
     "fast-build": "sh ./scripts/build.sh",
+    "build:theme": "gulp build --gulpfile ./packages/theme-chalk/gulpfile.js && cp-cli ./packages/theme-chalk/lib lib/theme-chalk && rimraf packages/theme-chalk/lib",
+    "eslint-fix": "eslint ./  --fix",
     "clear-node_module": "rimraf node_modules",
-    "npm i ": " npm i --legacy-peer-deps",
-    "eslint-fix": "eslint ./  --fix"
+    "npm-i-legacy": " npm i --legacy-peer-deps"
   },
   "repository": {
     "type": "git",

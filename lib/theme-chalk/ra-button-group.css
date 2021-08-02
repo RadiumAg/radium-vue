@@ -1,0 +1,1 @@
+.ra-button-group{border-radius:4px;overflow:hidden}.ra-button-group .ra-button{border-radius:0;border-right-color:#fff}.ra-button-group .ra-button:not(:first-child),.ra-button-group .ra-button:not(:last-child){border-right-color:unset}
