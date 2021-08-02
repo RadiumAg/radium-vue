@@ -2,21 +2,22 @@ import { Ref, Slots } from 'vue';
 export type TTabsType = 'card' | 'border-card';
 export type TTabPosition = 'top' | 'right' | 'bottom' | 'left';
 
-export interface ITabPanel {
+export type TTabPanel = {
   index: number;
   name?: string;
   contentSlots: Slots;
-  tabPanelRef: Ref<HTMLElement>;
+  tabPanelRef: HTMLElement;
+  tabWrapRef: HTMLElement;
   setTabPanelIndex: (index: number) => void;
-}
+};
 
 export interface ITabsProvide {
   tabType: Ref<TTabsType>;
-  tabPanelItems: ITabPanel[];
   currentTabIndex: Ref<number>;
   currentPosition: Ref<number>;
   currentWidth: Ref<number>;
   isCloseable: Ref<boolean>;
+  tabPanelItems: TTabPanel[];
   tabRemove: (delValue: number | string) => void;
   tabClick: (clickValue: number | string) => void;
 }

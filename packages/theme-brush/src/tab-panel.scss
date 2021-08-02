@@ -17,6 +17,7 @@
     padding: $--tabs-card-padding;
     cursor: pointer;
     border-right: 1px solid $--border-color-light;
+
     @include when(active) {
       color: $--color-primary;
       border-bottom: 1px solid $--color-white;
@@ -29,6 +30,7 @@
     background-color: transparent;
     border: 1px solid transparent;
     border-top: 0;
+
     @include when(active) {
       border-right: 1px solid $--border-color-light;
       border-left: 1px solid $--border-color-light;
@@ -50,28 +52,38 @@
     &:hover {
       color: $--color-primary;
     }
+
+    @include when(disabled) {
+      &:hover {
+        color: $--color-text-placeholder;
+      }
+    }
   }
-}
 
-.#{$namespace}-icon-close {
-  width: 12px;
-  height: 12px;
-  font-size: 10px;
-  overflow: hidden;
-  border-radius: 50%;
-  margin-left: 3px;
-  display: inline-block;
-  transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
-
-  &:hover {
-    background-color: $--border-color-light;
+  @include when(disabled) {
+    color: $--color-text-placeholder !important;
   }
-}
 
-.#{$namespace}-tab-transform-enter-from {
-  width: 0;
-}
+  .#{$namespace}-icon-close {
+    width: 12px;
+    height: 12px;
+    font-size: 10px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-left: 3px;
+    display: inline-block;
+    transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
 
-.#{$namespace}-tab-transform-leave-to {
-  width: 0;
+    &:hover {
+      background-color: $--border-color-light;
+    }
+  }
+
+  .#{$namespace}-tab-transform-enter-from {
+    width: 0;
+  }
+
+  .#{$namespace}-tab-transform-leave-to {
+    width: 0;
+  }
 }

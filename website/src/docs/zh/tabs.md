@@ -106,7 +106,7 @@
 
 ```html
 <template>
-  <ra-tabs ra-type="border-card" :ra-closeable="true" v-model="modelValue" @ra-tab-remove="removeClick($event)">
+  <ra-tabs ra-type="border-card" ra-closeable v-model="modelValue" @ra-tab-remove="removeClick($event)">
     <ra-tab-panel v-for="(item,index) in data" :ra-label="item.label" :ra-name="item.name">{{item.label}}
     </ra-tab-panel>
   </ra-tabs>
@@ -157,8 +157,8 @@
   <ra-row :ra-gutter="[0,30]">
       <ra-col><ra-button @click="addTab">添加</ra-button></ra-col>
   </ra-row>
-  <ra-tabs ra-type="border-card" :ra-closeable="true" v-model="modelValue" @ra-tab-remove="removeClick($event)">
-    <ra-tab-panel v-for="(item,index) in data" :ra-label="item.label" :ra-name="item.name">{{item.label}}
+  <ra-tabs ra-type="border-card" ra-closeable v-model="modelValue" @ra-tab-remove="removeClick($event)">
+    <ra-tab-panel  v-for="(item,index) in data" :ra-label="item.label" :ra-name="item.name">{{item.label}}
     </ra-tab-panel>
   </ra-tabs>
 </template>
@@ -190,6 +190,7 @@
         	  label:'New Tab ' + index,
           	  name:'content_' + index
        });
+         modelValue.value = 'content_' + index;
       }
       watch(modelValue, () => {
         console.log(modelValue.value);
@@ -206,3 +207,32 @@
 ```
 
 :::
+
+
+
+
+#### raTabs Api
+
+| 参数         | 说明                | 类型                      | 可选值 | 默认值 |
+| :----------- | :------------------ | ------------------------- | :----- | ------ |
+| model-value  | 当前选中的tab的name | string                    | ——     | ——     |
+| ra-type      | 选项卡样式          | 'card'\|'border-card'\|'' | ——     | ''     |
+| ra-closeable | 是否显示开启按钮    | boolean                   | ——     | false  |
+
+
+
+#### raTabs Event
+
+| 参数      | 说明               | 回调参数               |
+| :-------- | :----------------- | ---------------------- |
+| raTabClick | 标签页点击 | 当前选中的tab的name,没有则为index |
+| raTabRemove | 删除按钮点击 | 当前删除的tab的name,没有则为index |
+
+#### raTabPanel Api
+
+| 参数        | 说明                    | 类型    | 可选值 | 默认值 |
+| :---------- | :---------------------- | ------- | :----- | ------ |
+| ra-label    | 标题                    | string  | ——     | ——     |
+| ra-name     | 名称，没有则默认为index | string  | ——     | ——     |
+| ra-disabled | 是否开启                | boolean | ——     | false  |
+

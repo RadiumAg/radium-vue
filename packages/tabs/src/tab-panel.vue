@@ -1,17 +1,18 @@
 <template>
   <div
+    ref="tabPanelRef"
     class="ra-tab-panel"
     :class="panelClass"
     @click="tabPanelClick"
-    @mouseover="isHover = true"
-    @mouseleave="isHover = false"
+    @mouseover="!raDisabled && (isHover = true)"
+    @mouseleave="!raDisabled && (isHover = false)"
   >
-    <div ref="tabWrapRef" class="ra-tab-panel__wrap">
+    <div ref="tabWrapRef" :class="wrapClass">
       {{ raLabel }}
       <transition name="ra-tab-transform">
         <i
           v-show="isCollpaseShow"
-          class="ra-icon-close"
+          :class="closeIconClass"
           @click.stop="closeIconClick"
         ></i>
       </transition>
@@ -48,7 +49,8 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     const tabIndex = ref(0);
-    const tabWrapRef = ref<HTMLElement>(undefined);
+    const tabWrapRef = ref<HTMLElement>();
+    const tabPanelRef = ref<HTMLElement>();
     const tabPanelProvide = inject<ITabsProvide>(TABS_PROVIDE_TOKEN);
     const isHover = ref(false);
     const isCollpaseShow = computed(() => {
@@ -62,12 +64,25 @@ export default defineComponent({
     const isCurrentIndex = computed(() => {
       return tabIndex.value === tabPanelProvide.currentTabIndex.value;
     });
-
+    //class
     const panelClass = computed(() => {
       const ret = [];
       tabPanelProvide.tabType.value &&
         ret.push(`is-${tabPanelProvide.tabType.value}`);
       isCurrentIndex.value && ret.push('is-active');
+      props.raDisabled && ret.push('is-disabled');
+      return ret;
+    });
+
+    const wrapClass = computed(() => {
+      const ret = ['ra-tab-panel__wrap'];
+      props.raDisabled && ret.push('is-disabled');
+      return ret;
+    });
+
+    const closeIconClass = computed(() => {
+      const ret = ['ra-icon-close'];
+      props.raDisabled && ret.push('is-disabled');
       return ret;
     });
 
@@ -79,7 +94,8 @@ export default defineComponent({
     // lifecycle
     onMounted(() => {
       tabPanelProvide.tabPanelItems.push({
-        tabPanelRef: tabWrapRef,
+        tabPanelRef: tabPanelRef.value,
+        tabWrapRef: tabWrapRef.value,
         name: props.raName,
         index: tabIndex.value,
         contentSlots: slots,
@@ -93,6 +109,7 @@ export default defineComponent({
 
     //methods
     const tabPanelClick = () => {
+      if (props.raDisabled) return;
       tabPanelProvide.currentTabIndex.value = tabIndex.value;
       tabPanelProvide.tabClick(props.raName || tabIndex.value);
     };
@@ -105,7 +122,10 @@ export default defineComponent({
       props,
       isHover,
       tabWrapRef,
+      tabPanelRef,
       panelClass,
+      wrapClass,
+      closeIconClass,
       tabPanelClick,
       closeIconClick,
       isCollpaseShow,

@@ -25,7 +25,7 @@ import {
   TABS_PROVIDE_TOKEN,
   ITabsProvide,
   TAB_UPDATE_EVENT,
-  ITabPanel,
+  TTabPanel,
 } from '.';
 
 export default defineComponent({
@@ -58,7 +58,7 @@ export default defineComponent({
     const contentSlot = ref<Slots>(undefined);
     const scrollRef = ref<HTMLElement>();
     const isArrowShow = ref(false);
-    const tabPanelItems = reactive<ITabPanel[]>([]);
+    const tabPanelItems = reactive<TTabPanel[]>([]);
     const wrapClass = computed(() => {
       const ret = ['ra-tabs__wrap'];
       props.raType && ret.push(`is-${props.raType}`);
@@ -68,11 +68,44 @@ export default defineComponent({
       emit('ra-tab-remove', delValue);
     };
     const tabClick = (clickValue: number | string) => {
+      let tabPanelTarget: typeof tabPanelItems[0];
       emit('ra-tab-click', clickValue);
+      if (typeof clickValue === 'number') {
+        tabPanelTarget = tabPanelItems[clickValue];
+      } else if (typeof clickValue === 'string') {
+        tabPanelTarget = tabPanelItems.filter(_ => _.name === clickValue)[0];
+      }
+
+      const panelReact = tabPanelTarget.tabPanelRef.getBoundingClientRect();
+      const scrollReact = scrollRef.value.getBoundingClientRect();
+
+      if (
+        panelReact.x - scrollReact.x <
+        tabPanelTarget.tabPanelRef.offsetWidth
+      ) {
+        scrollRef.value.scroll({
+          left: tabPanelTarget.tabPanelRef.offsetLeft,
+          top: 0,
+          behavior: 'smooth',
+        });
+      } else if (
+        scrollReact.x + scrollReact.width - panelReact.x <
+        tabPanelTarget.tabPanelRef.offsetWidth
+      ) {
+        scrollRef.value.scroll({
+          left:
+            scrollReact.x +
+            scrollRef.value.offsetWidth -
+            tabPanelTarget.tabPanelRef.clientWidth,
+          top: 0,
+          behavior: 'smooth',
+        });
+      }
     };
     const navClass = computed(() => {
       const ret = ['ra-tabs__nav'];
       props.raType && ret.push(`is-${props.raType}`);
+      isArrowShow.value && ret.push('is-scroll');
       return ret;
     });
     const tabClass = computed(() => {
@@ -87,7 +120,6 @@ export default defineComponent({
     });
     const scrollClass = computed(() => {
       const ret = ['ra-tabs__scroll'];
-      isArrowShow.value && ret.push('is-scroll');
       return ret;
     });
     const contentRef = ref<HTMLElement>();
@@ -104,7 +136,6 @@ export default defineComponent({
     };
 
     //funs
-
     function arrowClick(direction: 'left' | 'right') {
       let scrollOffset = 0;
       scrollOffset =
@@ -133,13 +164,14 @@ export default defineComponent({
         isArrowShow.value = false;
       }
     }
+
     function updateTheTabBar() {
       if (tabPanelItems.length) {
         const currentPanel = tabPanelItems[currentTabIndex.value];
         if (!currentPanel) return;
-        provideConfig.currentWidth.value = currentPanel.tabPanelRef.offsetWidth;
+        provideConfig.currentWidth.value = currentPanel.tabWrapRef.offsetWidth;
         provideConfig.currentPosition.value =
-          currentPanel.tabPanelRef.offsetLeft;
+          currentPanel.tabWrapRef.offsetLeft;
       }
     }
 
