@@ -1,3 +1,2 @@
-module.exports = {
-  noElPrefixFile: /(utils|directives|hooks|locale)/,
-};
+const noPreFixFile = RegExp(/(utils)|(radium-theme-chalk)|(locale)/);
+module.exports.noPreFixFile = noPreFixFile;
