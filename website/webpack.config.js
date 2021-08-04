@@ -13,7 +13,10 @@ const vueBundle =
 module.exports = {
   devtool: process.env.NODE_ENV === 'production' ? false : 'source-map',
   mode: process.env.NODE_ENV, // development 模式下有热更新作用
-  entry: resolve(__dirname, './main.ts'),
+  entry: resolve(
+    __dirname,
+    process.env.MODE === 'bundle' ? './bundle.ts' : 'main.ts',
+  ),
   output: {
     filename: '[name].[contenthash].js',
     path: resolve(__dirname + '../../website-dist'),
@@ -42,7 +45,7 @@ module.exports = {
         loader: 'babel-loader',
       },
       {
-        test: /\.s(c|a)ss$/,
+        test: /\.s?(c|a)ss$/,
         use: [
           'vue-style-loader',
           // MiniCssExtractPlugin.loader,

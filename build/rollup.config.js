@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import vue from 'rollup-plugin-vue';
-const pkg = require('../package.json');
 import { terser } from 'rollup-plugin-terser';
-const typescript = require('rollup-plugin-typescript2');
-const { noPreFixFile } = require('./common');
+import typescript from 'rollup-plugin-typescript2';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+const { noPreFixFile } = require('./common');
+const pkg = require('../package.json');
 
 const deps = Object.keys(pkg.dependencies);
 
-export default () => ({
+export default {
   input: './packages/radium-vue/index.ts',
   output: [
     {
@@ -36,7 +37,7 @@ export default () => ({
           module: 'esnext',
           lib: ['ESNext', 'DOM'],
         },
-        exclude: ['node_modules', '__tests__'],
+        exclude: ['node_modules', '__tests__', 'website', 'packages'],
       },
       abortOnError: false,
     }),
@@ -44,4 +45,4 @@ export default () => ({
   external(id) {
     return /^vue/.test(id) || deps.includes(id);
   },
-});
+};

@@ -2,4 +2,5 @@ node_modules
 package.json
 babel.config.js
 webidi-conversions
+lib
 # webpack-loader

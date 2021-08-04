@@ -103,7 +103,7 @@ export default defineComponent({
     });
 
     // funs
-    async function updateTheConfig(){
+    async function updateTheConfig() {
       await nextTick();
       update();
       updateBarSize.value && updateBarSize.value();

@@ -87,7 +87,7 @@ const genVueTypes = async () => {
   //   emitOnlyDtsFiles: true,
   // });
 
-  const ROOT_PATH = path.resolve(__dirname, '../packages');
+  const ROOT_PATH = path.resolve(__dirname, '../packages/');
   const RadiumVueSign = '@radium-vue/';
   for (const sourceFile of sourceFiles) {
     const sourceFilePathName = sourceFile.getFilePath();
@@ -103,17 +103,25 @@ const genVueTypes = async () => {
 
       if (specifier && specifier.includes(RadiumVueSign)) {
         const importItem = specifier.slice(RadiumVueSign.length);
-        let replacer = 'ra-';
+        let replacer = '';
+        if (!noPreFixFile.test(importItem)) {
+          replacer = 'ra-';
+        }
         const originalPath = path.resolve(
           ROOT_PATH,
           `./${replacer}${importItem}`,
         );
+        console.log(ROOT_PATH);
+
         const sourceFilePath = sourceFile.getFilePath();
 
         const sourceDir = sourceFilePath.includes('packages/radium-vue')
-          ? path.dirname(path.resolve(sourceFilePath, '../'))
+          ? path.dirname(path.resolve(sourceFilePath, './'))
           : path.dirname(sourceFilePath);
-        const replaceTo = path.relative(sourceDir, originalPath);
+        const replaceTo = path
+          .relative(sourceDir, originalPath)
+          .replace(/\\/g, '/');
+        console.log(replaceTo);
         // This is a delicated judgment which might fail when edge case occurs
         d.setModuleSpecifier(
           replaceTo.startsWith('.') ? replaceTo : `./${replaceTo}`,
