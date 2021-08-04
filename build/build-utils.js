@@ -1,30 +1,24 @@
 const rollup = require('rollup');
 const path = require('path');
-const pkg = require('../../package.json');
+const klawSync = require('klaw-sync');
+const pkg = require('../package.json');
 const vue = require('rollup-plugin-vue');
-const typescript = require('rollup-plugin-typescript2');
-const { getPackages } = require('@lerna/project');
-const { noPreFixFile } = require('../common');
-const { nodeResolve } = require('@rollup/plugin-node-resolve');
 const deps = Object.keys(pkg.dependencies);
-const excludeFiles = ['radium-theme-chalk', 'utils'];
+const typescript = require('rollup-plugin-typescript2');
+const { noPreFixFile } = require('./common');
+const { nodeResolve } = require('@rollup/plugin-node-resolve');
 
-const getOutFileName = name => {
-  if (noPreFixFile.test(name)) {
-    return name;
-  }
-  return 'ra-' + name;
-};
+const utilFiles = klawSync(path.resolve(__dirname, '../packages/utils'), {
+  nodir: true,
+}).map(_ => _.path);
+const excludeFile = ['package.json', 'types.ts'];
 
 async function build() {
-  const paks = await getPackages();
-  while (paks.length) {
-    const pak = paks.shift();
-    const pakName = pak.name.replace(/@radium-vue\//g, '');
-    if (excludeFiles.some(_ => _ === pakName)) continue;
-    console.log(pak.name);
+  while (utilFiles.length) {
+    const filePath = utilFiles.shift();
+    if (excludeFile.some(_ => filePath.includes(_))) continue;
     const inputOptions = {
-      input: path.resolve(__dirname, `../../packages/${pakName}/index.ts`),
+      input: filePath,
       plugins: [
         nodeResolve(),
         vue({
@@ -37,9 +31,8 @@ async function build() {
               target: 'es2021',
               module: 'esnext',
               lib: ['ESNext', 'DOM'],
-              baseUrl: '../',
             },
-            exclude: ['node_modules', '__tests__', ''],
+            exclude: ['node_modules', '__tests__'],
           },
           abortOnError: false,
         }),
@@ -49,9 +42,12 @@ async function build() {
       },
     };
 
+    console.log(filePath);
     const outputOptions = {
       format: 'esm',
-      file: `lib/${getOutFileName(pakName)}/index.js`,
+      file: `lib/utils/${filePath
+        .slice(filePath.lastIndexOf('\\'))
+        .replace('.ts', '')}.js`,
       paths(id) {
         if (/^@radium-vue/.test(id)) {
           if (noPreFixFile.test(id)) return id.replace('@radium-vue', '..');

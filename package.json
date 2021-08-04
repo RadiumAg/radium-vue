@@ -2,19 +2,22 @@
   "name": "radium-vue",
   "version": "1.0.0",
   "description": "A Component Library for Vue3.0",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "gen": "bash ./scripts/gc.sh",
     "gen:version": "node build/gen-version.js",
-    "build:component": "node build/component/build.js",
+    "build":"yarn bootstrap && npm run clean:lib && npm run build:component && npm run build:type && npm run build:utils && npm run build:theme",
     "build:type": "node build/gen-types.js",
-    "upgrade:vue": "bash ./scripts/update-versions.sh 3.1.5",
+    "build:utils": "node build/build-utils.js",
     "build:theme": "gulp build --gulpfile ./packages/theme-chalk/gulpfile.js && cp-cli ./packages/theme-chalk/lib lib/theme-chalk && rimraf packages/theme-chalk/lib",
+    "build:component": "node build/component/build.js",
+    "clean:lib": "rimraf lib && rimraf es && rimraf dist",
     "website-build": "cross-env NODE_ENV=production webpack --config ./website/webpack.config.js",
     "website-dev": "cross-env NODE_ENV=development webpack-dev-server --config ./website/webpack.config.js",
-    "eslint-fix": "eslint ./  --fix",
+    "upgrade:vue": "bash ./scripts/update-versions.sh 3.1.5",
     "clear-node_module": "rimraf node_modules",
-    "npm-i-legacy": " npm i --legacy-peer-deps"
+    "npm-i-legacy": " npm i --legacy-peer-deps",
+    "eslint-fix": "eslint ./  --fix"
   },
   "repository": {
     "type": "git",
@@ -125,7 +128,6 @@
   ],
   "files": [
     "lib",
-    "es",
     "packages"
   ]
 }
