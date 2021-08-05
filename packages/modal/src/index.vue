@@ -55,7 +55,7 @@ import { computed, defineComponent, onMounted, ref, watchEffect } from 'vue';
 import RaButton from '@radium-vue/button';
 import RaRow from '@radium-vue/row';
 import RaCol from '@radium-vue/col';
-import { modalType } from './modal';
+import { modalType } from './type';
 import PopupManager from '@radium-vue/utils/popup-manager';
 export default defineComponent({
   name: 'RaModal',

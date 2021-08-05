@@ -1,18 +1,15 @@
 {
   "name": "radium-vue",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Component Library for Vue3.0",
   "main": "lib/radium-vue/index.js",
   "scripts": {
     "gen": "bash ./scripts/gc.sh",
     "gen:version": "node build/gen-version.js",
-    "build":"lerna bootstrap && npm run clean:lib && npm run build:component && npm run build:type && npm run build:utils && npm run build:theme",
-    "build:type": "node build/gen-types.js",
-    "build:utils": "node build/build-utils.js",
-    "build:root":"rollup --config ./build/rollup.config.js",
+    "build":"lerna bootstrap && npm run clean:lib && node build/build.js && npm run build:theme",
+    "build:util":"node ./build/scriptjs/build-utils.js",
     "build:theme": "gulp build --gulpfile ./packages/theme-chalk/gulpfile.js && cp-cli ./packages/theme-chalk/lib lib/theme-chalk && rimraf packages/theme-chalk/lib",
-    "build:component": "node build/component/build.js",
-    "clean:lib": "rimraf lib && rimraf es && rimraf dist",
+    "clean:lib": "rimraf lib && rimraf es",
     "website-build": "cross-env NODE_ENV=production webpack --config ./website/webpack.config.js",
     "website-dev": "cross-env NODE_ENV=development webpack-dev-server --config ./website/webpack.config.js",
     "website-bundle": "cross-env NODE_ENV=development MODE=bundle webpack-dev-server --config ./website/webpack.config.js",
@@ -130,6 +127,7 @@
   ],
   "files": [
     "lib",
-    "packages"
+    "packages",
+    "es"
   ]
 }

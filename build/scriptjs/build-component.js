@@ -6,16 +6,43 @@ const pkg = require('../../package.json');
 const vue = require('rollup-plugin-vue');
 const typescript = require('rollup-plugin-typescript2');
 const { getPackages } = require('@lerna/project');
-const { noPreFixDir, noPreFixFile } = require('../common');
+const { noPreFixDir, noPreFixFile } = require('./common');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
 const deps = Object.keys(pkg.dependencies);
-const excludeFiles = ['radium-theme-chalk', 'utils'];
+// css文件，utils,根文件不进行编译
+const excludeFiles = ['radium-theme-chalk', 'utils', 'radium-vue'];
 
 const getOutFileName = name => {
   if (noPreFixDir.test(name)) {
     return name;
   }
   return 'ra-' + name;
+};
+
+/**
+ *
+ * @param {*} format "amd", "cjs", "system", "es", "iife" or "umd".
+ * @param {*} pakName
+ * @returns
+ */
+const getOutputOptions = (format, pakName) => {
+  return {
+    format,
+    exports: 'auto',
+    file:
+      format === 'es'
+        ? `es/${getOutFileName(pakName)}/index.js`
+        : `lib/${getOutFileName(pakName)}/index.js`,
+    paths(id) {
+      if (/^@radium-vue/.test(id)) {
+        if (noPreFixFile.test(id)) {
+          return id.replace('@radium-vue/', '../');
+        } else {
+          return id.replace('@radium-vue/', '../ra-');
+        }
+      }
+    },
+  };
 };
 
 async function build() {
@@ -47,26 +74,14 @@ async function build() {
         }),
       ],
       external(id) {
-        return /^vue/.test(id) || /^@radium-vue/.test(id) || deps.includes(id);
+        return /^vue/.test(id) || deps.includes(id);
       },
     };
 
-    const outputOptions = {
-      format: 'esm',
-      file: `lib/${getOutFileName(pakName)}/index.js`,
-      paths(id) {
-        if (/^@radium-vue/.test(id)) {
-          if (noPreFixFile.test(id)) {
-            return id.replace('@radium-vue/', '../');
-          } else {
-            return id.replace('@radium-vue/', '../ra-');
-          }
-        }
-      },
-    };
     const bundle = await rollup.rollup(inputOptions);
-    await bundle.write(outputOptions);
+    await bundle.write(getOutputOptions('es', pakName));
+    await bundle.write(getOutputOptions('cjs', pakName));
   }
 }
 
-build();
+build().catch(console.log);

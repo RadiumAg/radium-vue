@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
-const ora = require('ora');
 const klawSync = require('klaw-sync');
+const fs = require('fs');
 const vueCompiler = require('@vue/compiler-sfc');
 const { Project } = require('ts-morph');
-const { noPreFixDir } = require('./common');
+const { noPreFixDir, rootFile } = require('./common');
 
 const DEMO_RE = /\/demo\/\w+\.vue$/;
 const TEST_RE = /__test__|__tests__/;
-const outFileName = 'lib';
+const outFileName = ['lib', 'es'];
 const excludedFiles = [
   'mock',
   'package.json',
@@ -23,24 +23,22 @@ const exclude = path => !excludedFiles.some(f => path.includes(f));
 /**
  * fork = require( https://github.com/egoist/vue-dts-gen/blob/main/src/index.ts
  */
-const genVueTypes = async () => {
+const genVueTypes = async outFileName => {
   const project = new Project({
     compilerOptions: {
       allowJs: true,
       declaration: true,
       emitDeclarationOnly: true,
       noEmitOnError: false,
-      outDir: path.resolve(__dirname, `../${outFileName}`),
-      paths: {
-        '@radium-vue/*': ['packages/*'],
-      },
+      outDir: path.resolve(__dirname, `../../${outFileName}`),
+      rootDir: path.resolve(__dirname, '../../packages'),
     },
     skipAddingFilesFromTsConfig: true,
   });
 
   const sourceFiles = [];
 
-  const filePaths = klawSync(path.resolve(__dirname, '../packages'), {
+  const filePaths = klawSync(path.resolve(__dirname, '../../packages'), {
     nodir: true,
   })
     .map(item => item.path)
@@ -81,12 +79,13 @@ const genVueTypes = async () => {
     }),
   );
 
-  const ROOT_PATH = path.resolve(__dirname, '../packages/');
+  // 更改 module path
+  const ROOT_PATH = path.resolve(__dirname, '../../packages/');
   const RadiumVueSign = '@radium-vue/';
   for (const sourceFile of sourceFiles) {
     const sourceFilePathName = sourceFile.getFilePath();
 
-    if (sourceFilePathName.includes('packages/element-plus')) {
+    if (sourceFilePathName.includes('packages/radium-vue')) {
       sourceFile.getExportDeclarations().map(modifySpecifier);
     }
 
@@ -105,44 +104,53 @@ const genVueTypes = async () => {
           ROOT_PATH,
           `./${replacer}${importItem}`,
         );
-        console.log(ROOT_PATH);
-
         const sourceFilePath = sourceFile.getFilePath();
-
         const sourceDir = sourceFilePath.includes('packages/radium-vue')
-          ? path.dirname(path.resolve(sourceFilePath, './'))
+          ? path.dirname(path.resolve(sourceFilePath, '../'))
           : path.dirname(sourceFilePath);
         const replaceTo = path
           .relative(sourceDir, originalPath)
           .replace(/\\/g, '/');
-        console.log(replaceTo);
-        // This is a delicated judgment which might fail when edge case occurs
+
         d.setModuleSpecifier(
           replaceTo.startsWith('.') ? replaceTo : `./${replaceTo}`,
         );
       }
     }
 
+    // 配置输出路径
     const emitOutput = sourceFile.getEmitOutput();
     for (const outputFile of emitOutput.getOutputFiles()) {
       let filepath = outputFile.getFilePath();
       const filepathArray = filepath.split('/');
       const outFileIndex = filepathArray.findIndex(_ => _ === outFileName) + 1;
-      if (!noPreFixDir.test(filepathArray[outFileIndex])) {
-        filepathArray[outFileIndex] = 'ra-' + filepathArray[outFileIndex];
-        filepath = filepathArray.join('/');
+      const fileName = filepathArray[outFileIndex];
+      if (!noPreFixDir.test(fileName)) {
+        filepathArray[outFileIndex] = 'ra-' + fileName;
       }
+      // 根目录输出倒lib/
+      if (rootFile.test(fileName)) {
+        filepathArray.splice(outFileIndex, 1);
+        filepathArray.splice(outFileIndex + 1, 1);
+      }
+      filepath = filepathArray.join('/');
+
       await fs.promises.mkdir(path.dirname(filepath), {
         recursive: true,
       });
-
+      console.log(filepath);
       await fs.promises.writeFile(filepath, outputFile.getText(), 'utf8');
     }
   }
 };
 
-const spinner = ora('Generate types...\n').start();
+async function build(rootFileName) {
+  try {
+    await genVueTypes(rootFileName);
+    outFileName.length && build(outFileName.shift());
+  } catch (e) {
+    console.log(e);
+  }
+}
 
-genVueTypes()
-  .then(() => spinner.succeed('Success !\n'))
-  .catch(e => spinner.fail(`${e} !\n`));
+build(outFileName.shift());

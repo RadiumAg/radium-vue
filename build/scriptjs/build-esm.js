@@ -61,4 +61,4 @@ async function build() {
   }
 }
 
-build();
+build().catch(console.log);

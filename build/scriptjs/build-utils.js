@@ -2,17 +2,42 @@
 const rollup = require('rollup');
 const path = require('path');
 const klawSync = require('klaw-sync');
-const pkg = require('../package.json');
+const pkg = require('../../package.json');
 const vue = require('rollup-plugin-vue');
-const deps = Object.keys(pkg.dependencies);
 const typescript = require('rollup-plugin-typescript2');
 const { noPreFixFile } = require('./common');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
 
-const utilFiles = klawSync(path.resolve(__dirname, '../packages/utils'), {
+const deps = Object.keys(pkg.dependencies);
+const utilFiles = klawSync(path.resolve(__dirname, '../../packages/utils'), {
   nodir: true,
 }).map(_ => _.path);
 const excludeFile = ['package.json', 'types.ts'];
+
+/**
+ *
+ * @param {*} format "amd", "cjs", "system", "es", "iife" or "umd".
+ * @param {*} pakName
+ * @returns
+ */
+const getOutputOptions = format => {
+  return {
+    format,
+    file: path.resolve(
+      __dirname,
+      '../../',
+      `${format === 'es' ? 'es' : 'lib'}/utils/${filePath
+        .slice(filePath.lastIndexOf('\\'))
+        .replace('.ts', '')}.js`,
+    ),
+    paths(id) {
+      if (/^@radium-vue/.test(id)) {
+        if (noPreFixFile.test(id)) return id.replace('@radium-vue', '..');
+        return id.replace('@radium-vue/', '../ra-');
+      }
+    },
+  };
+};
 
 async function build() {
   while (utilFiles.length) {
@@ -43,22 +68,10 @@ async function build() {
       },
     };
 
-    console.log(filePath);
-    const outputOptions = {
-      format: 'esm',
-      file: `lib/utils/${filePath
-        .slice(filePath.lastIndexOf('\\'))
-        .replace('.ts', '')}.js`,
-      paths(id) {
-        if (/^@radium-vue/.test(id)) {
-          if (noPreFixFile.test(id)) return id.replace('@radium-vue', '..');
-          return id.replace('@radium-vue/', '../ra-');
-        }
-      },
-    };
     const bundle = await rollup.rollup(inputOptions);
-    await bundle.write(outputOptions);
+    await bundle.write(getOutputOptions('es'));
+    await bundle.write(getOutputOptions('cjs'));
   }
 }
 
-build();
+build().catch(console.log);

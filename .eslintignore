@@ -3,4 +3,5 @@ package.json
 babel.config.js
 webidi-conversions
 lib
+es
 # webpack-loader

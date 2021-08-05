@@ -6,7 +6,8 @@ bin-release/
 
 dist/
 
-/node_modules
+node_modules
+es
 lib
 # Other files and folders
 .settings/

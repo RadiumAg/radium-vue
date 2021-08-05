@@ -1,44 +1,6 @@
-import { App, createVNode, isVNode, render, VNode } from 'vue';
+import { App, createVNode, isVNode, render } from 'vue';
 import modalConstructor from './index.vue';
-
-export const modalType = [
-  'confirm',
-  'info',
-  'success',
-  'error',
-  'warning',
-] as const;
-
-type TModalTypeOption = Partial<{
-  raFullScreen: boolean;
-  raTop: string;
-  raModal: boolean;
-  raLockScroll: boolean;
-  raDropClose: boolean;
-  raShowClose: boolean;
-  raContent: string | VNode;
-  raTitle: string | VNode;
-  raOnOk: () => void;
-  raOnCancel: () => void;
-  onRaOnAfterClose: () => void;
-}>;
-
-type TModalOption = Partial<{
-  raType: string;
-  raWidth: string;
-  raTop: string;
-  raModal: boolean;
-  raLockScroll: boolean;
-  raDropClose: boolean;
-  raShowClose: boolean;
-  raOkLabel: string;
-  raCancelLabel: string;
-  raContent: string | VNode;
-  raTitle: string | VNode;
-  raFooter: string | VNode;
-  raOnOk: () => void;
-  raOnCancel: () => void;
-}>;
+import { TModalOption, TModalTypeOption } from './type';
 
 export class Modal {
   static install: (app: App) => void;
@@ -50,11 +12,11 @@ export class Modal {
       vm.component.proxy['raDestroy']();
     };
 
-    isVNode(options.raContent?.__vnode) &&
+    isVNode(options.raContent?.['__vnode']) &&
       (slotObject.default = () => options.raContent['__vnode'].children);
-    isVNode(options.raTitle?.__vnode) &&
+    isVNode(options.raTitle?.['__vnode']) &&
       (slotObject.title = () => options.raTitle['__vnode'].children);
-    isVNode(options.raFooter?.__vnode) &&
+    isVNode(options.raFooter?.['__vnode']) &&
       (slotObject.footer = () => options.raFooter['__vnode'].children);
 
     const vm = createVNode(
