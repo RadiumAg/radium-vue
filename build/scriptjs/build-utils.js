@@ -20,9 +20,10 @@ const excludeFile = ['package.json', 'types.ts'];
  * @param {*} pakName
  * @returns
  */
-const getOutputOptions = format => {
+const getOutputOptions = (format, filePath) => {
   return {
     format,
+    exports: 'auto',
     file: path.resolve(
       __dirname,
       '../../',
@@ -69,8 +70,8 @@ async function build() {
     };
 
     const bundle = await rollup.rollup(inputOptions);
-    await bundle.write(getOutputOptions('es'));
-    await bundle.write(getOutputOptions('cjs'));
+    await bundle.write(getOutputOptions('es', filePath));
+    await bundle.write(getOutputOptions('cjs', filePath));
   }
 }
 

@@ -66,7 +66,6 @@ async function build() {
               target: 'es2021',
               module: 'esnext',
               lib: ['ESNext', 'DOM'],
-              baseUrl: '../',
             },
             exclude: ['node_modules', '__tests__', ''],
           },
