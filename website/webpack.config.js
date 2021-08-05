@@ -15,7 +15,7 @@ module.exports = {
   mode: process.env.NODE_ENV, // development 模式下有热更新作用
   entry: resolve(
     __dirname,
-    process.env.MODE === 'bundle' ? './bundle.ts' : 'main.ts',
+    process.env.MODE === 'bundle' ? './bundle.ts' : './main.ts',
   ),
   output: {
     filename: '[name].[contenthash].js',

@@ -28,7 +28,7 @@
               <ra-row ra-justify="end" :ra-gutter="[10]">
                 <ra-col>
                   <ra-button v-if="isShowCancel" @click="cancelButtonClick">
-                    raCancelLabel }}
+                    {{ raCancelLabel }}
                   </ra-button>
                 </ra-col>
                 <ra-col>
