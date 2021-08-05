@@ -12,12 +12,12 @@
 </template>
 
 <script lang="ts">
-import raRipple  from '@radium-vue/ripple';
+import raRipple from '@radium-vue/ripple';
 import { computed, defineComponent } from 'vue';
 import { IButtonProps } from './button';
 export default defineComponent({
   name: 'RaButton',
-  directives:{ 'ripple':raRipple },
+  directives: { ripple: raRipple },
   props: {
     raType: {
       type: String,

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import vue from 'rollup-plugin-vue';
-import { terser } from 'rollup-plugin-terser';
+// import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 const { noPreFixFile } = require('./common');
@@ -29,7 +29,6 @@ export default {
       target: 'browser',
       css: false,
     }),
-    terser(),
     typescript({
       tsconfigOverride: {
         compilerOptions: {
@@ -37,12 +36,12 @@ export default {
           module: 'esnext',
           lib: ['ESNext', 'DOM'],
         },
-        exclude: ['node_modules', '__tests__', 'website', 'packages'],
+        exclude: ['node_modules', '__tests__', 'website'],
       },
       abortOnError: false,
     }),
   ],
   external(id) {
-    return /^vue/.test(id) || deps.includes(id);
+    return /^@radium-vue/.test(id) || /^vue/.test(id) || deps.includes(id);
   },
 };

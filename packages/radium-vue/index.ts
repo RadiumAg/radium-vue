@@ -1,5 +1,5 @@
-import { InstallConfig } from './../utils/config';
-import { setConfig } from './../utils/config';
+import { InstallConfig } from '@radium-vue/utils/config';
+import { setConfig } from '@radium-vue/utils/config';
 import { App } from 'vue';
 
 // components

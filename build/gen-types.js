@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
-const fs = require('fs');
 const ora = require('ora');
 const klawSync = require('klaw-sync');
 const vueCompiler = require('@vue/compiler-sfc');
 const { Project } = require('ts-morph');
-const { noPreFixFile } = require('./common');
+const { noPreFixDir } = require('./common');
 
 const DEMO_RE = /\/demo\/\w+\.vue$/;
 const TEST_RE = /__test__|__tests__/;
@@ -32,7 +31,6 @@ const genVueTypes = async () => {
       emitDeclarationOnly: true,
       noEmitOnError: false,
       outDir: path.resolve(__dirname, `../${outFileName}`),
-      baseUrl: path.resolve(__dirname, '../packages'),
       paths: {
         '@radium-vue/*': ['packages/*'],
       },
@@ -83,10 +81,6 @@ const genVueTypes = async () => {
     }),
   );
 
-  // await project.emit({
-  //   emitOnlyDtsFiles: true,
-  // });
-
   const ROOT_PATH = path.resolve(__dirname, '../packages/');
   const RadiumVueSign = '@radium-vue/';
   for (const sourceFile of sourceFiles) {
@@ -104,7 +98,7 @@ const genVueTypes = async () => {
       if (specifier && specifier.includes(RadiumVueSign)) {
         const importItem = specifier.slice(RadiumVueSign.length);
         let replacer = '';
-        if (!noPreFixFile.test(importItem)) {
+        if (!noPreFixDir.test(importItem)) {
           replacer = 'ra-';
         }
         const originalPath = path.resolve(
@@ -134,7 +128,7 @@ const genVueTypes = async () => {
       let filepath = outputFile.getFilePath();
       const filepathArray = filepath.split('/');
       const outFileIndex = filepathArray.findIndex(_ => _ === outFileName) + 1;
-      if (!noPreFixFile.test(filepathArray[outFileIndex])) {
+      if (!noPreFixDir.test(filepathArray[outFileIndex])) {
         filepathArray[outFileIndex] = 'ra-' + filepathArray[outFileIndex];
         filepath = filepathArray.join('/');
       }

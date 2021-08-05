@@ -1,16 +1,18 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const rollup = require('rollup');
 const path = require('path');
 const pkg = require('../../package.json');
 const vue = require('rollup-plugin-vue');
 const typescript = require('rollup-plugin-typescript2');
 const { getPackages } = require('@lerna/project');
-const { noPreFixFile } = require('../common');
+const { noPreFixDir, noPreFixFile } = require('../common');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
 const deps = Object.keys(pkg.dependencies);
 const excludeFiles = ['radium-theme-chalk', 'utils'];
 
 const getOutFileName = name => {
-  if (noPreFixFile.test(name)) {
+  if (noPreFixDir.test(name)) {
     return name;
   }
   return 'ra-' + name;
@@ -54,8 +56,11 @@ async function build() {
       file: `lib/${getOutFileName(pakName)}/index.js`,
       paths(id) {
         if (/^@radium-vue/.test(id)) {
-          if (noPreFixFile.test(id)) return id.replace('@radium-vue', '..');
-          return id.replace('@radium-vue/', '../ra-');
+          if (noPreFixFile.test(id)) {
+            return id.replace('@radium-vue/', '../');
+          } else {
+            return id.replace('@radium-vue/', '../ra-');
+          }
         }
       },
     };

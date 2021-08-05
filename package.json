@@ -1,8 +1,8 @@
 {
   "name": "radium-vue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Component Library for Vue3.0",
-  "main": "lib/index.js",
+  "main": "lib/radium-vue/index.js",
   "scripts": {
     "gen": "bash ./scripts/gc.sh",
     "gen:version": "node build/gen-version.js",

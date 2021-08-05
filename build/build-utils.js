@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const rollup = require('rollup');
 const path = require('path');
 const klawSync = require('klaw-sync');
