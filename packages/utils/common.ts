@@ -26,4 +26,4 @@ export const RadiumSqrt = (x: number, y: number) => {
   );
 };
 
-export const UPDATE_MODEL_EVENT = 'update:modelVAlue';
+export const UPDATE_MODEL_EVENT = 'update:modelValue';

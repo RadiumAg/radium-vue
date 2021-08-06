@@ -19,6 +19,7 @@ export type IDayList = {
   isToday: boolean;
   date: number;
   month: number;
+  isSelected: boolean;
 }[];
 
 const rows = 6;

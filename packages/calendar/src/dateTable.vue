@@ -16,9 +16,8 @@
         class="ra-date-table__label"
         :class="{
           'is-today': item.isToday,
-          'is-selected':
-            item.date === selectedDay.date && item.month === selectedDay.month,
           'is-other-month': item.month !== currentMonth.month(),
+          'is-selected': item.isSelected,
         }"
         @click="dayClick(item.date, item.month)"
       >
@@ -30,7 +29,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, inject, ref, watch } from 'vue';
+import { computed, defineComponent, inject } from 'vue';
 import localeDate from 'dayjs/plugin/localeData';
 import {
   CALENDAR_INJECT_TOKEN,
@@ -47,11 +46,6 @@ export default defineComponent({
   setup() {
     const calendarProvide = inject<ICalendarProvide>(CALENDAR_INJECT_TOKEN);
     const currentMonth = calendarProvide.dayjsObj;
-    const selectedDay = ref({
-      month: currentMonth.value.month(),
-      date: currentMonth.value.date(),
-    });
-
     const preMonthDayjs = computed(() => {
       return currentMonth.value.month(currentMonth.value.month() - 1);
     });
@@ -61,16 +55,25 @@ export default defineComponent({
 
     const dates = computed(() => {
       const ret: IDayList = [];
-      const [start, end] = calendarProvide.range.value;
-      let mStartDate = currentMonth.value.startOf('month').date();
+      const [start, end] = calendarProvide.range.value || [];
+      let mStartDate = end
+        ? dayjs(end)
+            .startOf('month')
+            .day()
+        : currentMonth.value.startOf('month').date();
       const mEndDate = currentMonth.value.endOf('month').date();
-      const mStartDay = currentMonth.value.startOf('month').day();
+      const mStartDay = start
+        ? dayjs(start)
+            .startOf('month')
+            .day()
+        : currentMonth.value.startOf('month').day();
       const mStartWeek = mStartDay === 0 ? 6 : mStartDay - 1;
       const richDays = totalDays - mEndDate - mStartWeek;
 
       for (let index = 0; index < mStartWeek; index++) {
         ret.push({
           isToday: false,
+          isSelected: false,
           date:
             preMonthDayjs.value.endOf('month').date() - mStartWeek + index + 1,
           month: preMonthDayjs.value.month(),
@@ -80,6 +83,7 @@ export default defineComponent({
       while (mStartDate <= mEndDate) {
         ret.push({
           date: mStartDate,
+          isSelected: mStartDate === currentMonth.value.date(),
           isToday:
             dayjs().date() === mStartDate &&
             dayjs().month() === currentMonth.value.month() &&
@@ -92,21 +96,15 @@ export default defineComponent({
 
       for (let index = 0; index < richDays; index++) {
         ret.push({
-          isToday: false,
           date: index + 1,
+          isSelected: false,
+          isToday: false,
           month: nextMonthDayObj.value.month(),
         });
       }
-
       return ret;
     });
 
-    watch(currentMonth, () => {
-      selectedDay.value = {
-        month: currentMonth.value.month(),
-        date: currentMonth.value.date(),
-      };
-    });
     //funcs
     function dayClick(date: number, month: number) {
       currentMonth.value = currentMonth.value.date(date);
@@ -126,7 +124,6 @@ export default defineComponent({
     return {
       dates,
       dayClick,
-      selectedDay,
       currentMonth,
     };
   },
