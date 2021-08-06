@@ -51,19 +51,28 @@
     },
     {
       "name": "表单",
-      "groups":[
+      "groups": [
         {
-          "path":"slider",
-          "name":"Slider 滑块"
+          "path": "slider",
+          "name": "Slider 滑块"
         }
       ]
     },
     {
       "name": "导航",
-      "groups":[
+      "groups": [
         {
-          "path":"tabs",
-          "name":"Tabs 切换"
+          "path": "tabs",
+          "name": "Tabs 切换"
+        }
+      ]
+    },
+    {
+      "name": "others",
+      "groups": [
+        {
+          "path": "calendar",
+          "name": "Calendar 日历"
         }
       ]
     }

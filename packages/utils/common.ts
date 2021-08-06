@@ -25,3 +25,5 @@ export const RadiumSqrt = (x: number, y: number) => {
     Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)).toFixed(2),
   );
 };
+
+export const UPDATE_MODEL_EVENT = 'update:modelVAlue';

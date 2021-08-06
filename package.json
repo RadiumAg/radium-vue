@@ -5,7 +5,6 @@
   "main": "lib/index.js",
   "scripts": {
     "gen": "bash ./scripts/gc.sh",
-    "gen:version": "node build/gen-version.js",
     "build":"lerna bootstrap && npm run clean:lib && node build/build.js && npm run build:theme",
     "build:util":"node ./build/scriptjs/build-utils.js",
     "build:theme": "gulp build --gulpfile ./packages/theme-chalk/gulpfile.js && cp-cli ./packages/theme-chalk/lib lib/theme-chalk && rimraf packages/theme-chalk/lib",

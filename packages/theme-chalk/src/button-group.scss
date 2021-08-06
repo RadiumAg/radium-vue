@@ -4,15 +4,19 @@
 @import './common/var';
 
 @include b(button-group) {
-  border-radius: 4px;
   overflow: hidden;
-  .#{$namespace}-button {
-    border-radius: 0px;
-    border-right-color: $--color-white;
+  .#{$namespace}-button:first-child {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
 
-    &:not(:first-child),
-    &:not(:last-child) {
-      border-right-color: unset;
-    }
+  .#{$namespace}-button:last-child {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+  .#{$namespace}-button:not(:first-child, :last-child) {
+    border-radius: 0;
+    border-right: 0;
+    border-left: 0;
   }
 }

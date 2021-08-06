@@ -4,10 +4,26 @@
   "license": "ISC",
   "main": "dist/index.js",
   "dependencies": {
-    "@radium-vue/button": "0.0.0",
-    "@radium-vue/carousel": "0.0.0",
-    "@radium-vue/carousel-item": "0.0.0",
     "@radium-vue/row": "0.0.0",
-    "@radium-vue/scrollbar": "0.0.0"
+    "@radium-vue/col": "0.0.0",
+    "@radium-vue/spin": "0.0.0",
+    "@radium-vue/tabs": "0.0.0",
+    "@radium-vue/modal": "0.0.0",
+    "@radium-vue/utils": "0.0.0",
+    "@radium-vue/slider": "0.0.0",
+    "@radium-vue/ripple": "0.0.0",
+    "@radium-vue/button": "0.0.0",
+    "@radium-vue/message": "0.0.0",
+    "@radium-vue/locale": "0.0.0",
+    "@radium-vue/tooltip": "0.0.0",
+    "@radium-vue/tab-bar": "0.0.0",
+    "@radium-vue/carousel": "0.0.0",
+    "@radium-vue/calendar": "0.0.0",
+    "@radium-vue/progress": "0.0.0",
+    "@radium-vue/checkbox": "0.0.0",
+    "@radium-vue/tab-panel": "0.0.0",
+    "@radium-vue/scrollbar": "0.0.0",
+    "@radium-vue/button-group": "0.0.0",
+    "@radium-vue/carousel-item": "0.0.0"
   }
 }

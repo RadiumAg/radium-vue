@@ -89,11 +89,10 @@ module.exports = {
     }),
   ],
   devServer: {
-    inline: true,
     port: 4500,
     hot: true,
     host: '0.0.0.0',
-    hotOnly: true,
+    inline: true,
     // open: true,
     publicPath: '/',
     historyApiFallback: true,

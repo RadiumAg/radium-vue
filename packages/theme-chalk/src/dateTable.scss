@@ -1,0 +1,66 @@
+@use "sass:math";
+
+@import './mixins/_button';
+@import './mixins/mixins';
+@import './common/var';
+
+@include b(date-table) {
+  padding: $--calendar-table-padding;
+
+  @include e(header) {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(7, math.div(100%, 7));
+    grid-template-rows: max-content;
+    margin-bottom: 10px;
+
+    > h2 {
+      font-weight: 200;
+      font-size: 17px;
+      color: $--color-info;
+    }
+  }
+
+  @include e(date) {
+    display: grid;
+    grid-template-columns: repeat(7, math.div(100%, 7));
+    grid-template-rows: repeat(6, $--calendar-table-day-height);
+    border: 1px solid $--border-color-light;
+    border-right: none;
+    border-bottom: none;
+    border-radius: $--calendar-table-border-radius;
+    user-select: none;
+    overflow: hidden;
+
+    @include e(label) {
+      padding: $--calendar-table-day-padding;
+      border-right: 1px solid $--border-color-light;
+      border-bottom: 1px solid $--border-color-light;
+      cursor: pointer;
+
+      @include when(today) {
+        color: $--color-primary;
+      }
+
+      @include when(other-month) {
+        color: mix($--color-white, $--calendar-table-day-selected, 80%);
+        background-color: mix(
+          $--color-white,
+          $--calendar-table-day-selected,
+          95%
+        );
+      }
+
+      @include when(selected) {
+        color: $--color-primary;
+        background-clip: border-box;
+        background-color: mix(
+          $--color-white,
+          $--calendar-table-day-selected,
+          90%
+        );
+      }
+    }
+  }
+}

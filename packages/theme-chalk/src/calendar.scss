@@ -1,0 +1,19 @@
+@use "sass:math";
+
+@import './mixins/_button';
+@import './mixins/mixins';
+@import './common/var';
+
+@include b(calendar) {
+  @include e(header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $--calendar-header-padding;
+    border-bottom: 1px solid $--border-color-light;
+  }
+
+  @include e(table) {
+    padding: $--calendar-table-padding;
+  }
+}

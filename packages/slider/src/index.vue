@@ -12,6 +12,7 @@
 
 <script lang="ts">
 import { isNull } from 'lodash';
+import { UPDATE_MODEL_EVENT } from '@radium-vue/utils/common';
 import {
   computed,
   defineComponent,
@@ -22,7 +23,7 @@ import {
   watchEffect,
 } from 'vue';
 import progressButton from './button.vue';
-import { SLIDER_PROVIDE_TOKEN, TSliderProvide , UPDATE_MODEL_EVENT } from './slider';
+import { SLIDER_PROVIDE_TOKEN, TSliderProvide } from './slider';
 export default defineComponent({
   name: 'RaSlider',
   components: {
@@ -78,7 +79,7 @@ export default defineComponent({
       setTheTrackWidth();
     });
     const processBarWidth = computed(() => {
-      const res = sliderDistance.value  + '%';
+      const res = sliderDistance.value + '%';
       return res;
     });
 
@@ -104,8 +105,11 @@ export default defineComponent({
       or.disconnect();
     });
 
-    watchEffect(()=>{
-      emit(UPDATE_MODEL_EVENT, Math.round(sliderDistance.value * props.raMax) / 100);
+    watchEffect(() => {
+      emit(
+        UPDATE_MODEL_EVENT,
+        Math.round(sliderDistance.value * props.raMax) / 100,
+      );
     });
 
     return {
