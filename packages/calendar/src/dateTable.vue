@@ -21,7 +21,7 @@
         }"
         @click="dayClick(item.date, item.month)"
       >
-        <slot>
+        <slot v-bind="item">
           {{ item.date }}
         </slot>
       </section>
