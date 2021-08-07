@@ -69,17 +69,20 @@ export default defineComponent({
         : currentMonth.value.startOf('month').day();
       const mStartWeek = mStartDay === 0 ? 6 : mStartDay - 1;
       const richDays = totalDays - mEndDate - mStartWeek;
-
-      for (let index = 0; index < mStartWeek; index++) {
-        ret.push({
-          isToday: false,
-          isSelected: false,
-          date:
-            preMonthDayjs.value.endOf('month').date() - mStartWeek + index + 1,
-          month: preMonthDayjs.value.month(),
-        });
+      if (!start) {
+        for (let index = 0; index < mStartWeek; index++) {
+          ret.push({
+            isToday: false,
+            isSelected: false,
+            date:
+              preMonthDayjs.value.endOf('month').date() -
+              mStartWeek +
+              index +
+              1,
+            month: preMonthDayjs.value.month(),
+          });
+        }
       }
-
       while (mStartDate <= mEndDate) {
         ret.push({
           date: mStartDate,
@@ -93,14 +96,15 @@ export default defineComponent({
 
         mStartDate++;
       }
-
-      for (let index = 0; index < richDays; index++) {
-        ret.push({
-          date: index + 1,
-          isSelected: false,
-          isToday: false,
-          month: nextMonthDayObj.value.month(),
-        });
+      if (!start) {
+        for (let index = 0; index < richDays; index++) {
+          ret.push({
+            date: index + 1,
+            isSelected: false,
+            isToday: false,
+            month: nextMonthDayObj.value.month(),
+          });
+        }
       }
       return ret;
     });
