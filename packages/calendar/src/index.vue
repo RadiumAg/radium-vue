@@ -2,7 +2,7 @@
   <div class="ra-calendar">
     <section class="ra-calendar__header">
       <span v-html="date"></span>
-      <ra-button-group v-if="!raRange">
+      <ra-button-group v-if="isShowTool">
         <ra-button ra-size="mini" @click="changeTheTime('preMonth')">
           上个月
         </ra-button>
@@ -28,7 +28,7 @@ import RaButton from '@radium-vue/button';
 import RaButtonGroup from '@radium-vue/button-group';
 import RaDateTable from './dateTable.vue';
 import { UPDATE_MODEL_EVENT } from '@radium-vue/utils/common';
-import { defineComponent, PropType, provide, ref, watch } from 'vue';
+import { computed, defineComponent, PropType, provide, ref, watch } from 'vue';
 import {
   CALENDAR_INJECT_TOKEN,
   formtString,
@@ -63,13 +63,23 @@ export default defineComponent({
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props: TCalendarProps, { emit }) {
-    const dayjsObj = ref(dayjs(props.modelValue));
-    const date = ref(dayjsObj.value.format(formtString));
+    const currentDaysJsObj = ref(dayjs(props.modelValue));
+    const date = ref(currentDaysJsObj.value.format(formtString));
     const range = ref(props.raRange);
+    const isShowTool = computed(() => {
+      const [start, end] = props.raRange || [];
+      if (!start) {
+        return true;
+      }
+      if (start.getMonth() === end.getMonth()) {
+        return false;
+      }
+      return true;
+    });
 
-    watch(dayjsObj, () => {
-      date.value = dayjsObj.value.format(formtString);
-      emit(UPDATE_MODEL_EVENT, dayjsObj.value.toDate());
+    watch(currentDaysJsObj, () => {
+      date.value = currentDaysJsObj.value.format(formtString);
+      emit(UPDATE_MODEL_EVENT, currentDaysJsObj.value.toDate());
     });
 
     watch(props, () => {
@@ -80,31 +90,31 @@ export default defineComponent({
     function changeTheTime(opType: 'today' | 'nextMonth' | 'preMonth') {
       switch (opType) {
         case 'nextMonth': {
-          dayjsObj.value = dayjsObj.value
-            .month(dayjsObj.value.month() + 1)
-            .date(dayjsObj.value.date());
+          currentDaysJsObj.value = currentDaysJsObj.value
+            .month(currentDaysJsObj.value.month() + 1)
+            .date(currentDaysJsObj.value.date());
           break;
         }
         case 'preMonth': {
-          dayjsObj.value = dayjsObj.value
-            .month(dayjsObj.value.month() - 1)
-            .date(dayjsObj.value.date());
+          currentDaysJsObj.value = currentDaysJsObj.value
+            .month(currentDaysJsObj.value.month() - 1)
+            .date(currentDaysJsObj.value.date());
           break;
         }
         case 'today': {
-          dayjsObj.value = dayjs();
+          currentDaysJsObj.value = dayjs();
           break;
         }
       }
-      date.value = dayjsObj.value.format(formtString);
+      date.value = currentDaysJsObj.value.format(formtString);
     }
 
     provide<ICalendarProvide>(CALENDAR_INJECT_TOKEN, {
-      dayjsObj,
+      dayjsObj: currentDaysJsObj,
       range,
     });
 
-    return { props, date, changeTheTime };
+    return { props, date, changeTheTime, isShowTool };
   },
 });
 </script>

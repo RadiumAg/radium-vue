@@ -25,7 +25,7 @@
   @include e(date) {
     display: grid;
     grid-template-columns: repeat(7, math.div(100%, 7));
-    grid-template-rows: repeat(6, $--calendar-table-day-height);
+    grid-template-rows: repeat(6, max-content);
     border: 1px solid $--border-color-light;
     border-right: none;
     border-bottom: none;
@@ -34,6 +34,7 @@
     overflow: hidden;
 
     @include e(label) {
+      height: $--calendar-table-day-height;
       padding: $--calendar-table-day-padding;
       border-right: 1px solid $--border-color-light;
       border-bottom: 1px solid $--border-color-light;

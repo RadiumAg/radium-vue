@@ -1,4 +1,4 @@
-import { moduleKey, appVuexModule } from './src/core/vux-module/index';
+import { moduleKey, appVuexModule } from './src/core/vuex-module/index';
 import { createApp } from 'vue';
 import App from './src/App.vue';
 import demo from 'Pages/component/demo.vue';

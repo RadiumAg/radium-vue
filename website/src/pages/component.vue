@@ -20,11 +20,11 @@
 import { ComponentInternalInstance, defineComponent, ref, watch } from 'vue';
 import ComponentNav from './component/component.nav.vue';
 import ComponentLink from './component/component.link.vue';
-import { useRootStore } from 'Core/vux-module';
+import { useRootStore } from 'Core/vuex-module';
 import {
   SET_EL_COMPONENT_SCROLLBAR,
   SET_EL_COMPONENT_SCROLLBAR_TOP,
-} from 'Core/vux-module/state/component';
+} from 'Core/vuex-module/state/component';
 import { throttle } from 'lodash';
 export default defineComponent({
   name: 'Component',

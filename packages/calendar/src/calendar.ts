@@ -6,6 +6,10 @@ export type TCalendarProps = Readonly<{
   raRange: Array<Date>;
 }>;
 
+export function isRange(start: Date, end: Date) {
+  return !!start && !!end;
+}
+
 export const formtString = 'YYYY年MM月';
 
 export const CALENDAR_INJECT_TOKEN = 'CALENDAR_INJECT_TOKEN';
@@ -16,9 +20,9 @@ export interface ICalendarProvide {
 }
 
 export type IDayList = {
-  isToday: boolean;
   date: number;
   month: number;
+  isToday: boolean;
   isSelected: boolean;
 }[];
 

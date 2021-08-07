@@ -21,7 +21,13 @@
         }"
         @click="dayClick(item.date, item.month)"
       >
-        <slot v-bind="item">
+        <slot
+          v-bind="{
+            date: item.date,
+            month: item.month,
+            isSelected: item.isSelected,
+          }"
+        >
           {{ item.date }}
         </slot>
       </section>
@@ -35,6 +41,7 @@ import {
   CALENDAR_INJECT_TOKEN,
   ICalendarProvide,
   IDayList,
+  isRange,
   totalDays,
 } from './calendar';
 import dayjs from 'dayjs';
@@ -46,16 +53,16 @@ export default defineComponent({
   setup() {
     const calendarProvide = inject<ICalendarProvide>(CALENDAR_INJECT_TOKEN);
     const currentMonth = calendarProvide.dayjsObj;
-    const preMonthDayjs = computed(() => {
-      return currentMonth.value.month(currentMonth.value.month() - 1);
-    });
-    const nextMonthDayObj = computed(() => {
-      return currentMonth.value.month(preMonthDayjs.value.month() + 2);
-    });
 
     const dates = computed(() => {
-      const ret: IDayList = [];
       const [start, end] = calendarProvide.range.value || [];
+      const preMonthDayjs = currentMonth.value.month(
+        currentMonth.value.month() - 1,
+      );
+      const nextMonthDayObj = currentMonth.value.month(
+        currentMonth.value.month() + 1,
+      );
+      const ret: IDayList = [];
       let mStartDate = end
         ? dayjs(end)
             .startOf('month')
@@ -69,17 +76,13 @@ export default defineComponent({
         : currentMonth.value.startOf('month').day();
       const mStartWeek = mStartDay === 0 ? 6 : mStartDay - 1;
       const richDays = totalDays - mEndDate - mStartWeek;
-      if (!start) {
+      if (!isRange(start, end)) {
         for (let index = 0; index < mStartWeek; index++) {
           ret.push({
             isToday: false,
             isSelected: false,
-            date:
-              preMonthDayjs.value.endOf('month').date() -
-              mStartWeek +
-              index +
-              1,
-            month: preMonthDayjs.value.month(),
+            date: preMonthDayjs.endOf('month').date() - mStartWeek + index + 1,
+            month: preMonthDayjs.month(),
           });
         }
       }
@@ -96,13 +99,13 @@ export default defineComponent({
 
         mStartDate++;
       }
-      if (!start) {
+      if (!isRange(start, end)) {
         for (let index = 0; index < richDays; index++) {
           ret.push({
             date: index + 1,
             isSelected: false,
             isToday: false,
-            month: nextMonthDayObj.value.month(),
+            month: nextMonthDayObj.month(),
           });
         }
       }
@@ -111,18 +114,7 @@ export default defineComponent({
 
     //funcs
     function dayClick(date: number, month: number) {
-      currentMonth.value = currentMonth.value.date(date);
-      if (month < currentMonth.value.month()) {
-        currentMonth.value = preMonthDayjs.value.date(
-          currentMonth.value.date(),
-        );
-      }
-
-      if (month > currentMonth.value.month()) {
-        currentMonth.value = nextMonthDayObj.value.date(
-          currentMonth.value.date(),
-        );
-      }
+      currentMonth.value = currentMonth.value.date(date).month(month);
     }
 
     return {

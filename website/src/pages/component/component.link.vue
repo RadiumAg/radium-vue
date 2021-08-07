@@ -7,12 +7,13 @@
       href="javascript:void 0"
       :class="{ 'is-active': activeFlag[index] }"
       @click="scrollTo(index)"
-    >{{ link_item.text }}</a>
+      >{{ link_item.text }}</a
+    >
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
-import { useRootStore } from '../../core/vux-module';
+import { useRootStore } from '../../core/vuex-module';
 export default defineComponent({
   name: 'ComponentLink',
   setup() {
@@ -42,7 +43,7 @@ export default defineComponent({
       linkTagList.value.forEach((el, index) => {
         if (
           Math.floor(store.state.component.scrollTop) >=
-          Math.floor(el.offsetTop)-20
+          Math.floor(el.offsetTop) - 20
         ) {
           scrollActive(index);
         } else if (
