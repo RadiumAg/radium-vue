@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "gen": "bash ./scripts/gc.sh",
-    "build":"lerna bootstrap && npm run clean:lib && node build/build.js && npm run build:theme",
-    "build:util":"node ./build/scriptjs/build-utils.js",
+    "build": "lerna bootstrap && npm run clean:lib && node build/build.js && npm run build:theme",
+    "build:util": "node ./build/scriptjs/build-utils.js",
     "build:theme": "gulp build --gulpfile ./packages/theme-chalk/gulpfile.js && cp-cli ./packages/theme-chalk/lib lib/theme-chalk && rimraf packages/theme-chalk/lib",
     "clean:lib": "rimraf lib && rimraf es",
     "website-build": "cross-env NODE_ENV=production webpack --config ./website/webpack.config.js",
@@ -117,6 +117,7 @@
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
+    "@popperjs/core": "^2.9.3",
     "dayjs": "^1.10.5",
     "lodash": "^4.17.21",
     "resize-observer-polyfill": "^1.5.1"
