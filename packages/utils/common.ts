@@ -27,3 +27,10 @@ export const RadiumSqrt = (x: number, y: number) => {
 };
 
 export const UPDATE_MODEL_EVENT = 'update:modelValue';
+
+export const delay = (callback: (...any) => void, delayTime: number) => {
+  const flag = setTimeout(() => {
+    clearTimeout(flag);
+    callback();
+  }, delayTime);
+};
