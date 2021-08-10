@@ -30,7 +30,7 @@ export default defineComponent({
           Teleport as any,
           {
             to: 'body',
-            disabled: !props,
+            disabled: !props.disabled,
           },
           [popperInstance],
         ),

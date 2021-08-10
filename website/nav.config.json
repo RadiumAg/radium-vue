@@ -46,6 +46,10 @@
         {
           "path": "spin",
           "name": "Spin 加载"
+        },
+        {
+          "path": "tooltip",
+          "name": "tooltip 提示"
         }
       ]
     },

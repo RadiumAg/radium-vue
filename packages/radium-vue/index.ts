@@ -15,6 +15,7 @@ import RaTabs from '@radium-vue/tabs';
 import RaTabPanel from '@radium-vue/tab-panel';
 import RaTabBar from '@radium-vue/tab-bar';
 import RaCalendar from '@radium-vue/calendar';
+import RaToolTip from '@radium-vue/tooltip';
 // plugins
 import RaMessage from '@radium-vue/message';
 import RaModal from '@radium-vue/modal';
@@ -30,6 +31,7 @@ const components = [
   RaTabBar,
   RaSlider,
   RaButton,
+  RaToolTip,
   RaCalendar,
   RaTabPanel,
   RaCarousel,
@@ -66,6 +68,7 @@ export {
   RaCol,
   RaModal,
   RaButton,
+  RaToolTip,
   RaSlider,
   raRipple,
   RaMessage,
