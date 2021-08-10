@@ -28,7 +28,10 @@ export default {
     type: String,
     default: '',
   },
-  style: Object,
+  style: {
+    type: String,
+    default: '',
+  },
   hideAfter: {
     type: Number,
     default: 200,

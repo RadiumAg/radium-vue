@@ -4,7 +4,7 @@ import { SFCWithInstall } from '@radium-vue/utils/types';
 
 Popper.install = (app: App): void => {
   app.component(Popper.name, Popper);
-}
-const _Popper:SFCWithInstall<typeof Popper> = Popper;
+};
+const _Popper: SFCWithInstall<typeof Popper> = Popper;
 
 export default _Popper;

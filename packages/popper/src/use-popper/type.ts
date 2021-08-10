@@ -24,7 +24,7 @@ export type TEmit = (event: TEventType, ...args: any[]) => void;
 
 export type Trigger = TriggerType | TriggerType[];
 
-export type TPropperOptions = {
+export type TPopperOptions = {
   arrowOffset: number;
   autoClose: number;
   boundariesPadding: number;

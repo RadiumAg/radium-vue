@@ -36,7 +36,6 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, inject } from 'vue';
-import localeDate from 'dayjs/plugin/localeData';
 import {
   CALENDAR_INJECT_TOKEN,
   ICalendarProvide,
@@ -45,8 +44,6 @@ import {
   totalDays,
 } from './calendar';
 import dayjs from 'dayjs';
-dayjs.extend(localeDate);
-dayjs().localeData();
 
 export default defineComponent({
   name: 'RaDateTable',

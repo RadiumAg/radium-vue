@@ -35,10 +35,7 @@ import {
   ICalendarProvide,
   TCalendarProps,
 } from './calendar';
-import localeDate from 'dayjs/plugin/localeData';
 import dayjs from 'dayjs';
-dayjs.extend(localeDate);
-dayjs().localeData();
 
 export default defineComponent({
   name: 'RaCalendar',

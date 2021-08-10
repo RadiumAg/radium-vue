@@ -1,18 +1,17 @@
 import { Instance } from '@popperjs/core';
 import { createPopper } from '@popperjs/core/lib/createPopper';
-import { delay } from 'lodash';
 import { computed, ref } from 'vue';
 import { isManualMode } from '.';
-import { TEmit, TPropperOptions } from './type';
+import { TEmit, TPopperOptions } from './type';
 
-export default (
-  options: TPropperOptions,
+export default function(
+  options: TPopperOptions,
   {
     emit,
   }: {
     emit: TEmit;
   },
-) => {
+) {
   const popperInstance = ref<Instance>();
   const reference = ref<HTMLElement>();
   const popperElement = ref<HTMLElement>();
@@ -37,9 +36,13 @@ export default (
     );
   };
 
-  const onPopperMouseenter = () => {};
+  const onPopperMouseenter = () => {
+    createPopperInstance();
+  };
 
-  const onPopperMouseleave = () => {};
+  const onPopperMouseleave = () => {
+    popperInstance.value.destroy();
+  };
 
   return {
     popperInstance,
@@ -62,4 +65,4 @@ export default (
     onPopperMouseleave,
     createPopperInstance,
   };
-};
+}
