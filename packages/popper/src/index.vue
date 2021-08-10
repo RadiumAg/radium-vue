@@ -24,7 +24,8 @@ export default defineComponent({
     }
 
     return () =>
-      h(Fragment, null, [
+      h(Fragment, {}, [
+        slots.trigger(),
         h(
           Teleport as any,
           {
