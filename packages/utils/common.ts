@@ -1,3 +1,4 @@
+import { isEmpty, isNull } from 'lodash';
 import warn from './error';
 
 const SCOPE = 'common';
@@ -33,4 +34,14 @@ export const delay = (callback: (...any) => void, delayTime: number) => {
     clearTimeout(flag);
     callback();
   }, delayTime);
+};
+
+export const processInvalidProp = <T extends object>(props: T) => {
+  Object.keys(props).forEach(_ => {
+    const propsValue = props[_];
+    if (isEmpty(propsValue)) {
+      Reflect.deleteProperty(props, _);
+    }
+  });
+  return props;
 };

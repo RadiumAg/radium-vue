@@ -32,8 +32,8 @@
         raDirection === 'horizontal'
           ? 'ra-carousel__indicator--horizontal'
           : raDirection === 'vertical'
-            ? 'ra-carousel__indicator--vertical'
-            : '',
+          ? 'ra-carousel__indicator--vertical'
+          : '',
       ]"
     >
       <div

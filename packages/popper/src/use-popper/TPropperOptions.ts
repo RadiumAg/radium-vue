@@ -66,7 +66,7 @@ export default {
   },
   placement: {
     type: String as PropType<Placement>,
-    default: 'bottom' as Placement,
+    default: 'bottom',
   },
   popperClass: {
     type: String,
@@ -86,11 +86,11 @@ export default {
   },
   strategy: {
     type: String as PropType<PositioningStrategy>,
-    default: 'fixed' as PositioningStrategy,
+    default: 'fixed',
   },
   transition: {
     type: String,
-    default: 'el-fade-in-linear',
+    default: 'ra-fade-in-linear',
   },
   trigger: {
     type: [String, Array] as PropType<Trigger>,

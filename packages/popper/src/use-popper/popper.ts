@@ -1,5 +1,5 @@
-import { Instance } from '@popperjs/core';
-import { createPopper } from '@popperjs/core/lib/createPopper';
+import { Instance, createPopper } from '@popperjs/core';
+import { delay } from '@radium-vue/utils/common';
 import { computed, ref } from 'vue';
 import { isManualMode } from '.';
 import { TEmit, TPopperOptions } from './type';
@@ -12,10 +12,10 @@ export default function(
     emit: TEmit;
   },
 ) {
+  const state = ref(false);
   const popperInstance = ref<Instance>();
   const reference = ref<HTMLElement>();
   const popperElement = ref<HTMLElement>();
-  const state = ref(false);
 
   const visable = computed<boolean>({
     get() {
@@ -29,19 +29,44 @@ export default function(
   });
 
   const createPopperInstance = () => {
-    popperInstance.value = createPopper(
-      reference.value,
-      popperElement.value,
-      options,
-    );
+    popperInstance.value = createPopper(reference.value, popperElement.value, {
+      placement: options.placement,
+      strategy: options.strategy,
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 4],
+          },
+        },
+      ],
+    });
   };
 
-  const onPopperMouseenter = () => {
-    createPopperInstance();
+  const onPopperMouseenter = () => {};
+  const onPopperMouseleave = () => {};
+  const onTriggerMouseEnter = () => {
+    if (options.showAfter) {
+      delay(() => {
+        visable.value = true;
+        popperInstance.value.update();
+      }, options.showAfter);
+      return;
+    }
+    visable.value = true;
+    popperInstance.value.update();
   };
 
-  const onPopperMouseleave = () => {
-    popperInstance.value.destroy();
+  const onTriggerMouseLeave = () => {
+    if (options.hideAfter) {
+      delay(() => {
+        visable.value = false;
+        popperInstance.value.update();
+      }, options.showAfter);
+      return;
+    }
+    visable.value = false;
+    popperInstance.value.update();
   };
 
   return {
@@ -63,6 +88,8 @@ export default function(
     },
     onPopperMouseenter,
     onPopperMouseleave,
+    onTriggerMouseEnter,
+    onTriggerMouseLeave,
     createPopperInstance,
   };
 }
