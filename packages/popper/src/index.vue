@@ -6,7 +6,6 @@ import throwError from '@radium-vue/utils/error';
 import renderArrow from './renders/arrow';
 import {
   h,
-  cloneVNode,
   Fragment,
   nextTick,
   onMounted,
@@ -14,6 +13,7 @@ import {
   defineComponent,
 } from 'vue';
 import { MODEL_VALUE_UPDATE_EVENT } from './use-popper/type';
+import { renderTrigger } from './renders/trigger';
 const compName = 'RaPopper';
 
 export default defineComponent({
@@ -21,6 +21,9 @@ export default defineComponent({
   props: popperProps,
   emits: [...MODEL_VALUE_UPDATE_EVENT],
   setup(props, { emit, slots }) {
+    if (!slots.trigger) {
+      throwError(compName, 'Trigger must be provided');
+    }
     const popperOptions = usePopper(props, { emit });
     const arrow = renderArrow(props.showArrow, props.arrowOffset);
     const popperInstance = renderPopper(
@@ -28,10 +31,6 @@ export default defineComponent({
       slots,
       arrow,
     );
-
-    if (!slots.trigger) {
-      throwError(compName, 'Trigger must be provided');
-    }
 
     // lifeclycle
     onMounted(() => {
@@ -42,17 +41,13 @@ export default defineComponent({
 
     return () =>
       h(Fragment, {}, [
-        cloneVNode(
-          slots.trigger()[0],
-          {
-            onmouseenter: popperOptions.onTriggerMouseEnter,
-            onmouseleave: popperOptions.onTriggerMouseLeave,
-            ref: (ref: { $el: HTMLElement }) => {
-              popperOptions.reference.value = ref.$el;
-            },
+        renderTrigger(slots.trigger(), {
+          onmouseenter: popperOptions.onTriggerMouseEnter,
+          onmouseleave: popperOptions.onTriggerMouseLeave,
+          ref: (ref: { $el: HTMLElement }) => {
+            popperOptions.reference.value = ref?.$el;
           },
-          true,
-        ),
+        }),
         h(
           Teleport as any,
           {
@@ -65,4 +60,3 @@ export default defineComponent({
   },
 });
 </script>
-<style></style>

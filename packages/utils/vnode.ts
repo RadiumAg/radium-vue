@@ -1,4 +1,8 @@
+import { Fragment } from 'react';
+import { VNode } from 'vue';
 import { VNodeChild } from 'vue';
+
+const TEMPLATE = 'template';
 
 export enum PatchFlags {
   // 动态文字内容
@@ -31,4 +35,30 @@ export enum PatchFlags {
   BAIL = -2,
 }
 
-export function getFirstValidNode(nodes: VNodeChild) {}
+export const isFragement = (node: VNodeChild) =>
+  (node as VNode).type === Fragment;
+
+export const isText = (node: VNodeChild) => (node as VNode).type === Text;
+
+export const isComment = (node: VNodeChild) => (node as VNode).type === Comment;
+
+export const isTemplate = (node: VNodeChild) =>
+  (node as VNode).type === TEMPLATE;
+
+export function getFirstValidNode(nodes: VNodeChild, depth: number) {
+  if (Array.isArray(nodes)) {
+    return getChildren(nodes[0] as VNode, depth);
+  } else {
+    return getChildren(nodes as VNode, depth);
+  }
+}
+
+function getChildren(node: VNode, depth: number) {
+  if (isComment(node)) return;
+  if (isFragement(node) || isTemplate(node)) {
+    return depth > 0
+      ? getFirstValidNode(node.children as VNodeChild, depth - 1)
+      : undefined;
+  }
+  return node;
+}
