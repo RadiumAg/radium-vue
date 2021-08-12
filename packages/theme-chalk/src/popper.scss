@@ -6,22 +6,48 @@
 @include b(popper) {
   color: $--color-white;
   padding: $--popper-padding;
-  background-color: $--color-black;
-  border-radius: $--popper-border-radius;
   transition: $--fade-transition;
   font-size: $--font-size-small;
   user-select: none;
+  border-radius: $--popper-border-radius;
+
+  @include when(dark) {
+    background-color: $--color-black;
+  }
+
+  @include when(light) {
+    color: $--color-black;
+    border: 1px solid $--color-info;
+    background-color: $--color-white;
+  }
 
   @include e(arrow) {
     width: 8px;
     height: 8px;
-    &::before {
-      content: '';
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      transform: rotate(45deg);
-      background-color: $--color-black;
+    background-clip: border-box;
+
+    @include when(dark) {
+      &::before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        transform: rotate(45deg);
+        background-color: $--color-black;
+      }
+    }
+
+    @include when(light) {
+      &::before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        transform: rotate(45deg);
+        border: 1px solid $--color-info;
+        background-color: $--color-white;
+        z-index: -1;
+      }
     }
   }
 

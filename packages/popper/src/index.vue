@@ -25,9 +25,9 @@ export default defineComponent({
       throwError(compName, 'Trigger must be provided');
     }
     const popperOptions = usePopper(props, { emit });
-    const arrow = renderArrow(props.showArrow, props.arrowOffset);
+    const arrow = renderArrow(props.showArrow, props.arrowOffset, props.effect);
     const popperInstance = renderPopper(
-      { ...popperOptions, name: props.transition },
+      { ...popperOptions, name: props.transition, effect: props.effect },
       slots,
       arrow,
     );

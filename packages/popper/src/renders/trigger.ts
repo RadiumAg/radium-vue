@@ -3,7 +3,7 @@ import throwError from '@radium-vue/utils/error';
 import { cloneVNode, VNode } from 'vue';
 
 interface IRenderTriggerProps extends Record<string, unknown> {
-  ref: (ref: HTMLElement) => void;
+  ref: (ref: { $el: HTMLElement }) => void;
 }
 
 export const renderTrigger = (

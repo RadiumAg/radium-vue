@@ -11,6 +11,7 @@ export default (
 ) => {
   const classList = computed(() => {
     const ret = ['ra-popper'];
+    popperOptions.effect && ret.push(`is-${popperOptions.effect}`);
     return ret;
   });
 
