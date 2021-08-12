@@ -13,13 +13,13 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    raAppendToBody: {
+    raAppendtobody: {
       type: Boolean,
       default: false,
     },
     raEffect: {
       type: String as PropType<TToolTipProps>,
-      default: 'light',
+      default: 'dark',
     },
     raContent: {
       type: String,
@@ -106,12 +106,12 @@ export default defineComponent({
           showAfter: props.raShowAfter,
           transition: props.raTransition,
           popperClass: props.raPopperClass,
-          appendToBody: props.raAppendToBody,
+          appendToBody: props.raAppendtobody,
           boundariesPadding: props.raBoundariesPadding,
         }),
         {
           trigger: () => slots.default(),
-          content: () => props.raContent,
+          content: () => props.raContent || slots.content(),
         },
       );
   },

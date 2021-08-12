@@ -31,7 +31,6 @@ export default defineComponent({
       slots,
       arrow,
     );
-
     // lifeclycle
     onMounted(() => {
       nextTick(() => {
@@ -52,7 +51,7 @@ export default defineComponent({
           Teleport as any,
           {
             to: 'body',
-            disabled: !props.disabled,
+            disabled: !props.appendToBody,
           },
           [popperInstance],
         ),

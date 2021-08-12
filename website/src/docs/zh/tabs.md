@@ -106,8 +106,17 @@
 
 ```html
 <template>
-  <ra-tabs ra-type="border-card" ra-closeable v-model="modelValue" @ra-tab-remove="removeClick($event)">
-    <ra-tab-panel v-for="(item,index) in data" :ra-label="item.label" :ra-name="item.name">{{item.label}}
+  <ra-tabs
+    ra-type="border-card"
+    ra-closeable
+    v-model="modelValue"
+    @ra-tab-remove="removeClick($event)"
+  >
+    <ra-tab-panel
+      v-for="(item,index) in data"
+      :ra-label="item.label"
+      :ra-name="item.name"
+      >{{item.label}}
     </ra-tab-panel>
   </ra-tabs>
 </template>
@@ -117,27 +126,31 @@
 
   export default defineComponent({
     setup() {
-      const data = ref([{
-          label:'电脑',
-          name:'computed'
-      },{
-          label:'手机',
-          name:'phone'
-      },{
-          label:'冰箱',
-          name:'refrigerator'
-      }]);
+      const data = ref([
+        {
+          label: '电脑',
+          name: 'computed',
+        },
+        {
+          label: '手机',
+          name: 'phone',
+        },
+        {
+          label: '冰箱',
+          name: 'refrigerator',
+        },
+      ]);
       const modelValue = ref('computed');
-      const removeClick = (name)=>{
-           data.value = data.value.filter(_=> _.name!==name);
-      }
+      const removeClick = name => {
+        data.value = data.value.filter(_ => _.name !== name);
+      };
       watch(modelValue, () => {
         console.log(modelValue.value);
       });
       return {
         modelValue,
         removeClick,
-        data
+        data,
       };
     },
   });
@@ -146,8 +159,6 @@
 
 :::
 
-
-
 #### 添加标签页
 
 ::: demo
@@ -155,10 +166,19 @@
 ```html
 <template>
   <ra-row :ra-gutter="[0,30]">
-      <ra-col><ra-button @click="addTab">添加</ra-button></ra-col>
+    <ra-col><ra-button @click="addTab">添加</ra-button></ra-col>
   </ra-row>
-  <ra-tabs ra-type="border-card" ra-closeable v-model="modelValue" @ra-tab-remove="removeClick($event)">
-    <ra-tab-panel  v-for="(item,index) in data" :ra-label="item.label" :ra-name="item.name">{{item.label}}
+  <ra-tabs
+    ra-type="border-card"
+    ra-closeable
+    v-model="modelValue"
+    @ra-tab-remove="removeClick($event)"
+  >
+    <ra-tab-panel
+      v-for="(item,index) in data"
+      :ra-label="item.label"
+      :ra-name="item.name"
+      >{{item.label}}
     </ra-tab-panel>
   </ra-tabs>
 </template>
@@ -169,29 +189,33 @@
   export default defineComponent({
     setup() {
       let index = 0;
-      const data = ref([{
-          label:'电脑',
-          name:'computed'
-      },{
-          label:'手机',
-          name:'phone'
-      },{
-          label:'冰箱',
-          name:'refrigerator'
-      }]);
+      const data = ref([
+        {
+          label: '电脑',
+          name: 'computed',
+        },
+        {
+          label: '手机',
+          name: 'phone',
+        },
+        {
+          label: '冰箱',
+          name: 'refrigerator',
+        },
+      ]);
       const modelValue = ref('computed');
-      const removeClick = (name)=>{
-           console.log(name);
-           data.value = data.value.filter(_=> _.name!==name);
-      }
+      const removeClick = name => {
+        console.log(name);
+        data.value = data.value.filter(_ => _.name !== name);
+      };
       const addTab = () => {
-         index++;
-         data.value.push({
-        	  label:'New Tab ' + index,
-          	  name:'content_' + index
-       });
-         modelValue.value = 'content_' + index;
-      }
+        index++;
+        data.value.push({
+          label: 'New Tab ' + index,
+          name: 'content_' + index,
+        });
+        modelValue.value = 'content_' + index;
+      };
       watch(modelValue, () => {
         console.log(modelValue.value);
       });
@@ -199,7 +223,7 @@
         modelValue,
         removeClick,
         data,
-        addTab
+        addTab,
       };
     },
   });
@@ -208,31 +232,25 @@
 
 :::
 
-
-
-
 #### raTabs Api
 
-| 参数         | 说明                | 类型                      | 可选值 | 默认值 |
-| :----------- | :------------------ | ------------------------- | :----- | ------ |
-| model-value  | 当前选中的tab的name | string                    | ——     | ——     |
-| ra-type      | 选项卡样式          | 'card'\|'border-card'\|'' | ——     | ''     |
-| ra-closeable | 是否显示开启按钮    | boolean                   | ——     | false  |
-
-
+| 参数         | 说明                   | 类型                      | 可选值 | 默认值 |
+| :----------- | :--------------------- | ------------------------- | :----- | ------ |
+| model-value  | 当前选中的 tab 的 name | string                    | ——     | ——     |
+| ra-type      | 选项卡样式             | 'card'\|'border-card'\|'' | ——     | ''     |
+| ra-closeable | 是否显示开启按钮       | boolean                   | ——     | false  |
 
 #### raTabs Event
 
-| 参数      | 说明               | 回调参数               |
-| :-------- | :----------------- | ---------------------- |
-| raTabClick | 标签页点击 | 当前选中的tab的name,没有则为index |
-| raTabRemove | 删除按钮点击 | 当前删除的tab的name,没有则为index |
+| 参数        | 说明         | 回调参数                              |
+| :---------- | :----------- | ------------------------------------- |
+| raTabClick  | 标签页点击   | 当前选中的 tab 的 name,没有则为 index |
+| raTabRemove | 删除按钮点击 | 当前删除的 tab 的 name,没有则为 index |
 
 #### raTabPanel Api
 
-| 参数        | 说明                    | 类型    | 可选值 | 默认值 |
-| :---------- | :---------------------- | ------- | :----- | ------ |
-| ra-label    | 标题                    | string  | ——     | ——     |
-| ra-name     | 名称，没有则默认为index | string  | ——     | ——     |
-| ra-disabled | 是否开启                | boolean | ——     | false  |
-
+| 参数        | 说明                     | 类型    | 可选值 | 默认值 |
+| :---------- | :----------------------- | ------- | :----- | ------ |
+| ra-label    | 标题                     | string  | ——     | ——     |
+| ra-name     | 名称，没有则默认为 index | string  | ——     | ——     |
+| ra-disabled | 是否开启                 | boolean | ——     | false  |

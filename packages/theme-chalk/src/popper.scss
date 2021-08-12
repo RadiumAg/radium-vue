@@ -4,27 +4,64 @@
 @import './mixins/mixins.scss';
 
 @include b(popper) {
+  user-select: none;
   color: $--color-white;
   padding: $--popper-padding;
   transition: $--fade-transition;
   font-size: $--font-size-small;
-  user-select: none;
   border-radius: $--popper-border-radius;
-
+  border: 1px solid $--color-black;
   @include when(dark) {
     background-color: $--color-black;
   }
 
   @include when(light) {
     color: $--color-black;
-    border: 1px solid $--color-info;
+    border: 1px solid $--popper-border-color;
     background-color: $--color-white;
+
+    &[data-popper-placement^='top'] {
+      @include e(arrow) {
+        &::before {
+          border-left-color: transparent;
+          border-top-color: transparent;
+        }
+      }
+    }
+
+    &[data-popper-placement^='bottom'] {
+      @include e(arrow) {
+        &::before {
+          border-right-color: transparent;
+          border-bottom-color: transparent;
+        }
+      }
+    }
+
+    &[data-popper-placement^='right'] {
+      @include e(arrow) {
+        &::before {
+          border-right-color: transparent;
+          border-top-color: transparent;
+        }
+      }
+    }
+
+    &[data-popper-placement^='left'] {
+      @include e(arrow) {
+        &::before {
+          border-left-color: transparent;
+          border-bottom-color: transparent;
+        }
+      }
+    }
   }
 
   @include e(arrow) {
     width: 8px;
     height: 8px;
     background-clip: border-box;
+    z-index: -1;
 
     @include when(dark) {
       &::before {
@@ -33,20 +70,22 @@
         height: 100%;
         position: absolute;
         transform: rotate(45deg);
+        border: 1px solid $--color-black;
         background-color: $--color-black;
       }
     }
 
     @include when(light) {
+      width: 10px;
+      height: 10px;
       &::before {
         content: '';
         width: 100%;
         height: 100%;
         position: absolute;
         transform: rotate(45deg);
-        border: 1px solid $--color-info;
+        border: 1px solid $--popper-border-color;
         background-color: $--color-white;
-        z-index: -1;
       }
     }
   }
@@ -60,11 +99,11 @@
   }
 
   &[data-popper-placement^='left'] > .#{$namespace}-popper__arrow {
-    right: -4px;
+    right: -3px;
   }
 
   &[data-popper-placement^='right'] > .#{$namespace}-popper__arrow {
-    left: -4px;
+    left: -5px;
   }
 
   @at-root &.#{$namespace}-fade-in-linear-enter-from,
