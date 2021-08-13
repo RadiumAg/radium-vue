@@ -11,6 +11,7 @@ import {
   onMounted,
   Teleport,
   defineComponent,
+  onUpdated,
 } from 'vue';
 import { MODEL_VALUE_UPDATE_EVENT } from './use-popper/type';
 import { renderTrigger } from './renders/trigger';
@@ -36,6 +37,10 @@ export default defineComponent({
       nextTick(() => {
         popperOptions.createPopperInstance();
       });
+    });
+
+    onUpdated(() => {
+      popperOptions.popperInstance.value.update();
     });
 
     return () =>

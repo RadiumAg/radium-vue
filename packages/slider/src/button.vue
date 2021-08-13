@@ -19,6 +19,7 @@ import {
 } from './slider';
 export default defineComponent({
   name: 'RaButton',
+  components: {},
   props: {
     direction: {
       type: String,
@@ -29,7 +30,7 @@ export default defineComponent({
     const buttonRef = ref<HTMLElement>();
     const oldDistancePercent = ref(0);
     const data = reactive({ buttonLeft: 0 });
-    const mouse = reactive({  start: 0,  end: 0,  lastLeft: 0 });
+    const mouse = reactive({ start: 0, end: 0, lastLeft: 0 });
     const sliderToken = inject<TSliderProvide>(SLIDER_PROVIDE_TOKEN);
     const maskAvg = computed(() => {
       return Number.parseFloat((sliderToken.step.value / 100).toFixed(2)) * 100;
@@ -44,13 +45,25 @@ export default defineComponent({
       off(buttonRef.value, 'mousemove', buttonDrag);
     };
 
-    const isDistanceValid = (distancePercent:number) => {
-      return Math.abs(Math.round(oldDistancePercent.value - distancePercent))% maskAvg.value === 0;
+    const isDistanceValid = (distancePercent: number) => {
+      return (
+        Math.abs(Math.round(oldDistancePercent.value - distancePercent)) %
+          maskAvg.value ===
+        0
+      );
     };
 
     const buttonDrag = (event: MouseEvent) => {
       mouse.end = event[ButtonBarConfig[props.direction].client];
-      const distancePercent = Number.parseFloat(((mouse.end - mouse.start + (mouse.lastLeft / 100) * sliderToken.trackWidth.value) / sliderToken.trackWidth.value).toFixed(2) ) * 100;
+      const distancePercent =
+        Number.parseFloat(
+          (
+            (mouse.end -
+              mouse.start +
+              (mouse.lastLeft / 100) * sliderToken.trackWidth.value) /
+            sliderToken.trackWidth.value
+          ).toFixed(2),
+        ) * 100;
       if (!isDistanceValid(distancePercent)) {
         return;
       }

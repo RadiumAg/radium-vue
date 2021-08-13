@@ -5,13 +5,16 @@
         class="ra-slider__progress-bar"
         :style="{ width: processBarWidth }"
       ></div>
-      <progress-button :direction="raIsVertical ? 'y' : 'x'" />
+      <ra-tooltip :ra-content="'' + modelValue" ra-placement="top">
+        <progress-button :direction="raIsVertical ? 'y' : 'x'" />
+      </ra-tooltip>
     </div>
   </section>
 </template>
 
 <script lang="ts">
 import { isNull } from 'lodash';
+import RaTooltip from '@radium-vue/tooltip';
 import { UPDATE_MODEL_EVENT } from '@radium-vue/utils/common';
 import {
   computed,
@@ -28,9 +31,10 @@ export default defineComponent({
   name: 'RaSlider',
   components: {
     progressButton,
+    RaTooltip,
   },
   props: {
-    modalValue: {
+    modelValue: {
       type: Number,
       default: 0,
     },

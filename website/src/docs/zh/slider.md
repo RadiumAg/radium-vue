@@ -9,7 +9,6 @@
 ```html
 <template>
 	<ra-slider v-model="sliderValue"></ra-slider>
-    {{sliderValue}}
 </template>
 
 <script>
