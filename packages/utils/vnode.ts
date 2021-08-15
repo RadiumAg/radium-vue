@@ -1,5 +1,4 @@
-import { Fragment } from 'react';
-import { VNode } from 'vue';
+import { Fragment, VNode } from 'vue';
 import { VNodeChild } from 'vue';
 
 const TEMPLATE = 'template';
