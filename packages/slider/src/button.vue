@@ -3,6 +3,7 @@
     ref="buttonRef"
     class="ra-slider__button-area"
     :style="{ left: data.buttonLeft + '%' }"
+    @mouseover="buttonMouseOver"
     @mousedown="buttnMouseDown($event)"
   >
     <div class="ra-slider__button"></div>
@@ -27,8 +28,8 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const buttonRef = ref<HTMLElement>();
     const oldDistancePercent = ref(0);
+    const buttonRef = ref<HTMLElement>();
     const data = reactive({ buttonLeft: 0 });
     const mouse = reactive({ start: 0, end: 0, lastLeft: 0 });
     const sliderToken = inject<TSliderProvide>(SLIDER_PROVIDE_TOKEN);
@@ -38,6 +39,8 @@ export default defineComponent({
 
     // funcs
     const buttonMouseUp = () => {
+      console.log(1);
+      sliderToken.isDrag.value = false;
       mouse.lastLeft = data.buttonLeft;
       off(document, 'mouseup', buttonMouseUp);
       off(document, 'mousemove', buttonDrag);
@@ -79,16 +82,20 @@ export default defineComponent({
 
     const buttnMouseDown = (event: MouseEvent) => {
       mouse.start = event[ButtonBarConfig[props.direction].client];
-      on(buttonRef.value, 'mouseup', buttonMouseUp);
       on(buttonRef.value, 'mousemove', buttonDrag);
       on(document, 'mousemove', buttonDrag);
       on(document, 'mouseup', buttonMouseUp);
     };
 
+    const buttonMouseOver = () => {
+      console.log(2);
+      sliderToken.isDrag.value = true;
+    };
     return {
       data,
       buttonRef,
       buttnMouseDown,
+      buttonMouseOver,
     };
   },
 });

@@ -5,7 +5,12 @@
         class="ra-slider__progress-bar"
         :style="{ width: processBarWidth }"
       ></div>
-      <ra-tooltip :ra-content="'' + modelValue" ra-placement="top">
+      <ra-tooltip
+        v-model:visible="isDrag"
+        :ra-manual="true"
+        :ra-content="'' + modelValue"
+        ra-placement="top"
+      >
         <progress-button :direction="raIsVertical ? 'y' : 'x'" />
       </ra-tooltip>
     </div>
@@ -72,6 +77,7 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
+    const isDrag = ref(false);
     const trackRef = ref<HTMLElement>();
     const trackWidth = ref(0);
     const sliderDistance = ref(0);
@@ -88,11 +94,12 @@ export default defineComponent({
     });
 
     provide<TSliderProvide>(SLIDER_PROVIDE_TOKEN, {
+      isDrag,
       trackWidth,
-      sliderDistance,
-      maxValue: ref(props.raMax),
-      step: ref(props.raStep),
       currentValue,
+      sliderDistance,
+      step: ref(props.raStep),
+      maxValue: ref(props.raMax),
     });
 
     //funs
@@ -119,6 +126,7 @@ export default defineComponent({
     return {
       props,
       trackRef,
+      isDrag,
       processBarWidth,
     };
   },

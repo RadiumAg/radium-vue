@@ -16,13 +16,15 @@ export default function(
   const popperInstance = ref<Instance>();
   const reference = ref<HTMLElement>();
   const popperElement = ref<HTMLElement>();
-
   const visable = computed<boolean>({
     get() {
       return state.value;
     },
     set(value) {
-      if (isManualMode(options.manualMode, options.trigger)) return;
+      if (isManualMode(options.manualMode, options.trigger)) {
+        state.value = options.visible;
+        return;
+      }
       state.value = value;
       emit('update:visible', state.value);
     },

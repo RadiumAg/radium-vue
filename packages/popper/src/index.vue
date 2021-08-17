@@ -12,6 +12,8 @@ import {
   Teleport,
   defineComponent,
   onUpdated,
+  ref,
+  toRefs,
 } from 'vue';
 import { MODEL_VALUE_UPDATE_EVENT } from './use-popper/type';
 import { renderTrigger } from './renders/trigger';
@@ -25,10 +27,15 @@ export default defineComponent({
     if (!slots.trigger) {
       throwError(compName, 'Trigger must be provided');
     }
+
     const popperOptions = usePopper(props, { emit });
     const arrow = renderArrow(props.showArrow, props.arrowOffset, props.effect);
     const popperInstance = renderPopper(
-      { ...popperOptions, name: props.transition, effect: props.effect },
+      {
+        ...popperOptions,
+        name: props.transition,
+        effect: props.effect,
+      },
       slots,
       arrow,
     );

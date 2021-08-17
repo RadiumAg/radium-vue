@@ -39,7 +39,7 @@ export const delay = (callback: (...any) => void, delayTime: number) => {
 export const processInvalidProp = <T extends object>(props: T) => {
   Object.keys(props).forEach(_ => {
     const propsValue = props[_];
-    if (isEmpty(propsValue)) {
+    if (propsValue === '' || propsValue === undefined) {
       Reflect.deleteProperty(props, _);
     }
   });
