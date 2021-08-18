@@ -1,8 +1,28 @@
 import { Instance, createPopper } from '@popperjs/core';
 import { delay } from '@radium-vue/utils/common';
-import { computed, ref } from 'vue';
+import { Events } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { isManualMode } from '.';
 import { TEmit, TPopperOptions } from './type';
+const triggerActiveEvents: Array<
+  {
+    [key in keyof Partial<Events>]: () => void;
+  }
+> = [
+  { onClick: undefined },
+  { onMousedown: undefined },
+  { onFocus: undefined },
+];
+
+const triggerLeaveEvents: Array<
+  {
+    [key in keyof Partial<Events>]: () => void;
+  }
+> = [
+  { onClick: undefined },
+  { onMouseleave: undefined },
+  { onBlur: undefined },
+];
 
 export default function(
   options: TPopperOptions,
@@ -16,6 +36,11 @@ export default function(
   const popperInstance = ref<Instance>();
   const reference = ref<HTMLElement>();
   const popperElement = ref<HTMLElement>();
+
+  watch(options, () => {
+    visable.value = options.visible;
+  });
+
   const visable = computed<boolean>({
     get() {
       return state.value;
@@ -23,9 +48,9 @@ export default function(
     set(value) {
       if (isManualMode(options.manualMode, options.trigger)) {
         state.value = options.visible;
-        return;
+      } else {
+        state.value = value;
       }
-      state.value = value;
       emit('update:visible', state.value);
     },
   });
@@ -47,19 +72,9 @@ export default function(
 
   const onPopperMouseenter = () => {};
   const onPopperMouseleave = () => {};
-  const onTriggerMouseEnter = () => {
-    if (options.showAfter) {
-      delay(() => {
-        visable.value = true;
-        popperInstance.value.update();
-      }, options.showAfter);
-      return;
-    }
-    visable.value = true;
-    popperInstance.value.update();
-  };
 
-  const onTriggerMouseLeave = () => {
+  function _hide() {
+    if (isManualMode(options.manualMode, options.trigger)) return;
     if (options.hideAfter) {
       delay(() => {
         visable.value = false;
@@ -69,7 +84,28 @@ export default function(
     }
     visable.value = false;
     popperInstance.value.update();
-  };
+  }
+
+  function _show() {
+    if (isManualMode(options.manualMode, options.trigger)) return;
+    if (options.showAfter) {
+      delay(() => {
+        visable.value = true;
+        popperInstance.value.update();
+      }, options.showAfter);
+      return;
+    }
+    visable.value = true;
+    popperInstance.value.update();
+  }
+
+  triggerActiveEvents.forEach(event => {
+    event[Object.keys[0]] = _show;
+  });
+
+  triggerLeaveEvents.forEach(event => {
+    event[Object.keys[0]] = _hide;
+  });
 
   return {
     popperInstance,
@@ -88,10 +124,10 @@ export default function(
     onBeforeLeave: () => {
       emit('before-leave');
     },
+    triggerActiveEvents,
+    triggerLeaveEvents,
     onPopperMouseenter,
     onPopperMouseleave,
-    onTriggerMouseEnter,
-    onTriggerMouseLeave,
     createPopperInstance,
   };
 }

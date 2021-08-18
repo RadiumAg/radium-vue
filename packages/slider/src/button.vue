@@ -5,6 +5,7 @@
     :style="{ left: data.buttonLeft + '%' }"
     @mouseover="buttonMouseOver"
     @mousedown="buttnMouseDown($event)"
+    @mouseleave="buttonMuseLeave"
   >
     <div class="ra-slider__button"></div>
   </div>
@@ -28,6 +29,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const isDrag = ref(false);
     const oldDistancePercent = ref(0);
     const buttonRef = ref<HTMLElement>();
     const data = reactive({ buttonLeft: 0 });
@@ -39,11 +41,13 @@ export default defineComponent({
 
     // funcs
     const buttonMouseUp = () => {
-      console.log(1);
+      console.log('up');
+      isDrag.value = false;
       sliderToken.isDrag.value = false;
       mouse.lastLeft = data.buttonLeft;
       off(document, 'mouseup', buttonMouseUp);
       off(document, 'mousemove', buttonDrag);
+      off(document, 'mouseleave', buttonMouseUp);
       off(buttonRef.value, 'mouseup', buttonMouseUp);
       off(buttonRef.value, 'mousemove', buttonDrag);
     };
@@ -81,14 +85,20 @@ export default defineComponent({
     };
 
     const buttnMouseDown = (event: MouseEvent) => {
+      isDrag.value = true;
       mouse.start = event[ButtonBarConfig[props.direction].client];
       on(buttonRef.value, 'mousemove', buttonDrag);
+      on(buttonRef.value, 'mouseup', buttonMouseUp);
       on(document, 'mousemove', buttonDrag);
       on(document, 'mouseup', buttonMouseUp);
+      on(document, 'mouseleave', buttonMouseUp);
+    };
+
+    const buttonMuseLeave = () => {
+      !isDrag.value && (sliderToken.isDrag.value = false);
     };
 
     const buttonMouseOver = () => {
-      console.log(2);
       sliderToken.isDrag.value = true;
     };
     return {
@@ -96,6 +106,7 @@ export default defineComponent({
       buttonRef,
       buttnMouseDown,
       buttonMouseOver,
+      buttonMuseLeave,
     };
   },
 });
