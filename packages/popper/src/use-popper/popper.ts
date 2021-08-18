@@ -1,28 +1,15 @@
 import { Instance, createPopper } from '@popperjs/core';
 import { delay } from '@radium-vue/utils/common';
-import { Events } from 'vue';
 import { computed, ref, watch } from 'vue';
 import { isManualMode } from '.';
 import { TEmit, TPopperOptions } from './type';
-const triggerActiveEvents: Array<
-  {
-    [key in keyof Partial<Events>]: () => void;
-  }
-> = [
-  { onClick: undefined },
-  { onMousedown: undefined },
-  { onFocus: undefined },
-];
+const triggerActiveEvents: {
+  [key in 'onClick' | 'onMousedown' | 'onFocus']: () => void;
+} = { onClick: undefined, onMousedown: undefined, onFocus: undefined };
 
-const triggerLeaveEvents: Array<
-  {
-    [key in keyof Partial<Events>]: () => void;
-  }
-> = [
-  { onClick: undefined },
-  { onMouseleave: undefined },
-  { onBlur: undefined },
-];
+const triggerLeaveEvents: {
+  [key in 'onMouseleave' | 'onBlur']: () => void;
+} = { onMouseleave: undefined, onBlur: undefined };
 
 export default function(
   options: TPopperOptions,
@@ -99,12 +86,14 @@ export default function(
     popperInstance.value.update();
   }
 
-  triggerActiveEvents.forEach(event => {
-    event[Object.keys[0]] = _show;
+  Object.keys(triggerActiveEvents).forEach(key => {
+    if (options.trigger === 'click' && key === 'onClick') {
+      triggerLeaveEvents[key] = _show;
+    }
   });
 
-  triggerLeaveEvents.forEach(event => {
-    event[Object.keys[0]] = _hide;
+  Object.keys(triggerLeaveEvents).forEach(key => {
+    triggerLeaveEvents[key] = _hide;
   });
 
   return {

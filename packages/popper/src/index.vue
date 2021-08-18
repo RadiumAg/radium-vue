@@ -50,8 +50,8 @@ export default defineComponent({
     return () =>
       h(Fragment, {}, [
         renderTrigger(slots.trigger(), {
-          onmouseenter: popperOptions.onTriggerMouseEnter,
-          onmouseleave: popperOptions.onTriggerMouseLeave,
+          ...popperOptions.triggerActiveEvents,
+          ...popperOptions.triggerLeaveEvents,
           ref: (ref: { $el: HTMLElement }) => {
             popperOptions.reference.value = ref?.$el;
           },
