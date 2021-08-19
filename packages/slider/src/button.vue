@@ -2,7 +2,7 @@
   <div
     ref="buttonRef"
     class="ra-slider__button-area"
-    :style="{ left: data.buttonLeft + '%' }"
+    :style="buttonStyle"
     @mouseover="buttonMouseOver"
     @mousedown="buttnMouseDown($event)"
     @mouseleave="buttonMuseLeave"
@@ -32,19 +32,19 @@ export default defineComponent({
     const isDrag = ref(false);
     const oldDistancePercent = ref(0);
     const buttonRef = ref<HTMLElement>();
-    const data = reactive({ buttonLeft: 0 });
+    const data = reactive({ distance: 0 });
     const mouse = reactive({ start: 0, end: 0, lastLeft: 0 });
     const sliderToken = inject<TSliderProvide>(SLIDER_PROVIDE_TOKEN);
     const maskAvg = computed(() => {
       return Number.parseFloat((sliderToken.step.value / 100).toFixed(2)) * 100;
     });
+    const buttonStyle = ref({});
 
     // funcs
     const buttonMouseUp = () => {
-      console.log('up');
       isDrag.value = false;
       sliderToken.isDrag.value = false;
-      mouse.lastLeft = data.buttonLeft;
+      mouse.lastLeft = data.distance;
       off(document, 'mouseup', buttonMouseUp);
       off(document, 'mousemove', buttonDrag);
       off(document, 'mouseleave', buttonMouseUp);
@@ -75,13 +75,16 @@ export default defineComponent({
         return;
       }
       oldDistancePercent.value = distancePercent;
-      data.buttonLeft = distancePercent;
-      if (data.buttonLeft < 0) {
-        data.buttonLeft = 0;
-      } else if (data.buttonLeft > 100) {
-        data.buttonLeft = 100;
+      data.distance = distancePercent;
+      if (data.distance < 0) {
+        data.distance = 0;
+      } else if (data.distance > 100) {
+        data.distance = 100;
       }
-      sliderToken.sliderDistance.value = data.buttonLeft;
+      sliderToken.sliderDistance.value = data.distance;
+      buttonStyle.value = {
+        [ButtonBarConfig[props.direction].distance]: data.distance + '%',
+      };
     };
 
     const buttnMouseDown = (event: MouseEvent) => {
@@ -104,6 +107,7 @@ export default defineComponent({
     return {
       data,
       buttonRef,
+      buttonStyle,
       buttnMouseDown,
       buttonMouseOver,
       buttonMuseLeave,

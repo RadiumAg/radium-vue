@@ -16,6 +16,11 @@
       border-radius: $--slider-border-radius;
     }
 
+    @include when(vertical) {
+      height: 0;
+      width: $--slider-progress-bar-height;
+    }
+
     @include e(button-area) {
       display: flex;
       align-items: center;

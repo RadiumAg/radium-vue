@@ -13,8 +13,10 @@ export type TSliderProvide = {
 export const ButtonBarConfig = {
   x: {
     client: 'clientX',
+    distance: 'left',
   },
   y: {
     client: 'clientY',
+    distance: 'top',
   },
 };

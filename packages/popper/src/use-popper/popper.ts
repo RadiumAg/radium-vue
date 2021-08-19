@@ -4,8 +4,8 @@ import { computed, ref, watch } from 'vue';
 import { isManualMode } from '.';
 import { TEmit, TPopperOptions } from './type';
 const triggerActiveEvents: {
-  [key in 'onClick' | 'onMousedown' | 'onFocus']: () => void;
-} = { onClick: undefined, onMousedown: undefined, onFocus: undefined };
+  [key in 'onClick' | 'onMouseenter' | 'onFocus']: () => void;
+} = { onClick: undefined, onMouseenter: undefined, onFocus: undefined };
 
 const triggerLeaveEvents: {
   [key in 'onMouseleave' | 'onBlur']: () => void;
@@ -50,7 +50,7 @@ export default function(
         {
           name: 'offset',
           options: {
-            offset: [0, 10],
+            offset: [0, options.offset],
           },
         },
       ],
@@ -88,12 +88,20 @@ export default function(
 
   Object.keys(triggerActiveEvents).forEach(key => {
     if (options.trigger === 'click' && key === 'onClick') {
-      triggerLeaveEvents[key] = _show;
+      triggerActiveEvents[key] = _show;
+    } else if (options.trigger === 'focus' && key === 'onFocus') {
+      triggerActiveEvents[key] = _show;
+    } else if (options.trigger === 'hover' && key === 'onMouseenter') {
+      triggerActiveEvents[key] = _show;
     }
   });
 
   Object.keys(triggerLeaveEvents).forEach(key => {
-    triggerLeaveEvents[key] = _hide;
+    if (options.trigger === 'focus' && key === 'onBlur') {
+      triggerLeaveEvents[key] = _hide;
+    } else if (options.trigger === 'hover' && key === 'onMouseleave') {
+      triggerLeaveEvents[key] = _hide;
+    }
   });
 
   return {

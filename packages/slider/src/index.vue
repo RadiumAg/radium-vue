@@ -3,12 +3,14 @@
     <div ref="trackRef" class="ra-slider__track">
       <div
         class="ra-slider__progress-bar"
-        :style="{ width: processBarWidth }"
+        :class="[{ 'is-vertical': raIsVertical }]"
+        :style="processBarStyle"
       ></div>
       <ra-tooltip
         v-model:visible="isDrag"
         :ra-manual="true"
         :ra-content="'' + modelValue"
+        :ra-offset="3"
         ra-placement="top"
       >
         <progress-button :direction="raIsVertical ? 'y' : 'x'" />
@@ -88,8 +90,11 @@ export default defineComponent({
       }
       setTheTrackWidth();
     });
-    const processBarWidth = computed(() => {
-      const res = sliderDistance.value + '%';
+    const processBarStyle = computed(() => {
+      const res = [];
+      props.raIsVertical
+        ? res.push({ height: sliderDistance.value + '%' })
+        : res.push({ width: sliderDistance.value + '%' });
       return res;
     });
 
@@ -125,9 +130,9 @@ export default defineComponent({
 
     return {
       props,
-      trackRef,
       isDrag,
-      processBarWidth,
+      trackRef,
+      processBarStyle,
     };
   },
 });
