@@ -8,7 +8,7 @@
 
 ```html
 <template>
-	<ra-slider v-model="sliderValue"></ra-slider>
+	<ra-slider v-model="sliderValue" :ra-max="50.5"></ra-slider>
 </template>
 
 <script>
@@ -35,7 +35,7 @@
 
 ```html
 <template>
-	<ra-slider v-model="sliderValue" ra-is-vertical></ra-slider>
+	<ra-slider v-model="sliderValue" ra-vertical ra-height="200px"></ra-slider>
 </template>
 
 <script>

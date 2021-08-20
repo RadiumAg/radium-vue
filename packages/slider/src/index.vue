@@ -1,19 +1,21 @@
 <template>
   <section class="ra-slider">
-    <div ref="trackRef" class="ra-slider__track">
-      <div
-        class="ra-slider__progress-bar"
-        :class="[{ 'is-vertical': raIsVertical }]"
-        :style="processBarStyle"
-      ></div>
+    <div
+      ref="trackRef"
+      class="ra-slider__track"
+      :class="processTrackClass"
+      :style="processTrackStyle"
+    >
+      <div class="ra-slider__progress-bar" :style="processBarStyle"></div>
       <ra-tooltip
         v-model:visible="isDrag"
+        :ra-disabled="raShowTooltip"
         :ra-manual="true"
         :ra-content="'' + modelValue"
         :ra-offset="3"
         ra-placement="top"
       >
-        <progress-button :direction="raIsVertical ? 'y' : 'x'" />
+        <progress-button :direction="raVertical ? 'y' : 'x'" />
       </ra-tooltip>
     </div>
   </section>
@@ -59,19 +61,19 @@ export default defineComponent({
     },
     raStep: {
       type: Number,
-      default: 1,
+      default: 10,
     },
     raShowTooltip: {
       type: Boolean,
       default: false,
     },
-    raIsVertical: {
+    raVertical: {
       type: Boolean,
       default: false,
     },
     raHeight: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: '',
     },
     raShowStops: {
       type: Boolean,
@@ -81,6 +83,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const isDrag = ref(false);
     const trackWidth = ref(0);
+    const trackHeight = ref(0);
     const currentValue = ref(0);
     const sliderDistance = ref(0);
     const trackRef = ref<HTMLElement>();
@@ -92,15 +95,30 @@ export default defineComponent({
     });
     const processBarStyle = computed(() => {
       const res = [];
-      props.raIsVertical
+      props.raVertical
         ? res.push({ height: sliderDistance.value + '%' })
         : res.push({ width: sliderDistance.value + '%' });
       return res;
     });
 
+    const processTrackClass = computed(() => {
+      const ret = [];
+      props.raVertical && ret.push('is-vertical');
+      return ret;
+    });
+
+    const processTrackStyle = computed(() => {
+      const ret = [];
+      props.raHeight &&
+        props.raVertical &&
+        ret.push({ height: props.raHeight });
+      return ret;
+    });
+
     provide<TSliderProvide>(SLIDER_PROVIDE_TOKEN, {
       isDrag,
       trackWidth,
+      trackHeight,
       currentValue,
       sliderDistance,
       step: ref(props.raStep),
@@ -110,6 +128,7 @@ export default defineComponent({
     //funs
     function setTheTrackWidth() {
       trackWidth.value = trackRef.value.clientWidth;
+      trackHeight.value = trackRef.value.clientHeight;
     }
 
     //lifeclycle
@@ -132,7 +151,9 @@ export default defineComponent({
       props,
       isDrag,
       trackRef,
+      processTrackClass,
       processBarStyle,
+      processTrackStyle,
     };
   },
 });

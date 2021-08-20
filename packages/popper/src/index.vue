@@ -47,6 +47,10 @@ export default defineComponent({
       popperOptions.popperInstance.value.update();
     });
 
+    if (props.disabled) {
+      return null;
+    }
+
     return () =>
       h(Fragment, {}, [
         renderTrigger(slots.trigger(), {
