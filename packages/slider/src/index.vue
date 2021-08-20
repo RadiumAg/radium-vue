@@ -87,6 +87,7 @@ export default defineComponent({
     const currentValue = ref(0);
     const sliderDistance = ref(0);
     const trackRef = ref<HTMLElement>();
+    const maskAvg = ref(0);
     const or = new ResizeObserver(() => {
       if (isNull(trackRef.value)) {
         return;
@@ -96,8 +97,8 @@ export default defineComponent({
     const processBarStyle = computed(() => {
       const res = [];
       props.raVertical
-        ? res.push({ height: sliderDistance.value + '%' })
-        : res.push({ width: sliderDistance.value + '%' });
+        ? res.push({ height: sliderDistance.value * maskAvg.value + '%' })
+        : res.push({ width: sliderDistance.value * maskAvg.value + '%' });
       return res;
     });
 
@@ -116,6 +117,7 @@ export default defineComponent({
     });
 
     provide<TSliderProvide>(SLIDER_PROVIDE_TOKEN, {
+      maskAvg,
       isDrag,
       trackWidth,
       trackHeight,
@@ -141,10 +143,7 @@ export default defineComponent({
     });
 
     watchEffect(() => {
-      emit(
-        UPDATE_MODEL_EVENT,
-        Math.round(sliderDistance.value * props.raMax) / 100,
-      );
+      emit(UPDATE_MODEL_EVENT, sliderDistance.value * props.raStep);
     });
 
     return {

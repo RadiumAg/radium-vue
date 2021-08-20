@@ -92,7 +92,8 @@ export default defineComponent({
       }
 
       const idx = Math.round(data.distance / maskAvg.value);
-      sliderToken.sliderDistance.value = idx * maskAvg.value;
+      sliderToken.maskAvg.value = maskAvg.value;
+      sliderToken.sliderDistance.value = idx;
       buttonStyle.value = {
         [ButtonBarConfig[props.direction].distance]: idx * maskAvg.value + '%',
       };

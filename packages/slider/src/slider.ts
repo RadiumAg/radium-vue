@@ -5,6 +5,7 @@ export type TDirection = 'x' | 'y';
 
 export type TSliderProvide = {
   step: Ref<number>;
+  maskAvg: Ref<number>;
   isDrag: Ref<boolean>;
   maxValue: Ref<number>;
   trackWidth: Ref<number>;
