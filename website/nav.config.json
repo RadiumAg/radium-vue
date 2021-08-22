@@ -1,84 +1,84 @@
 {
-  "zh": [
+  'zh': [
     {
-      "name": "布局",
-      "groups": [
+      'name': '布局',
+      'groups': [
         {
-          "path": "grid",
-          "name": "Grid 栅格布局"
-        }
-      ]
+          'path': 'grid',
+          'name': 'Grid 栅格布局'
+        },
+      ],
     },
     {
-      "name": "基础组件",
-      "groups": [
+      'name': '基础组件',
+      'groups': [
         {
-          "path": "carousel",
-          "name": "Carousel 走马灯"
+          'path': 'carousel',
+          'name': 'Carousel 走马灯'
         },
         {
-          "path": "scrollbar",
-          "name": "Scrollbar 滚动条"
+          'path': 'scrollbar',
+          'name': 'Scrollbar 滚动条'
         },
 
         {
-          "path": "button",
-          "name": "Button 按钮"
-        }
-      ]
+          'path': 'button',
+          'name': 'Button 按钮'
+        },
+      ],
     },
     {
-      "name": "消息提示",
-      "groups": [
+      'name': '消息提示',
+      'groups': [
         {
-          "path": "message",
-          "name": "Message 全局消息"
-        }
-      ]
+          'path': 'message',
+          'name': 'Message 全局消息'
+        },
+      ],
     },
     {
-      "name": "反馈",
-      "groups": [
+      'name': '反馈',
+      'groups': [
         {
-          "path": "modal",
-          "name": "Modal 对话框"
+          'path': 'modal',
+          'name': 'Modal 对话框'
         },
         {
-          "path": "spin",
-          "name": "Spin 加载"
+          'path': 'spin',
+          'name': 'Spin 加载'
         },
         {
-          "path": "tooltip",
-          "name": "tooltip 提示"
-        }
-      ]
+          'path': 'tooltip',
+          'name': 'tooltip 提示'
+        },
+      ],
     },
     {
-      "name": "表单",
-      "groups": [
+      'name': '表单',
+      'groups': [
         {
-          "path": "slider",
-          "name": "Slider 滑块"
-        }
-      ]
+          'path': 'slider',
+          'name': 'Slider 滑块'
+        },
+      ],
     },
     {
-      "name": "导航",
-      "groups": [
+      'name': '导航',
+      'groups': [
         {
-          "path": "tabs",
-          "name": "Tabs 切换"
-        }
-      ]
+          'path': 'tabs',
+          'name': 'Tabs 切换'
+        },
+      ],
     },
     {
-      "name": "others",
-      "groups": [
+      'name': 'others',
+      'groups': [
         {
-          "path": "calendar",
-          "name": "Calendar 日历"
-        }
-      ]
-    }
-  ]
-}
+          'path': 'calendar',
+          'name': 'Calendar 日历'
+        },
+      ],
+    },
+  ],
+};

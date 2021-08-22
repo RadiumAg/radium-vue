@@ -9,7 +9,7 @@
         height: axis === 'x' ? '100%' : 0,
         ...barStyle,
       }"
-    ></div>
+    />
   </transition>
 </template>
 

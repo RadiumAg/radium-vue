@@ -44,7 +44,7 @@ module.exports = {
       {
         html: {
           void: 'never',
-          normal: 'never',
+          normal: 'always',
           component: 'always',
         },
       },
@@ -57,8 +57,7 @@ module.exports = {
       },
     ],
     'vue/require-default-prop': 'off',
-    'vue/html-closing-bracket-spacing': 'error',
-    // preitter
+    'vue/html-closing-bracket-spacing': 'off',
     'prettier/prettier': 'error',
   },
 };

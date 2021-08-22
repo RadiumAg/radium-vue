@@ -8,7 +8,7 @@
     @mousedown="buttnMouseDown($event)"
     @mouseleave="buttonMuseLeave"
   >
-    <div class="ra-slider__button"></div>
+    <div class="ra-slider__button" />
   </div>
 </template>
 

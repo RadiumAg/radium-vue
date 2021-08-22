@@ -14,7 +14,7 @@
       ]"
       @scroll="scroll"
     >
-      <slot></slot>
+      <slot />
     </div>
     <div
       v-if="!raNative && data.direction.includes('x')"

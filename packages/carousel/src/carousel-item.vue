@@ -4,7 +4,7 @@
     :style="{ transform: itemStyle }"
     :class="{ 'is-animating': data.animating }"
   >
-    <slot></slot>
+    <slot />
   </div>
 </template>
 

@@ -12,7 +12,7 @@
       { 'ra-row__host--space-between': raJustify === 'space-between' },
     ]"
   >
-    <slot></slot>
+    <slot />
   </div>
 </template>
 <script lang="ts">

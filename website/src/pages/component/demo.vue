@@ -1,7 +1,7 @@
 <template>
   <div class="demo" :class="[className]">
     <div class="demo_component">
-      <slot name="doc"></slot>
+      <slot name="doc" />
     </div>
     <div class="demo_source">
       <div
@@ -11,7 +11,7 @@
           height: demoSourceHeight + 'px',
         }"
       >
-        <slot name="source"></slot>
+        <slot name="source" />
       </div>
     </div>
     <div class="demo_drawer" @click="demoDrawerClick">

@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="ra-slider__mask"></div>
 </template>
 
@@ -24,7 +24,7 @@ export default defineComponent({
       );
     });
 
-    const 
+    const
   },
 });
-</script>
+</script> -->

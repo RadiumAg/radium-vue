@@ -12,7 +12,7 @@
         class="ra-carousel__arrow ra-carousel__arrow--left"
         @click.stop="thottledArrowClick('left')"
       >
-        <i class="ra-icon-arrow-left"> </i>
+        <i class="ra-icon-arrow-left" />
       </button>
     </transition>
 
@@ -22,10 +22,10 @@
         class="ra-carousel__arrow ra-carousel__arrow--right"
         @click.stop="thottledArrowClick('right')"
       >
-        <i class="ra-icon-arrow-right"> </i>
+        <i class="ra-icon-arrow-right" />
       </button>
     </transition>
-    <slot></slot>
+    <slot />
     <div
       class="ra-carousel__indicator"
       :class="[
@@ -49,7 +49,7 @@
             'ra-carousel__button--horizontal': raDirection === 'horizontal',
             'ra-carousel__button--vertical': raDirection === 'vertical',
           }"
-        ></button>
+        />
       </div>
     </div>
   </div>

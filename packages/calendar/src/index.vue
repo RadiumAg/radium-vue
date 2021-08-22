@@ -1,7 +1,7 @@
 <template>
   <div class="ra-calendar">
     <section class="ra-calendar__header">
-      <span v-html="date"></span>
+      <span v-html="date" />
       <ra-button-group v-if="isShowTool">
         <ra-button ra-size="mini" @click="changeTheTime('preMonth')">
           上个月
@@ -17,7 +17,7 @@
     <section class="ra-calendar__table">
       <ra-date-table>
         <template #default="data">
-          <slot v-bind="data"></slot>
+          <slot v-bind="data" />
         </template>
       </ra-date-table>
     </section>

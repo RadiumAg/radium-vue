@@ -5,9 +5,9 @@
     :class="[...buttonClass]"
     style="position:relative"
   >
-    <i v-if="raLoading" class="ra-icon-loading"></i>
-    <slot v-if="$slots.default"></slot>
-    <i v-if="iconClass.length != 0" :class="iconClass"></i>
+    <i v-if="raLoading" class="ra-icon-loading" />
+    <slot v-if="$slots.default" />
+    <i v-if="iconClass.length != 0" :class="iconClass" />
   </button>
 </template>
 

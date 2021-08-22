@@ -15,7 +15,7 @@
     "upgrade:vue": "bash ./scripts/update-versions.sh 3.1.5",
     "clear-node_module": "rimraf node_modules",
     "npm-i-legacy": " npm i --legacy-peer-deps",
-    "eslint-fix": "eslint ./  --fix"
+    "eslint-fix": "eslint ./**  --fix"
   },
   "repository": {
     "type": "git",

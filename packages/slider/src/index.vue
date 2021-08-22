@@ -6,7 +6,7 @@
       :class="processTrackClass"
       :style="processTrackStyle"
     >
-      <div class="ra-slider__progress-bar" :style="processBarStyle"></div>
+      <div class="ra-slider__progress-bar" :style="processBarStyle" />
       <ra-tooltip
         v-model:visible="isDrag"
         :ra-disabled="raShowTooltip"

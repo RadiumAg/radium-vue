@@ -1,14 +1,14 @@
 <template>
-  <slot :props="$props"></slot>
+  <slot :props="$props" />
 </template>
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'RaEmptyTemplate',
   props: {
     data: {
       type: Object,
-      default:()=>{
+      default: () => {
         return {};
       },
     },

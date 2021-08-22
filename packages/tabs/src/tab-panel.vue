@@ -14,7 +14,7 @@
           v-show="isCollpaseShow"
           :class="closeIconClass"
           @click.stop="closeIconClick"
-        ></i>
+        />
       </transition>
     </div>
   </div>

@@ -13,17 +13,17 @@
       @mouseout="mouseout"
     >
       <div class="ra-message__content">
-        <i :class="iconClass" class="ra-message__type-icon"></i>
+        <i :class="iconClass" class="ra-message__type-icon" />
         <slot>
           <p v-if="!raIsUseHtmlString">{{ raMessage }}</p>
-          <p v-else :innerHTML="raMessage"></p>
+          <p v-else :innerHTML="raMessage" />
         </slot>
       </div>
       <i
         v-if="raShowClose"
         class="ra-icon-close ra-message__icon-close"
         @click="close"
-      ></i>
+      />
     </div>
   </transition>
 </template>

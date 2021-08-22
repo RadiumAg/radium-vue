@@ -10,17 +10,17 @@
               isShow = false;
             }
           "
-        ></i>
-        <i :class="iconStyle" class="ra-modal__type-icon"></i>
+        />
+        <i :class="iconStyle" class="ra-modal__type-icon" />
         <div>
           <section class="ra-modal__title">
             <slot name="title">
-              <h3 v-html="raTitle"></h3>
+              <h3 v-html="raTitle" />
             </slot>
           </section>
           <section class="ra-modal__content">
             <slot>
-              <div v-html="raContent"></div>
+              <div v-html="raContent" />
             </slot>
           </section>
           <section class="ra-modal__footer">
@@ -37,7 +37,7 @@
                     ra-type="primary"
                     @click="okButtonClick"
                   >
-                    <i v-if="isLoading" class="ra-icon-loading"></i>
+                    <i v-if="isLoading" class="ra-icon-loading" />
                     {{ raOkLabel }}
                   </ra-button>
                 </ra-col>
@@ -47,7 +47,7 @@
         </div>
       </div>
     </transition>
-    <div v-if="raModal" class="ra-modal__mask" @click="raMaskClick"></div>
+    <div v-if="raModal" class="ra-modal__mask" @click="raMaskClick" />
   </div>
 </template>
 <script lang="ts">

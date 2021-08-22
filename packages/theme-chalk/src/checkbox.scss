@@ -1,0 +1,9 @@
+@use "sass:math";
+
+@import './mixins/mixins';
+@import './common/var';
+
+@include b(checkbox) {
+  width: $--checkbox-input-height;
+  height: $--checkbox-input-height;
+}

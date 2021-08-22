@@ -1,6 +1,6 @@
 <template>
   <div :style="gutterStyle" :class="classList" class="ra-grid">
-    <slot></slot>
+    <slot />
   </div>
 </template>
 <script lang="ts">
