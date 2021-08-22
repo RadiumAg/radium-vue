@@ -39,6 +39,7 @@ export default defineComponent({
   },
   setup(props) {
     const isDrag = ref(false);
+    const buttonStyle = ref({});
     const oldDistancePercent = ref(0);
     const buttonRef = ref<HTMLElement>();
     const data = reactive({ distance: 0 });
@@ -51,11 +52,16 @@ export default defineComponent({
         ) * 100
       );
     });
-    const buttonStyle = ref({});
     const buttonClass = computed(() => {
       let ret = ['ra-slider__button-area'];
       ret = ret.concat(ButtonBarConfig[props.direction].class);
       return ret;
+    });
+    const distanceAvg = computed(() => {
+      return (
+        sliderToken.maxValue.value /
+        sliderToken[ButtonBarConfig[props.direction].track].value
+      );
     });
 
     // funcs
@@ -91,11 +97,14 @@ export default defineComponent({
         data.distance = 100;
       }
 
-      const idx = Math.round(data.distance / maskAvg.value);
+      const distance = Math.round(
+        distanceAvg.value *
+          data.distance *
+          sliderToken[ButtonBarConfig[props.direction].track].value,
+      );
       sliderToken.maskAvg.value = maskAvg.value;
-      sliderToken.sliderDistance.value = idx;
       buttonStyle.value = {
-        [ButtonBarConfig[props.direction].distance]: idx * maskAvg.value + '%',
+        [ButtonBarConfig[props.direction].distance]: distance + 'px',
       };
     };
 

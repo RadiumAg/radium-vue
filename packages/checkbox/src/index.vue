@@ -1,19 +1,22 @@
 <template>
   <div>
-    <input v-model="a" >
+    <input type="checkbox" >
     <slot></slot>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'RaCheckbox',
-  props: {},
+  props: {
+    modelValue: {
+      type: Boolean,
+      default: false,
+    },
+  },
   setup(props) {
-    const a = ref(0);
-
     return {
-      a,
+      props,
     };
     // init here
   },

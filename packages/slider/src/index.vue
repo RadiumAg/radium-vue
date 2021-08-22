@@ -81,13 +81,14 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const isDrag = ref(false);
+    const maskAvg = ref(0);
     const trackWidth = ref(0);
+    const isDrag = ref(false);
     const trackHeight = ref(0);
     const currentValue = ref(0);
     const sliderDistance = ref(0);
     const trackRef = ref<HTMLElement>();
-    const maskAvg = ref(0);
+
     const or = new ResizeObserver(() => {
       if (isNull(trackRef.value)) {
         return;
