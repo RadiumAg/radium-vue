@@ -1,10 +1,8 @@
 <template>
-  <div v-if="visible">
-    <slot />
-  </div>
+  <img :src="raSrc" />
 </template>
 <script lang="ts">
-import { defineComponent, ref, toRef, watch, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 export default defineComponent({
   name: 'RaImage',
   props: {
@@ -59,20 +57,12 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'raClose', 'raSwitch'],
   setup(props, { emit }) {
-    const visible = ref(false);
 
-    watch(toRef(props, 'modelValue'), () => {
-      visible.value = props.modelValue;
-    });
-
-    watch(visible, () => {
-      emit('update:modelValue', visible.value);
-    });
     return {
-      visible,
-    };
+      props
+    }
   },
 });
 </script>
