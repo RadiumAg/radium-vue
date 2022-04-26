@@ -15,7 +15,7 @@
     align-items: center;
 
     @include when(animating) {
-        transition: transform .4s ease-in-out;
-      }
+      transition: transform 0.4s ease-in-out;
+    }
   }
 }

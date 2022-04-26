@@ -12,7 +12,7 @@
     "website-build": "cross-env NODE_ENV=production webpack --config ./website/webpack.config.js",
     "website-dev": "cross-env NODE_ENV=development webpack-dev-server --config ./website/webpack.config.js",
     "website-bundle": "cross-env NODE_ENV=development MODE=bundle webpack-dev-server --config ./website/webpack.config.js",
-    "upgrade:vue": "bash ./scripts/update-versions.sh 3.1.5",
+    "upgrade:vue": "bash ./scripts/update-versions.sh 3.2.33",
     "clear-node_module": "rimraf node_modules",
     "npm-i-legacy": " npm i --legacy-peer-deps",
     "eslint-fix": "eslint ./**  --fix"
