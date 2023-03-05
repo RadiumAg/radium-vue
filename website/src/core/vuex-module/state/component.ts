@@ -1,6 +1,6 @@
 import { ComponentInternalInstance, InjectionKey } from 'vue';
 import { Store, Module } from 'vuex';
-import { IrootModules } from '..';
+import { RootModules } from '..';
 export const SET_EL_COMPONENT_SCROLLBAR = 'SET_EL_COMPONENT_SCROLLBAR';
 export const SET_EL_COMPONENT_SCROLLBAR_TOP = 'SET_EL_COMPONENT_SCROLLBAR_TOP';
 
@@ -10,7 +10,7 @@ export interface componentState {
 }
 export const componentKey: InjectionKey<Store<componentState>> = Symbol();
 
-export const ComponentStore: Module<componentState, IrootModules> = {
+export const ComponentStore: Module<componentState, RootModules> = {
   state: {
     scrollbarEl: null,
     scrollTop: 0,

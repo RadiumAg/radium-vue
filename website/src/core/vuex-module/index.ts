@@ -3,13 +3,13 @@ import { componentLinkState, ComponentLinkStore } from './state/component-link';
 import { componentState, ComponentStore } from './state/component';
 import { createStore, Store, useStore as baseUseStore } from 'vuex';
 import { InjectionKey } from 'vue';
-export interface IrootModules {
+export interface RootModules {
   componentLink: componentLinkState;
   component: componentState;
 }
-export const moduleKey: InjectionKey<Store<IrootModules>> = Symbol();
+export const moduleKey: InjectionKey<Store<RootModules>> = Symbol();
 
-export const appVuexModule = createStore<IrootModules>({
+export const appVuexModule = createStore<RootModules>({
   modules: {
     componentLink: ComponentLinkStore,
     component: ComponentStore,
@@ -17,5 +17,5 @@ export const appVuexModule = createStore<IrootModules>({
 });
 
 export function useRootStore() {
-  return baseUseStore<IrootModules>(moduleKey);
+  return baseUseStore<RootModules>(moduleKey);
 }

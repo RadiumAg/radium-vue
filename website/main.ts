@@ -1,6 +1,6 @@
 import { moduleKey, appVuexModule } from './src/core/vuex-module/index';
 import { createApp } from 'vue';
-import RadiumUI from 'radium-vue';
+import RadiumUI from '@radium-vue/components';
 import '../packages/theme-chalk/src/index.scss';
 import App from './src/App.vue';
 import demo from 'Pages/component/demo.vue';

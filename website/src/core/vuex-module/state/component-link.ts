@@ -1,6 +1,6 @@
 import { InjectionKey } from 'vue';
 import { Module, Store } from 'vuex';
-import { IrootModules } from '..';
+import { RootModules } from '..';
 export const SET_EL_MUTATION = 'SET_EL_MUTATION';
 
 export interface componentLinkState {
@@ -11,7 +11,7 @@ export const componentLinkKey: InjectionKey<Store<
   componentLinkState
 >> = Symbol();
 
-export const ComponentLinkStore: Module<componentLinkState, IrootModules> = {
+export const ComponentLinkStore: Module<componentLinkState, RootModules> = {
   state: {
     sourceSlotEl: null,
   },

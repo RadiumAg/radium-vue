@@ -3,26 +3,26 @@ import { setConfig } from '@radium-vue/utils/config';
 import { App } from 'vue';
 
 // components
-import RaCarousel from '@radium-vue/carousel';
-import RaCarouselItem from '@radium-vue/carousel-item';
-import RaRow from '@radium-vue/row';
-import RaCol from '@radium-vue/col';
-import RaScrollBar from '@radium-vue/scrollbar';
-import RaButton from '@radium-vue/button';
-import RaButtonGroup from '@radium-vue/button-group';
-import RaSlider from '@radium-vue/slider';
-import RaTabs from '@radium-vue/tabs';
-import RaTabPanel from '@radium-vue/tab-panel';
-import RaTabBar from '@radium-vue/tab-bar';
-import RaCalendar from '@radium-vue/calendar';
-import RaToolTip from '@radium-vue/tooltip';
+import RaCarousel from '@radium-vue/components/carousel';
+import RaCarouselItem from '@radium-vue/components/carousel-item';
+import RaRow from '@radium-vue/components/row';
+import RaCol from '@radium-vue/components/col';
+import RaScrollBar from '@radium-vue/components/scrollbar';
+import RaButton from '@radium-vue/components/button';
+import RaButtonGroup from '@radium-vue/components/button-group';
+import RaSlider from '@radium-vue/components/slider';
+import RaTabs from '@radium-vue/components/tabs';
+import RaTabPanel from '@radium-vue/components/tab-panel';
+import RaTabBar from '@radium-vue/components/tab-bar';
+import RaCalendar from '@radium-vue/components/calendar';
+import RaToolTip from '@radium-vue/components/tooltip';
 // plugins
-import RaMessage from '@radium-vue/message';
-import RaModal from '@radium-vue/modal';
+import RaMessage from '@radium-vue/components/message';
+import RaModal from '@radium-vue/components/modal';
 
 // directives
-import raRipple from '@radium-vue/ripple';
-import raSpin from '@radium-vue/spin';
+import raRipple from '@radium-vue/components/ripple';
+import raSpin from '@radium-vue/components/spin';
 
 const components = [
   RaRow,
