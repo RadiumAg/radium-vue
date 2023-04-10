@@ -1,18 +1,18 @@
-import { defineConfig } from 'vitepress'
-import Inspect from 'vite-plugin-inspect'
-import rollupPluginCodePreview from './plugins/code-preview'
+import { defineConfig } from 'vitepress';
+import Inspect from 'vite-plugin-inspect';
+import { codePreview } from './plugins/code-preview';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "doc",
-  description: "radium vue doc",
-  srcDir: "src",
-  vite:{
-    plugins:[Inspect(),rollupPluginCodePreview()],
+  title: 'doc',
+  description: 'radium vue doc',
+  srcDir: 'src',
+  vite: {
+    plugins: [Inspect()],
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    i18nRouting:true,
+    i18nRouting: true,
 
     nav: [
       { text: '简介', link: 'index' },
@@ -22,17 +22,15 @@ export default defineConfig({
     sidebar: [
       {
         text: 'Basic基础组件',
-        items: [
-          { text: '按钮', link: '/zh/button' },
-        ]
-      }
+        items: [{ text: '按钮', link: '/zh/button' }],
+      },
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
+      { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
+    ],
   },
   markdown: {
-    config:(md)=>
-  }
-})
+    config: (md) => codePreview(md),
+  },
+});

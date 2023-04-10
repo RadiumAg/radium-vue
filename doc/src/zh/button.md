@@ -1,8 +1,7 @@
 # Button 按钮
 
 #### 基础使用
-
-::: demo 
+::: demo
 
 ```html
 <ra-row class="ra-button-demo" :ra-gutter="[10,10]">

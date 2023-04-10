@@ -13,6 +13,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/markdown-it": "^12.2.3",
+    "markdown-it-container": "^3.0.0",
     "vite-plugin-inspect": "^0.7.17",
     "vitepress": "1.0.0-alpha.52"
   }
