@@ -1,5 +1,6 @@
 import MarkdownIt from 'markdown-it';
 import container from 'markdown-it-container';
+let index = 0;
 
 const codePreview = (md: MarkdownIt) => {
   md.use(container, 'demo', {
@@ -7,11 +8,17 @@ const codePreview = (md: MarkdownIt) => {
       return params.trim().match(/^demo(.*)$/);
     },
     render(tokens, idx) {
-      let m = tokens[idx].info.trim().match(/^spoiler\s+(.*)$/);
-      console.log(moveTo);
+      if (tokens[idx].nesting === 1) {
+        let nextTokens = tokens[++idx];
+        let content = '';
+        while (nextTokens.nesting !== -1) {
+          content += nextTokens.content;
+          nextTokens = tokens[++idx];
+        }
 
-      if(tokens[idx].nesting === 1) {
-        console.log(tokens);
+        return `<vp-example>${content}</vp-example>`;
+      } else {
+        return '';
       }
     },
   });
