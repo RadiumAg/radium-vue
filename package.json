@@ -26,6 +26,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
+    "@raag/eslint-config-vue": "^1.1.4",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-typescript": "^11.0.0",
@@ -79,9 +80,9 @@
     "vue": "^3.2.47"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.6",
     "@radium-vue/components": "*",
     "@radium-vue/utils": "*",
-    "@popperjs/core": "^2.11.6",
     "dayjs": "^1.11.7",
     "lodash": "^4.17.21",
     "resize-observer-polyfill": "^1.5.1"

@@ -47,18 +47,18 @@ const plugins = [RaMessage, RaModal];
 const defaultConfig: InstallConfig = {
   zIndex: 2000,
 };
-const install = (app: App, config: InstallConfig) => {
-  const opt = { config, ...defaultConfig };
+const install = (app: App, config?: InstallConfig) => {
+  const opt = config ? { config, ...defaultConfig } : { ...defaultConfig };
   setConfig(opt);
-  components.forEach(component => {
+  components.forEach((component) => {
     app.component(component.name, component);
   });
 
-  plugins.forEach(plugin => {
+  plugins.forEach((plugin) => {
     app.use(plugin);
   });
 
-  directives.forEach(directive => {
+  directives.forEach((directive) => {
     app.directive(directive.name, directive);
   });
 };
