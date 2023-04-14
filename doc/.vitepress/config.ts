@@ -28,7 +28,10 @@ export default defineConfig({
     sidebar: [
       {
         text: 'Basic基础组件',
-        items: [{ text: '按钮', link: '/zh/button' }],
+        items: [
+          { text: '按钮', link: '/zh/button' },
+          { text: 'grid', link: '/zh/grid' },
+        ],
       },
     ],
 

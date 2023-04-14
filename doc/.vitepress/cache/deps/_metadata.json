@@ -1,0 +1,41 @@
+{
+  "hash": "948259cd",
+  "browserHash": "f33f1dbd",
+  "optimized": {
+    "vue": {
+      "src": "../../../../node_modules/.pnpm/vue@3.2.47/node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "fa87207b",
+      "needsInterop": false
+    },
+    "lodash": {
+      "src": "../../../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "file": "lodash.js",
+      "fileHash": "b3e0bb36",
+      "needsInterop": true
+    },
+    "resize-observer-polyfill": {
+      "src": "../../../../node_modules/.pnpm/resize-observer-polyfill@1.5.1/node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js",
+      "file": "resize-observer-polyfill.js",
+      "fileHash": "bdb34e74",
+      "needsInterop": false
+    },
+    "dayjs": {
+      "src": "../../../../node_modules/.pnpm/dayjs@1.11.7/node_modules/dayjs/dayjs.min.js",
+      "file": "dayjs.js",
+      "fileHash": "49b45325",
+      "needsInterop": true
+    },
+    "@popperjs/core": {
+      "src": "../../../../node_modules/.pnpm/@popperjs+core@2.11.6/node_modules/@popperjs/core/lib/index.js",
+      "file": "@popperjs_core.js",
+      "fileHash": "606f1534",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-RSJERJUL": {
+      "file": "chunk-RSJERJUL.js"
+    }
+  }
+}
