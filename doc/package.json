@@ -15,6 +15,7 @@
   "devDependencies": {
     "@radium-vue/components": "*",
     "@types/markdown-it": "^12.2.3",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
     "markdown-it-container": "^3.0.0",
     "vite-plugin-inspect": "^0.7.17",
     "vitepress": "1.0.0-alpha.52"

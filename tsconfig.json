@@ -11,6 +11,9 @@
     "target": "es6",
     "sourceMap": true,
     "baseUrl": ".",
+    "paths": {
+      "@vp-components": ["doc/components/index.ts"],
+    },
     "lib": [
       "ESNext",
       "DOM"
@@ -19,5 +22,6 @@
   },
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "include": ["./packages/**/*","doc/**/*","doc/.vitepress/**/*"]
 }

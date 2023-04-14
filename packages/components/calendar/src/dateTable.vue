@@ -36,6 +36,7 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, inject } from 'vue';
+import dayjs from 'dayjs';
 import {
   CALENDAR_INJECT_TOKEN,
   ICalendarProvide,
@@ -43,7 +44,6 @@ import {
   isRange,
   totalDays,
 } from './calendar';
-import dayjs from 'dayjs';
 
 export default defineComponent({
   name: 'RaDateTable',
@@ -61,15 +61,11 @@ export default defineComponent({
       );
       const ret: IDayList = [];
       let mStartDate = end
-        ? dayjs(end)
-            .startOf('month')
-            .day()
+        ? dayjs(end).startOf('month').day()
         : currentMonth.value.startOf('month').date();
       const mEndDate = currentMonth.value.endOf('month').date();
       const mStartDay = start
-        ? dayjs(start)
-            .startOf('month')
-            .day()
+        ? dayjs(start).startOf('month').day()
         : currentMonth.value.startOf('month').day();
       const mStartWeek = mStartDay === 0 ? 6 : mStartDay - 1;
       const richDays = totalDays - mEndDate - mStartWeek;

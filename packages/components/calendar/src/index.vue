@@ -1,7 +1,7 @@
 <template>
   <div class="ra-calendar">
     <section class="ra-calendar__header">
-      <span v-html="date" />
+      <span v-html="date"></span>
       <ra-button-group v-if="isShowTool">
         <ra-button ra-size="mini" @click="changeTheTime('preMonth')">
           上个月
@@ -17,7 +17,7 @@
     <section class="ra-calendar__table">
       <ra-date-table>
         <template #default="data">
-          <slot v-bind="data" />
+          <slot v-bind="data"></slot>
         </template>
       </ra-date-table>
     </section>
@@ -26,16 +26,16 @@
 <script lang="ts">
 import RaButton from '@radium-vue/button';
 import RaButtonGroup from '@radium-vue/button-group';
-import RaDateTable from './dateTable.vue';
 import { UPDATE_MODEL_EVENT } from '@radium-vue/utils/common';
-import { computed, defineComponent, PropType, provide, ref, watch } from 'vue';
+import { PropType, computed, defineComponent, provide, ref, watch } from 'vue';
+import dayjs from 'dayjs';
 import {
   CALENDAR_INJECT_TOKEN,
-  formtString,
   ICalendarProvide,
   TCalendarProps,
+  formtString,
 } from './calendar';
-import dayjs from 'dayjs';
+import RaDateTable from './dateTable.vue';
 
 export default defineComponent({
   name: 'RaCalendar',

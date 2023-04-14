@@ -1,6 +1,6 @@
 import { App } from 'vue';
-import Col from '../row/src/col.vue';
 import { SFCWithInstall } from '@radium-vue/utils/types';
+import Col from '../row/src/col.vue';
 
 Col.install = (app: App): void => {
   app.component(Col.name, Col);

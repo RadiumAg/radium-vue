@@ -1,8 +1,8 @@
 import { Instance, createPopper } from '@popperjs/core';
 import { delay } from '@radium-vue/utils/common';
 import { computed, ref, watch } from 'vue';
-import { isManualMode } from '.';
 import { TEmit, TPopperOptions } from './type';
+import { isManualMode } from '.';
 const triggerActiveEvents: {
   [key in 'onClick' | 'onMouseenter' | 'onFocus']: () => void;
 } = { onClick: undefined, onMouseenter: undefined, onFocus: undefined };
@@ -11,7 +11,7 @@ const triggerLeaveEvents: {
   [key in 'onMouseleave' | 'onBlur']: () => void;
 } = { onMouseleave: undefined, onBlur: undefined };
 
-export default function(
+export default function (
   options: TPopperOptions,
   {
     emit,

@@ -1,10 +1,10 @@
 import MarkdownIt from 'markdown-it';
 import container from 'markdown-it-container';
-let index = 0;
+const index = 0;
 
 const codePreview = (md: MarkdownIt) => {
   md.use(container, 'demo', {
-    validate: (params) => {
+    validate: params => {
       return params.trim().match(/^demo(.*)$/);
     },
     render(tokens, idx) {

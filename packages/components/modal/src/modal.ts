@@ -22,7 +22,7 @@ export class Modal {
     const vm = createVNode(
       modalConstructor,
       options,
-      Object.keys(slotObject).length ? slotObject : null,
+      Object.keys(slotObject).length > 0 ? slotObject : null,
     );
 
     afterClose = new Promise<void>((resolve, reject) => {
@@ -37,7 +37,7 @@ export class Modal {
     });
 
     render(vm, container);
-    document.body.appendChild(container.firstChild);
+    document.body.append(container.firstChild);
     return {
       afterClose,
       close,

@@ -1,10 +1,10 @@
 <template>
   <div :style="gutterStyle" :class="classList" class="ra-grid">
-    <slot />
+    <slot></slot>
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, inject, PropType } from 'vue';
+import { PropType, computed, defineComponent, inject } from 'vue';
 import { IRowInject, IrowProps, ROW_INJECT_EOKEN, SizeObject } from './grid';
 
 export default defineComponent({
@@ -79,18 +79,18 @@ export default defineComponent({
     const gutterStyle = computed(() => {
       if (typeof gutter === 'number') {
         return {
-          ['margin-left']: -(gutter / 2) + 'px',
-          ['padding-left']: gutter / 2 + 'px',
-          ['padding-right']: gutter / 2 + 'px',
+          ['margin-left']: `${-(gutter / 2)}px`,
+          ['padding-left']: `${gutter / 2}px`,
+          ['padding-right']: `${gutter / 2}px`,
         };
-      } else if (gutter instanceof Array) {
+      } else if (Array.isArray(gutter)) {
         return {
-          ['margin-left']: -(gutter[0] || 0) / 2 + 'px',
-          ['padding-left']: (gutter[0] || 0) / 2 + 'px',
-          ['padding-right']: (gutter[0] || 0) / 2 + 'px',
-          ['margin-top']: -(gutter[1] || 0) / 2 + 'px',
-          ['padding-top']: (gutter[1] || 0) / 2 + 'px',
-          ['padding-bottom']: (gutter[1] || 0) / 2 + 'px',
+          ['margin-left']: `${-(gutter[0] || 0) / 2}px`,
+          ['padding-left']: `${(gutter[0] || 0) / 2}px`,
+          ['padding-right']: `${(gutter[0] || 0) / 2}px`,
+          ['margin-top']: `${-(gutter[1] || 0) / 2}px`,
+          ['padding-top']: `${(gutter[1] || 0) / 2}px`,
+          ['padding-bottom']: `${(gutter[1] || 0) / 2}px`,
         };
       }
     });

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const ora = require('ora');
-const chalk = require('chalk');
 const cp = require('child_process');
 const path = require('path');
+const ora = require('ora');
+const chalk = require('chalk');
 
 const scriptList = [
   path.resolve(__dirname, './scriptjs/build-component.js'),

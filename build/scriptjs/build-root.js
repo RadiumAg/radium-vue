@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path');
 const vue = require('rollup-plugin-vue');
 const typescript = require('rollup-plugin-typescript2');
-const path = require('path');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
 const { rollup } = require('rollup');
-const { noPreFixFile } = require('./common');
 const pkg = require('../../package.json');
+const { noPreFixFile } = require('./common');
 
 const deps = Object.keys(pkg.dependencies);
 
@@ -17,11 +17,11 @@ const deps = Object.keys(pkg.dependencies);
  */
 const getOutputOptions = format => {
   return {
-    format: format,
+    format,
     file: format === 'es' ? `es/index.js` : `lib/index.js`,
     exports: 'named',
     paths(id) {
-      if (/^@radium-vue/.test(id)) {
+      if (id.startsWith('@radium-vue')) {
         if (noPreFixFile.test(id)) return id.replace('@radium-vue', '.');
         return id.replace('@radium-vue/', './ra-');
       }
@@ -50,7 +50,9 @@ const inputOptions = {
     }),
   ],
   external(id) {
-    return /^@radium-vue/.test(id) || /^vue/.test(id) || deps.includes(id);
+    return (
+      id.startsWith('@radium-vue') || id.startsWith('vue') || deps.includes(id)
+    );
   },
 };
 

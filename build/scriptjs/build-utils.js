@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const rollup = require('rollup');
 const path = require('path');
+const rollup = require('rollup');
 const klawSync = require('klaw-sync');
-const pkg = require('../../package.json');
 const vue = require('rollup-plugin-vue');
 const typescript = require('rollup-plugin-typescript2');
-const { noPreFixFile } = require('./common');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
+const pkg = require('../../package.json');
+const { noPreFixFile } = require('./common');
 
 const deps = Object.keys(pkg.dependencies);
 const utilFiles = klawSync(path.resolve(__dirname, '../../packages/utils'), {
@@ -32,7 +32,7 @@ const getOutputOptions = (format, filePath) => {
         .replace('.ts', '')}.js`,
     ),
     paths(id) {
-      if (/^@radium-vue/.test(id)) {
+      if (id.startsWith('@radium-vue')) {
         if (noPreFixFile.test(id)) return id.replace('@radium-vue', '..');
         return id.replace('@radium-vue/', '../ra-');
       }
@@ -41,7 +41,7 @@ const getOutputOptions = (format, filePath) => {
 };
 
 async function build() {
-  while (utilFiles.length) {
+  while (utilFiles.length > 0) {
     const filePath = utilFiles.shift();
     if (excludeFile.some(_ => filePath.includes(_))) continue;
     const inputOptions = {
@@ -65,7 +65,11 @@ async function build() {
         }),
       ],
       external(id) {
-        return /^vue/.test(id) || /^@radium-vue/.test(id) || deps.includes(id);
+        return (
+          id.startsWith('vue') ||
+          id.startsWith('@radium-vue') ||
+          deps.includes(id)
+        );
       },
     };
 

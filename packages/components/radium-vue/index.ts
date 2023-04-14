@@ -1,28 +1,27 @@
-import { InstallConfig } from '@radium-vue/utils/config';
-import { setConfig } from '@radium-vue/utils/config';
+import { InstallConfig, setConfig } from '@radium-vue/utils/config';
 import { App } from 'vue';
 
 // components
-import RaCarousel from '@radium-vue/components/carousel';
-import RaCarouselItem from '@radium-vue/components/carousel-item';
-import RaRow from '@radium-vue/components/row';
-import RaCol from '@radium-vue/components/col';
-import RaScrollBar from '@radium-vue/components/scrollbar';
-import RaButton from '@radium-vue/components/button';
-import RaButtonGroup from '@radium-vue/components/button-group';
-import RaSlider from '@radium-vue/components/slider';
-import RaTabs from '@radium-vue/components/tabs';
-import RaTabPanel from '@radium-vue/components/tab-panel';
-import RaTabBar from '@radium-vue/components/tab-bar';
-import RaCalendar from '@radium-vue/components/calendar';
-import RaToolTip from '@radium-vue/components/tooltip';
+import RaCarousel from '../carousel';
+import RaCarouselItem from '../carousel-item';
+import RaRow from '../row';
+import RaCol from '../col';
+import RaScrollBar from '../scrollbar';
+import RaButton from '../button';
+import RaButtonGroup from '../button-group';
+import RaSlider from '../slider';
+import RaTabs from '../tabs';
+import RaTabPanel from '../tab-panel';
+import RaTabBar from '../tab-bar';
+import RaCalendar from '../calendar';
+import RaToolTip from '../tooltip';
 // plugins
-import RaMessage from '@radium-vue/components/message';
-import RaModal from '@radium-vue/components/modal';
+import RaMessage from '../message';
+import RaModal from '../modal';
 
 // directives
-import raRipple from '@radium-vue/components/ripple';
-import raSpin from '@radium-vue/components/spin';
+import raRipple from '../ripple';
+import raSpin from '../spin';
 
 const components = [
   RaRow,
@@ -50,15 +49,15 @@ const defaultConfig: InstallConfig = {
 const install = (app: App, config?: InstallConfig) => {
   const opt = config ? { config, ...defaultConfig } : { ...defaultConfig };
   setConfig(opt);
-  components.forEach((component) => {
+  components.forEach(component => {
     app.component(component.name, component);
   });
 
-  plugins.forEach((plugin) => {
+  plugins.forEach(plugin => {
     app.use(plugin);
   });
 
-  directives.forEach((directive) => {
+  directives.forEach(directive => {
     app.directive(directive.name, directive);
   });
 };

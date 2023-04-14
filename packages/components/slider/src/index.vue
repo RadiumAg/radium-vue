@@ -6,7 +6,7 @@
       :class="processTrackClass"
       :style="processTrackStyle"
     >
-      <div class="ra-slider__progress-bar" :style="processBarStyle" />
+      <div class="ra-slider__progress-bar" :style="processBarStyle"></div>
       <ra-tooltip
         v-model:visible="isDrag"
         :ra-disabled="raShowTooltip"
@@ -15,7 +15,7 @@
         :ra-offset="3"
         ra-placement="top"
       >
-        <progress-button :direction="raVertical ? 'y' : 'x'" />
+        <progress-button :direction="raVertical ? 'y' : 'x'"></progress-button>
       </ra-tooltip>
     </div>
   </section>
@@ -98,8 +98,8 @@ export default defineComponent({
     const processBarStyle = computed(() => {
       const res = [];
       props.raVertical
-        ? res.push({ height: sliderDistance.value * maskAvg.value + '%' })
-        : res.push({ width: sliderDistance.value * maskAvg.value + '%' });
+        ? res.push({ height: `${sliderDistance.value * maskAvg.value}%` })
+        : res.push({ width: `${sliderDistance.value * maskAvg.value}%` });
       return res;
     });
 

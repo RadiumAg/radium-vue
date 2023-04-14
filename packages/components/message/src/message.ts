@@ -1,8 +1,8 @@
 import { EmptyObject } from '@radium-vue/utils/common';
-import { App, render, VNode } from 'vue';
-import { createVNode, isVNode } from 'vue';
-import MessageConstructor from './index.vue';
+import { App, VNode, createVNode, isVNode, render } from 'vue';
+
 import PopupManager from '@radium-vue/utils/popup-manager';
+import MessageConstructor from './index.vue';
 
 type raType = 'success' | 'warning' | 'info' | 'error';
 
@@ -32,11 +32,12 @@ export class Message {
   static install: (app: App) => void;
   private static getOffsetVertical(raOffset: number) {
     let result = 0;
-    if (this.instanceArray.length) {
+    if (this.instanceArray.length > 0) {
       this.instanceArray.forEach((obj, index) => {
-        const preInstanceOffsetHeight = (this.instanceArray[index].vm
-          .el as HTMLElement).offsetHeight;
-        if (this.instanceArray.length && index === 0)
+        const preInstanceOffsetHeight = (
+          this.instanceArray[index].vm.el as HTMLElement
+        ).offsetHeight;
+        if (this.instanceArray.length > 0 && index === 0)
           result = result + raOffset * 2 + preInstanceOffsetHeight;
         else result = result + raOffset + preInstanceOffsetHeight;
       });
@@ -88,7 +89,7 @@ export class Message {
 
     this.instanceArray.push({ vm, id: symbol });
     render(vm, container);
-    document.body.appendChild(container.firstChild);
+    document.body.append(container.firstChild);
   }
 
   static success(options: TShortcutOptions) {

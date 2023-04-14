@@ -13,28 +13,28 @@
       @mouseout="mouseout"
     >
       <div class="ra-message__content">
-        <i :class="iconClass" class="ra-message__type-icon" />
+        <i :class="iconClass" class="ra-message__type-icon"></i>
         <slot>
           <p v-if="!raIsUseHtmlString">{{ raMessage }}</p>
-          <p v-else :innerHTML="raMessage" />
+          <p v-else :innerHTML="raMessage"></p>
         </slot>
       </div>
       <i
         v-if="raShowClose"
         class="ra-icon-close ra-message__icon-close"
         @click="close"
-      />
+      ></i>
     </div>
   </transition>
 </template>
 <script lang="ts">
 import {
+  PropType,
+  VNode,
   computed,
   defineComponent,
   onMounted,
-  PropType,
   ref,
-  VNode,
 } from 'vue';
 export default defineComponent({
   name: 'RaMessage',

@@ -14,7 +14,7 @@
           v-show="isCollpaseShow"
           :class="closeIconClass"
           @click.stop="closeIconClick"
-        />
+        ></i>
       </transition>
     </div>
   </div>
@@ -22,12 +22,12 @@
 
 <script lang="ts">
 import {
+  computed,
   defineComponent,
   inject,
   onMounted,
-  ref,
-  computed,
   onUnmounted,
+  ref,
 } from 'vue';
 import { ITabsProvide, TABS_PROVIDE_TOKEN } from '.';
 

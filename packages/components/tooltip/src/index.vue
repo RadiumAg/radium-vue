@@ -1,11 +1,11 @@
 <script lang="ts">
-import { createVNode, defineComponent, PropType } from 'vue';
-import { TPlacement, TToolTipProps } from '.';
+import { PropType, createVNode, defineComponent } from 'vue';
 import RaPopper from '@radium-vue/popper';
 import {
-  processInvalidProp,
   UPDATE_MODEL_EVENT,
+  processInvalidProp,
 } from '@radium-vue/utils/common';
+import { TPlacement, TToolTipProps } from '.';
 export default defineComponent({
   name: 'RaTooltip',
   props: {

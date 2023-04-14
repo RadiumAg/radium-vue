@@ -1,31 +1,31 @@
 <script lang="ts">
 import {
-  defineComponent,
-  onMounted,
   PropType,
-  provide,
-  ref,
-  nextTick,
-  watch,
   Slots,
-  createVNode,
-  render,
   VNode,
   computed,
+  createVNode,
+  defineComponent,
   h,
-  reactive,
-  withDirectives,
-  vShow,
+  nextTick,
+  onMounted,
   onUnmounted,
+  provide,
+  reactive,
+  ref,
+  render,
+  vShow,
+  watch,
+  withDirectives,
 } from 'vue';
 import RaTabBar from './tab-bar.vue';
 import {
-  TTabPosition,
-  TTabsType,
-  TABS_PROVIDE_TOKEN,
   ITabsProvide,
+  TABS_PROVIDE_TOKEN,
   TAB_UPDATE_EVENT,
   TTabPanel,
+  TTabPosition,
+  TTabsType,
 } from '.';
 
 export default defineComponent({
@@ -68,12 +68,12 @@ export default defineComponent({
       emit('ra-tab-remove', delValue);
     };
     const tabClick = (clickValue: number | string) => {
-      let tabPanelTarget: typeof tabPanelItems[0];
+      let tabPanelTarget: (typeof tabPanelItems)[0];
       emit('ra-tab-click', clickValue);
       if (typeof clickValue === 'number') {
         tabPanelTarget = tabPanelItems[clickValue];
       } else if (typeof clickValue === 'string') {
-        tabPanelTarget = tabPanelItems.filter(_ => _.name === clickValue)[0];
+        tabPanelTarget = tabPanelItems.find(_ => _.name === clickValue);
       }
 
       const panelReact = tabPanelTarget.tabPanelRef.getBoundingClientRect();
@@ -166,7 +166,7 @@ export default defineComponent({
     }
 
     function updateTheTabBar() {
-      if (tabPanelItems.length) {
+      if (tabPanelItems.length > 0) {
         const currentPanel = tabPanelItems[currentTabIndex.value];
         if (!currentPanel) return;
         provideConfig.currentWidth.value = currentPanel.tabWrapRef.offsetWidth;

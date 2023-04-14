@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
-const klawSync = require('klaw-sync');
 const fs = require('fs');
+const klawSync = require('klaw-sync');
 const vueCompiler = require('@vue/compiler-sfc');
 const { Project } = require('ts-morph');
 const { noPreFixDir, rootFile } = require('./common');
@@ -110,7 +110,7 @@ const genVueTypes = async outFileName => {
           : path.dirname(sourceFilePath);
         const replaceTo = path
           .relative(sourceDir, originalPath)
-          .replace(/\\/g, '/');
+          .replaceAll('\\', '/');
 
         d.setModuleSpecifier(
           replaceTo.startsWith('.') ? replaceTo : `./${replaceTo}`,
@@ -123,10 +123,10 @@ const genVueTypes = async outFileName => {
     for (const outputFile of emitOutput.getOutputFiles()) {
       let filepath = outputFile.getFilePath();
       const filepathArray = filepath.split('/');
-      const outFileIndex = filepathArray.findIndex(_ => _ === outFileName) + 1;
+      const outFileIndex = filepathArray.indexOf(outFileName) + 1;
       const fileName = filepathArray[outFileIndex];
       if (!noPreFixDir.test(fileName)) {
-        filepathArray[outFileIndex] = 'ra-' + fileName;
+        filepathArray[outFileIndex] = `ra-${fileName}`;
       }
       // 根目录输出倒lib/
       if (rootFile.test(fileName)) {

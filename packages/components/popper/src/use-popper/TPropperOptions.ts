@@ -1,5 +1,5 @@
-import { Options } from '@popperjs/core';
-import { Placement, PositioningStrategy } from '@popperjs/core';
+import { Options, Placement, PositioningStrategy } from '@popperjs/core';
+
 import { PropType } from 'vue';
 import { ETheme, Trigger } from './type';
 

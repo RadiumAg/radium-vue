@@ -1,5 +1,5 @@
 import { SFCWithInstall } from '@radium-vue/utils/types';
-import { App } from '@vue/runtime-dom';
+import { App } from 'vue';
 import { Message } from './src/message';
 
 Message.install = (app: App) => {

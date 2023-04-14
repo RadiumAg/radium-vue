@@ -8,16 +8,16 @@
     @mousedown="buttnMouseDown($event)"
     @mouseleave="buttonMuseLeave"
   >
-    <div class="ra-slider__button" />
+    <div class="ra-slider__button"></div>
   </div>
 </template>
 
 <script lang="ts">
 import {
+  PropType,
   computed,
   defineComponent,
   inject,
-  PropType,
   reactive,
   ref,
 } from 'vue';
@@ -104,7 +104,7 @@ export default defineComponent({
       );
       sliderToken.maskAvg.value = maskAvg.value;
       buttonStyle.value = {
-        [ButtonBarConfig[props.direction].distance]: distance + 'px',
+        [ButtonBarConfig[props.direction].distance]: `${distance}px`,
       };
     };
 

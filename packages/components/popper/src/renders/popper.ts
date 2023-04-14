@@ -1,8 +1,16 @@
-import { computed, Transition, vShow, withCtx, withDirectives } from 'vue';
-import { VNode } from 'vue';
-import { h, Slots } from 'vue';
-import { TRenderPopperOptions } from './type';
+import {
+  Slots,
+  Transition,
+  VNode,
+  computed,
+  h,
+  vShow,
+  withCtx,
+  withDirectives,
+} from 'vue';
+
 import PopupManager from '@radium-vue/utils/popup-manager';
+import { TRenderPopperOptions } from './type';
 
 export default (
   popperOptions: TRenderPopperOptions,

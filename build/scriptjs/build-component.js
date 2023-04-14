@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const rollup = require('rollup');
 const path = require('path');
-const pkg = require('../../package.json');
+const rollup = require('rollup');
 const vue = require('rollup-plugin-vue');
 const typescript = require('rollup-plugin-typescript2');
 const { getPackages } = require('@lerna/project');
-const { noPreFixDir, noPreFixFile } = require('./common');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
+const pkg = require('../../package.json');
+const { noPreFixDir, noPreFixFile } = require('./common');
 const deps = Object.keys(pkg.dependencies);
 // css文件，utils,根文件不进行编译
 const excludeFiles = ['radium-theme-chalk', 'utils', 'radium-vue'];
@@ -16,7 +16,7 @@ const getOutFileName = name => {
   if (noPreFixDir.test(name)) {
     return name;
   }
-  return 'ra-' + name;
+  return `ra-${name}`;
 };
 
 /**
@@ -34,7 +34,7 @@ const getOutputOptions = (format, pakName) => {
         ? `es/${getOutFileName(pakName)}/index.js`
         : `lib/${getOutFileName(pakName)}/index.js`,
     paths(id) {
-      if (/^@radium-vue/.test(id)) {
+      if (id.startsWith('@radium-vue')) {
         if (noPreFixFile.test(id)) {
           return id.replace('@radium-vue/', '../');
         } else {
@@ -47,10 +47,10 @@ const getOutputOptions = (format, pakName) => {
 
 async function build() {
   const paks = await getPackages();
-  while (paks.length) {
+  while (paks.length > 0) {
     const pak = paks.shift();
     const pakName = pak.name.replace(/@radium-vue\//g, '');
-    if (excludeFiles.some(_ => _ === pakName)) continue;
+    if (excludeFiles.includes(pakName)) continue;
     console.log(pak.name);
     const inputOptions = {
       input: path.resolve(__dirname, `../../packages/${pakName}/index.ts`),
@@ -73,7 +73,7 @@ async function build() {
         }),
       ],
       external(id) {
-        return /^vue/.test(id) || deps.includes(id);
+        return id.startsWith('vue') || deps.includes(id);
       },
     };
 
