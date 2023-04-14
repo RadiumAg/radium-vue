@@ -52,9 +52,7 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, watchEffect } from 'vue';
-import RaButton from '@radium-vue/button';
-import RaRow from '@radium-vue/row';
-import RaCol from '@radium-vue/col';
+import { RaButton, RaCol, RaRow } from '@radium-vue/components';
 import PopupManager from '@radium-vue/utils/popup-manager';
 import { modalType } from './type';
 export default defineComponent({

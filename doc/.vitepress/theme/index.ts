@@ -1,5 +1,6 @@
 import DefaultTheme from 'vitepress/theme';
-import ElementPlus from '@radium-vue/components/radium-vue';
+import ElementPlus from '@radium-vue/components';
+import '@radium-vue/theme-chalk/src/index.scss';
 import { VpExample } from '@vp-components';
 
 export default {

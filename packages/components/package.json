@@ -2,9 +2,8 @@
   "name": "@radium-vue/components",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-  },
+  "module": "radium-vue/index.ts",
+  "main": "radium-vue/index.ts",
   "keywords": [],
   "author": "",
   "license": "MIT"

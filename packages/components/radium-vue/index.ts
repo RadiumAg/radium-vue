@@ -12,9 +12,9 @@ import RaButtonGroup from '../button-group';
 import RaSlider from '../slider';
 import RaTabs from '../tabs';
 import RaTabPanel from '../tab-panel';
-import RaTabBar from '../tab-bar';
 import RaCalendar from '../calendar';
 import RaToolTip from '../tooltip';
+
 // plugins
 import RaMessage from '../message';
 import RaModal from '../modal';
@@ -27,7 +27,6 @@ const components = [
   RaRow,
   RaCol,
   RaTabs,
-  RaTabBar,
   RaSlider,
   RaButton,
   RaToolTip,
@@ -46,6 +45,7 @@ const plugins = [RaMessage, RaModal];
 const defaultConfig: InstallConfig = {
   zIndex: 2000,
 };
+
 const install = (app: App, config?: InstallConfig) => {
   const opt = config ? { config, ...defaultConfig } : { ...defaultConfig };
   setConfig(opt);
@@ -75,6 +75,7 @@ export {
   RaCalendar,
   RaTabPanel,
   RaScrollBar,
+  RaButtonGroup,
   RaCarouselItem,
 };
 

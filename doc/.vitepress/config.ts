@@ -10,7 +10,7 @@ export default defineConfig({
   description: 'radium vue doc',
   srcDir: 'src',
   vite: {
-    plugins: [Inspect(), VueJsx()],
+    plugins: [VueJsx(), Inspect()],
     resolve: {
       alias: {
         '@vp-components': path.resolve(__dirname, '../components/index.ts'),

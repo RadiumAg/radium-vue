@@ -24,8 +24,8 @@
   </div>
 </template>
 <script lang="ts">
-import RaButton from '@radium-vue/button';
-import RaButtonGroup from '@radium-vue/button-group';
+import RaButton from '@radium-vue/components/button';
+import RaButtonGroup from '@radium-vue/components/button-group';
 import { UPDATE_MODEL_EVENT } from '@radium-vue/utils/common';
 import { PropType, computed, defineComponent, provide, ref, watch } from 'vue';
 import dayjs from 'dayjs';

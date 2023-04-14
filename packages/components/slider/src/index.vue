@@ -23,7 +23,6 @@
 
 <script lang="ts">
 import { isNull } from 'lodash';
-import RaTooltip from '@radium-vue/tooltip';
 import { UPDATE_MODEL_EVENT } from '@radium-vue/utils/common';
 import {
   computed,
@@ -40,7 +39,6 @@ export default defineComponent({
   name: 'RaSlider',
   components: {
     progressButton,
-    RaTooltip,
   },
   props: {
     modelValue: {

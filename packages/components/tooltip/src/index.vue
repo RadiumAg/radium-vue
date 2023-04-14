@@ -1,6 +1,6 @@
 <script lang="ts">
 import { PropType, createVNode, defineComponent } from 'vue';
-import RaPopper from '@radium-vue/popper';
+import RaPopper from '@radium-vue/components/popper';
 import {
   UPDATE_MODEL_EVENT,
   processInvalidProp,
