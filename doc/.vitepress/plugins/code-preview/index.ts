@@ -1,3 +1,4 @@
+import { compile } from 'vue';
 import MarkdownIt from 'markdown-it';
 import container from 'markdown-it-container';
 
@@ -15,7 +16,11 @@ const codePreview = (md: MarkdownIt) => {
           nextTokens = tokens[++idx];
         }
 
-        return `<vp-example>${content}</vp-example>`;
+        if (content.includes('template') || content.includes('script')) {
+          const demoComponent = `<script></script>`;
+        } else {
+          return `<vp-example>${content}</vp-example>`;
+        }
       } else {
         return '';
       }

@@ -8,7 +8,7 @@
 
 使用`create`方法创建全局消息
 
-:::demo 
+:::demo
 
 ```html
 <template>
@@ -51,7 +51,7 @@
 
 使用`success`,`warning`,`error`,`info`方法创建对应的消息类型。
 
-:::demo 
+:::demo
 
 ```html
 <template>
@@ -101,7 +101,7 @@
 
 使用`success`,`warning`,`error`,`info`方法创建对应的消息类型。
 
-:::demo 
+:::demo
 
 ```html
 <template>
@@ -151,7 +151,7 @@
 
 `raMessage`也可以传`html`标签,但是`html`有风险，使用需谨慎，容易被`XSS`攻击
 
-:::demo 
+:::demo
 
 ```html
 <template>
