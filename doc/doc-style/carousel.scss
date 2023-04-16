@@ -1,4 +1,4 @@
-@import '/packages/theme-chalk/src/mixins/config.scss';
+@use '@radium-vue/theme-chalk/src/mixins/config.scss';
 
 .ra-carousel__carousel-item {
   .#{$namespace}-carousel-item {

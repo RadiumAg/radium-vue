@@ -1,4 +1,4 @@
-@import '/packages/theme-chalk/src/mixins/config.scss';
+@use '@radium-vue/theme-chalk/src/mixins/config.scss';
 @import './color.scss';
 
 .#{$namespace}-grid-item-color-1 {

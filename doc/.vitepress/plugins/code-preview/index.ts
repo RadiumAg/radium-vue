@@ -1,6 +1,5 @@
 import MarkdownIt from 'markdown-it';
 import container from 'markdown-it-container';
-const index = 0;
 
 const codePreview = (md: MarkdownIt) => {
   md.use(container, 'demo', {

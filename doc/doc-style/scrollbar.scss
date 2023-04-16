@@ -1,4 +1,4 @@
-@import '/packages/theme-chalk/src/mixins/config.scss';
+@import '@radium-vue/theme-chalk/src/mixins/config.scss';
 
 .#{$namespace}-scrollbar-item {
   margin: 10px 10px;
