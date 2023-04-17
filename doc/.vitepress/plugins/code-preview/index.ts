@@ -1,4 +1,5 @@
-import { compile } from 'vue';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 import MarkdownIt from 'markdown-it';
 import container from 'markdown-it-container';
 
@@ -10,17 +11,24 @@ const codePreview = (md: MarkdownIt) => {
     render(tokens, idx) {
       if (tokens[idx].nesting === 1) {
         let nextTokens = tokens[++idx];
-        let content = '';
+        let examplePath = '';
         while (nextTokens.nesting !== -1) {
-          content += nextTokens.content;
+          examplePath += nextTokens.content;
           nextTokens = tokens[++idx];
         }
 
-        if (content.includes('template') || content.includes('script')) {
-          const demoComponent = `<script></script>`;
-        } else {
-          return `<vp-example>${content}</vp-example>`;
-        }
+        const resolvePath = `../../examples/${examplePath}.vue`.replaceAll(
+          '\\',
+          '/',
+        );
+
+        const source = readFileSync(
+          resolve(__dirname, '../', resolvePath),
+        ).toString();
+
+        return `<vp-example path="${resolvePath}" source="${encodeURIComponent(
+          source,
+        )}"></vp-example>`;
       } else {
         return '';
       }
