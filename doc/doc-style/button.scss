@@ -1,5 +1,5 @@
 @use '@radium-vue/theme-chalk/src/mixins/config.scss';
 
-.ra-button-demo {
+.ra-button-demo:not(:last-child) {
   margin-bottom: 20px;
 }

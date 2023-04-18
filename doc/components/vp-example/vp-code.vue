@@ -1,16 +1,18 @@
 <template>
-  <p class="code" v-html="source"></p>
+  <vp-tool></vp-tool>
+  <p class="code" v-show="isHidden" v-html="decodeSource"></p>
 </template>
 
 <script setup lang="ts">
+import VpTool from './vp-tool.vue';
 const props = defineProps({
   source: {
     type: String,
     required: true,
   },
 });
-
-const decodeSource = computed(() => props.source);
+const isHidden = ref(false);
+const decodeSource = computed(() => decodeURIComponent(props.source));
 </script>
 
 <style lang="scss" scoped>

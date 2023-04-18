@@ -1,7 +1,11 @@
 import path from 'path';
+import Icons from 'unplugin-icons/vite'
 import { defineConfig } from 'vitepress';
 import Inspect from 'vite-plugin-inspect';
+import Components from 'unplugin-vue-components/vite';
+import IconsResolver from 'unplugin-icons/resolver';
 import VueJsx from '@vitejs/plugin-vue-jsx';
+import AutoImport from 'unplugin-auto-import/vite';
 import { codePreview } from './plugins/code-preview';
 
 // https://vitepress.dev/reference/site-config
@@ -10,7 +14,18 @@ export default defineConfig({
   description: 'radium vue doc',
   srcDir: 'src',
   vite: {
-    plugins: [VueJsx(), Inspect()],
+    plugins: [
+     VueJsx(),
+     AutoImport({
+      imports: [
+        'vue',
+        '@vueuse/core',
+      ],
+      dts: path.resolve(__dirname,'../auto-imports.d.ts'),
+    }),
+    Components({resolvers:[IconsResolver()]}),
+    Icons({}),
+    Inspect()],
     resolve: {
       alias: {
         '@vp-components': path.resolve(__dirname, '../components/index.ts'),

@@ -29,9 +29,9 @@ const codePreview = (md: MarkdownIt) => {
 
         return `<vp-example path="${resolvePath}" source="${encodeURIComponent(
           Prism.highlight(source, Prism.languages.javascript, 'javascript'),
-        )}"></vp-example>`;
+        )}">`;
       } else {
-        return '';
+        return '</vp-example>';
       }
     },
   });

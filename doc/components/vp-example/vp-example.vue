@@ -9,7 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
 import VpCode from './vp-code.vue';
 
 const props = defineProps({
@@ -23,11 +22,17 @@ const props = defineProps({
   },
 });
 
-const DemoComponent = defineAsyncComponent(() => import(props.path));
+
+const DemoComponent = defineAsyncComponent(() => import(/* @vite-ignore */props.path));
 </script>
 
 <style lang="scss" scoped>
 .vp-example {
+  padding: 15px;
+  overflow: hidden;
+  margin: 15px 0;
+  border-radius: 6px 6px 0 0;
+  border: 1px solid #efefef;
 }
 
 .content {
