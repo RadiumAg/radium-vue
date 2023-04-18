@@ -3,7 +3,6 @@
     <div>
       <component :is="DemoComponent"></component>
     </div>
-
     <vp-code :source="source"></vp-code>
   </div>
 </template>
@@ -22,8 +21,9 @@ const props = defineProps({
   },
 });
 
-
-const DemoComponent = defineAsyncComponent(() => import(/* @vite-ignore */props.path));
+const DemoComponent = defineAsyncComponent(
+  () => import(/* @vite-ignore */ props.path),
+);
 </script>
 
 <style lang="scss" scoped>

@@ -13,13 +13,13 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@vp-components": ["doc/components/index.ts"],
+      "@vp-components": ["doc/components/index.ts"]
     },
     "lib": [
       "ESNext",
       "DOM"
     ],
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "node_modules"

@@ -1,5 +1,5 @@
 import path from 'path';
-import Icons from 'unplugin-icons/vite'
+import Icons from 'unplugin-icons/vite';
 import { defineConfig } from 'vitepress';
 import Inspect from 'vite-plugin-inspect';
 import Components from 'unplugin-vue-components/vite';
@@ -15,17 +15,17 @@ export default defineConfig({
   srcDir: 'src',
   vite: {
     plugins: [
-     VueJsx(),
-     AutoImport({
-      imports: [
-        'vue',
-        '@vueuse/core',
-      ],
-      dts: path.resolve(__dirname,'../auto-imports.d.ts'),
-    }),
-    Components({resolvers:[IconsResolver()]}),
-    Icons({}),
-    Inspect()],
+      VueJsx(),
+      AutoImport({
+        imports: ['vue', '@vueuse/core'],
+        dts: path.resolve(__dirname, '../auto-imports.d.ts'),
+      }),
+      Components({ resolvers: [IconsResolver()] }),
+      Icons({
+        autoInstall: true,
+      }),
+      Inspect(),
+    ],
     resolve: {
       alias: {
         '@vp-components': path.resolve(__dirname, '../components/index.ts'),

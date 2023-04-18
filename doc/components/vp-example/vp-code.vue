@@ -1,6 +1,6 @@
 <template>
-  <vp-tool></vp-tool>
-  <p class="code" v-show="isHidden" v-html="decodeSource"></p>
+  <vp-tool @code-click="handleCodeClick"></vp-tool>
+  <p v-show="isHidden" class="code" v-html="decodeSource"></p>
 </template>
 
 <script setup lang="ts">
@@ -13,6 +13,10 @@ const props = defineProps({
 });
 const isHidden = ref(false);
 const decodeSource = computed(() => decodeURIComponent(props.source));
+
+const handleCodeClick = () => {
+  isHidden.value = !isHidden.value;
+};
 </script>
 
 <style lang="scss" scoped>
