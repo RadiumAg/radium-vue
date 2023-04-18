@@ -10,17 +10,17 @@
               isShow = false;
             }
           "
-        />
-        <i :class="iconStyle" class="ra-modal__type-icon" />
+        ></i>
+        <i :class="iconStyle" class="ra-modal__type-icon"></i>
         <div>
           <section class="ra-modal__title">
             <slot name="title">
-              <h3 v-html="raTitle" />
+              <h3 v-html="raTitle"></h3>
             </slot>
           </section>
           <section class="ra-modal__content">
             <slot>
-              <div v-html="raContent" />
+              <div v-html="raContent"></div>
             </slot>
           </section>
           <section class="ra-modal__footer">
@@ -37,7 +37,7 @@
                     ra-type="primary"
                     @click="okButtonClick"
                   >
-                    <i v-if="isLoading" class="ra-icon-loading" />
+                    <i v-if="isLoading" class="ra-icon-loading"></i>
                     {{ raOkLabel }}
                   </ra-button>
                 </ra-col>
@@ -47,16 +47,14 @@
         </div>
       </div>
     </transition>
-    <div v-if="raModal" class="ra-modal__mask" @click="raMaskClick" />
+    <div v-if="raModal" class="ra-modal__mask" @click="raMaskClick"></div>
   </div>
 </template>
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, watchEffect } from 'vue';
-import RaButton from '@radium-vue/button';
-import RaRow from '@radium-vue/row';
-import RaCol from '@radium-vue/col';
-import { modalType } from './type';
+import { RaButton, RaCol, RaRow } from '@radium-vue/components';
 import PopupManager from '@radium-vue/utils/popup-manager';
+import { modalType } from './type';
 export default defineComponent({
   name: 'RaModal',
   components: {

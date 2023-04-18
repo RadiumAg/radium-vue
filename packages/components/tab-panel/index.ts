@@ -1,6 +1,6 @@
 import { App } from 'vue';
-import TabPanel from '@radium-vue/tabs/src/tab-panel.vue';
 import { SFCWithInstall } from '@radium-vue/utils/types';
+import TabPanel from '../tabs/src/tab-panel.vue';
 
 TabPanel.install = (app: App): void => {
   app.component(TabPanel.name, TabPanel);

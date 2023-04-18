@@ -16,11 +16,11 @@ const ripple: TRadiumDirective<HTMLElement, boolean> = {
     let diameter = 0;
     rippleContainer.className = 'ra-ripple';
     on(rippleContainer, 'mousedown', startFadeIn);
-    el.appendChild(rippleContainer);
+    el.append(rippleContainer);
     function change(rippleEl: HTMLElement) {
       const rippleScale =
         Number.parseFloat(
-          rippleEl.style.transform.match(/[0-1]\.?[0-9]{0,4}/g)[2],
+          rippleEl.style.transform.match(/[01]\.?\d{0,4}/g)[2],
         ) + processSpeed;
 
       if (rippleScale > 1 && Reflect.get(rippleEl, 'isMouseUp')) {
@@ -41,18 +41,18 @@ const ripple: TRadiumDirective<HTMLElement, boolean> = {
       const clientReact = el.getBoundingClientRect();
       const rippleEl = document.createElement('div');
       diameter = RadiumSqrt(el.clientHeight, el.clientWidth) * 2;
-      rippleEl.style.top = event.clientY - clientReact.y + 'px';
-      rippleEl.style.left = event.clientX - clientReact.x + 'px';
+      rippleEl.style.top = `${event.clientY - clientReact.y}px`;
+      rippleEl.style.left = `${event.clientX - clientReact.x}px`;
       setTheRippleEL(rippleEl);
       setTheRippleElSize(rippleEl);
-      rippleContainer.appendChild(rippleEl);
+      rippleContainer.append(rippleEl);
       change(rippleEl);
     }
 
     function endFadeOut(rippleEl: HTMLElement) {
       rippleEl.style.opacity = '0';
       const timerSign = setTimeout(() => {
-        rippleContainer.removeChild(rippleEl);
+        rippleEl.remove();
         rippleEl.onmouseup = null;
         clearTimeout(timerSign);
       }, 400);
@@ -60,23 +60,24 @@ const ripple: TRadiumDirective<HTMLElement, boolean> = {
 
     function setTheRippleEL(rippleEl: HTMLElement) {
       if (isNull(rippleEl.onmouseup)) {
-        rippleEl.onmouseup = () => {
+        rippleEl.addEventListener('mouseup', () => {
           Reflect.set(rippleEl, 'isMouseUp', true);
-        };
-        rippleEl.onmouseout = () => {
+        });
+        rippleEl.addEventListener('mouseout', () => {
           Reflect.set(rippleEl, 'isMouseUp', true);
-        };
+        });
       }
       Reflect.set(rippleEl, 'isMouseUp', false);
-      rippleEl.style.transition = `opacity ${translationDuration /
-        1000}s  ease-in-out`;
+      rippleEl.style.transition = `opacity ${
+        translationDuration / 1000
+      }s  ease-in-out`;
       rippleEl.style.transform = 'translate(-50%,-50%) scale(0) ';
       rippleEl.classList.add('ra-ripple__item');
     }
 
     function setTheRippleElSize(rippleEl: HTMLElement) {
-      rippleEl.style.height = diameter + 'px';
-      rippleEl.style.width = diameter + 'px';
+      rippleEl.style.height = `${diameter}px`;
+      rippleEl.style.width = `${diameter}px`;
     }
   },
 };

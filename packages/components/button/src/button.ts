@@ -1,4 +1,4 @@
-export type TButtonType =
+export type ButtonType =
   | 'primary'
   | 'success'
   | 'warning'
@@ -7,11 +7,12 @@ export type TButtonType =
   | 'text'
   | 'default';
 
-export type TButtonSize = 'medium' | 'small' | 'mini';
+export type ButtonSize = 'medium' | 'small' | 'mini';
 
-export interface IButtonProps {
-  raType: TButtonType;
-  raSize: TButtonSize;
+export interface ButtonProps {
+  raType: ButtonType;
+  raSize: ButtonSize;
+
   raIcon: string;
   raPlain: boolean;
   raRound: boolean;

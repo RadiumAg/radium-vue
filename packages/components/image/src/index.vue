@@ -2,7 +2,7 @@
   <img :src="raSrc" />
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { PropType, defineComponent } from 'vue';
 export default defineComponent({
   name: 'RaImage',
   props: {
@@ -59,10 +59,9 @@ export default defineComponent({
   },
   emits: ['update:modelValue', 'raClose', 'raSwitch'],
   setup(props, { emit }) {
-
     return {
-      props
-    }
+      props,
+    };
   },
 });
 </script>

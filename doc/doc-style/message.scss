@@ -1,0 +1,7 @@
+@use '@radium-vue/theme-chalk/src/mixins/config.scss';
+
+.demo_message {
+  .#{$namespace}-message-button {
+    margin-right: 10px;
+  }
+}

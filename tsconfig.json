@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "ESNext",
+    "strict": true,
     "noImplicitAny": false,
     "removeComments": true,
     "moduleResolution": "node",
@@ -12,24 +13,17 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "Pages/*": [
-        "website/src/pages/*"
-      ],
-      "Docs/*": [
-        "website/src/docs"
-      ],
-      "Core/*": [
-        "website/src/core/*"
-      ]
+      "@vp-components": ["doc/components/index.ts"],
+      "radium-vue": ["packages/components/radium-vue/index.ts"]
     },
     "lib": [
       "ESNext",
       "DOM"
     ],
-    "allowSyntheticDefaultImports": true,
-    "noImplicitUseStrict": true,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "include": ["packages/**/*","doc/**/*","doc/.vitepress/**/*","doc/**/*"]
 }

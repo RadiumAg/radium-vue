@@ -1,7 +1,7 @@
 <template>
   <div class="ra-checkbox">
     <input :value="state" type="checkbox" @click="checkboxClicked" />
-    <slot />
+    <slot></slot>
   </div>
 </template>
 <script lang="ts">

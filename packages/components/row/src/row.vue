@@ -12,11 +12,11 @@
       { 'ra-row__host--space-between': raJustify === 'space-between' },
     ]"
   >
-    <slot />
+    <slot></slot>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, provide } from 'vue';
+import { PropType, defineComponent, provide } from 'vue';
 import { IColProps, ROW_INJECT_EOKEN } from './grid';
 export default defineComponent({
   name: 'RaRow',

@@ -14,7 +14,7 @@ function compile() {
     .pipe(autoprefixer({ cascade: false }))
     .pipe(cssmin())
     .pipe(
-      rename(function(path) {
+      rename(path => {
         if (!noElPrefixFile.test(path.basename)) {
           path.basename = `ra-${path.basename}`;
         }
@@ -24,9 +24,7 @@ function compile() {
 }
 
 function copyfont() {
-  return src('./src/fonts/**')
-    .pipe(cssmin())
-    .pipe(dest('./lib/fonts'));
+  return src('./src/fonts/**').pipe(cssmin()).pipe(dest('./lib/fonts'));
 }
 
 exports.build = series(compile, copyfont);

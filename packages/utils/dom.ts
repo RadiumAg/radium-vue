@@ -1,5 +1,5 @@
 /* istanbul ignore next */
-export const on = function(
+export const on = function (
   element: HTMLElement | Document | Window,
   event: string,
   handler: EventListenerOrEventListenerObject,
@@ -11,7 +11,7 @@ export const on = function(
 };
 
 /* istanbul ignore next */
-export const off = function(
+export const off = function (
   element: HTMLElement | Document | Window,
   event: string,
   handler: EventListenerOrEventListenerObject,
@@ -23,12 +23,12 @@ export const off = function(
 };
 
 /* istanbul ignore next */
-export const once = function(
+export const once = function (
   el: HTMLElement,
   event: string,
   fn: EventListener,
 ): void {
-  const listener = function(...args: unknown[]) {
+  const listener = function (...args: unknown[]) {
     if (fn) {
       fn.apply(this, args);
     }

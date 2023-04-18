@@ -4,7 +4,7 @@
     :style="{ transform: itemStyle }"
     :class="{ 'is-animating': data.animating }"
   >
-    <slot />
+    <slot></slot>
   </div>
 </template>
 
@@ -19,8 +19,8 @@ import {
 } from 'vue';
 import {
   CAROUSEL_ITEM_PROVIDE_TOKEN,
-  ICarouselItemProps,
   CarouselItemConfig,
+  ICarouselItemProps,
   ICarouselProvide,
 } from './carousel';
 export default defineComponent({
@@ -70,9 +70,10 @@ export default defineComponent({
     }
 
     function calcTransform(index: number, activeIndex: number) {
-      itemStyle.value = `${CarouselItemConfig[direction].translate}(${(index -
-        activeIndex) *
-        CAROUSEL_PROVIDE[CarouselItemConfig[direction].offset].value}px)`;
+      itemStyle.value = `${CarouselItemConfig[direction].translate}(${
+        (index - activeIndex) *
+        CAROUSEL_PROVIDE[CarouselItemConfig[direction].offset].value
+      }px)`;
     }
 
     function addCarouseItem() {
@@ -124,13 +125,12 @@ export default defineComponent({
         ) {
           data.animating = true;
         }
-      } else if (activeIndex < CAROUSEL_PROVIDE.oldActiveIndex.value) {
-        if (
-          index >= activeIndex &&
-          index <= CAROUSEL_PROVIDE.oldActiveIndex.value
-        ) {
-          data.animating = true;
-        }
+      } else if (
+        activeIndex < CAROUSEL_PROVIDE.oldActiveIndex.value &&
+        index >= activeIndex &&
+        index <= CAROUSEL_PROVIDE.oldActiveIndex.value
+      ) {
+        data.animating = true;
       }
     }
 

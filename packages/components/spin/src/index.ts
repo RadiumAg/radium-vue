@@ -1,15 +1,15 @@
 import PopupManager from '@radium-vue/utils/popup-manager';
 import {
+  Transition,
+  VNode,
+  createVNode,
   defineComponent,
   h,
-  Transition,
+  nextTick,
+  render,
+  vShow,
   withCtx,
   withDirectives,
-  createVNode,
-  vShow,
-  VNode,
-  render,
-  nextTick,
 } from 'vue';
 
 export type TSpinParams = Partial<{
@@ -60,7 +60,7 @@ export function createSpinVirtualNode({
   const spinComponent = defineComponent({
     render() {
       const spin = h('svg', {
-        viewBox: viewBox,
+        viewBox,
         width: 50,
         height: 50,
         innerHTML: svg,
@@ -114,6 +114,6 @@ export async function CreateSpin(config: TSpinConfig) {
   config.fullScreen && (config.target = document.body);
   const { vm: instance, $el, close } = createSpinVirtualNode(config);
   await nextTick();
-  config.target.appendChild($el);
+  config.target.append($el);
   return { vn: instance, close };
 }

@@ -1,5 +1,5 @@
 import { App } from 'vue';
-import TabBar from '@radium-vue/tabs/src/tab-bar.vue';
+import TabBar from '@radium-vue/components/tabs/src/tab-bar.vue';
 import { SFCWithInstall } from '@radium-vue/utils/types';
 
 TabBar.install = (app: App): void => {

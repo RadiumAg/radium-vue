@@ -1,0 +1,27 @@
+@import '@radium-vue/theme-chalk/src/mixins/config.scss';
+
+.#{$namespace}-scrollbar-item {
+  margin: 10px 10px;
+  background: #ecf5ff;
+  color: #99a9bf;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 50px;
+}
+
+.#{$namespace}-scrollbar-item-horizontal {
+  width: 100px;
+  height: 50px;
+  margin: 10px 10px;
+  border-radius: 4px;
+  line-height: 50px;
+  color: #99a9bf;
+  background-color: #ecf5ff;
+  display: inline-block;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.#{$namespace}-scrollbar-item-horizontal-container {
+  display: flex;
+}

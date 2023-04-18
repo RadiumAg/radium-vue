@@ -1,0 +1,20 @@
+@use '@radium-vue/theme-chalk/src/mixins/config.scss';
+@import './color.scss';
+
+.#{$namespace}-grid-item-color-1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: $-demo-main-color;
+  border-radius: 5px;
+}
+
+.#{$namespace}-grid-item-color-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: $-demo-main-color2;
+  border-radius: 5px;
+}

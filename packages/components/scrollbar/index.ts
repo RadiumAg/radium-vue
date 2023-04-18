@@ -1,6 +1,6 @@
 import { App } from 'vue';
-import Scrollbar from './src/index.vue';
 import { SFCWithInstall } from '@radium-vue/utils/types';
+import Scrollbar from './src/index.vue';
 
 Scrollbar.install = (app: App): void => {
   app.component(Scrollbar.name, Scrollbar);

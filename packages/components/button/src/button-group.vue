@@ -1,6 +1,6 @@
 <template>
   <div class="ra-button-group">
-    <slot />
+    <slot></slot>
   </div>
 </template>
 

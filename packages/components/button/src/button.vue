@@ -3,18 +3,18 @@
     v-ripple="!raDisabled && raType !== 'text' && !raLoading"
     class="ra-button"
     :class="[...buttonClass]"
-    style="position:relative"
+    style="position: relative"
   >
-    <i v-if="raLoading" class="ra-icon-loading" />
-    <slot v-if="$slots.default" />
-    <i v-if="iconClass.length != 0" :class="iconClass" />
+    <i v-if="raLoading" class="ra-icon-loading"></i>
+    <slot v-if="$slots.default"></slot>
+    <i v-if="iconClass.length > 0" :class="iconClass"></i>
   </button>
 </template>
 
 <script lang="ts">
-import raRipple from '@radium-vue/ripple';
 import { computed, defineComponent } from 'vue';
-import { IButtonProps } from './button';
+import raRipple from '../../ripple';
+import { ButtonProps } from './button';
 export default defineComponent({
   name: 'RaButton',
   directives: { ripple: raRipple },
@@ -52,7 +52,7 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props: IButtonProps) {
+  setup(props: ButtonProps) {
     // init here
     const buttonClass = computed(() => {
       const res = [];

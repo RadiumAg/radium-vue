@@ -1,18 +1,18 @@
 <script lang="ts">
+import throwError from '@radium-vue/utils/error';
+import {
+  Fragment,
+  Teleport,
+  defineComponent,
+  h,
+  nextTick,
+  onMounted,
+  onUpdated,
+} from 'vue';
 import usePopper from './use-popper/popper';
 import popperProps from './use-popper/TPropperOptions';
 import renderPopper from './renders/popper';
-import throwError from '@radium-vue/utils/error';
 import renderArrow from './renders/arrow';
-import {
-  h,
-  Fragment,
-  nextTick,
-  onMounted,
-  Teleport,
-  defineComponent,
-  onUpdated,
-} from 'vue';
 import { MODEL_VALUE_UPDATE_EVENT } from './use-popper/type';
 import { renderTrigger } from './renders/trigger';
 const compName = 'RaPopper';

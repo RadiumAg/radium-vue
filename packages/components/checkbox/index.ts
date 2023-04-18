@@ -1,6 +1,6 @@
 import { App } from 'vue';
-import Checkbox from './src/index.vue';
 import { SFCWithInstall } from '@radium-vue/utils/types';
+import Checkbox from './src/index.vue';
 
 Checkbox.install = (app: App): void => {
   app.component(Checkbox.name, Checkbox);

@@ -9,12 +9,11 @@
         height: axis === 'x' ? '100%' : 0,
         ...barStyle,
       }"
-    />
+    ></div>
   </transition>
 </template>
 
 <script lang="ts">
-import { PROP_MAP, SCROLL_BAR_INJECT_TOKEN } from '@radium-vue/scrollbar/src';
 import { off, on } from '@radium-vue/utils/dom';
 import {
   computed,
@@ -26,7 +25,7 @@ import {
   ref,
   watch,
 } from 'vue';
-import { scrollBarInject } from '.';
+import { PROP_MAP, SCROLL_BAR_INJECT_TOKEN, scrollBarInject } from '.';
 
 export default defineComponent({
   name: 'RaBar',
@@ -38,7 +37,7 @@ export default defineComponent({
     const barStyle = reactive<{ transform?: string; height?: string }>({});
     const barRef = ref<HTMLElement>(null);
     const scrollInject = inject<scrollBarInject>(SCROLL_BAR_INJECT_TOKEN);
-    const currPro = computed(() => PROP_MAP['' + props.axis]);
+    const currPro = computed(() => PROP_MAP[`${props.axis}`]);
     const mouse = {
       startX: 0,
       endX: 0,
@@ -74,7 +73,7 @@ export default defineComponent({
         (scrollInject[currPro.value.move].value / 100) *
         barRef.value[currPro.value.clinetSize];
       on(document, 'mousemove', mouseMoveHandler);
-      document.onselectstart = () => false;
+      document.addEventListener('selectstart', () => false);
     }
 
     function IsMoreMaxOrMin() {
@@ -83,9 +82,8 @@ export default defineComponent({
         scrollInject.scrollBarRef.value[currPro.value.scrollDirection] <
         minScrollDistance
       ) {
-        scrollInject.scrollBarRef.value[
-          currPro.value.scrollDirection
-        ] = minScrollDistance;
+        scrollInject.scrollBarRef.value[currPro.value.scrollDirection] =
+          minScrollDistance;
         return (flag = true);
       }
       if (
@@ -114,11 +112,11 @@ export default defineComponent({
 
     function setTheBarSize() {
       scrollInject.scrollBarRef.value &&
-        (barStyle[currPro.value.size] =
+        (barStyle[currPro.value.size] = `${
           (scrollInject.scrollBarRef.value[currPro.value.clinetSize] /
             scrollInject.scrollBarRef.value[currPro.value.scrollSize]) *
-            100 +
-          '%');
+          100
+        }%`);
     }
 
     watch(scrollInject[currPro.value.move], () => {

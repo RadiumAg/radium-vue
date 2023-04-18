@@ -14,19 +14,19 @@
       ]"
       @scroll="scroll"
     >
-      <slot />
+      <slot></slot>
     </div>
     <div
       v-if="!raNative && data.direction.includes('x')"
       class="ra-scrollbar__horizontal"
     >
-      <bar :axis="'x'" />
+      <bar :axis="'x'"></bar>
     </div>
     <div
       v-if="!raNative && data.direction.includes('y')"
       class="ra-scrollbar__vertical"
     >
-      <bar :axis="'y'" />
+      <bar :axis="'y'"></bar>
     </div>
   </div>
 </template>
@@ -41,11 +41,11 @@ import {
   reactive,
   ref,
 } from 'vue';
-import { SCROLL_BAR_INJECT_TOKEN, TIndexProps } from '.';
-import bar from './bar.vue';
 import ResizeObserver from 'resize-observer-polyfill';
 import { off, on } from '@radium-vue/utils/dom';
 import { addUnit } from '@radium-vue/utils/common';
+import bar from './bar.vue';
+import { SCROLL_BAR_INJECT_TOKEN, TIndexProps } from '.';
 export default defineComponent({
   name: 'RaScrollbar',
   components: {

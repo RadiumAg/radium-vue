@@ -1,6 +1,6 @@
 import { getFirstValidNode } from '@radium-vue/utils/vnode';
 import throwError from '@radium-vue/utils/error';
-import { cloneVNode, VNode } from 'vue';
+import { VNode, cloneVNode } from 'vue';
 
 interface IRenderTriggerProps extends Record<string, unknown> {
   ref: (ref: { $el: HTMLElement }) => void;

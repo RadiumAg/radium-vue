@@ -1,6 +1,6 @@
 import { App } from 'vue';
-import EmptyTemplate from './src/index.vue';
 import { SFCWithInstall } from '@radium-vue/utils/types';
+import EmptyTemplate from './src/index.vue';
 
 EmptyTemplate.install = (app: App): void => {
   app.component(EmptyTemplate.name, EmptyTemplate);

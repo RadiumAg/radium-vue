@@ -6,6 +6,7 @@ bin-release/
 
 
 dist/
+cache
 
 node_modules
 es
