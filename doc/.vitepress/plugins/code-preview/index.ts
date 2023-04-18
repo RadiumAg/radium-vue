@@ -1,5 +1,6 @@
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
+import Prism from 'prismjs';
 import MarkdownIt from 'markdown-it';
 import container from 'markdown-it-container';
 
@@ -27,7 +28,7 @@ const codePreview = (md: MarkdownIt) => {
         ).toString();
 
         return `<vp-example path="${resolvePath}" source="${encodeURIComponent(
-          source,
+          Prism.highlight(source, Prism.languages.javascript, 'javascript'),
         )}"></vp-example>`;
       } else {
         return '';

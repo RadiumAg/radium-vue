@@ -4,12 +4,14 @@
       <component :is="DemoComponent"></component>
     </div>
 
-    <div class="content" v-text="decodeSource"></div>
+    <vp-code :source="source"></vp-code>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue';
+import { defineAsyncComponent } from 'vue';
+import VpCode from './vp-code.vue';
+
 const props = defineProps({
   path: {
     type: String,
@@ -22,8 +24,6 @@ const props = defineProps({
 });
 
 const DemoComponent = defineAsyncComponent(() => import(props.path));
-
-const decodeSource = computed(() => decodeURIComponent(props.source));
 </script>
 
 <style lang="scss" scoped>

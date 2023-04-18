@@ -1,3 +1,4 @@
+import 'prismjs/themes/prism.css';
 import DefaultTheme from 'vitepress/theme';
 import ElementPlus from '@radium-vue/components';
 import '@radium-vue/theme-chalk/src/index.scss';
