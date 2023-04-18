@@ -8,39 +8,7 @@
 使用`create`方法，设置`raContent`和`raTitle`即可实现一个简单的对话框。
 
 :::demo
-
-```html
-<template>
-    <ra-row>
-        <ra-col>
-            <ra-button class="ra-modal-button" @click="openModal">打开对话框</ra-button>
-        </ra-col>
-     </ra-row>
-</template>
-
-<script>
-  import { defineComponent, h } from 'vue';
-  import { RaModal } from 'radium-vue';
-  export default defineComponent({
-      setup(){
-          const content = ref(null);
-          function openModal(){
-              RaModal.create({ 
-                  raTitle:'提示',
-                  raWidth: '30%',
-                  raContent: 'dark soul III',
-              }).afterClose
-                .then(()=>{ console.log('ok') });
-          }
-          return {
-              content,
-              openModal
-          }
-      }
-  })
-</script>
-```
-
+modal/basic
 :::
 
 #### 自定义内容
@@ -48,59 +16,7 @@
 使用`template`标签 自定义内容，并使用`ref`的方式将模板传递给相应的参数。
 
 :::demo
-
-```html
-<template>
-    <template ref="title">
-       <p style="line-height:20px;">自定义标题</p>
-    </template>
-    <template ref="content">
-       <p style="line-height:20px;">自定义内容</p>
-    </template>
-    <template ref="footer">
-      <ra-row ra-justify="end">
-        <ra-col>
-            <ra-button class="ra-modal-button" ra-type="primary" @click="()=>{modalInstance.close()}">关闭对话框</ra-button>
-        </ra-col>
-     </ra-row>
-    </template>
-    <ra-row>
-        <ra-col>
-            <ra-button class="ra-modal-button" @click="openModal">打开对话框</ra-button>
-        </ra-col>
-     </ra-row>
-</template>
-
-<script>
-  import { defineComponent, h } from 'vue';
-  import { RaModal } from 'radium-vue';
-  export default defineComponent({
-      setup(){
-          const title = ref(null);
-          const content = ref(null);
-          const footer = ref(null);
-          const modalInstance = ref(null);
-          function openModal(){
-             modalInstance.value = RaModal.create({ 
-                  raTitle: title.value,
-                  raContent: content.value,
-                  raFooter:  footer.value,
-                  raWidth: '30%',
-              });
-          }
-          
-          return {
-              title,
-              content,
-              footer,
-              openModal,
-              modalInstance,
-          }
-      }
-  })
-</script>
-```
-
+modal/custom
 :::
 
 
@@ -110,45 +26,7 @@
 `raOnOk`或者`raOnCancel` 设置为`Promise`类型可以自动实现异步。
 
 :::demo
-
-```html
-<template>
-    <ra-row>
-        <ra-col>
-            <ra-button class="ra-modal-button" @click="openModal">打开对话框</ra-button>
-        </ra-col>
-     </ra-row>
-</template>
-
-<script>
-  import { defineComponent, h } from 'vue';
-  import { RaModal } from 'radium-vue';
-  export default defineComponent({
-      setup(){
-          const content = ref(null);
-          function openModal(){
-              RaModal.create({ 
-                  raTitle:'提示', 
-                  raWidth: '30%',
-                  raContent: 'dark soul III',
-                  raOnOk: async ()=>{ 
-                      await new Promise(resolve => { 
-                         	setTimeout(()=>{
-                                resolve();
-                            },2000) 
-                      }) 
-                    }
-                  });
-          }
-          return {
-              content,
-              openModal
-          }
-      }
-  })
-</script>
-```
-
+modal/promise
 :::
 
 
@@ -158,53 +36,7 @@
 `接口`提供了`warning`,`info`,`success`,`error`,`comfirm` 的方式。
 
 :::demo
-
-```html
-<template>
-    <ra-row>
-        <ra-col>
-            <ra-button class="ra-modal-button" @click="openModal('info')">Info</ra-button>
-        </ra-col>
-         <ra-col>
-            <ra-button class="ra-modal-button" @click="openModal('success')">Success</ra-button>
-        </ra-col>
-         <ra-col>
-            <ra-button class="ra-modal-button" @click="openModal('error')">Error</ra-button>
-        </ra-col>
-        <ra-col>
-            <ra-button class="ra-modal-button" @click="openModal('warning')">Warning</ra-button>
-        </ra-col>
-        <ra-col>
-            <ra-button class="ra-modal-button" @click="openModal('confirm')">Confirm</ra-button>
-        </ra-col>
-     </ra-row>
-</template>
-
-<script>
-  import { defineComponent, h } from 'vue';
-  import { RaModal } from 'radium-vue';
-  export default defineComponent({
-      setup(){
-          const content = ref(null);
-          const isLoading = ref(false);
-          
-          function openModal(type:string){
-              RaModal[type]({ 
-                  raTitle:'提示', 
-                  raContent: 'dark soul III',
-                  });
-          }
-          
-          
-          return {
-              content,
-              openModal
-          }
-      }
-  })
-</script>
-```
-
+modal/speed
 :::
 
 #### Message Api
