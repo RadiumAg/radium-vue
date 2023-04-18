@@ -29,6 +29,10 @@ export default defineConfig({
     resolve: {
       alias: {
         '@vp-components': path.resolve(__dirname, '../components/index.ts'),
+        'radium-vue': path.resolve(
+          __dirname,
+          '../../packages/components/radium-vue/index.ts',
+        ),
       },
     },
   },

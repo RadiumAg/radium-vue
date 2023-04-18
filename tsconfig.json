@@ -13,7 +13,8 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@vp-components": ["doc/components/index.ts"]
+      "@vp-components": ["doc/components/index.ts"],
+      "radium-vue": ["packages/components/radium-vue/index.ts"]
     },
     "lib": [
       "ESNext",
@@ -24,5 +25,5 @@
   "exclude": [
     "node_modules"
   ],
-  "include": ["./packages/**/*","doc/**/*","doc/.vitepress/**/*"]
+  "include": ["packages/**/*","doc/**/*","doc/.vitepress/**/*","doc/**/*"]
 }

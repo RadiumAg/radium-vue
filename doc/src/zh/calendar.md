@@ -5,86 +5,20 @@
 #### 基础使用
 
 ::: demo
-
-```html
-<template>
-  <ra-calendar v-model="date"></ra-calendar>
-</template>
-
-<script>
-  import { defineComponent, ref, watch } from 'vue';
-  export default defineComponent({
-    setup() {
-      const date = ref(new Date());
-      watch(date, () => {
-        console.log(date.value);
-      });
-      return {
-        date,
-      };
-    },
-  });
-</script>
-```
-
+calendar/basic
 :::
 
 #### 自定义格式
 
 ::: demo
-
-```html
-<template>
-  <ra-calendar v-model="date">
-    <template #default="data">
-      {{data.date}}{{data.isSelected? '🙉':''}}
-    </template>
-  </ra-calendar>
-</template>
-
-<script>
-  import { defineComponent, ref, watch } from 'vue';
-  export default defineComponent({
-    setup() {
-      const date = ref(new Date());
-      watch(date, () => {
-        console.log(date.value);
-      });
-      return {
-        date,
-      };
-    },
-  });
-</script>
-```
-
+calendar/custom
 :::
 
 #### 限制范围
 
 ::: demo
 
-```html
-<template>
-  <ra-calendar
-    v-model="date"
-    :ra-range="[new Date(2019, 2, 4), new Date(2019, 2, 24)]"
-  >
-  </ra-calendar>
-</template>
-
-<script>
-  import { defineComponent, ref } from 'vue';
-  export default defineComponent({
-    setup() {
-      const date = ref(new Date());
-      return {
-        date,
-      };
-    },
-  });
-</script>
-```
+calendar/range
 
 :::
 

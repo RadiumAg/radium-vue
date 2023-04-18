@@ -5,15 +5,7 @@
 配合`ra-carousel`和`ra-carousel-item`就能完成一个基本的轮播
 
 ::: demo
-
-```html
-<ra-carousel ra-height="150px" :ra-initial-index="2">
-   <ra-carousel-item v-for="(item,index) in 6" >
-      <div class="ra-carousel-item" >{{index}}</div>
-   </ra-carousel-item>
-</ra-carousel>
-```
-
+carousel/basic
 :::
 
 #### 垂直方向
@@ -21,15 +13,7 @@
 设置`ra-direction`为`vertical`变成垂直方向滚动
 
 ::: demo
-
-```html
-<ra-carousel ra-height="150px" ra-direction="vertical">
-   <ra-carousel-item v-for="(item,index) in 6" >
-      <div class="ra-carousel-item" >{{index}}</div>
-   </ra-carousel-item>
-</ra-carousel>
-```
-
+carousel/vertical
 :::
 
 
@@ -39,33 +23,17 @@
 设置`ra-autoplay`变成自动轮播
 
 ::: demo
-
-```html
-<ra-carousel ra-height="150px" ra-autoplay>
-   <ra-carousel-item v-for="(item,index) in 6" >
-      <div class="ra-carousel-item" >{{index}}</div>
-   </ra-carousel-item>
-</ra-carousel>
-```
-
+carousel/auto
 :::
 
 
 
 #### 是否循环
 
-设置`ra-loop`为`flase`不循环，这种情况下最后项滚动到第一项时会出现其它项的过渡动画
+设置`ra-loop`为`false`不循环，这种情况下最后项滚动到第一项时会出现其它项的过渡动画
 
 ::: demo
-
-```html
-<ra-carousel ra-height="150px" ra-autoplay :ra-loop="false" >
-   <ra-carousel-item v-for="(item,index) in 6" >
-      <div class="ra-carousel-item" >{{index}}</div>
-   </ra-carousel-item>
-</ra-carousel>
-```
-
+carousel/circle
 :::
 
 #### Carousel Api
