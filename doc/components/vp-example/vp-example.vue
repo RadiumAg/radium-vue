@@ -34,7 +34,4 @@ const DemoComponent = defineAsyncComponent(
   border-radius: 6px 6px 0 0;
   border: 1px solid #efefef;
 }
-
-.content {
-}
 </style>
