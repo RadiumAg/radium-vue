@@ -14,6 +14,7 @@ export default defineConfig({
   description: 'radium vue doc',
   srcDir: 'src',
   vite: {
+    base: 'radium-vue/',
     plugins: [
       VueJsx(),
       AutoImport({
