@@ -11,10 +11,10 @@ import { codePreview } from './plugins/code-preview';
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'doc',
+  base: process.env.NODE_ENV === 'production' ? '/radium-vue/' : '/',
   description: 'radium vue doc',
   srcDir: 'src',
   vite: {
-    base: 'radium-vue/',
     plugins: [
       VueJsx(),
       AutoImport({
