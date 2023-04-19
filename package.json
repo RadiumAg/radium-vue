@@ -24,20 +24,15 @@
     "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^17.6.1",
     "@raag/eslint-config-vue": "^1.1.4",
-    "chalk": "^5.2.0",
     "eslint": "^8.38.0",
     "gulp": "^4.0.2",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.1",
-    "mitt": "^3.0.0",
     "normalize.css": "^8.0.1",
     "prettier": "2.8.7",
-    "rimraf": "^5.0.0",
     "rollup": "^3.20.5",
     "sass": "^1.62.0",
-    "ts-morph": "^18.0.0",
-    "typescript": "^5.0.4",
-    "vue": "^3.2.47"
+    "typescript": "^5.0.4"
   },
   "dependencies": {
     "@radium-vue/components": "^1.0.0",
