@@ -37,6 +37,7 @@ export default defineConfig({
     },
     build: {
       minify: true,
+      ssr: false,
     },
   },
   themeConfig: {
