@@ -14,9 +14,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@radium-vue/components": "^1.0.0",
+    "@radium-vue/components": "workspace:^",
     "@radium-vue/theme-chalk": "workspace:*",
-    "@radium-vue/utils": "^1.0.0"
+    "@radium-vue/utils": "workspace:^"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.51",

@@ -24,7 +24,6 @@
     "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^17.6.1",
     "@raag/eslint-config-vue": "^1.1.4",
-    "@types/lodash": "^4.14.194",
     "chalk": "^5.2.0",
     "eslint": "^8.38.0",
     "gulp": "^4.0.2",
@@ -43,9 +42,7 @@
   "dependencies": {
     "@radium-vue/components": "^1.0.0",
     "@radium-vue/theme-chalk": "^1.0.0",
-    "@radium-vue/utils": "^1.0.0",
-    "dayjs": "^1.11.7",
-    "lodash": "^4.17.21"
+    "@radium-vue/utils": "^1.0.0"
   },
   "files": [
     "lib",

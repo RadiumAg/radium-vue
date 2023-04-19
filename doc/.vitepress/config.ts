@@ -26,9 +26,6 @@ export default defineConfig({
       }),
       Inspect(),
     ],
-    build: {
-      ssr: false,
-    },
     resolve: {
       alias: {
         '@vp-components': path.resolve(__dirname, '../components/index.ts'),

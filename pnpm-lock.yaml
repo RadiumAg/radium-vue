@@ -13,12 +13,6 @@ importers:
       '@radium-vue/utils':
         specifier: ^1.0.0
         version: link:packages/utils
-      dayjs:
-        specifier: ^1.11.7
-        version: 1.11.7
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
     devDependencies:
       '@commitlint/cli':
         specifier: ^17.6.1
@@ -29,9 +23,6 @@ importers:
       '@raag/eslint-config-vue':
         specifier: ^1.1.4
         version: 1.1.4(eslint@8.38.0)(typescript@5.0.4)
-      '@types/lodash':
-        specifier: ^4.14.194
-        version: 4.14.194
       chalk:
         specifier: ^5.2.0
         version: 5.2.0
@@ -78,13 +69,13 @@ importers:
   doc:
     dependencies:
       '@radium-vue/components':
-        specifier: ^1.0.0
+        specifier: workspace:^
         version: link:../packages/components
       '@radium-vue/theme-chalk':
         specifier: workspace:*
         version: link:../packages/theme-chalk
       '@radium-vue/utils':
-        specifier: ^1.0.0
+        specifier: workspace:^
         version: link:../packages/utils
     devDependencies:
       '@iconify/json':
@@ -129,6 +120,15 @@ importers:
       '@popperjs/core':
         specifier: ^2.11.7
         version: 2.11.7
+      '@types/lodash':
+        specifier: ^4.14.194
+        version: 4.14.194
+      dayjs:
+        specifier: ^1.11.7
+        version: 1.11.7
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       resize-observer-polyfill:
         specifier: ^1.5.1
         version: 1.5.1
@@ -1275,7 +1275,7 @@ packages:
 
   /@types/lodash@4.14.194:
     resolution: {integrity: sha512-r22s9tAS7imvBt2lyHC9B8AGwWnXaYb1tY09oyLkXDs4vArpYJzw09nj8MLx5VfciBPGIb+ZwG0ssYnEPJxn/g==}
-    dev: true
+    dev: false
 
   /@types/markdown-it@12.2.3:
     resolution: {integrity: sha512-GKMHFfv3458yYy+v/N8gjufHO6MSZKCOXpZc5GXIWWy8uldwfmPn98vp81gZ5f9SVw8YYBctgfJ22a2d7AOMeQ==}
@@ -2092,7 +2092,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001480
-      electron-to-chromium: 1.4.367
+      electron-to-chromium: 1.4.368
       node-releases: 2.0.10
       update-browserslist-db: 1.0.11(browserslist@4.21.5)
     dev: true
@@ -2715,8 +2715,8 @@ packages:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
 
-  /electron-to-chromium@1.4.367:
-    resolution: {integrity: sha512-mNuDxb+HpLhPGUKrg0hSxbTjHWw8EziwkwlJNkFUj3W60ypigLDRVz04vU+VRsJPi8Gub+FDhYUpuTm9xiEwRQ==}
+  /electron-to-chromium@1.4.368:
+    resolution: {integrity: sha512-e2aeCAixCj9M7nJxdB/wDjO6mbYX+lJJxSJCXDzlr5YPGYVofuJwGN9nKg2o6wWInjX6XmxRinn3AeJMK81ltw==}
     dev: true
 
   /emoji-regex@8.0.0:
