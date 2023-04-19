@@ -1,0 +1,1 @@
+import{d as t,h as o,_ as r,a4 as a,o as c,c as i,a as n,a6 as p}from"./framework.31e4baf8.js";const _=t({setup(){return{sliderValue:o(0)}}}),d={style:{height:"500px"}};function l(e,u,f,h,m,v){const s=p("spin");return a((c(),i("div",d,[n("11111111111")])),[[s,{isShow:!0}]])}const $=r(_,[["render",l]]);export{$ as default};

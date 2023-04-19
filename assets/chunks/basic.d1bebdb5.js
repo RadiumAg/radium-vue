@@ -1,0 +1,1 @@
+import{d as t,h as s,w as r,_ as l,o as d,A as c,G as p}from"./framework.31e4baf8.js";const u=t({setup(){const e=s(new Date);return r(e,()=>{console.log(e.value)}),{date:e}}});function m(e,o,f,_,i,$){const a=p("ra-calendar");return d(),c(a,{modelValue:e.date,"onUpdate:modelValue":o[0]||(o[0]=n=>e.date=n)},null,8,["modelValue"])}const V=l(u,[["render",m]]);export{V as default};
