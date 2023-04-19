@@ -35,6 +35,9 @@ export default defineConfig({
         ),
       },
     },
+    build: {
+      minify: true,
+    },
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config

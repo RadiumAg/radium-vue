@@ -26,6 +26,7 @@
     "@vitejs/plugin-vue-jsx": "^3.0.1",
     "markdown-it-container": "^3.0.0",
     "prismjs": "^1.29.0",
+    "terser": "^5.17.1",
     "unplugin-auto-import": "^0.15.3",
     "unplugin-icons": "^0.16.1",
     "unplugin-vue-components": "^0.24.1",
