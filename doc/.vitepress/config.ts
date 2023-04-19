@@ -17,7 +17,7 @@ export default defineConfig({
     plugins: [
       VueJsx(),
       AutoImport({
-        imports: ['vue', '@vueuse/core'],
+        imports: ['vue'],
         dts: path.resolve(__dirname, '../auto-imports.d.ts'),
       }),
       Components({ resolvers: [IconsResolver()] }),
