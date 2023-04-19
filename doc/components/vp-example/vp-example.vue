@@ -1,7 +1,7 @@
 <template>
   <div class="vp-example">
     <div>
-      <component :is="DemoComponent"></component>
+      <component :is="demoComponent"></component>
     </div>
     <vp-code :source="source"></vp-code>
   </div>
@@ -9,6 +9,7 @@
 
 <script setup lang="ts">
 import VpCode from './vp-code.vue';
+const demos = import.meta.glob('../../examples/**/*.vue');
 
 const props = defineProps({
   path: {
@@ -21,9 +22,17 @@ const props = defineProps({
   },
 });
 
-const DemoComponent = defineAsyncComponent(
-  () => import(/* @vite-ignore */ props.path),
-);
+const demoComponent = ref();
+
+onMounted(async () => {
+  const demo = await Object.entries(demos).find(([path]) =>
+    path.includes(props.path),
+  )?.[1]();
+
+  if (demo) {
+    demoComponent.value = demo['default'];
+  }
+});
 </script>
 
 <style lang="scss" scoped>
