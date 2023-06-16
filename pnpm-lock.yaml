@@ -131,6 +131,9 @@ importers:
 
   packages/utils:
     dependencies:
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       resize-observer-polyfill:
         specifier: ^1.5.1
         version: 1.5.1
