@@ -1,4 +1,3 @@
-import { isEmpty, isNull } from 'lodash';
 import warn from './error';
 
 const SCOPE = 'common';

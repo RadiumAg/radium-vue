@@ -10,6 +10,7 @@
     "jsx": "preserve",
     "noLib": false,
     "target": "es6",
+    "importsNotUsedAsValues": "error",
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {

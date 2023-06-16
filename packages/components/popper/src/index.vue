@@ -44,7 +44,7 @@ export default defineComponent({
     });
 
     onUpdated(() => {
-      popperOptions.popperInstance.value.update();
+      popperOptions.popperInstance.value?.update();
     });
 
     if (props.disabled) {

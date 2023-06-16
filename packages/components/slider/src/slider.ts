@@ -1,9 +1,8 @@
-import { Ref } from 'vue';
-export const SLIDER_PROVIDE_TOKEN = 'SLIDER_PROVIDE_TOKEN';
+import type { InjectionKey, Ref } from 'vue';
 
-export type TDirection = 'x' | 'y';
+type Direction = 'x' | 'y';
 
-export type TSliderProvide = {
+type SliderProvide = {
   step: Ref<number>;
   maskAvg: Ref<number>;
   isDrag: Ref<boolean>;
@@ -14,7 +13,20 @@ export type TSliderProvide = {
   sliderDistance: Ref<number>;
 };
 
-export const ButtonBarConfig = {
+type ButtonBarConfigType = {
+  [key in 'x' | 'y']: {
+    client: key extends 'x' ? 'clientX' : 'clientY';
+    distance: key extends 'x' ? 'left' : 'top';
+    track: key extends 'x' ? 'trackWidth' : 'trackHeight';
+    class: key extends 'x' ? [] : ['is-vertical'];
+  };
+};
+
+const SLIDER_PROVIDE_TOKEN: InjectionKey<SliderProvide> = Symbol(
+  'SLIDER_PROVIDE_TOKEN',
+);
+
+const ButtonBarConfig: ButtonBarConfigType = {
   x: {
     client: 'clientX',
     distance: 'left',
@@ -28,3 +40,6 @@ export const ButtonBarConfig = {
     class: ['is-vertical'],
   },
 };
+
+export { ButtonBarConfig, SLIDER_PROVIDE_TOKEN };
+export type { ButtonBarConfigType, Direction, SliderProvide };

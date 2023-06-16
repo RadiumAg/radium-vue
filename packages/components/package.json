@@ -8,11 +8,11 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@popperjs/core": "^2.11.7",
-    "@types/lodash": "^4.14.194",
-    "dayjs": "^1.11.7",
+    "@popperjs/core": "^2.11.8",
+    "@types/lodash": "^4.14.195",
+    "dayjs": "^1.11.8",
     "lodash": "^4.17.21",
     "resize-observer-polyfill": "^1.5.1",
-    "vue": "^3.2.47"
+    "vue": "^3.3.4"
   }
 }
