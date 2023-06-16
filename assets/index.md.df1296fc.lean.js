@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as a,z as o}from"./chunks/framework.31e4baf8.js";const f=JSON.parse('{"title":"","description":"","frontmatter":{"layout":"home"},"headers":[],"relativePath":"index.md"}'),n={name:"index.md"},s=o("p",null,"radium-vue",-1),r=[s];function c(d,i,_,p,l,m){return a(),t("div",null,r)}const h=e(n,[["render",c]]);export{f as __pageData,h as default};

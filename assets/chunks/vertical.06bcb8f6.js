@@ -1,0 +1,1 @@
+import{d as n,h as r,D as s,o as t,A as u,b as m,at as p}from"./framework.d4319e1f.js";const _=n({__name:"vertical",setup(d){const e=r(0);return(i,a)=>{const o=s("ra-slider");return t(),u(o,{modelValue:m(e),"onUpdate:modelValue":a[0]||(a[0]=l=>p(e)?e.value=l:null),vertical:"",height:"300px",max:100},null,8,["modelValue"])}}});export{_ as default};

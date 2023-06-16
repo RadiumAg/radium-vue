@@ -1,0 +1,1 @@
+import{d as t,h as o,_ as r,a6 as a,a4 as c,o as i,c as n,a as p}from"./framework.d4319e1f.js";const _=t({setup(){return{sliderValue:o(0)}}}),d={style:{height:"500px"}};function l(e,u,f,h,m,v){const s=a("spin");return c((i(),n("div",d,[p("11111111111")])),[[s,{isShow:!0}]])}const $=r(_,[["render",l]]);export{$ as default};

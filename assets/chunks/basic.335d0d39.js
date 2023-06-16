@@ -1,1 +1,0 @@
-import{d as s,h as l,_ as n,o as t,A as d,G as u}from"./framework.31e4baf8.js";const p=s({setup(){return{sliderValue:l(0)}}});function i(e,o,m,c,f,_){const a=u("ra-slider");return t(),d(a,{modelValue:e.sliderValue,"onUpdate:modelValue":o[0]||(o[0]=r=>e.sliderValue=r),"ra-max":50.5},null,8,["modelValue","ra-max"])}const $=n(p,[["render",i]]);export{$ as default};

@@ -1,0 +1,1 @@
+import{d as l,h as n,D as r,o as t,A as u,b as m,at as d}from"./framework.d4319e1f.js";const i=l({__name:"basic",setup(p){const e=n(0);return(_,a)=>{const o=r("ra-slider");return t(),u(o,{modelValue:m(e),"onUpdate:modelValue":a[0]||(a[0]=s=>d(e)?e.value=s:null),max:100},null,8,["modelValue"])}}});export{i as default};
