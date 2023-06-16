@@ -1,5 +1,5 @@
 <template>
-  <ra-slider v-model="sliderValue" :ra-max="50.5"></ra-slider>
+  <ra-slider v-model="sliderValue" :ra-max="100"></ra-slider>
 </template>
 
 <script lang="ts">

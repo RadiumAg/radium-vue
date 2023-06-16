@@ -7,6 +7,7 @@
       :style="processTrackStyle"
     >
       <div class="ra-slider__progress-bar" :style="processBarStyle"></div>
+
       <ra-tooltip
         v-model:visible="isDrag"
         :ra-disabled="raShowTooltip"
@@ -15,7 +16,7 @@
         :ra-offset="3"
         ra-placement="top"
       >
-        <progress-button :direction="raVertical ? 'y' : 'x'"></progress-button>
+        <progress-button :direction="direction"></progress-button>
       </ra-tooltip>
     </div>
   </section>
@@ -25,6 +26,7 @@
 import { isNull } from 'lodash';
 import { UPDATE_MODEL_EVENT } from '@radium-vue/utils/common';
 import {
+  CSSProperties,
   computed,
   defineComponent,
   onMounted,
@@ -34,7 +36,8 @@ import {
   watchEffect,
 } from 'vue';
 import progressButton from './button.vue';
-import { SLIDER_PROVIDE_TOKEN, TSliderProvide } from './slider';
+import { ButtonBarConfig, SLIDER_PROVIDE_TOKEN, SliderProvide } from './slider';
+
 export default defineComponent({
   name: 'RaSlider',
   components: {
@@ -87,35 +90,45 @@ export default defineComponent({
     const sliderDistance = ref(0);
     const trackRef = ref<HTMLElement>();
 
+    const direction = computed(() => (props.raVertical ? 'y' : 'x'));
+
     const or = new ResizeObserver(() => {
       if (isNull(trackRef.value)) {
         return;
       }
       setTheTrackWidth();
     });
+
     const processBarStyle = computed(() => {
-      const res = [];
+      const res: CSSProperties[] = [];
+
       props.raVertical
-        ? res.push({ height: `${sliderDistance.value * maskAvg.value}%` })
-        : res.push({ width: `${sliderDistance.value * maskAvg.value}%` });
+        ? res.push({ height: `${sliderDistance.value}px` })
+        : res.push({ width: `${sliderDistance.value}px` });
       return res;
     });
 
     const processTrackClass = computed(() => {
-      const ret = [];
+      const ret: string[] = [];
       props.raVertical && ret.push('is-vertical');
       return ret;
     });
 
     const processTrackStyle = computed(() => {
-      const ret = [];
+      const ret: CSSProperties[] = [];
       props.raHeight &&
         props.raVertical &&
         ret.push({ height: props.raHeight });
       return ret;
     });
 
-    provide<TSliderProvide>(SLIDER_PROVIDE_TOKEN, {
+    function setTheTrackWidth() {
+      if (!trackRef.value) return;
+      trackWidth.value = trackRef.value.clientWidth;
+      trackHeight.value = trackRef.value.clientHeight;
+    }
+
+    const slideProvide = {
       maskAvg,
       isDrag,
       trackWidth,
@@ -124,16 +137,12 @@ export default defineComponent({
       sliderDistance,
       step: ref(props.raStep),
       maxValue: ref(props.raMax),
-    });
+    };
 
-    //funs
-    function setTheTrackWidth() {
-      trackWidth.value = trackRef.value.clientWidth;
-      trackHeight.value = trackRef.value.clientHeight;
-    }
+    provide<SliderProvide>(SLIDER_PROVIDE_TOKEN, slideProvide);
 
-    //lifeclycle
     onMounted(() => {
+      if (!trackRef.value) return;
       or.observe(trackRef.value);
     });
 
@@ -142,13 +151,21 @@ export default defineComponent({
     });
 
     watchEffect(() => {
-      emit(UPDATE_MODEL_EVENT, sliderDistance.value * props.raStep);
+      emit(
+        UPDATE_MODEL_EVENT,
+        Math.ceil(
+          (sliderDistance.value /
+            slideProvide[ButtonBarConfig[direction.value].track].value) *
+            props.raMax,
+        ),
+      );
     });
 
     return {
       props,
       isDrag,
       trackRef,
+      direction,
       processTrackClass,
       processBarStyle,
       processTrackStyle,

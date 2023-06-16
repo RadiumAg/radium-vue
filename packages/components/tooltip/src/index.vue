@@ -5,7 +5,8 @@ import {
   UPDATE_MODEL_EVENT,
   processInvalidProp,
 } from '@radium-vue/utils/common';
-import { TPlacement, TToolTipProps } from '.';
+import type { TPlacement, TToolTipProps } from '.';
+
 export default defineComponent({
   name: 'RaTooltip',
   props: {
@@ -83,6 +84,7 @@ export default defineComponent({
     },
   },
   emits: [UPDATE_MODEL_EVENT],
+
   setup(props, { slots, emit }) {
     return () =>
       createVNode(
