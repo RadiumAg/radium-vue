@@ -10,9 +10,9 @@
 
       <ra-tooltip
         v-model:visible="isDrag"
-        :ra-disabled="raShowTooltip"
+        :ra-disabled="showTooltip"
         :ra-manual="true"
-        :ra-content="'' + modelValue"
+        :ra-content="'' + currentValue"
         :ra-offset="3"
         ra-placement="top"
       >
@@ -22,154 +22,133 @@
   </section>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { isNull } from 'lodash';
-import { UPDATE_MODEL_EVENT } from '@radium-vue/utils/common';
 import {
   CSSProperties,
   computed,
-  defineComponent,
   onMounted,
   onUnmounted,
   provide,
   ref,
-  watchEffect,
+  useModel,
 } from 'vue';
 import progressButton from './button.vue';
-import { ButtonBarConfig, SLIDER_PROVIDE_TOKEN, SliderProvide } from './slider';
+import { ButtonBarConfig, SLIDER_PROVIDE_TOKEN } from './slider';
 
-export default defineComponent({
+defineOptions({
   name: 'RaSlider',
-  components: {
-    progressButton,
+});
+
+const props = defineProps({
+  modelValue: {
+    type: Number,
+    default: 0,
   },
-  props: {
-    modelValue: {
-      type: Number,
-      default: 0,
-    },
-    raMin: {
-      type: Number,
-      default: 0,
-    },
-    raMax: {
-      type: Number,
-      default: 100,
-    },
-    raDisabled: {
-      type: Boolean,
-      default: false,
-    },
-    raStep: {
-      type: Number,
-      default: 10,
-    },
-    raShowTooltip: {
-      type: Boolean,
-      default: false,
-    },
-    raVertical: {
-      type: Boolean,
-      default: false,
-    },
-    raHeight: {
-      type: String,
-      default: '',
-    },
-    raShowStops: {
-      type: Boolean,
-      default: false,
-    },
+  min: {
+    type: Number,
+    default: 0,
   },
-  setup(props, { emit }) {
-    const maskAvg = ref(0);
-    const trackWidth = ref(0);
-    const isDrag = ref(false);
-    const trackHeight = ref(0);
-    const currentValue = ref(0);
-    const sliderDistance = ref(0);
-    const trackRef = ref<HTMLElement>();
-
-    const direction = computed(() => (props.raVertical ? 'y' : 'x'));
-
-    const or = new ResizeObserver(() => {
-      if (isNull(trackRef.value)) {
-        return;
-      }
-      setTheTrackWidth();
-    });
-
-    const processBarStyle = computed(() => {
-      const res: CSSProperties[] = [];
-
-      props.raVertical
-        ? res.push({ height: `${sliderDistance.value}px` })
-        : res.push({ width: `${sliderDistance.value}px` });
-      return res;
-    });
-
-    const processTrackClass = computed(() => {
-      const ret: string[] = [];
-      props.raVertical && ret.push('is-vertical');
-      return ret;
-    });
-
-    const processTrackStyle = computed(() => {
-      const ret: CSSProperties[] = [];
-      props.raHeight &&
-        props.raVertical &&
-        ret.push({ height: props.raHeight });
-      return ret;
-    });
-
-    function setTheTrackWidth() {
-      if (!trackRef.value) return;
-      trackWidth.value = trackRef.value.clientWidth;
-      trackHeight.value = trackRef.value.clientHeight;
-    }
-
-    const slideProvide = {
-      maskAvg,
-      isDrag,
-      trackWidth,
-      trackHeight,
-      currentValue,
-      sliderDistance,
-      step: ref(props.raStep),
-      maxValue: ref(props.raMax),
-    };
-
-    provide<SliderProvide>(SLIDER_PROVIDE_TOKEN, slideProvide);
-
-    onMounted(() => {
-      if (!trackRef.value) return;
-      or.observe(trackRef.value);
-    });
-
-    onUnmounted(() => {
-      or.disconnect();
-    });
-
-    watchEffect(() => {
-      emit(
-        UPDATE_MODEL_EVENT,
-        Math.ceil(
-          (sliderDistance.value /
-            slideProvide[ButtonBarConfig[direction.value].track].value) *
-            props.raMax,
-        ),
-      );
-    });
-
-    return {
-      props,
-      isDrag,
-      trackRef,
-      direction,
-      processTrackClass,
-      processBarStyle,
-      processTrackStyle,
-    };
+  max: {
+    type: Number,
+    default: 100,
   },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  step: {
+    type: Number,
+    default: 10,
+  },
+  showTooltip: {
+    type: Boolean,
+    default: false,
+  },
+  vertical: {
+    type: Boolean,
+    default: false,
+  },
+  height: {
+    type: String,
+    default: '',
+  },
+  showStops: {
+    type: Boolean,
+    default: false,
+  },
+});
+const maskAvg = ref(0);
+const trackWidth = ref(0);
+const isDrag = ref(false);
+const trackHeight = ref(0);
+const sliderDistance = ref(0);
+const trackRef = ref<HTMLElement>();
+const currentValue = useModel(props, 'modelValue');
+
+const direction = computed(() => (props.vertical ? 'y' : 'x'));
+
+const or = new ResizeObserver(() => {
+  if (isNull(trackRef.value)) {
+    return;
+  }
+  setTheTrackWidth();
+});
+
+const processBarStyle = computed(() => {
+  const res: CSSProperties[] = [];
+
+  props.vertical
+    ? res.push({ height: `${sliderDistance.value}px` })
+    : res.push({ width: `${sliderDistance.value}px` });
+  return res;
+});
+
+const processTrackClass = computed(() => {
+  const ret: string[] = [];
+  props.vertical && ret.push('is-vertical');
+  return ret;
+});
+
+const processTrackStyle = computed(() => {
+  const ret: CSSProperties[] = [];
+  props.height && props.vertical && ret.push({ height: props.height });
+  return ret;
+});
+
+function setTheTrackWidth() {
+  if (!trackRef.value) return;
+  trackWidth.value = trackRef.value.clientWidth;
+  trackHeight.value = trackRef.value.clientHeight;
+}
+
+const slideProvide = {
+  maskAvg,
+  isDrag,
+  trackWidth,
+  trackHeight,
+  currentValue,
+  sliderDistance,
+  step: ref(props.step),
+  maxValue: ref(props.max),
+};
+
+provide(SLIDER_PROVIDE_TOKEN, slideProvide);
+
+onMounted(() => {
+  if (!trackRef.value) return;
+  or.observe(trackRef.value);
+});
+
+onUnmounted(() => {
+  or.disconnect();
+});
+
+watch(sliderDistance, () => {
+  currentValue.value = Math.ceil(
+    (sliderDistance.value /
+      slideProvide[ButtonBarConfig[direction.value].track].value) *
+      props.max,
+  );
 });
 </script>

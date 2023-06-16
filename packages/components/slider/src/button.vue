@@ -38,12 +38,27 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const isDrag = ref(false);
     const buttonStyle = ref({});
     const buttonRef = ref<HTMLElement>();
     const data = reactive({ distance: 0 });
     const mouse = reactive({ start: 0, end: 0, lastPos: 0 });
-    const sliderToken = inject<SliderProvide>(SLIDER_PROVIDE_TOKEN);
+    const {
+      isDrag,
+      sliderDistance,
+      step,
+      maxValue,
+
+      ...track
+    } = inject<SliderProvide>(SLIDER_PROVIDE_TOKEN, {
+      maskAvg: ref(0),
+      isDrag: ref(false),
+      sliderDistance: ref(0),
+      step: ref(0),
+      currentValue: ref(0),
+      maxValue: ref(0),
+      trackWidth: ref(0),
+      trackHeight: ref(0),
+    });
 
     const buttonClass = computed(() => {
       let ret = ['ra-slider__button-area'];
@@ -51,20 +66,17 @@ export default defineComponent({
       return ret;
     });
     const distanceAvg = computed(() => {
-      if (!sliderToken) return;
-
       return (
-        sliderToken.maxValue.value /
-        sliderToken[ButtonBarConfig[props.direction].track].value
+        maxValue.value / track[ButtonBarConfig[props.direction].track].value
       );
     });
 
     // funcs
     const handleButtonMouseUp = () => {
-      if (!buttonRef.value || !sliderToken) return;
+      if (!buttonRef.value) return;
 
       isDrag.value = false;
-      sliderToken.isDrag.value = false;
+      isDrag.value = false;
       mouse.lastPos = data.distance;
 
       off(document, 'mouseup', handleButtonMouseUp);
@@ -76,24 +88,29 @@ export default defineComponent({
     };
 
     const handlebuttonDrag = (event: Event) => {
-      if (!sliderToken || !distanceAvg.value) return;
+      if (!distanceAvg.value) return;
+      const trackValue = track[ButtonBarConfig[props.direction].track];
 
       mouse.end = event[ButtonBarConfig[props.direction].client];
 
       const moveDistance = mouse.end - mouse.start + mouse.lastPos;
+
+      if (
+        Math.ceil(((mouse.end - mouse.start) / trackValue.value) * 100) %
+          Math.ceil((step.value / maxValue.value) * 100) !==
+        0
+      )
+        return;
+
       data.distance = moveDistance;
 
       if (data.distance < 0) {
         data.distance = 0;
-      } else if (
-        data.distance >
-        sliderToken[ButtonBarConfig[props.direction].track].value
-      ) {
-        data.distance =
-          sliderToken[ButtonBarConfig[props.direction].track].value;
+      } else if (data.distance > trackValue.value) {
+        data.distance = trackValue.value;
       }
 
-      sliderToken.sliderDistance.value = data.distance;
+      sliderDistance.value = data.distance;
       buttonStyle.value = {
         [ButtonBarConfig[props.direction].distance]: `${data.distance}px`,
       };
@@ -113,13 +130,11 @@ export default defineComponent({
     };
 
     const buttonMuseLeave = () => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      !isDrag.value && (sliderToken!.isDrag.value = false);
+      !isDrag.value && (isDrag.value = false);
     };
 
     const buttonMouseOver = () => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      sliderToken!.isDrag.value = true;
+      isDrag.value = true;
     };
     return {
       data,

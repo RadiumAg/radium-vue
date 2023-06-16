@@ -1,4 +1,4 @@
-import { Ref } from 'vue';
+import type { InjectionKey, Ref } from 'vue';
 
 type Direction = 'x' | 'y';
 
@@ -22,7 +22,9 @@ type ButtonBarConfigType = {
   };
 };
 
-const SLIDER_PROVIDE_TOKEN = 'SLIDER_PROVIDE_TOKEN';
+const SLIDER_PROVIDE_TOKEN: InjectionKey<SliderProvide> = Symbol(
+  'SLIDER_PROVIDE_TOKEN',
+);
 
 const ButtonBarConfig: ButtonBarConfigType = {
   x: {

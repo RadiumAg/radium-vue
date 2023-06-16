@@ -13,5 +13,5 @@ slider/basic
 #### 竖向模式
 
 :::demo
-slider/basic
+slider/vertical
 :::

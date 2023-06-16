@@ -1,8 +1,9 @@
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import Prism from 'prismjs';
-import MarkdownIt from 'markdown-it';
 import container from 'markdown-it-container';
+
+import type MarkdownIt from 'markdown-it';
 
 const codePreview = (md: MarkdownIt) => {
   md.use(container, 'demo', {
