@@ -95,12 +95,17 @@ export default defineComponent({
 
       const moveDistance = mouse.end - mouse.start + mouse.lastPos;
 
-      if (
-        Math.ceil(((mouse.end - mouse.start) / trackValue.value) * 100) %
-          Math.ceil((step.value / maxValue.value) * 100) !==
-        0
-      )
-        return;
+      let position = Math.round(
+        ((mouse.end - mouse.start) / trackValue.value) * 100,
+      );
+
+      if (position < 0) {
+        position = 0;
+      } else if (position > 100) {
+        position = 100;
+      }
+
+      console.log(position);
 
       data.distance = moveDistance;
 
