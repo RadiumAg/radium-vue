@@ -5,7 +5,7 @@ import {
   UPDATE_MODEL_EVENT,
   processInvalidProp,
 } from '@radium-vue/utils/common';
-import type { TPlacement, TToolTipProps } from '.';
+import type { Placement, ToolTipProps } from '.';
 
 export default defineComponent({
   name: 'RaTooltip',
@@ -14,71 +14,71 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    raAppendtobody: {
+    appendToBody: {
       type: Boolean,
       default: false,
     },
-    raEffect: {
-      type: String as PropType<TToolTipProps>,
+    efflect: {
+      type: String as PropType<ToolTipProps>,
       default: 'dark',
     },
-    raContent: {
+    content: {
       type: String,
       default: '',
     },
-    raPlacement: {
-      type: String as PropType<TPlacement>,
+    placement: {
+      type: String as PropType<Placement>,
       default: 'bottom',
     },
-    raDisabled: {
+    disabled: {
       type: Boolean,
       default: false,
     },
-    raOffset: {
+    offset: {
       type: Number,
       default: 10,
     },
-    raTransition: {
+    transition: {
       type: String,
       default: '',
     },
-    raShowAfter: {
+    showAfter: {
       type: Number,
       default: 0,
     },
-    raHideAfter: {
+    hideAfter: {
       type: Number,
       default: 0,
     },
-    raAutoClose: {
+    autoClose: {
       type: Number,
       default: 0,
     },
-    raManual: {
+    manual: {
       type: Boolean,
       default: false,
     },
-    raPopperClass: {
+    popperClass: {
       type: String,
       default: '',
     },
-    raPopperStype: {
+    popperStype: {
       type: String,
       default: '',
     },
-    raEnterable: {
+    enterable: {
       type: Boolean,
       default: true,
     },
-    raVisibleArrow: {
+    visibleArrow: {
       type: Boolean,
       default: true,
     },
-    raBoundariesPadding: {
+    boundariesPadding: {
       type: Number,
       default: 0,
     },
-    raCutoff: {
+    cutoff: {
       type: Boolean,
       default: false,
     },
@@ -93,27 +93,27 @@ export default defineComponent({
           'onUpdate:visible': value => {
             emit(UPDATE_MODEL_EVENT, value);
           },
-          effect: props.raEffect,
-          offset: props.raOffset,
-          cutoff: props.raCutoff,
+          effect: props.efflect,
+          offset: props.offset,
+          cutoff: props.cutoff,
           visible: props.modelValue,
-          style: props.raPopperStype,
-          disabled: props.raDisabled,
-          manualMode: props.raManual,
-          arrowOffset: props.raOffset,
-          placement: props.raPlacement,
-          hideAfter: props.raHideAfter,
-          autoClose: props.raAutoClose,
-          enterable: props.raEnterable,
-          showAfter: props.raShowAfter,
-          transition: props.raTransition,
-          popperClass: props.raPopperClass,
-          appendToBody: props.raAppendtobody,
-          boundariesPadding: props.raBoundariesPadding,
+          style: props.popperStype,
+          disabled: props.disabled,
+          manualMode: props.manual,
+          arrowOffset: props.offset,
+          placement: props.placement,
+          hideAfter: props.hideAfter,
+          autoClose: props.autoClose,
+          enterable: props.enterable,
+          showAfter: props.showAfter,
+          transition: props.transition,
+          popperClass: props.popperClass,
+          appendToBody: props.appendToBody,
+          boundariesPadding: props.boundariesPadding,
         }),
         {
-          trigger: () => slots.default(),
-          content: () => props.raContent || slots.content(),
+          trigger: () => slots.default?.(),
+          content: () => props.content || slots.content?.(),
         },
       );
   },

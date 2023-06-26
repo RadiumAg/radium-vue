@@ -1,8 +1,8 @@
-import { TRadiumDirective } from '@radium-vue/utils/types';
+import { RadiumDirective } from '@radium-vue/utils/types';
 import { VNode } from 'vue';
 import { CreateSpin, TSpinParams } from '.';
 
-const spin: TRadiumDirective<
+const spin: RadiumDirective<
   HTMLElement & { instance: { vn: VNode; close: () => void } },
   TSpinParams
 > = {
