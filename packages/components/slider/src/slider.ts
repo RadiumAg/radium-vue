@@ -41,5 +41,44 @@ const ButtonBarConfig: ButtonBarConfigType = {
   },
 };
 
-export { ButtonBarConfig, SLIDER_PROVIDE_TOKEN };
+const sliderProps = {
+  modelValue: {
+    type: Number,
+    default: 0,
+  },
+  min: {
+    type: Number,
+    default: 0,
+  },
+  max: {
+    type: Number,
+    default: 100,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  step: {
+    type: Number,
+    default: 10,
+  },
+  showTooltip: {
+    type: Boolean,
+    default: false,
+  },
+  vertical: {
+    type: Boolean,
+    default: false,
+  },
+  height: {
+    type: String,
+    default: '',
+  },
+  showStops: {
+    type: Boolean,
+    default: false,
+  },
+};
+
+export { ButtonBarConfig, sliderProps, SLIDER_PROVIDE_TOKEN };
 export type { ButtonBarConfigType, Direction, SliderProvide };

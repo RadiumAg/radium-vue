@@ -33,51 +33,15 @@ import {
   ref,
   useModel,
 } from 'vue';
+import { RaToolTip } from 'radium-vue';
 import progressButton from './button.vue';
-import { ButtonBarConfig, SLIDER_PROVIDE_TOKEN } from './slider';
+import { SLIDER_PROVIDE_TOKEN, sliderProps } from './slider';
 
 defineOptions({
   name: 'RaSlider',
 });
 
-const props = defineProps({
-  modelValue: {
-    type: Number,
-    default: 0,
-  },
-  min: {
-    type: Number,
-    default: 0,
-  },
-  max: {
-    type: Number,
-    default: 100,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  step: {
-    type: Number,
-    default: 10,
-  },
-  showTooltip: {
-    type: Boolean,
-    default: false,
-  },
-  vertical: {
-    type: Boolean,
-    default: false,
-  },
-  height: {
-    type: String,
-    default: '',
-  },
-  showStops: {
-    type: Boolean,
-    default: false,
-  },
-});
+const props = defineProps(sliderProps);
 const maskAvg = ref(0);
 const trackWidth = ref(0);
 const isDrag = ref(false);
@@ -142,13 +106,5 @@ onMounted(() => {
 
 onUnmounted(() => {
   or.disconnect();
-});
-
-watch(sliderDistance, () => {
-  currentValue.value = Math.ceil(
-    (sliderDistance.value /
-      slideProvide[ButtonBarConfig[direction.value].track].value) *
-      props.max,
-  );
 });
 </script>

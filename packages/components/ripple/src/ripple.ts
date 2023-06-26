@@ -1,12 +1,12 @@
 import { on } from '@radium-vue/utils/dom';
-import { TRadiumDirective } from '@radium-vue/utils/types';
+import { RadiumDirective } from '@radium-vue/utils/types';
 import { RadiumSqrt } from '@radium-vue/utils/common';
 import { isNull } from 'lodash';
 
 const processSpeed = 0.03;
 const translationDuration = 200;
 
-const ripple: TRadiumDirective<HTMLElement, boolean> = {
+const ripple: RadiumDirective<HTMLElement, boolean> = {
   name: 'ripple',
   mounted(el, binding) {
     if (binding.value !== undefined && !binding.value) {

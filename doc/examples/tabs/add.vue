@@ -19,8 +19,6 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue';
-
 export default defineComponent({
   setup() {
     let index = 0;
@@ -39,8 +37,8 @@ export default defineComponent({
       },
     ]);
     const modelValue = ref('computed');
+
     const removeClick = name => {
-      console.log(name);
       data.value = data.value.filter(_ => _.name !== name);
     };
     const addTab = () => {
@@ -51,14 +49,13 @@ export default defineComponent({
       });
       modelValue.value = `content_${index}`;
     };
-    watch(modelValue, () => {
-      console.log(modelValue.value);
-    });
+
     return {
       modelValue,
-      removeClick,
       data,
+
       addTab,
+      removeClick,
     };
   },
 });

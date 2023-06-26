@@ -1,5 +1,6 @@
-export type TToolTipProps = 'dark' | 'light';
-export type TPlacement =
+export type ToolTipProps = 'dark' | 'light';
+
+export type Placement =
   | 'top'
   | 'top-start'
   | 'top-end'

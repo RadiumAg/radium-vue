@@ -22,6 +22,7 @@ import {
   ref,
 } from 'vue';
 import { off, on } from '@radium-vue/utils/dom';
+import { max } from 'lodash';
 import {
   ButtonBarConfig,
   Direction,
@@ -43,10 +44,11 @@ export default defineComponent({
     const data = reactive({ distance: 0 });
     const mouse = reactive({ start: 0, end: 0, lastPos: 0 });
     const {
-      isDrag,
-      sliderDistance,
       step,
+      isDrag,
       maxValue,
+      currentValue,
+      sliderDistance,
 
       ...track
     } = inject<SliderProvide>(SLIDER_PROVIDE_TOKEN, {
@@ -87,21 +89,11 @@ export default defineComponent({
       off(buttonRef.value, 'mousemove', handlebuttonDrag);
     };
 
-    const handlebuttonDrag = (event: Event) => {
+    const handlebuttonDrag = async (event: Event) => {
       if (!distanceAvg.value) return;
       const trackValue = track[ButtonBarConfig[props.direction].track];
-
       mouse.end = event[ButtonBarConfig[props.direction].client];
-
       const moveDistance = mouse.end - mouse.start + mouse.lastPos;
-
-      if (
-        Math.ceil(((mouse.end - mouse.start) / trackValue.value) * 100) %
-          Math.ceil((step.value / maxValue.value) * 100) !==
-        0
-      )
-        return;
-
       data.distance = moveDistance;
 
       if (data.distance < 0) {
@@ -110,10 +102,20 @@ export default defineComponent({
         data.distance = trackValue.value;
       }
 
-      sliderDistance.value = data.distance;
+      const stepValue = Math.round(
+        data.distance / trackValue.value / (step.value / maxValue.value),
+      );
+
+      sliderDistance.value =
+        ((stepValue * step.value) / maxValue.value) * trackValue.value;
+
       buttonStyle.value = {
-        [ButtonBarConfig[props.direction].distance]: `${data.distance}px`,
+        [ButtonBarConfig[props.direction]
+          .distance]: `${sliderDistance.value}px`,
       };
+
+      await nextTick();
+      currentValue.value = step.value * stepValue;
     };
 
     const buttonMouseDown = (event: MouseEvent) => {
