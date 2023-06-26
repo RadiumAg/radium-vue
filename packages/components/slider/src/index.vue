@@ -10,11 +10,11 @@
 
       <ra-tooltip
         v-model:visible="isDrag"
-        :ra-disabled="showTooltip"
-        :ra-manual="true"
-        :ra-content="'' + currentValue"
-        :ra-offset="3"
-        ra-placement="top"
+        :disabled="showTooltip"
+        :manual="true"
+        :content="'' + currentValue"
+        :offset="3"
+        placement="top"
       >
         <progress-button :direction="direction"></progress-button>
       </ra-tooltip>
