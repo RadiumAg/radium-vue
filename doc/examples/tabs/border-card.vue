@@ -1,8 +1,8 @@
 <template>
   <ra-tabs v-model="modelValue" ra-type="border-card">
-    <ra-tab-panel ra-label="电脑" ra-name="computed">电脑</ra-tab-panel>
-    <ra-tab-panel ra-label="手机" ra-name="phone">手机</ra-tab-panel>
-    <ra-tab-panel ra-label="冰箱" ra-name="Refrigerator">冰箱</ra-tab-panel>
+    <ra-tab-panel label="电脑" name="computed">电脑</ra-tab-panel>
+    <ra-tab-panel label="手机" name="phone">手机</ra-tab-panel>
+    <ra-tab-panel label="冰箱" name="Refrigerator">冰箱</ra-tab-panel>
   </ra-tabs>
 </template>
 

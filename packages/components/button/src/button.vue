@@ -14,61 +14,31 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import raRipple from '../../ripple';
-import { ButtonProps } from './button';
+import { buttonProps } from './button';
+
 export default defineComponent({
   name: 'RaButton',
   directives: { ripple: raRipple },
-  props: {
-    raType: {
-      type: String,
-      default: 'default',
-    },
-    raSize: {
-      type: String,
-      default: '',
-    },
-    raIcon: {
-      type: String,
-      default: '',
-    },
-    raPlain: {
-      type: Boolean,
-      default: false,
-    },
-    raRound: {
-      type: Boolean,
-      default: false,
-    },
-    raCircle: {
-      type: Boolean,
-      default: false,
-    },
-    raDisabled: {
-      type: Boolean,
-      default: false,
-    },
-    raLoading: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props: ButtonProps) {
+  props: buttonProps,
+  setup(props) {
     // init here
     const buttonClass = computed(() => {
-      const res = [];
-      props.raType && res.push(`ra-button--${props.raType}`);
-      props.raSize && res.push(`ra-button--${props.raSize}`);
-      props.raPlain && res.push('is-plain');
-      props.raRound && res.push('is-round');
-      props.raCircle && res.push('is-circle');
-      props.raDisabled && res.push('is-disabled');
-      props.raLoading && res.push('is-disabled');
+      const res: string[] = [];
+
+      props.plain && res.push('is-plain');
+      props.round && res.push('is-round');
+      props.circle && res.push('is-circle');
+      props.disabled && res.push('is-disabled');
+      props.loading && res.push('is-disabled');
+      props.type && res.push(`ra-button--${props.type}`);
+      props.size && res.push(`ra-button--${props.size}`);
+
       return res;
     });
 
     const iconClass = computed(() => {
-      const res = [];
-      res.push(props.raIcon);
+      const res: string[] = [];
+      props.icon && res.push(props.icon);
       return res;
     });
 

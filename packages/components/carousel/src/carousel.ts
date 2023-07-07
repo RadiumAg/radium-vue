@@ -1,18 +1,8 @@
-import { Ref } from 'vue';
+import type { InjectionKey, Ref } from 'vue';
 
-export type TCarouselProps = {
-  raAutoplay: boolean;
-  raPauseOnHover: boolean;
-  raLoop: boolean;
-  raHeight: string;
-  raInitialIndex: number;
-  raInterval: number;
-  raArrow: string;
-  raType: string;
-  raDirection: 'horizontal' | 'vertical';
-};
+type ClickType = 'left' | 'right';
 
-export interface ICarouselItem {
+interface CarouselItem {
   uid: number;
   transformItem: (
     index: number,
@@ -21,7 +11,7 @@ export interface ICarouselItem {
   ) => void;
 }
 
-export const CarouselItemConfig = {
+const CarouselItemConfig = {
   horizontal: {
     translate: 'translateX',
     offset: 'offsetWidth',
@@ -32,19 +22,16 @@ export const CarouselItemConfig = {
   },
 };
 
-export interface ICarouselItemProps {
-  raName: string;
-  raLabel: string;
-}
-
-export interface ICarouselProvide {
-  offsetHeight: Ref<number>;
-  offsetWidth: Ref<number>;
-  oldActiveIndex: Ref<number>;
-  itemReact: ICarouselItem[];
+interface CarouselProvide {
   isLoop: Ref<boolean>;
+  itemReact: CarouselItem[];
+  offsetHeight: Ref<number | undefined>;
+  offsetWidth: Ref<number | undefined>;
+  oldActiveIndex: Ref<number | undefined>;
 }
 
-export const CAROUSEL_ITEM_PROVIDE_TOKEN = 'CAROUSEL_PROVIDE';
+const CAROUSEL_ITEM_PROVIDE_TOKEN: InjectionKey<CarouselProvide> =
+  Symbol('CAROUSEL_PROVIDE');
 
-export type TClickType = 'left' | 'right';
+export { CAROUSEL_ITEM_PROVIDE_TOKEN, CarouselItemConfig };
+export type { ClickType, CarouselProvide, CarouselItem };

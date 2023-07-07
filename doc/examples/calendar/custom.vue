@@ -6,14 +6,16 @@
   </ra-calendar>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
 export default defineComponent({
   setup() {
     const date = ref(new Date());
+
     watch(date, () => {
       console.log(date.value);
     });
+
     return {
       date,
     };

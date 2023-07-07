@@ -37,29 +37,23 @@
 <script lang="ts">
 import { computed, defineComponent, inject } from 'vue';
 import dayjs from 'dayjs';
-import {
-  CALENDAR_INJECT_TOKEN,
-  ICalendarProvide,
-  IDayList,
-  isRange,
-  totalDays,
-} from './calendar';
+import { CALENDAR_INJECT_TOKEN, DayList, isRange, totalDays } from './calendar';
 
 export default defineComponent({
   name: 'RaDateTable',
   setup() {
-    const calendarProvide = inject<ICalendarProvide>(CALENDAR_INJECT_TOKEN);
-    const currentMonth = calendarProvide.dayjsObj;
+    const calendarProvide = inject(CALENDAR_INJECT_TOKEN);
+    const currentMonth = calendarProvide!.dayjsObj;
 
     const dates = computed(() => {
-      const [start, end] = calendarProvide.range.value || [];
+      const [start, end] = calendarProvide!.range.value || [];
       const preMonthDayjs = currentMonth.value.month(
         currentMonth.value.month() - 1,
       );
       const nextMonthDayObj = currentMonth.value.month(
         currentMonth.value.month() + 1,
       );
-      const ret: IDayList = [];
+      const ret: DayList = [];
       let mStartDate = end
         ? dayjs(end).startOf('month').day()
         : currentMonth.value.startOf('month').date();
