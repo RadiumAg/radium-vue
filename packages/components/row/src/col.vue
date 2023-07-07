@@ -5,42 +5,42 @@
 </template>
 <script lang="ts">
 import { PropType, computed, defineComponent, inject } from 'vue';
-import { IRowInject, IrowProps, ROW_INJECT_EOKEN, SizeObject } from './grid';
+import { ROW_INJECT_TOKEN, RowInject, SizeObject } from './grid';
 
 export default defineComponent({
   name: 'RaCol',
   props: {
-    raFlex: {
+    flex: {
       type: [Number],
       default: 0,
     },
-    raOffset: {
+    offset: {
       type: Number,
       default: 0,
     },
-    raOrder: {
+    order: {
       type: Number,
       default: 0,
     },
-    raPull: {
+    pull: {
       type: Number,
       default: 0,
     },
-    raPush: {
+    push: {
       type: Number,
       default: 24,
     },
-    raSpan: {
+    span: {
       type: Number,
       default: 0,
     },
-    raXs: {
+    xs: {
       type: [Number, Object] as PropType<number | SizeObject>,
       default: () => {
         return 0;
       },
     },
-    raSm: {
+    sm: {
       type: [Number, Object] as PropType<number | SizeObject>,
       default: () => {
         return 0;
@@ -52,27 +52,27 @@ export default defineComponent({
         return 0;
       },
     },
-    raLg: {
+    lg: {
       type: [Number, Object] as PropType<number | SizeObject>,
       default: () => {
         return 0;
       },
     },
-    raXl: {
+    xl: {
       type: [Number, Object] as PropType<number | SizeObject>,
       default: () => {
         return 0;
       },
     },
-    raXXl: {
+    xxl: {
       type: [Number, Object] as PropType<number | SizeObject>,
       default: () => {
         return 0;
       },
     },
   },
-  setup(props: IrowProps) {
-    const ROW_INJECT = inject<IRowInject>(ROW_INJECT_EOKEN);
+  setup(props) {
+    const ROW_INJECT = inject<RowInject>(ROW_INJECT_TOKEN);
     const { gutter } = ROW_INJECT;
 
     // eslint-disable-next-line vue/return-in-computed-property
@@ -96,9 +96,9 @@ export default defineComponent({
     });
 
     const classList = computed(() => {
-      const ret = [];
-      const prNormalKey = ['raSpan', 'raPull', 'raPush', 'raSpan'] as const;
-      const prSizeKey = ['raXs', 'raSm', 'raMd', 'raLg', 'raXl', 'raXXl'];
+      const ret: string[] = [];
+      const prNormalKey = ['span', 'pull', 'push'] as const;
+      const prSizeKey = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
 
       prSizeKey.forEach(pr => {
         if (typeof props[pr] === 'number')
@@ -114,7 +114,7 @@ export default defineComponent({
       });
 
       prNormalKey.forEach(pr => {
-        if (pr === 'raSpan' && props[pr]) ret.push(`ra-col-${props[pr]}`);
+        if (pr === 'span' && props[pr]) ret.push(`ra-col-${props[pr]}`);
         else if (props[pr]) ret.push(`ra-col-${pr}-${props[pr]}`);
       });
       return ret;

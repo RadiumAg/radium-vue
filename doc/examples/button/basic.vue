@@ -43,47 +43,43 @@
 
   <ra-row class="ra-button-demo" :ra-gutter="[10, 10]">
     <ra-col>
-      <ra-button ra-round>默认按钮</ra-button>
+      <ra-button round>默认按钮</ra-button>
     </ra-col>
     <ra-col>
-      <ra-button type="primary" ra-round>主要按钮</ra-button>
+      <ra-button type="primary" round>主要按钮</ra-button>
     </ra-col>
     <ra-col>
-      <ra-button type="success" ra-round>成功按钮</ra-button>
+      <ra-button type="success" round>成功按钮</ra-button>
     </ra-col>
     <ra-col>
-      <ra-button type="info" ra-round>信息按钮</ra-button>
+      <ra-button type="info" round>信息按钮</ra-button>
     </ra-col>
     <ra-col>
-      <ra-button type="warning" ra-round>警告按钮</ra-button>
+      <ra-button type="warning" round>警告按钮</ra-button>
     </ra-col>
     <ra-col>
-      <ra-button type="danger" ra-round>危险按钮</ra-button>
+      <ra-button type="danger" round>危险按钮</ra-button>
     </ra-col>
   </ra-row>
 
   <ra-row class="ra-button-demo" :ra-gutter="[10, 10]">
     <ra-col>
-      <ra-button ra-icon="ra-icon-search" ra-circle></ra-button>
+      <ra-button icon="icon-search" circle></ra-button>
     </ra-col>
     <ra-col>
-      <ra-button ra-icon="ra-icon-edit" type="primary" ra-circle></ra-button>
+      <ra-button icon="icon-edit" type="primary" circle></ra-button>
     </ra-col>
     <ra-col>
-      <ra-button ra-icon="ra-icon-check" type="success" ra-circle></ra-button>
+      <ra-button icon="icon-check" type="success" circle></ra-button>
     </ra-col>
     <ra-col>
-      <ra-button ra-icon="ra-icon-message" type="info" ra-circle></ra-button>
+      <ra-button icon="icon-message" type="info" circle></ra-button>
     </ra-col>
     <ra-col>
-      <ra-button
-        ra-icon="ra-icon-star-off"
-        type="warning"
-        ra-circle
-      ></ra-button>
+      <ra-button icon="icon-star-off" type="warning" circle></ra-button>
     </ra-col>
     <ra-col>
-      <ra-button ra-icon="ra-icon-delete" type="danger" ra-circle></ra-button>
+      <ra-button icon="icon-delete" type="danger" circle></ra-button>
     </ra-col>
   </ra-row>
 </template>

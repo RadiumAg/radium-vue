@@ -22,7 +22,6 @@ import {
   ref,
 } from 'vue';
 import { off, on } from '@radium-vue/utils/dom';
-import { max } from 'lodash';
 import {
   ButtonBarConfig,
   Direction,

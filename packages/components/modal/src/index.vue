@@ -3,7 +3,7 @@
     <transition name="ra-modal-fade" @after-leave="$emit('ra-on-after-close')">
       <div v-show="isShow" class="ra-modal__container" :style="containerStyle">
         <i
-          v-if="raShowClose"
+          v-if="showClose"
           class="ra-icon-close"
           @click="
             () => {
@@ -15,12 +15,12 @@
         <div>
           <section class="ra-modal__title">
             <slot name="title">
-              <h3 v-html="raTitle"></h3>
+              <h3 v-html="title"></h3>
             </slot>
           </section>
           <section class="ra-modal__content">
             <slot>
-              <div v-html="raContent"></div>
+              <div v-html="content"></div>
             </slot>
           </section>
           <section class="ra-modal__footer">
@@ -28,7 +28,7 @@
               <ra-row ra-justify="end" :ra-gutter="[10]">
                 <ra-col>
                   <ra-button v-if="isShowCancel" @click="cancelButtonClick">
-                    {{ raCancelLabel }}
+                    {{ cancelLabel }}
                   </ra-button>
                 </ra-col>
                 <ra-col>
@@ -38,7 +38,7 @@
                     @click="okButtonClick"
                   >
                     <i v-if="isLoading" class="ra-icon-loading"></i>
-                    {{ raOkLabel }}
+                    {{ okLabel }}
                   </ra-button>
                 </ra-col>
               </ra-row>
@@ -47,7 +47,7 @@
         </div>
       </div>
     </transition>
-    <div v-if="raModal" class="ra-modal__mask" @click="raMaskClick"></div>
+    <div v-if="modal" class="ra-modal__mask" @click="raMaskClick"></div>
   </div>
 </template>
 <script lang="ts">
@@ -63,59 +63,59 @@ export default defineComponent({
     RaCol,
   },
   props: {
-    raTitle: {
+    title: {
       type: [String, Object],
       default: '',
     },
-    raContent: {
+    content: {
       type: [String, Object],
       default: '',
     },
-    raWidth: {
+    width: {
       type: [String, Number],
       default: '50%',
     },
-    raTop: {
+    top: {
       type: String,
       default: '15vh',
     },
-    raModal: {
+    modal: {
       type: Boolean,
       default: true,
     },
-    raLockScroll: {
+    lockScroll: {
       type: Boolean,
       default: true,
     },
-    raDropClose: {
+    dropClose: {
       type: Boolean,
       default: true,
     },
-    raShowClose: {
+    showClose: {
       type: Boolean,
       default: true,
     },
-    raOkLabel: {
+    okLabel: {
       type: String,
       default: '确认',
     },
-    raCancelLabel: {
+    cancelLabel: {
       type: String,
       default: '取消',
     },
-    raOnOk: {
+    onOk: {
       type: Function,
       default: () => {
         return null;
       },
     },
-    raOnCancel: {
+    onCancel: {
       type: Function,
       default: () => {
         return null;
       },
     },
-    raType: {
+    type: {
       type: String,
       default: '',
     },
@@ -130,26 +130,26 @@ export default defineComponent({
 
     const containerStyle = computed(() => {
       const ret = [];
-      props.raTop && ret.push({ top: props.raTop });
-      props.raWidth && ret.push({ width: props.raWidth });
+      props.top && ret.push({ top: props.top });
+      props.width && ret.push({ width: props.width });
       return ret;
     });
     const iconStyle = computed(() => {
       const ret = [];
-      if (modalType.includes(props.raType as any)) {
-        if (props.raType === 'confirm') {
+      if (modalType.includes(props.type as any)) {
+        if (props.type === 'confirm') {
           ret.push(`ra-icon-${'question'}`);
           return ret;
         }
-        ret.push(`ra-icon-${props.raType}`);
+        ret.push(`ra-icon-${props.type}`);
       }
       return ret;
     });
 
     watchEffect(() => {
-      if (props.raType === 'confirm') {
+      if (props.type === 'confirm') {
         isShowCancel.value = true;
-      } else if (props.raType) {
+      } else if (props.type) {
         isShowCancel.value = false;
       }
     });
@@ -160,19 +160,19 @@ export default defineComponent({
 
     // funs
     function raMaskClick() {
-      props.raDropClose && (isShow.value = false);
+      props.dropClose && (isShow.value = false);
     }
 
     async function okButtonClick() {
       isLoading.value = true;
-      await (props.raOnOk && props.raOnOk());
+      await (props.onOk && props.onOk());
       isLoading.value = false;
       isShow.value = false;
     }
 
     async function cancelButtonClick() {
       isLoading.value = true;
-      await (props.raOnCancel && props.raOnCancel());
+      await (props.onCancel && props.onCancel());
       isLoading.value = false;
       isShow.value = false;
     }

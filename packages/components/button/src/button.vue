@@ -38,13 +38,14 @@ export default defineComponent({
 
     const iconClass = computed(() => {
       const res: string[] = [];
+      console.log(props.icon);
       props.icon && res.push(props.icon);
       return res;
     });
 
     return {
-      buttonClass,
       iconClass,
+      buttonClass,
     };
   },
 });

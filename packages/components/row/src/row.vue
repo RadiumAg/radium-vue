@@ -2,14 +2,14 @@
   <div
     class="ra-row"
     :class="[
-      { 'ra-row__host--top': raAlign === 'top' },
-      { 'ra-row__host--middle': raAlign === 'middle' },
-      { 'ra-row__host--bottom': raAlign === 'bottom' },
-      { 'ra-row__host--start': raJustify === 'start' },
-      { 'ra-row__host--center': raJustify === 'center' },
-      { 'ra-row__host--end': raJustify === 'end' },
-      { 'ra-row__host--space-around': raJustify === 'space-around' },
-      { 'ra-row__host--space-between': raJustify === 'space-between' },
+      { 'ra-row__host--top': align === 'top' },
+      { 'ra-row__host--middle': align === 'middle' },
+      { 'ra-row__host--bottom': align === 'bottom' },
+      { 'ra-row__host--start': justify === 'start' },
+      { 'ra-row__host--center': justify === 'center' },
+      { 'ra-row__host--end': justify === 'end' },
+      { 'ra-row__host--space-around': justify === 'space-around' },
+      { 'ra-row__host--space-between': justify === 'space-between' },
     ]"
   >
     <slot></slot>
@@ -17,29 +17,29 @@
 </template>
 <script lang="ts">
 import { PropType, defineComponent, provide } from 'vue';
-import { IColProps, ROW_INJECT_EOKEN } from './grid';
+import { ROW_INJECT_TOKEN } from './grid';
 export default defineComponent({
   name: 'RaRow',
   props: {
-    raAlign: {
+    align: {
       type: String,
       default: '',
     },
-    raGutter: {
+    gutter: {
       type: [Number, Object] as PropType<number | Array<number>>,
       default: () => {
         return 0;
       },
     },
-    raJustify: {
+    justify: {
       type: String,
       default: 'flex-start',
     },
   },
-  setup(props: IColProps) {
+  setup(props) {
     // init here
-    provide(ROW_INJECT_EOKEN, {
-      gutter: props.raGutter,
+    provide(ROW_INJECT_TOKEN, {
+      gutter: props.gutter,
     });
 
     return {

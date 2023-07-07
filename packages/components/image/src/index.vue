@@ -1,5 +1,5 @@
 <template>
-  <img :src="raSrc" />
+  <img :src="src" />
 </template>
 <script lang="ts">
 import { PropType, defineComponent } from 'vue';
@@ -10,23 +10,22 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    raAlt: {
+    alt: {
       type: String,
-      default: '',
     },
-    raFit: {
+    fit: {
       type: String as PropType<'fill' | 'contain' | 'cover' | ''>,
       default: '',
     },
-    raHideOnClickModal: {
+    hideOnClickModal: {
       type: Boolean,
       default: false,
     },
-    raLazy: {
+    lazy: {
       type: Boolean,
       default: false,
     },
-    raPreviewSrcList: {
+    previewSrcList: {
       type: Array,
       default: () => [],
     },
@@ -34,25 +33,25 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    raSrc: {
+    src: {
       type: String,
     },
-    raScrollCotainer: {
+    scrollCotainer: {
       type: String,
     },
-    raZIndex: {
+    zIndex: {
       type: Number,
       default: 2000,
     },
-    raInitialIndex: {
+    initialIndex: {
       type: Number,
       default: 0,
     },
-    raInfinite: {
+    infinite: {
       type: Boolean,
       default: true,
     },
-    raAppendToBody: {
+    appendToBody: {
       type: Boolean,
       default: false,
     },

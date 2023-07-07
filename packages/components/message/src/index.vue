@@ -7,7 +7,7 @@
     <div
       v-show="isShow"
       class="ra-message"
-      :style="{ zIndex: raZIndex, top: raOffset + 'px' }"
+      :style="{ zIndex: zIndex, top: offset + 'px' }"
       :class="messageClass"
       @mouseover="mouseover"
       @mouseout="mouseout"
@@ -15,12 +15,12 @@
       <div class="ra-message__content">
         <i :class="iconClass" class="ra-message__type-icon"></i>
         <slot>
-          <p v-if="!raIsUseHtmlString">{{ raMessage }}</p>
-          <p v-else :innerHTML="raMessage"></p>
+          <p v-if="!isUseHtmlString">{{ message }}</p>
+          <p v-else :innerHTML="message"></p>
         </slot>
       </div>
       <i
-        v-if="raShowClose"
+        v-if="showClose"
         class="ra-icon-close ra-message__icon-close"
         @click="close"
       ></i>
@@ -39,35 +39,35 @@ import {
 export default defineComponent({
   name: 'RaMessage',
   props: {
-    raZIndex: {
+    zIndex: {
       type: Number,
       default: 2000,
     },
-    raMessage: {
+    message: {
       type: [String, Object] as PropType<string | VNode>,
       default: '',
     },
-    raType: {
+    type: {
       type: String,
       default: 'info',
     },
-    raIconClass: {
+    iconClass: {
       type: String,
       default: '',
     },
-    raDuration: {
+    duration: {
       type: Number,
       default: 3000,
     },
-    raIsUseHtmlString: {
+    isUseHtmlString: {
       type: Boolean,
       default: false,
     },
-    raShowClose: {
+    showClose: {
       type: Boolean,
       default: false,
     },
-    raOffset: {
+    offset: {
       type: Number,
       default: 0,
     },
@@ -78,18 +78,18 @@ export default defineComponent({
     let timer: NodeJS.Timer = null;
 
     const messageClass = computed(() => {
-      const ret = [];
-      props.raType && ret.push(`ra-message--${props.raType}`);
+      const ret: string[] = [];
+      props.type && ret.push(`ra-message--${props.type}`);
       return ret;
     });
 
     const iconClass = computed(() => {
       const ret = [];
-      if (props.raIconClass) {
-        ret.push(props.raIconClass);
+      if (props.iconClass) {
+        ret.push(props.iconClass);
         return ret;
       }
-      props.raType && ret.push(`ra-icon-${props.raType}`);
+      props.type && ret.push(`ra-icon-${props.type}`);
       return ret;
     });
     // methods
@@ -111,7 +111,7 @@ export default defineComponent({
       timer = setTimeout(() => {
         close();
         clearTimeout(timer);
-      }, props.raDuration);
+      }, props.duration);
     }
 
     onMounted(() => {

@@ -33,8 +33,7 @@ import {
   ref,
   useModel,
 } from 'vue';
-import { RaToolTip } from 'radium-vue';
-import progressButton from './button.vue';
+import ProgressButton from './button.vue';
 import { SLIDER_PROVIDE_TOKEN, sliderProps } from './slider';
 
 defineOptions({

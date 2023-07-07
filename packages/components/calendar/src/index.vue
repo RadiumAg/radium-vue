@@ -3,13 +3,13 @@
     <section class="ra-calendar__header">
       <span v-html="date"></span>
       <ra-button-group v-if="isShowTool">
-        <ra-button ra-size="mini" @click="changeTheTime('preMonth')">
+        <ra-button size="mini" @click="changeTheTime('preMonth')">
           上个月
         </ra-button>
-        <ra-button ra-size="mini" @click="changeTheTime('today')">
+        <ra-button size="mini" @click="changeTheTime('today')">
           今天
         </ra-button>
-        <ra-button ra-size="mini" @click="changeTheTime('nextMonth')">
+        <ra-button size="mini" @click="changeTheTime('nextMonth')">
           下个月
         </ra-button>
       </ra-button-group>
