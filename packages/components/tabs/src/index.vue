@@ -20,12 +20,11 @@ import {
 } from 'vue';
 import RaTabBar from './tab-bar.vue';
 import {
-  ITabsProvide,
   TABS_PROVIDE_TOKEN,
   TAB_UPDATE_EVENT,
-  TTabPanel,
-  TTabPosition,
-  TTabsType,
+  TabPanel,
+  TabPosition,
+  TabsType,
 } from '.';
 
 export default defineComponent({
@@ -36,16 +35,16 @@ export default defineComponent({
       type: String,
       defalult: '',
     },
-    raType: {
-      type: String as PropType<TTabsType>,
+    type: {
+      type: String as PropType<TabsType>,
       default: '',
     },
-    raCloseable: {
+    closeable: {
       type: Boolean,
       default: false,
     },
-    raTabPosition: {
-      type: String as PropType<TTabPosition>,
+    tabPosition: {
+      type: String as PropType<TabPosition>,
       default: 'top',
     },
   },
@@ -58,10 +57,10 @@ export default defineComponent({
     const contentSlot = ref<Slots>(undefined);
     const scrollRef = ref<HTMLElement>();
     const isArrowShow = ref(false);
-    const tabPanelItems = reactive<TTabPanel[]>([]);
+    const tabPanelItems = reactive<TabPanel[]>([]);
     const wrapClass = computed(() => {
       const ret = ['ra-tabs__wrap'];
-      props.raType && ret.push(`is-${props.raType}`);
+      props.type && ret.push(`is-${props.type}`);
       return ret;
     });
     const tabRemove = (delValue: number | string) => {
@@ -104,18 +103,18 @@ export default defineComponent({
     };
     const navClass = computed(() => {
       const ret = ['ra-tabs__nav'];
-      props.raType && ret.push(`is-${props.raType}`);
+      props.type && ret.push(`is-${props.type}`);
       isArrowShow.value && ret.push('is-scroll');
       return ret;
     });
     const tabClass = computed(() => {
       const ret = ['ra-tabs'];
-      props.raType && ret.push(`is-${props.raType}`);
+      props.type && ret.push(`is-${props.type}`);
       return ret;
     });
     const contentClass = computed(() => {
       const ret = ['ra-tabs__content'];
-      props.raType && ret.push(`is-${props.raType}`);
+      props.type && ret.push(`is-${props.type}`);
       return ret;
     });
     const scrollClass = computed(() => {
@@ -131,8 +130,8 @@ export default defineComponent({
       tabPanelItems,
       currentTabIndex,
       currentPosition,
-      tabType: ref(props.raType),
-      isCloseable: ref(props.raCloseable),
+      tabType: ref(props.type),
+      isCloseable: ref(props.closeable),
     };
 
     //funs
@@ -235,7 +234,7 @@ export default defineComponent({
       setTheArrow();
     });
 
-    provide<ITabsProvide>(TABS_PROVIDE_TOKEN, provideConfig);
+    provide<TabsProvide>(TABS_PROVIDE_TOKEN, provideConfig);
 
     return () =>
       h(
@@ -284,7 +283,7 @@ export default defineComponent({
                 }),
                 [[vShow, isArrowShow.value]],
               ),
-              props.raType ? null : h(RaTabBar),
+              props.type ? null : h(RaTabBar),
             ],
           ),
           h('div', {

@@ -40,12 +40,12 @@ carousel/circle
 
 | 参数             | 说明                 | 类型    | 可选值                | 默认值     |
 | :--------------- | :------------------- | ------- | :-------------------- | ---------- |
-| ra-height        | 走马灯高度           | string  | ——                    | ——         |
-| ra-initial-index | 走马灯起始项         | number  | ——                    | ——         |
-| ra-autoplay      | 是否自动轮播         | boolean | ——                    | false      |
-| ra-interval      | 轮播的间隔           | number  | ——                    | 1s         |
-| ra-loop          | 是否循环             | boolean | ——                    | false      |
-| ra-direction     | 滚动方向(水平或垂直) | string  | horizontal \|vertical | horizontal |
+| height        | 走马灯高度           | string  | ——                    | ——         |
+| initial-index | 走马灯起始项         | number  | ——                    | ——         |
+| autoplay      | 是否自动轮播         | boolean | ——                    | false      |
+| interval      | 轮播的间隔           | number  | ——                    | 1s         |
+| loop          | 是否循环             | boolean | ——                    | false      |
+| direction     | 滚动方向(水平或垂直) | string  | horizontal \|vertical | horizontal |
 
 
 
@@ -53,7 +53,7 @@ carousel/circle
 
 | 参数      | 说明       | 回调参数            |
 | :-------- | :--------- | ------------------- |
-| raChange | 切换时触发 | activeIndex(当前页) |
+| change | 切换时触发 | activeIndex(当前页) |
 
 
 

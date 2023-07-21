@@ -1,18 +1,18 @@
 <template>
-  <ra-row :ra-gutter="[0, 30]">
+  <ra-row :gutter="[0, 30]">
     <ra-col><ra-button @click="addTab">添加</ra-button></ra-col>
   </ra-row>
   <ra-tabs
     v-model="modelValue"
-    ra-type="border-card"
-    ra-closeable
-    @ra-tab-remove="removeClick($event)"
+    type="border-card"
+    closeable
+    @tab-remove="removeClick($event)"
   >
     <ra-tab-panel
       v-for="(item, index) in data"
       :key="index"
-      :ra-label="item.label"
-      :ra-name="item.name"
+      :label="item.label"
+      :name="item.name"
       >{{ item.label }}
     </ra-tab-panel>
   </ra-tabs>

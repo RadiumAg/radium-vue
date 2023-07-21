@@ -1,5 +1,5 @@
 <template>
-  <ra-scrollbar ra-height="230px">
+  <ra-scrollbar height="230px">
     <div v-for="(item, index) in 20" :key="index" class="ra-scrollbar-item">
       {{ item }}
     </div>

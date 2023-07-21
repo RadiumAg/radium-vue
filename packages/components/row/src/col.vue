@@ -4,78 +4,20 @@
   </div>
 </template>
 <script lang="ts">
-import { PropType, computed, defineComponent, inject } from 'vue';
-import { IRowInject, IrowProps, ROW_INJECT_EOKEN, SizeObject } from './grid';
+import { computed, defineComponent, inject } from 'vue';
+import { ROW_INJECT_TOKEN, RowInject } from './grid';
+import { colProps } from './col';
 
 export default defineComponent({
   name: 'RaCol',
-  props: {
-    raFlex: {
-      type: [Number],
-      default: 0,
-    },
-    raOffset: {
-      type: Number,
-      default: 0,
-    },
-    raOrder: {
-      type: Number,
-      default: 0,
-    },
-    raPull: {
-      type: Number,
-      default: 0,
-    },
-    raPush: {
-      type: Number,
-      default: 24,
-    },
-    raSpan: {
-      type: Number,
-      default: 0,
-    },
-    raXs: {
-      type: [Number, Object] as PropType<number | SizeObject>,
-      default: () => {
-        return 0;
-      },
-    },
-    raSm: {
-      type: [Number, Object] as PropType<number | SizeObject>,
-      default: () => {
-        return 0;
-      },
-    },
-    raMd: {
-      type: [Number, Object] as PropType<number | SizeObject>,
-      default: () => {
-        return 0;
-      },
-    },
-    raLg: {
-      type: [Number, Object] as PropType<number | SizeObject>,
-      default: () => {
-        return 0;
-      },
-    },
-    raXl: {
-      type: [Number, Object] as PropType<number | SizeObject>,
-      default: () => {
-        return 0;
-      },
-    },
-    raXXl: {
-      type: [Number, Object] as PropType<number | SizeObject>,
-      default: () => {
-        return 0;
-      },
-    },
-  },
-  setup(props: IrowProps) {
-    const ROW_INJECT = inject<IRowInject>(ROW_INJECT_EOKEN);
-    const { gutter } = ROW_INJECT;
+  props: colProps,
 
-    // eslint-disable-next-line vue/return-in-computed-property
+  setup(props) {
+    const rowInject = inject<RowInject>(ROW_INJECT_TOKEN, {
+      gutter: 0,
+    });
+    const { gutter } = rowInject;
+
     const gutterStyle = computed(() => {
       if (typeof gutter === 'number') {
         return {
@@ -83,7 +25,7 @@ export default defineComponent({
           ['padding-left']: `${gutter / 2}px`,
           ['padding-right']: `${gutter / 2}px`,
         };
-      } else if (Array.isArray(gutter)) {
+      } else {
         return {
           ['margin-left']: `${-(gutter[0] || 0) / 2}px`,
           ['padding-left']: `${(gutter[0] || 0) / 2}px`,
@@ -96,9 +38,9 @@ export default defineComponent({
     });
 
     const classList = computed(() => {
-      const ret = [];
-      const prNormalKey = ['raSpan', 'raPull', 'raPush', 'raSpan'] as const;
-      const prSizeKey = ['raXs', 'raSm', 'raMd', 'raLg', 'raXl', 'raXXl'];
+      const ret: string[] = [];
+      const prNormalKey = ['span', 'pull', 'push'] as const;
+      const prSizeKey = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
 
       prSizeKey.forEach(pr => {
         if (typeof props[pr] === 'number')
@@ -114,7 +56,7 @@ export default defineComponent({
       });
 
       prNormalKey.forEach(pr => {
-        if (pr === 'raSpan' && props[pr]) ret.push(`ra-col-${props[pr]}`);
+        if (pr === 'span' && props[pr]) ret.push(`ra-col-${props[pr]}`);
         else if (props[pr]) ret.push(`ra-col-${pr}-${props[pr]}`);
       });
       return ret;

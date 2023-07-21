@@ -27,7 +27,7 @@ calendar/range
 | 参数               | 说明         | 类型    | 可选值 | 默认值 |
 | :----------------- | :----------- | ------- | :----- | ------ |
 | modelValue/v-model | 当前选中日期 | Date    | ——     | ——     |
-| ra-range           | 范围         | Date[ ] | ——     | ——     |
+| range           | 范围         | Date[ ] | ——     | ——     |
 
 #### Carousel default slots
 

@@ -22,7 +22,7 @@ const props = defineProps({
   },
 });
 
-const demoComponent = ref();
+const demoComponent = shallowRef();
 
 onMounted(async () => {
   const demo = await Object.entries(demos).find(([path]) =>

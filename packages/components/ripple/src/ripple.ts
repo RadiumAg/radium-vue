@@ -1,7 +1,7 @@
 import { on } from '@radium-vue/utils/dom';
-import { RadiumDirective } from '@radium-vue/utils/types';
 import { RadiumSqrt } from '@radium-vue/utils/common';
 import { isNull } from 'lodash';
+import type { RadiumDirective } from '@radium-vue/utils/types';
 
 const processSpeed = 0.03;
 const translationDuration = 200;
@@ -18,6 +18,8 @@ const ripple: RadiumDirective<HTMLElement, boolean> = {
     on(rippleContainer, 'mousedown', startFadeIn);
     el.append(rippleContainer);
     function change(rippleEl: HTMLElement) {
+      if (!rippleEl) return;
+
       const rippleScale =
         Number.parseFloat(
           rippleEl.style.transform.match(/[01]\.?\d{0,4}/g)[2],

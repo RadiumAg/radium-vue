@@ -1,8 +1,8 @@
-import { Ref, Slots } from 'vue';
-export type TTabsType = 'card' | 'border-card';
-export type TTabPosition = 'top' | 'right' | 'bottom' | 'left';
+import type { InjectionKey, Ref, Slots } from 'vue';
+type TabsType = 'card' | 'border-card';
+type TabPosition = 'top' | 'right' | 'bottom' | 'left';
 
-export type TTabPanel = {
+type TabPanel = {
   index: number;
   name?: string;
   contentSlots: Slots;
@@ -11,17 +11,21 @@ export type TTabPanel = {
   setTabPanelIndex: (index: number) => void;
 };
 
-export interface ITabsProvide {
-  tabType: Ref<TTabsType>;
+interface TabsProvide {
+  tabType: Ref<TabsType>;
   currentTabIndex: Ref<number>;
   currentPosition: Ref<number>;
   currentWidth: Ref<number>;
   isCloseable: Ref<boolean>;
-  tabPanelItems: TTabPanel[];
+  tabPanelItems: TabPanel[];
   tabRemove: (delValue: number | string) => void;
   tabClick: (clickValue: number | string) => void;
 }
 
-export const TABS_PROVIDE_TOKEN = 'TABS_PROVIDE_TOKEN';
+const TABS_PROVIDE_TOKEN: InjectionKey<TabsProvide> =
+  Symbol('TABS_PROVIDE_TOKEN');
 
-export const TAB_UPDATE_EVENT = 'update:modelValue';
+const TAB_UPDATE_EVENT = 'update:modelValue';
+
+export { TAB_UPDATE_EVENT, TABS_PROVIDE_TOKEN };
+export type { TabsType, TabPosition, TabPanel };

@@ -29,7 +29,7 @@ import {
   onUnmounted,
   ref,
 } from 'vue';
-import { ITabsProvide, TABS_PROVIDE_TOKEN } from '.';
+import { TABS_PROVIDE_TOKEN } from '.';
 
 export default defineComponent({
   name: 'RaTabPanel',
@@ -51,7 +51,7 @@ export default defineComponent({
     const tabIndex = ref(0);
     const tabWrapRef = ref<HTMLElement>();
     const tabPanelRef = ref<HTMLElement>();
-    const tabPanelProvide = inject<ITabsProvide>(TABS_PROVIDE_TOKEN);
+    const tabPanelProvide = inject<TabsProvide>(TABS_PROVIDE_TOKEN);
     const isHover = ref(false);
     const isCollpaseShow = computed(() => {
       if (tabPanelProvide.isCloseable.value) {

@@ -1,25 +1,17 @@
-import { Dayjs } from 'dayjs';
-import { Ref } from 'vue';
+import type { Dayjs } from 'dayjs';
+import type { InjectionKey, Ref } from 'vue';
 
-export type TCalendarProps = Readonly<{
+type TCalendarProps = Readonly<{
   modelValue: Date;
   raRange: Array<Date>;
 }>;
 
-export function isRange(start: Date, end: Date) {
-  return !!start && !!end;
-}
-
-export const formtString = 'YYYY年MM月';
-
-export const CALENDAR_INJECT_TOKEN = 'CALENDAR_INJECT_TOKEN';
-
-export interface ICalendarProvide {
+interface CalendarProvide {
   dayjsObj: Ref<Dayjs>;
   range: Ref<Array<Date>>;
 }
 
-export type IDayList = {
+type DayList = {
   date: number;
   month: number;
   isToday: boolean;
@@ -29,4 +21,16 @@ export type IDayList = {
 const rows = 6;
 const cols = 7;
 
-export const totalDays = rows * cols;
+function isRange(start: Date, end: Date) {
+  return !!start && !!end;
+}
+
+const formatString = 'YYYY年MM月';
+
+const CALENDAR_INJECT_TOKEN: InjectionKey<CalendarProvide> = Symbol(
+  'CALENDAR_INJECT_TOKEN',
+);
+const totalDays = rows * cols;
+
+export { totalDays, isRange, formatString, CALENDAR_INJECT_TOKEN };
+export type { DayList, CalendarProvide, TCalendarProps };

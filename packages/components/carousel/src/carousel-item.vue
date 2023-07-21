@@ -20,8 +20,7 @@ import {
 import {
   CAROUSEL_ITEM_PROVIDE_TOKEN,
   CarouselItemConfig,
-  ICarouselItemProps,
-  ICarouselProvide,
+  CarouselProvide,
 } from './carousel';
 export default defineComponent({
   name: 'RaCarouselItem',
@@ -35,23 +34,18 @@ export default defineComponent({
       default: '',
     },
   },
-  setup(props: ICarouselItemProps) {
+  setup(props) {
     const instance = getCurrentInstance();
     const itemStyle = ref<string>('');
-    const CAROUSEL_PROVIDE = inject<ICarouselProvide>(
+    const CAROUSEL_PROVIDE = inject<CarouselProvide>(
       CAROUSEL_ITEM_PROVIDE_TOKEN,
     );
     const data = reactive<{
       active: boolean;
       animating: boolean;
     }>({ active: false, animating: false });
-    let direction: 'horizontal' | 'vertical' = undefined;
 
-    watchEffect(() => {
-      direction = CAROUSEL_PROVIDE.offsetWidth.value
-        ? 'horizontal'
-        : 'vertical';
-    });
+    let direction: 'horizontal' | 'vertical' = undefined;
 
     // fun
     function transformItem(
@@ -133,6 +127,12 @@ export default defineComponent({
         data.animating = true;
       }
     }
+
+    watchEffect(() => {
+      direction = CAROUSEL_PROVIDE.offsetWidth.value
+        ? 'horizontal'
+        : 'vertical';
+    });
 
     addCarouseItem();
     return { props, itemStyle, data };

@@ -2,15 +2,16 @@ import warn from './error';
 
 const SCOPE = 'common';
 
-export const EmptyObject = Object.create(null);
-export const isBool = (val: unknown) => typeof val === 'boolean';
-export const isNumber = (val: unknown) => typeof val === 'number';
-export const isString = (val: unknown) => typeof val === 'string';
-export function isNotNil<T>(value: T): value is NonNullable<T> {
+const EmptyObject = Object.create(null);
+const isBool = (val: unknown) => typeof val === 'boolean';
+const isNumber = (val: unknown) => typeof val === 'number';
+const isString = (val: unknown) => typeof val === 'string';
+
+function isNotNil<T>(value: T): value is NonNullable<T> {
   return typeof value !== 'undefined' && value !== null;
 }
 
-export function addUnit(prop: string | number) {
+function addUnit(prop: string | number) {
   if (isString(prop)) {
     return prop;
   } else if (isNumber(prop)) {
@@ -20,20 +21,20 @@ export function addUnit(prop: string | number) {
   }
 }
 
-export const RadiumSqrt = (x: number, y: number) => {
+const RadiumSqrt = (x: number, y: number) => {
   return Number.parseFloat(Math.sqrt(x ** 2 + y ** 2).toFixed(2));
 };
 
-export const UPDATE_MODEL_EVENT = 'update:modelValue';
+const UPDATE_MODEL_EVENT = 'update:modelValue';
 
-export const delay = (callback: (...any) => void, delayTime: number) => {
+const delay = (callback: (...any) => void, delayTime: number) => {
   const flag = setTimeout(() => {
     clearTimeout(flag);
     callback();
   }, delayTime);
 };
 
-export const processInvalidProp = <T extends object>(props: T) => {
+const processInvalidProp = <T extends object>(props: T) => {
   Object.keys(props).forEach(_ => {
     const propsValue = props[_];
     if (propsValue === '' || propsValue === undefined) {
@@ -41,4 +42,17 @@ export const processInvalidProp = <T extends object>(props: T) => {
     }
   });
   return props;
+};
+
+export {
+  delay,
+  isBool,
+  isNumber,
+  isString,
+  isNotNil,
+  addUnit,
+  RadiumSqrt,
+  EmptyObject,
+  processInvalidProp,
+  UPDATE_MODEL_EVENT,
 };

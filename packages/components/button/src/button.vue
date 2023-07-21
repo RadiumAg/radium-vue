@@ -1,80 +1,51 @@
 <template>
   <button
-    v-ripple="!raDisabled && raType !== 'text' && !raLoading"
+    v-ripple="!disabled && type !== 'text' && !loading"
     class="ra-button"
     :class="[...buttonClass]"
     style="position: relative"
   >
-    <i v-if="raLoading" class="ra-icon-loading"></i>
+    <i v-if="loading" class="ra-icon-loading"></i>
     <slot v-if="$slots.default"></slot>
     <i v-if="iconClass.length > 0" :class="iconClass"></i>
   </button>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { Directive, computed, defineComponent } from 'vue';
 import raRipple from '../../ripple';
-import { ButtonProps } from './button';
+import { buttonProps } from './button';
+
 export default defineComponent({
   name: 'RaButton',
-  directives: { ripple: raRipple },
-  props: {
-    raType: {
-      type: String,
-      default: 'default',
-    },
-    raSize: {
-      type: String,
-      default: '',
-    },
-    raIcon: {
-      type: String,
-      default: '',
-    },
-    raPlain: {
-      type: Boolean,
-      default: false,
-    },
-    raRound: {
-      type: Boolean,
-      default: false,
-    },
-    raCircle: {
-      type: Boolean,
-      default: false,
-    },
-    raDisabled: {
-      type: Boolean,
-      default: false,
-    },
-    raLoading: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props: ButtonProps) {
+  directives: { ripple: raRipple as Directive },
+  props: buttonProps,
+  setup(props) {
     // init here
     const buttonClass = computed(() => {
-      const res = [];
-      props.raType && res.push(`ra-button--${props.raType}`);
-      props.raSize && res.push(`ra-button--${props.raSize}`);
-      props.raPlain && res.push('is-plain');
-      props.raRound && res.push('is-round');
-      props.raCircle && res.push('is-circle');
-      props.raDisabled && res.push('is-disabled');
-      props.raLoading && res.push('is-disabled');
+      const res: string[] = [];
+
+      props.plain && res.push('is-plain');
+      props.round && res.push('is-round');
+      props.circle && res.push('is-circle');
+      props.disabled && res.push('is-disabled');
+      props.loading && res.push('is-disabled');
+      props.type && res.push(`ra-button--${props.type}`);
+      // eslint-disable-next-line unicorn/explicit-length-check
+      props.size && res.push(`ra-button--${props.size}`);
+
       return res;
     });
 
     const iconClass = computed(() => {
-      const res = [];
-      res.push(props.raIcon);
+      const res: string[] = [];
+      props.icon && res.push(props.icon);
       return res;
     });
 
     return {
-      buttonClass,
       iconClass,
+      buttonClass,
     };
   },
 });

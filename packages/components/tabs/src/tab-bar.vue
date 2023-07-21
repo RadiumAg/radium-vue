@@ -4,10 +4,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, inject } from 'vue';
-import { ITabsProvide, TABS_PROVIDE_TOKEN } from '.';
+import { TABS_PROVIDE_TOKEN, TabsProvide } from '.';
 export default defineComponent({
   setup() {
-    const tabProvide = inject<ITabsProvide>(TABS_PROVIDE_TOKEN);
+    const tabProvide = inject<TabsProvide>(TABS_PROVIDE_TOKEN);
     const barStyle = computed(() => {
       const ret = [];
       ret.push(

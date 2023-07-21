@@ -3,13 +3,13 @@
     <section class="ra-calendar__header">
       <span v-html="date"></span>
       <ra-button-group v-if="isShowTool">
-        <ra-button ra-size="mini" @click="changeTheTime('preMonth')">
+        <ra-button size="mini" @click="changeTheTime('preMonth')">
           上个月
         </ra-button>
-        <ra-button ra-size="mini" @click="changeTheTime('today')">
+        <ra-button size="mini" @click="changeTheTime('today')">
           今天
         </ra-button>
-        <ra-button ra-size="mini" @click="changeTheTime('nextMonth')">
+        <ra-button size="mini" @click="changeTheTime('nextMonth')">
           下个月
         </ra-button>
       </ra-button-group>
@@ -31,9 +31,9 @@ import { PropType, computed, defineComponent, provide, ref, watch } from 'vue';
 import dayjs from 'dayjs';
 import {
   CALENDAR_INJECT_TOKEN,
-  ICalendarProvide,
+  CalendarProvide,
   TCalendarProps,
-  formtString,
+  formatString,
 } from './calendar';
 import RaDateTable from './dateTable.vue';
 
@@ -48,7 +48,7 @@ export default defineComponent({
     modelValue: {
       type: Date,
     },
-    raRange: {
+    range: {
       type: Array as PropType<Array<Date>>,
       validator(range: Array<Date>) {
         if (Array.isArray(range)) {
@@ -61,7 +61,7 @@ export default defineComponent({
   emits: [UPDATE_MODEL_EVENT],
   setup(props: TCalendarProps, { emit }) {
     const currentDaysJsObj = ref(dayjs(props.modelValue));
-    const date = ref(currentDaysJsObj.value.format(formtString));
+    const date = ref(currentDaysJsObj.value.format(formatString));
     const range = ref(props.raRange);
     const isShowTool = computed(() => {
       const [start, end] = props.raRange || [];
@@ -72,15 +72,6 @@ export default defineComponent({
         return false;
       }
       return true;
-    });
-
-    watch(currentDaysJsObj, () => {
-      date.value = currentDaysJsObj.value.format(formtString);
-      emit(UPDATE_MODEL_EVENT, currentDaysJsObj.value.toDate());
-    });
-
-    watch(props, () => {
-      range.value = props.raRange;
     });
 
     // funcs
@@ -103,10 +94,19 @@ export default defineComponent({
           break;
         }
       }
-      date.value = currentDaysJsObj.value.format(formtString);
+      date.value = currentDaysJsObj.value.format(formatString);
     }
 
-    provide<ICalendarProvide>(CALENDAR_INJECT_TOKEN, {
+    watch(currentDaysJsObj, () => {
+      date.value = currentDaysJsObj.value.format(formatString);
+      emit(UPDATE_MODEL_EVENT, currentDaysJsObj.value.toDate());
+    });
+
+    watch(props, () => {
+      range.value = props.raRange;
+    });
+
+    provide<CalendarProvide>(CALENDAR_INJECT_TOKEN, {
       dayjsObj: currentDaysJsObj,
       range,
     });

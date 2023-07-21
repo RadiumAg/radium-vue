@@ -1,4 +1,4 @@
-export type ButtonType =
+type ButtonType =
   | 'primary'
   | 'success'
   | 'warning'
@@ -7,16 +7,41 @@ export type ButtonType =
   | 'text'
   | 'default';
 
-export type ButtonSize = 'medium' | 'small' | 'mini';
+type ButtonSize = 'medium' | 'small' | 'mini';
 
-export interface ButtonProps {
-  raType: ButtonType;
-  raSize: ButtonSize;
+const buttonProps = {
+  type: {
+    type: String,
+    default: 'default',
+  },
+  size: {
+    type: String,
+  },
+  icon: {
+    type: String,
+  },
+  plain: {
+    type: Boolean,
+    default: false,
+  },
+  round: {
+    type: Boolean,
+    default: false,
+  },
+  circle: {
+    type: Boolean,
+    default: false,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
+};
 
-  raIcon: string;
-  raPlain: boolean;
-  raRound: boolean;
-  raCircle: boolean;
-  raDisabled: boolean;
-  raLoading: boolean;
-}
+export { buttonProps };
+
+export type { ButtonSize, ButtonType };
