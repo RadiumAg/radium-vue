@@ -1,0 +1,1 @@
+import{_ as s,D as c,o as e,A as o,B as n,c as l,L as _,z as i,t as m,F as p}from"./framework.d4319e1f.js";const d={};function f(u,x){const r=c("ra-scrollbar");return e(),o(r,{height:"230px"},{default:n(()=>[(e(),l(p,null,_(20,(a,t)=>i("div",{key:t,class:"ra-scrollbar-item"},m(a),1)),64))]),_:1})}const h=s(d,[["render",f]]);export{h as default};

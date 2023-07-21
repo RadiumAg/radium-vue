@@ -1,0 +1,1 @@
+import{d as t,h as r,_ as s,D as d,o as l,A as c}from"./framework.d4319e1f.js";const m=t({setup(){return{date:r(new Date)}}});function p(e,a){const n=d("ra-calendar");return l(),c(n,{modelValue:e.date,"onUpdate:modelValue":a[0]||(a[0]=o=>e.date=o),range:[new Date(2019,2,4),new Date(2019,2,24)]},null,8,["modelValue","range"])}const f=s(m,[["render",p]]);export{f as default};
