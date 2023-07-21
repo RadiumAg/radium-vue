@@ -1,5 +1,5 @@
 <template>
-  <ra-row class="ra-button-demo" :ra-gutter="[10, 10]">
+  <ra-row class="ra-button-demo" :gutter="[10, 10]">
     <ra-col>
       <ra-button>默认按钮</ra-button>
     </ra-col>
@@ -20,7 +20,7 @@
     </ra-col>
   </ra-row>
 
-  <ra-row class="ra-button-demo" :ra-gutter="[10, 10]">
+  <ra-row class="ra-button-demo" :gutter="[10, 10]">
     <ra-col>
       <ra-button plain>朴素按钮</ra-button>
     </ra-col>
@@ -41,7 +41,7 @@
     </ra-col>
   </ra-row>
 
-  <ra-row class="ra-button-demo" :ra-gutter="[10, 10]">
+  <ra-row class="ra-button-demo" :gutter="[10, 10]">
     <ra-col>
       <ra-button round>默认按钮</ra-button>
     </ra-col>
@@ -62,24 +62,24 @@
     </ra-col>
   </ra-row>
 
-  <ra-row class="ra-button-demo" :ra-gutter="[10, 10]">
+  <ra-row class="ra-button-demo" :gutter="[10, 10]">
     <ra-col>
-      <ra-button icon="icon-search" circle></ra-button>
+      <ra-button icon="ra-icon-search" circle></ra-button>
     </ra-col>
     <ra-col>
-      <ra-button icon="icon-edit" type="primary" circle></ra-button>
+      <ra-button icon="ra-icon-edit" type="primary" circle></ra-button>
     </ra-col>
     <ra-col>
-      <ra-button icon="icon-check" type="success" circle></ra-button>
+      <ra-button icon="ra-icon-check" type="success" circle></ra-button>
     </ra-col>
     <ra-col>
-      <ra-button icon="icon-message" type="info" circle></ra-button>
+      <ra-button icon="ra-icon-message" type="info" circle></ra-button>
     </ra-col>
     <ra-col>
-      <ra-button icon="icon-star-off" type="warning" circle></ra-button>
+      <ra-button icon="ra-icon-star-off" type="warning" circle></ra-button>
     </ra-col>
     <ra-col>
-      <ra-button icon="icon-delete" type="danger" circle></ra-button>
+      <ra-button icon="ra-icon-delete" type="danger" circle></ra-button>
     </ra-col>
   </ra-row>
 </template>

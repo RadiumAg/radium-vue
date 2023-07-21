@@ -1,5 +1,5 @@
 <template>
-  <ra-row class="ra-button-demo" :ra-gutter="[10, 10]">
+  <ra-row class="ra-button-demo" :gutter="[10, 10]">
     <ra-col>
       <ra-button disabled>默认按钮</ra-button>
     </ra-col>
@@ -20,7 +20,7 @@
     </ra-col>
   </ra-row>
 
-  <ra-row class="ra-button-demo" :ra-gutter="[10, 10]">
+  <ra-row class="ra-button-demo" :gutter="[10, 10]">
     <ra-col>
       <ra-button disabled ra-plain>朴素按钮</ra-button>
     </ra-col>

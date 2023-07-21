@@ -106,7 +106,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['ra-change'],
+  emits: ['change'],
   setup(props, { emit }) {
     //ref
     const itemReact = reactive<CarouselItem[]>([]);

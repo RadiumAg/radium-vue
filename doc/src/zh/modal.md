@@ -43,19 +43,19 @@ modal/speed
 
 | 参数          | 说明                 | 类型            | 可选值 | 默认值 |
 | :------------ | :------------------- | --------------- | :----- | ------ |
-| raType        | 对话框类型           | string          | ——     | ——     |
-| raTop         | 对话框离窗口顶部距离 | string          | ——     | 15vh   |
-| raModal       | 是否开启遮罩层       | boolean         | ——     | false  |
-| raDropClose   | 点击遮罩层是否关闭   | boolean         | ——     | true   |
-| raShowClose   | 是否显示关闭消息按钮 | boolean         | ——     | true   |
-| raWidth       | 消息间隔距离         | string          | ——     | 50%    |
-| raContent     | 消息内容             | string \| vNode | ——     | false  |
-| raTitle       | 对话框标题           | string \|vNode  | ——     | ——     |
-| raFooter      | 对话框底部           | string \|vNode  | ——     | ——     |
-| raOnOk        | 确认按钮后的回调     | ()=>void        | ——     | ——     |
-| raOnCancel    | 取消后的回调         | ()=>void        | ——     | ——     |
-| raOkLabel     | 确认按钮文字         | string          | ——     | '确认' |
-| raCancelLabel | 取消按钮文字         | string          | ——     | '取消' |
+| type        | 对话框类型           | string          | ——     | ——     |
+| top         | 对话框离窗口顶部距离 | string          | ——     | 15vh   |
+| modal       | 是否开启遮罩层       | boolean         | ——     | false  |
+| dropClose   | 点击遮罩层是否关闭   | boolean         | ——     | true   |
+| showClose   | 是否显示关闭消息按钮 | boolean         | ——     | true   |
+| width       | 消息间隔距离         | string          | ——     | 50%    |
+| content     | 消息内容             | string \| vNode | ——     | false  |
+| title       | 对话框标题           | string \|vNode  | ——     | ——     |
+| footer      | 对话框底部           | string \|vNode  | ——     | ——     |
+| onOk        | 确认按钮后的回调     | ()=>void        | ——     | ——     |
+| onCancel    | 取消后的回调         | ()=>void        | ——     | ——     |
+| okLabel     | 确认按钮文字         | string          | ——     | '确认' |
+| cancelLabel | 取消按钮文字         | string          | ——     | '取消' |
 
 
 

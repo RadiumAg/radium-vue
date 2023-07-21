@@ -1,8 +1,8 @@
 <template>
   <transition
     name="ra-message-fade"
-    @before-leave="$emit('ra-close')"
-    @after-leave="$emit('ra-destroy')"
+    @before-leave="$emit('close')"
+    @after-leave="$emit('destroy')"
   >
     <div
       v-show="isShow"
@@ -72,7 +72,7 @@ export default defineComponent({
       default: 0,
     },
   },
-  emits: ['ra-destroy', 'ra-close'],
+  emits: ['destroy', 'close'],
   setup(props) {
     const isShow = ref(false);
     let timer: NodeJS.Timer = null;

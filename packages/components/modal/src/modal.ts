@@ -1,6 +1,6 @@
 import { App, createVNode, isVNode, render } from 'vue';
 import modalConstructor from './index.vue';
-import { TModalOption, TModalTypeOption } from './type';
+import type { TModalOption, TModalTypeOption } from './type';
 
 export class Modal {
   static install: (app: App) => void;

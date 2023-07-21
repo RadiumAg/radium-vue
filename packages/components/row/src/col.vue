@@ -4,78 +4,20 @@
   </div>
 </template>
 <script lang="ts">
-import { PropType, computed, defineComponent, inject } from 'vue';
-import { ROW_INJECT_TOKEN, RowInject, SizeObject } from './grid';
+import { computed, defineComponent, inject } from 'vue';
+import { ROW_INJECT_TOKEN, RowInject } from './grid';
+import { colProps } from './col';
 
 export default defineComponent({
   name: 'RaCol',
-  props: {
-    flex: {
-      type: [Number],
-      default: 0,
-    },
-    offset: {
-      type: Number,
-      default: 0,
-    },
-    order: {
-      type: Number,
-      default: 0,
-    },
-    pull: {
-      type: Number,
-      default: 0,
-    },
-    push: {
-      type: Number,
-      default: 24,
-    },
-    span: {
-      type: Number,
-      default: 0,
-    },
-    xs: {
-      type: [Number, Object] as PropType<number | SizeObject>,
-      default: () => {
-        return 0;
-      },
-    },
-    sm: {
-      type: [Number, Object] as PropType<number | SizeObject>,
-      default: () => {
-        return 0;
-      },
-    },
-    raMd: {
-      type: [Number, Object] as PropType<number | SizeObject>,
-      default: () => {
-        return 0;
-      },
-    },
-    lg: {
-      type: [Number, Object] as PropType<number | SizeObject>,
-      default: () => {
-        return 0;
-      },
-    },
-    xl: {
-      type: [Number, Object] as PropType<number | SizeObject>,
-      default: () => {
-        return 0;
-      },
-    },
-    xxl: {
-      type: [Number, Object] as PropType<number | SizeObject>,
-      default: () => {
-        return 0;
-      },
-    },
-  },
-  setup(props) {
-    const ROW_INJECT = inject<RowInject>(ROW_INJECT_TOKEN);
-    const { gutter } = ROW_INJECT;
+  props: colProps,
 
-    // eslint-disable-next-line vue/return-in-computed-property
+  setup(props) {
+    const rowInject = inject<RowInject>(ROW_INJECT_TOKEN, {
+      gutter: 0,
+    });
+    const { gutter } = rowInject;
+
     const gutterStyle = computed(() => {
       if (typeof gutter === 'number') {
         return {
@@ -83,7 +25,7 @@ export default defineComponent({
           ['padding-left']: `${gutter / 2}px`,
           ['padding-right']: `${gutter / 2}px`,
         };
-      } else if (Array.isArray(gutter)) {
+      } else {
         return {
           ['margin-left']: `${-(gutter[0] || 0) / 2}px`,
           ['padding-left']: `${(gutter[0] || 0) / 2}px`,

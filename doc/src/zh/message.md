@@ -56,14 +56,14 @@ message/html
 
 | 参数              | 说明                 | 类型      | 可选值                                   | 默认值 |
 | :---------------- | :------------------- | --------- | :--------------------------------------- | ------ |
-| raMessage         | 消息文本             | string    | ——                                       | ——     |
-| raType            | 消息类型             | string    | 'success' \|'warning' \|'info' \|'error' | ——     |
-| raIconClass       | 自定义消息icon       | string    | ——                                       | ——     |
-| raDuration        | 消息存在的时间       | number    | ——                                       | 3000   |
-| raShowClose       | 是否显示关闭消息按钮 | boolean   | ——                                       | false  |
-| raOffset          | 消息间隔距离         | number    | ——                                       | 20     |
-| raIsUseHtmlString | 是否使用html进行显示 | boolean   | ——                                       | false  |
-| raOnClose         | 消息关闭时回调       | ( )=>void | ——                                       | ——     |
+| message         | 消息文本             | string    | ——                                       | ——     |
+| type            | 消息类型             | string    | 'success' \|'warning' \|'info' \|'error' | ——     |
+| iconClass       | 自定义消息icon       | string    | ——                                       | ——     |
+| duration        | 消息存在的时间       | number    | ——                                       | 3000   |
+| showClose       | 是否显示关闭消息按钮 | boolean   | ——                                       | false  |
+| offset          | 消息间隔距离         | number    | ——                                       | 20     |
+| isUseHtmlString | 是否使用html进行显示 | boolean   | ——                                       | false  |
+| onClose         | 消息关闭时回调       | ( )=>void | ——                                       | ——     |
 
 
 

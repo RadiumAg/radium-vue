@@ -1,5 +1,5 @@
 <template>
-  <ra-row class="ra-button-demo" :ra-gutter="[10, 10]">
+  <ra-row class="ra-button-demo" :gutter="[10, 10]">
     <ra-col>
       <ra-button :loading="true" type="primary">加载中</ra-button>
     </ra-col>

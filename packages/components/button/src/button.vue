@@ -1,24 +1,24 @@
 <template>
   <button
-    v-ripple="!raDisabled && raType !== 'text' && !raLoading"
+    v-ripple="!disabled && type !== 'text' && !loading"
     class="ra-button"
     :class="[...buttonClass]"
     style="position: relative"
   >
-    <i v-if="raLoading" class="ra-icon-loading"></i>
+    <i v-if="loading" class="ra-icon-loading"></i>
     <slot v-if="$slots.default"></slot>
     <i v-if="iconClass.length > 0" :class="iconClass"></i>
   </button>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { Directive, computed, defineComponent } from 'vue';
 import raRipple from '../../ripple';
 import { buttonProps } from './button';
 
 export default defineComponent({
   name: 'RaButton',
-  directives: { ripple: raRipple },
+  directives: { ripple: raRipple as Directive },
   props: buttonProps,
   setup(props) {
     // init here
@@ -31,6 +31,7 @@ export default defineComponent({
       props.disabled && res.push('is-disabled');
       props.loading && res.push('is-disabled');
       props.type && res.push(`ra-button--${props.type}`);
+      // eslint-disable-next-line unicorn/explicit-length-check
       props.size && res.push(`ra-button--${props.size}`);
 
       return res;
@@ -38,7 +39,6 @@ export default defineComponent({
 
     const iconClass = computed(() => {
       const res: string[] = [];
-      console.log(props.icon);
       props.icon && res.push(props.icon);
       return res;
     });
