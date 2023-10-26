@@ -1,5 +1,5 @@
 <template>
-  <ra-row>
+  <ra-row :gutter="[10]">
     <ra-col>
       <ra-button class="ra-message-button" @click="handleOpenInfo"
         >消息提示</ra-button
@@ -17,12 +17,12 @@
 import { RaMessage } from 'radium-vue';
 
 const handleOpenInfo = () => {
-  RaMessage.create({ raMessage: '消息' });
+  RaMessage.create({ message: '消息' });
 };
 
 const handleOpenVNode = () => {
   RaMessage.create({
-    raMessage: h('p', null, [
+    message: h('p', null, [
       h('span', null, '内容可以是 '),
       h('i', { style: 'color: teal' }, 'VNode'),
     ]),

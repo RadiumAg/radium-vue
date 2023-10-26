@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 @import './mixins/_button';
 @import './mixins/mixins';
@@ -22,6 +22,11 @@
     border-radius: 50%;
     padding: 15px;
   }
+
+  @include e(icon) {
+    display: block !important;
+  }
+
   // type
   @include m(default) {
     border: 1px solid $--button-default-border-color;

@@ -25,17 +25,20 @@
           </section>
           <section class="ra-modal__footer">
             <slot name="footer">
-              <ra-row ra-justify="end" :ra-gutter="[10]">
+              <ra-row justify="end" :gutter="[10]">
                 <ra-col>
-                  <ra-button v-if="isShowCancel" @click="cancelButtonClick">
+                  <ra-button
+                    v-if="isShowCancel"
+                    @click="handleCancelButtonClick"
+                  >
                     {{ cancelLabel }}
                   </ra-button>
                 </ra-col>
                 <ra-col>
                   <ra-button
-                    :ra-disabled="isLoading"
-                    ra-type="primary"
-                    @click="okButtonClick"
+                    :disabled="isLoading"
+                    type="primary"
+                    @click="handleOkButtonClick"
                   >
                     <i v-if="isLoading" class="ra-icon-loading"></i>
                     {{ okLabel }}
@@ -47,7 +50,7 @@
         </div>
       </div>
     </transition>
-    <div v-if="modal" class="ra-modal__mask" @click="raMaskClick"></div>
+    <div v-if="modal" class="ra-modal__mask" @click="handleMaskClick"></div>
   </div>
 </template>
 <script lang="ts">
@@ -123,19 +126,19 @@ export default defineComponent({
   emits: ['ra-on-after-close'],
   setup(props) {
     const isShow = ref(false);
-    const contentRef = ref<HTMLTemplateElement>(null);
     const isLoading = ref(false);
     const isShowCancel = ref(true);
+    const contentRef = ref<HTMLTemplateElement>();
     const modalZIndex = ref(PopupManager.getZIndex());
 
     const containerStyle = computed(() => {
-      const ret = [];
+      const ret: Record<string, string | number>[] = [];
       props.top && ret.push({ top: props.top });
       props.width && ret.push({ width: props.width });
       return ret;
     });
     const iconStyle = computed(() => {
-      const ret = [];
+      const ret: string[] = [];
       if (modalType.includes(props.type as any)) {
         if (props.type === 'confirm') {
           ret.push(`ra-icon-${'question'}`);
@@ -159,26 +162,21 @@ export default defineComponent({
     });
 
     // funs
-    function raMaskClick() {
+    function handleMaskClick() {
       props.dropClose && (isShow.value = false);
     }
 
-    async function okButtonClick() {
+    async function handleOkButtonClick() {
       isLoading.value = true;
       await (props.onOk && props.onOk());
       isLoading.value = false;
       isShow.value = false;
     }
 
-    async function cancelButtonClick() {
+    async function handleCancelButtonClick() {
       isLoading.value = true;
       await (props.onCancel && props.onCancel());
       isLoading.value = false;
-      isShow.value = false;
-    }
-
-    // methods
-    function raDestroy() {
       isShow.value = false;
     }
 
@@ -186,15 +184,15 @@ export default defineComponent({
       isShow,
       props,
       containerStyle,
-      raMaskClick,
       contentRef,
-      raDestroy,
-      cancelButtonClick,
-      okButtonClick,
       isLoading,
       iconStyle,
       isShowCancel,
       modalZIndex,
+
+      handleOkButtonClick,
+      handleMaskClick,
+      handleCancelButtonClick,
     };
   },
 });

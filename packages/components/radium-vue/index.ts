@@ -1,5 +1,4 @@
 import { InstallConfig, setConfig } from '@radium-vue/utils/config';
-import { App } from 'vue';
 
 // components
 import RaCarousel from '../carousel';
@@ -22,6 +21,7 @@ import RaModal from '../modal';
 // directives
 import raRipple from '../ripple';
 import raSpin from '../spin';
+import type { App, Directive } from 'vue';
 
 const components = [
   RaRow,
@@ -58,7 +58,7 @@ const install = (app: App, config?: InstallConfig) => {
   });
 
   directives.forEach(directive => {
-    app.directive(directive.name, directive);
+    app.directive(directive.name, directive as Directive);
   });
 };
 

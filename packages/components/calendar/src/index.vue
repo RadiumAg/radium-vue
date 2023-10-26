@@ -47,6 +47,7 @@ export default defineComponent({
   props: {
     modelValue: {
       type: Date,
+      default: null,
     },
     range: {
       type: Array as PropType<Array<Date>>,
@@ -56,10 +57,11 @@ export default defineComponent({
         }
         return false;
       },
+      default: [],
     },
   },
   emits: [UPDATE_MODEL_EVENT],
-  setup(props: TCalendarProps, { emit }) {
+  setup(props, { emit }) {
     const currentDaysJsObj = ref(dayjs(props.modelValue));
     const date = ref(currentDaysJsObj.value.format(formatString));
     const range = ref(props.raRange);

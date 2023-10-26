@@ -1,7 +1,6 @@
-import { Options, Placement, PositioningStrategy } from '@popperjs/core';
-
-import { PropType } from 'vue';
 import { ETheme, Trigger } from './type';
+import type { PropType } from 'vue';
+import type { Options, Placement, PositioningStrategy } from '@popperjs/core';
 
 export default {
   arrowOffset: {

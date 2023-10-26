@@ -33,7 +33,7 @@ export default defineComponent({
   props: {
     modelValue: {
       type: String,
-      defalult: '',
+      default: '',
     },
     type: {
       type: String as PropType<TabsType>,
@@ -54,7 +54,7 @@ export default defineComponent({
     const currentWidth = ref(0);
     const currentPosition = ref(0);
     const currentTabIndex = ref<number>(0);
-    const contentSlot = ref<Slots>(undefined);
+    const contentSlot = ref<Slots>();
     const scrollRef = ref<HTMLElement>();
     const isArrowShow = ref(false);
     const tabPanelItems = reactive<TabPanel[]>([]);
@@ -234,7 +234,7 @@ export default defineComponent({
       setTheArrow();
     });
 
-    provide<TabsProvide>(TABS_PROVIDE_TOKEN, provideConfig);
+    provide(TABS_PROVIDE_TOKEN, provideConfig);
 
     return () =>
       h(

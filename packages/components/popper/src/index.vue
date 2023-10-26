@@ -36,7 +36,7 @@ export default defineComponent({
       slots,
       arrow,
     );
-    // lifeclycle
+    // lifecycle
     onMounted(() => {
       nextTick(() => {
         popperOptions.createPopperInstance();
@@ -53,7 +53,7 @@ export default defineComponent({
 
     return () =>
       h(Fragment, {}, [
-        renderTrigger(slots.trigger(), {
+        renderTrigger(slots?.trigger(), {
           ...popperOptions.triggerActiveEvents,
           ...popperOptions.triggerLeaveEvents,
           ref: (ref: { $el: HTMLElement }) => {
@@ -61,7 +61,7 @@ export default defineComponent({
           },
         }),
         h(
-          Teleport as any,
+          Teleport,
           {
             to: 'body',
             disabled: !props.appendToBody,

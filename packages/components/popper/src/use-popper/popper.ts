@@ -1,22 +1,23 @@
 import { Instance, createPopper } from '@popperjs/core';
 import { delay } from '@radium-vue/utils/common';
 import { computed, ref, watch } from 'vue';
-import { TEmit, TPopperOptions } from './type';
 import { isManualMode } from '.';
+import type { Emit, PopperOptions } from './type';
+
 const triggerActiveEvents: {
   [key in 'onClick' | 'onMouseenter' | 'onFocus']: () => void;
-} = { onClick: undefined, onMouseenter: undefined, onFocus: undefined };
+} = { onClick() {}, onMouseenter() {}, onFocus() {} };
 
 const triggerLeaveEvents: {
   [key in 'onMouseleave' | 'onBlur']: () => void;
-} = { onMouseleave: undefined, onBlur: undefined };
+} = { onMouseleave() {}, onBlur() {} };
 
 export default function (
-  options: TPopperOptions,
+  options: PopperOptions,
   {
     emit,
   }: {
-    emit: TEmit;
+    emit: Emit;
   },
 ) {
   const state = ref(false);
@@ -25,10 +26,10 @@ export default function (
   const popperElement = ref<HTMLElement>();
 
   watch(options, () => {
-    visable.value = options.visible;
+    visible.value = options.visible;
   });
 
-  const visable = computed<boolean>({
+  const visible = computed<boolean>({
     get() {
       return state.value;
     },
@@ -64,26 +65,26 @@ export default function (
     if (isManualMode(options.manualMode, options.trigger)) return;
     if (options.hideAfter) {
       delay(() => {
-        visable.value = false;
-        popperInstance.value.update();
+        visible.value = false;
+        popperInstance.value?.update();
       }, options.showAfter);
       return;
     }
-    visable.value = false;
-    popperInstance.value.update();
+    visible.value = false;
+    popperInstance.value?.update();
   }
 
   function _show() {
     if (isManualMode(options.manualMode, options.trigger)) return;
     if (options.showAfter) {
       delay(() => {
-        visable.value = true;
-        popperInstance.value.update();
+        visible.value = true;
+        popperInstance.value?.update();
       }, options.showAfter);
       return;
     }
-    visable.value = true;
-    popperInstance.value.update();
+    visible.value = true;
+    popperInstance.value?.update();
   }
 
   Object.keys(triggerActiveEvents).forEach(key => {
@@ -108,7 +109,7 @@ export default function (
     popperInstance,
     reference,
     popperElement,
-    visable,
+    visible,
     onAfterEnter: () => {
       emit('after-enter');
     },

@@ -1,4 +1,4 @@
-import { Options, Placement, PositioningStrategy } from '@popperjs/core';
+import type { Options, Placement, PositioningStrategy } from '@popperjs/core';
 export type TriggerType = 'click' | 'hover' | 'focus' | 'manual';
 export enum ETheme {
   DARK = 'dark',
@@ -20,11 +20,11 @@ export const MODEL_VALUE_UPDATE_EVENT: TEventType[] = [
   'before-leave',
 ];
 
-export type TEmit = (event: TEventType, ...args: any[]) => void;
+export type Emit = (event: TEventType, ...args: any[]) => void;
 
 export type Trigger = TriggerType | TriggerType[];
 
-export type TPopperOptions = {
+export type PopperOptions = {
   arrowOffset: number;
   autoClose: number;
   boundariesPadding: number;

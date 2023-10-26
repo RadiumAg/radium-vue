@@ -1,4 +1,5 @@
-import { VNode } from 'vue';
+import type { VNode } from 'vue';
+
 export const modalType = [
   'confirm',
   'info',
@@ -7,33 +8,33 @@ export const modalType = [
   'warning',
 ] as const;
 
-export type TModalTypeOption = Partial<{
-  raFullScreen: boolean;
-  raTop: string;
-  raModal: boolean;
-  raLockScroll: boolean;
-  raDropClose: boolean;
-  raShowClose: boolean;
-  raContent: string | VNode;
-  raTitle: string | VNode;
-  raOnOk: () => void;
-  raOnCancel: () => void;
-  onRaOnAfterClose: () => void;
+export type ModalTypeOption = Partial<{
+  fullScreen: boolean;
+  top: string;
+  modal: boolean;
+  lockScroll: boolean;
+  dropClose: boolean;
+  showClose: boolean;
+  content: string | VNode;
+  title: string | VNode;
+  onOk: () => void;
+  onCancel: () => void;
+  onAfterClose: () => void;
 }>;
 
-export type TModalOption = Partial<{
-  raType: string;
-  raWidth: string;
-  raTop: string;
-  raModal: boolean;
-  raLockScroll: boolean;
-  raDropClose: boolean;
-  raShowClose: boolean;
-  raOkLabel: string;
-  raCancelLabel: string;
-  raContent: string | VNode;
-  raTitle: string | VNode;
-  raFooter: string | VNode;
-  raOnOk: () => void;
-  raOnCancel: () => void;
+export type ModalOption = Partial<{
+  type: string;
+  width: string;
+  top: string;
+  modal: boolean;
+  lockScroll: boolean;
+  dropClose: boolean;
+  showClose: boolean;
+  okLabel: string;
+  cancelLabel: string;
+  content: string | VNode;
+  title: string | VNode;
+  footer: string | VNode;
+  onOk: () => void;
+  onCancel: () => void;
 }>;

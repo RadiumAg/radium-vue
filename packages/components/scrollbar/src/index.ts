@@ -46,11 +46,3 @@ export const PROP_MAP: {
     translate: 'translateY',
   },
 };
-
-export type TIndexProps = {
-  raHeight: string | number;
-  raMaxHeight: string | number;
-  raWrapStyle: string[];
-  raWrapClass: string[];
-  raNative: boolean;
-};

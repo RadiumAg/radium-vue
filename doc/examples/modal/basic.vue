@@ -16,9 +16,9 @@ export default defineComponent({
     const content = ref(null);
     function openModal() {
       RaModal.create({
-        raTitle: '提示',
-        raWidth: '30%',
-        raContent: 'dark soul III',
+        title: '提示',
+        width: '30%',
+        content: 'dark soul III',
       }).afterClose.then(() => {
         console.log('ok');
       });

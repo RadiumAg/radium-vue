@@ -4,11 +4,11 @@
     class="ra-tab-panel"
     :class="panelClass"
     @click="tabPanelClick"
-    @mouseover="!raDisabled && (isHover = true)"
-    @mouseleave="!raDisabled && (isHover = false)"
+    @mouseover="!disabled && (isHover = true)"
+    @mouseleave="!disabled && (isHover = false)"
   >
     <div ref="tabWrapRef" :class="wrapClass">
-      {{ raLabel }}
+      {{ label }}
       <transition name="ra-tab-transform">
         <i
           v-show="isCollpaseShow"
@@ -34,15 +34,15 @@ import { TABS_PROVIDE_TOKEN } from '.';
 export default defineComponent({
   name: 'RaTabPanel',
   props: {
-    raLabel: {
+    label: {
       type: String,
       default: '',
     },
-    raDisabled: {
+    disabled: {
       type: Boolean,
       default: false,
     },
-    raName: {
+    name: {
       type: String,
       default: '',
     },
@@ -51,7 +51,7 @@ export default defineComponent({
     const tabIndex = ref(0);
     const tabWrapRef = ref<HTMLElement>();
     const tabPanelRef = ref<HTMLElement>();
-    const tabPanelProvide = inject<TabsProvide>(TABS_PROVIDE_TOKEN);
+    const tabPanelProvide = inject(TABS_PROVIDE_TOKEN);
     const isHover = ref(false);
     const isCollpaseShow = computed(() => {
       if (tabPanelProvide.isCloseable.value) {
@@ -70,19 +70,19 @@ export default defineComponent({
       tabPanelProvide.tabType.value &&
         ret.push(`is-${tabPanelProvide.tabType.value}`);
       isCurrentIndex.value && ret.push('is-active');
-      props.raDisabled && ret.push('is-disabled');
+      props.disabled && ret.push('is-disabled');
       return ret;
     });
 
     const wrapClass = computed(() => {
       const ret = ['ra-tab-panel__wrap'];
-      props.raDisabled && ret.push('is-disabled');
+      props.disabled && ret.push('is-disabled');
       return ret;
     });
 
     const closeIconClass = computed(() => {
       const ret = ['ra-icon-close'];
-      props.raDisabled && ret.push('is-disabled');
+      props.disabled && ret.push('is-disabled');
       return ret;
     });
 
@@ -96,7 +96,7 @@ export default defineComponent({
       tabPanelProvide.tabPanelItems.push({
         tabPanelRef: tabPanelRef.value,
         tabWrapRef: tabWrapRef.value,
-        name: props.raName,
+        name: props.name,
         index: tabIndex.value,
         contentSlots: slots,
         setTabPanelIndex: setThePanelIndex,
@@ -109,17 +109,16 @@ export default defineComponent({
 
     //methods
     const tabPanelClick = () => {
-      if (props.raDisabled) return;
+      if (props.disabled) return;
       tabPanelProvide.currentTabIndex.value = tabIndex.value;
-      tabPanelProvide.tabClick(props.raName || tabIndex.value);
+      tabPanelProvide.tabClick(props.name || tabIndex.value);
     };
 
     const closeIconClick = () => {
-      tabPanelProvide.tabRemove(props.raName || tabIndex.value);
+      tabPanelProvide.tabRemove(props.name || tabIndex.value);
     };
 
     return {
-      props,
       isHover,
       tabWrapRef,
       tabPanelRef,

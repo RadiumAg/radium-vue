@@ -13,10 +13,10 @@
       @mouseout="mouseout"
     >
       <div class="ra-message__content">
-        <i :class="iconClass" class="ra-message__type-icon"></i>
+        <i :class="iconCls" class="ra-message__type-icon"></i>
         <slot>
           <p v-if="!isUseHtmlString">{{ message }}</p>
-          <p v-else :innerHTML="message"></p>
+          <p v-else :innerHTML="(message as string)"></p>
         </slot>
       </div>
       <i
@@ -27,6 +27,7 @@
     </div>
   </transition>
 </template>
+
 <script lang="ts">
 import {
   PropType,
@@ -83,8 +84,8 @@ export default defineComponent({
       return ret;
     });
 
-    const iconClass = computed(() => {
-      const ret = [];
+    const iconCls = computed(() => {
+      const ret: string[] = [];
       if (props.iconClass) {
         ret.push(props.iconClass);
         return ret;
@@ -120,7 +121,7 @@ export default defineComponent({
     });
 
     return {
-      iconClass,
+      iconCls,
       messageClass,
       close,
       isShow,

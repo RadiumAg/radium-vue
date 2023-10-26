@@ -1,8 +1,8 @@
-import { App } from 'vue';
 import Spin from './src/directives';
+import type { App, Directive } from 'vue';
 
-Spin.install = (app: App): void => {
-  app.directive(Spin.name, Spin);
+Spin.install = (app: App) => {
+  app.directive(Spin.name, Spin as Directive);
 };
 
 export default Spin;
