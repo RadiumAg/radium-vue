@@ -63,9 +63,11 @@ export default defineComponent({
       props.type && ret.push(`is-${props.type}`);
       return ret;
     });
+
     const tabRemove = (delValue: number | string) => {
       emit('ra-tab-remove', delValue);
     };
+
     const tabClick = (clickValue: number | string) => {
       let tabPanelTarget: (typeof tabPanelItems)[0];
       emit('ra-tab-click', clickValue);
@@ -134,8 +136,9 @@ export default defineComponent({
       isCloseable: ref(props.closeable),
     };
 
-    //funs
     function arrowClick(direction: 'left' | 'right') {
+      if (!scrollRef.value) return;
+
       let scrollOffset = 0;
       scrollOffset =
         direction === 'left'
@@ -156,6 +159,8 @@ export default defineComponent({
     }
 
     function setTheArrow() {
+      if (!scrollRef.value) return;
+
       if (scrollRef.value.scrollWidth > scrollRef.value.clientWidth) {
         isArrowShow.value = true;
         scrollRef.value.scrollLeft = scrollRef.value.scrollWidth;
@@ -190,6 +195,7 @@ export default defineComponent({
           createVNode(
             'div',
             {
+              key: tab.name,
               style: `display:${
                 currentTabIndex.value === index ? 'unset' : 'none'
               }`,
@@ -198,7 +204,10 @@ export default defineComponent({
           ),
         );
       });
-      render(createVNode('div', {}, vmList), contentRef.value as HTMLElement);
+      render(
+        createVNode('div', { key: 'tabPanels' }, vmList),
+        contentRef.value as HTMLElement,
+      );
     }
 
     //lifecycle
@@ -207,7 +216,10 @@ export default defineComponent({
       setTabIndex();
       updateTheTabBar();
       setTheContent();
-      ro.observe(scrollRef.value);
+
+      if (scrollRef.value) {
+        ro.observe(scrollRef.value);
+      }
     });
 
     onUnmounted(() => {
@@ -220,8 +232,8 @@ export default defineComponent({
         tabPanelItems[currentTabIndex.value].name ||
           tabPanelItems[currentTabIndex.value].index,
       );
-      updateTheTabBar();
       setTheContent();
+      updateTheTabBar();
     });
 
     watch(tabPanelItems, () => {
@@ -229,7 +241,6 @@ export default defineComponent({
         currentTabIndex.value = 0;
       }
       setTabIndex();
-      setTheContent();
       updateTheTabBar();
       setTheArrow();
     });
@@ -262,8 +273,8 @@ export default defineComponent({
                 'div',
                 {
                   class: scrollClass.value,
-                  ref: (ref: HTMLElement) => {
-                    scrollRef.value = ref;
+                  ref: ref => {
+                    scrollRef.value = ref as HTMLElement;
                   },
                 },
                 [
@@ -288,8 +299,8 @@ export default defineComponent({
           ),
           h('div', {
             class: contentClass.value,
-            ref: (ref: HTMLElement) => {
-              contentRef.value = ref;
+            ref: ref => {
+              contentRef.value = ref as HTMLElement;
             },
           }),
         ],
