@@ -1,36 +1,35 @@
 import { EmptyObject } from '@radium-vue/utils/common';
 import { App, VNode, createVNode, isVNode, render } from 'vue';
-
 import PopupManager from '@radium-vue/utils/popup-manager';
 import MessageConstructor from './index.vue';
 
-type raType = 'success' | 'warning' | 'info' | 'error';
+type Type = 'success' | 'warning' | 'info' | 'error';
 
-export type TMessageOptions = Partial<{
-  raMessage: string;
-  raType: raType;
-  raIconClass: string;
-  raDuration: number;
-  raShowClose: boolean;
-  raOffset: number;
-  raIsUseHtmlString: boolean;
-  raOnClose: () => void;
+export type MessageOptions = Partial<{
+  message: string;
+  type: Type;
+  iconClass: string;
+  duration: number;
+  showClose: boolean;
+  offset: number;
+  isUseHtmlString: boolean;
+  onClose: () => void;
 }>;
 
-type TShortcutOptions = Partial<{
-  raMessage: string;
-  raDuration: number;
-  raShowClose: boolean;
-  raOffset: number;
-  raIsUseHtmlString: boolean;
-  raOnClose: () => void;
+type ShortcutOptions = Partial<{
+  message: string;
+  duration: number;
+  showClose: boolean;
+  offset: number;
+  isUseHtmlString: boolean;
+  onClose: () => void;
 }>;
 
 export class Message {
   private static instanceArray: { vm: VNode; id: symbol }[] = [];
 
   static install: (app: App) => void;
-  private static getOffsetVertical(raOffset: number) {
+  private static getOffsetVertical(offset: number) {
     let result = 0;
     if (this.instanceArray.length > 0) {
       this.instanceArray.forEach((obj, index) => {
@@ -38,10 +37,10 @@ export class Message {
           this.instanceArray[index].vm.el as HTMLElement
         ).offsetHeight;
         if (this.instanceArray.length > 0 && index === 0)
-          result = result + raOffset * 2 + preInstanceOffsetHeight;
-        else result = result + raOffset + preInstanceOffsetHeight;
+          result = result + offset * 2 + preInstanceOffsetHeight;
+        else result = result + offset + preInstanceOffsetHeight;
       });
-    } else result = raOffset;
+    } else result = offset;
     return result;
   }
 
@@ -61,9 +60,9 @@ export class Message {
     }
   }
 
-  static create(options: TMessageOptions) {
+  static create(options: MessageOptions) {
     const container = document.createElement('div');
-    const offsetVertical = options.raOffset || 20;
+    const offsetVertical = options.offset || 20;
     const offset = this.getOffsetVertical(offsetVertical);
     const symbol = Symbol();
 
@@ -71,19 +70,19 @@ export class Message {
       MessageConstructor,
       {
         ...options,
-        raOffset: offset,
-        raType: options.raType,
-        raZIndex: PopupManager.getZIndex(),
+        offset,
+        type: options.type,
+        zIndex: PopupManager.getZIndex(),
       },
-      isVNode(options.raMessage) ? { default: () => options.raMessage } : null,
+      isVNode(options.message) ? { default: () => options.message } : null,
     );
 
-    vm.props.onRaDestroy = () => {
+    vm.props.onDestroy = () => {
       render(null, container);
     };
 
-    vm.props.onRaClose = () => {
-      options.raOnClose?.bind(EmptyObject);
+    vm.props.onClose = () => {
+      options.onClose?.bind(EmptyObject);
       this.restartTheOffset(symbol, offsetVertical);
     };
 
@@ -92,19 +91,19 @@ export class Message {
     document.body.append(container.firstChild);
   }
 
-  static success(options: TShortcutOptions) {
-    this.create({ ...options, raType: 'success' });
+  static success(options: ShortcutOptions) {
+    this.create({ ...options, type: 'success' });
   }
 
-  static error(options: TShortcutOptions) {
-    this.create({ ...options, raType: 'error' });
+  static error(options: ShortcutOptions) {
+    this.create({ ...options, type: 'error' });
   }
 
-  static info(options: TShortcutOptions) {
-    this.create({ ...options, raType: 'info' });
+  static info(options: ShortcutOptions) {
+    this.create({ ...options, type: 'info' });
   }
 
-  static warning(options: TShortcutOptions) {
-    this.create({ ...options, raType: 'warning' });
+  static warning(options: ShortcutOptions) {
+    this.create({ ...options, type: 'warning' });
   }
 }

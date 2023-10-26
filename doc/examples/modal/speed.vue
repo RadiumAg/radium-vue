@@ -1,5 +1,5 @@
 <template>
-  <ra-row>
+  <ra-row :gutter="[10]">
     <ra-col>
       <ra-button class="ra-modal-button" @click="openModal('info')"
         >Info</ra-button
@@ -36,8 +36,8 @@ export default defineComponent({
 
     function openModal(type: string) {
       RaModal[type]({
-        raTitle: '提示',
-        raContent: 'dark soul III',
+        title: '提示',
+        content: 'dark soul III',
       });
     }
 

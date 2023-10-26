@@ -15,10 +15,10 @@ export default defineComponent({
     const content = ref(null);
     function openModal() {
       RaModal.create({
-        raTitle: '提示',
-        raWidth: '30%',
-        raContent: 'dark soul III',
-        raOnOk: async () => {
+        title: '提示',
+        width: '30%',
+        content: 'dark soul III',
+        onOk: async () => {
           await new Promise(resolve => {
             setTimeout(() => {
               resolve();

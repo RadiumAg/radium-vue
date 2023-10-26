@@ -1,5 +1,5 @@
 <template>
-  <ra-row>
+  <ra-row :gutter="[10]">
     <ra-col>
       <ra-button class="ra-message-button" @click="handleOpenInfo"
         >html消息</ra-button
@@ -13,8 +13,8 @@ import { RaMessage } from 'radium-vue';
 
 const handleOpenInfo = () => {
   RaMessage.info({
-    raMessage: '<i>dark soul III</i>',
-    raIsUseHtmlString: true,
+    message: '<i>dark soul III</i>',
+    isUseHtmlString: true,
   });
 };
 </script>

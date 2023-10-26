@@ -1,5 +1,5 @@
 <template>
-  <ra-row>
+  <ra-row :gutter="[10]">
     <ra-col>
       <ra-button class="ra-message-button" @click="handleOpenInfo"
         >消息</ra-button
@@ -27,15 +27,15 @@
 import { RaMessage } from 'radium-vue';
 
 const handleOpenInfo = () => {
-  RaMessage.info({ raMessage: '消息', raShowClose: true });
+  RaMessage.info({ message: '消息', showClose: true });
 };
 const handleOpenSuccess = () => {
-  RaMessage.success({ raMessage: '成功', raShowClose: true });
+  RaMessage.success({ message: '成功', showClose: true });
 };
 const handleOpenError = () => {
-  RaMessage.error({ raMessage: '错误', raShowClose: true });
+  RaMessage.error({ message: '错误', showClose: true });
 };
 const handleOpenWarning = () => {
-  RaMessage.warning({ raMessage: '警告', raShowClose: true });
+  RaMessage.warning({ message: '警告', showClose: true });
 };
 </script>

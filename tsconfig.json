@@ -27,5 +27,5 @@
   "exclude": [
     "node_modules"
   ],
-  "include": ["packages/**/*","doc/**/*","doc/.vitepress/**/*","doc/**/*"]
+  "include": ["packages/**/*","doc/**/*","doc/.vitepress/**/*","doc/**/*","typings/**/*"]
 }

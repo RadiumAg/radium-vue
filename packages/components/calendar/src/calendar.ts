@@ -1,11 +1,6 @@
 import type { Dayjs } from 'dayjs';
 import type { InjectionKey, Ref } from 'vue';
 
-type TCalendarProps = Readonly<{
-  modelValue: Date;
-  raRange: Array<Date>;
-}>;
-
 interface CalendarProvide {
   dayjsObj: Ref<Dayjs>;
   range: Ref<Array<Date>>;
@@ -33,4 +28,4 @@ const CALENDAR_INJECT_TOKEN: InjectionKey<CalendarProvide> = Symbol(
 const totalDays = rows * cols;
 
 export { totalDays, isRange, formatString, CALENDAR_INJECT_TOKEN };
-export type { DayList, CalendarProvide, TCalendarProps };
+export type { DayList, CalendarProvide };

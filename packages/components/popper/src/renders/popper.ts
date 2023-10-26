@@ -53,7 +53,7 @@ export default (
             },
             [...slots.content(), arrow],
           ),
-          [[vShow, popperOptions.visable.value]],
+          [[vShow, popperOptions.visible.value]],
         ),
       ),
     },

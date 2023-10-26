@@ -8,11 +8,11 @@
   </template>
 
   <template ref="footer">
-    <ra-row ra-justify="end">
+    <ra-row justify="end">
       <ra-col>
         <ra-button
           class="ra-modal-button"
-          ra-type="primary"
+          type="primary"
           @click="
             () => {
               modalInstance.close();
@@ -34,18 +34,20 @@
 
 <script lang="ts">
 import { RaModal } from 'radium-vue';
+
 export default defineComponent({
   setup() {
     const title = ref();
     const content = ref();
     const footer = ref();
     const modalInstance = ref();
+
     function openModal() {
       modalInstance.value = RaModal.create({
-        raTitle: title.value,
-        raContent: content.value,
-        raFooter: footer.value,
-        raWidth: '30%',
+        title: title.value,
+        content: content.value,
+        footer: footer.value,
+        width: '30%',
       });
     }
 
@@ -53,8 +55,9 @@ export default defineComponent({
       title,
       content,
       footer,
-      openModal,
       modalInstance,
+
+      openModal,
     };
   },
 });

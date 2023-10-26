@@ -7,7 +7,7 @@
   >
     <i v-if="loading" class="ra-icon-loading"></i>
     <slot v-if="$slots.default"></slot>
-    <i v-if="iconClass.length > 0" :class="iconClass"></i>
+    <i v-if="iconClass.length > 0" :class="[iconClass, 'ra-button__icon']"></i>
   </button>
 </template>
 
@@ -31,7 +31,6 @@ export default defineComponent({
       props.disabled && res.push('is-disabled');
       props.loading && res.push('is-disabled');
       props.type && res.push(`ra-button--${props.type}`);
-      // eslint-disable-next-line unicorn/explicit-length-check
       props.size && res.push(`ra-button--${props.size}`);
 
       return res;

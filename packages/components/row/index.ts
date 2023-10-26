@@ -6,6 +6,6 @@ Row.install = (app: App): void => {
   app.component(Row.name, Row);
 };
 
-const _Row: SFCWithInstall<typeof Row> = Row;
+const _Row = Row as SFCWithInstall<typeof Row>;
 
 export default _Row;

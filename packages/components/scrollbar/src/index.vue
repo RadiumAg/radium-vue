@@ -17,13 +17,13 @@
       <slot></slot>
     </div>
     <div
-      v-if="!raNative && data.direction.includes('x')"
+      v-if="!raNative && data.direction!.includes('x')"
       class="ra-scrollbar__horizontal"
     >
       <bar :axis="'x'"></bar>
     </div>
     <div
-      v-if="!raNative && data.direction.includes('y')"
+      v-if="!raNative && data.direction!.includes('y')"
       class="ra-scrollbar__vertical"
     >
       <bar :axis="'y'"></bar>
@@ -45,7 +45,8 @@ import ResizeObserver from 'resize-observer-polyfill';
 import { off, on } from '@radium-vue/utils/dom';
 import { addUnit } from '@radium-vue/utils/common';
 import bar from './bar.vue';
-import { SCROLL_BAR_INJECT_TOKEN, TIndexProps } from '.';
+import { SCROLL_BAR_INJECT_TOKEN } from '.';
+
 export default defineComponent({
   name: 'RaScrollbar',
   components: {
@@ -78,21 +79,21 @@ export default defineComponent({
     },
   },
   emits: ['ra-scroll'],
-  setup(props: Readonly<TIndexProps>, { emit }) {
+  setup(props, { emit }) {
     const isActive = ref(false);
     const data = reactive<Partial<{ direction: [('x' | 'y')?] }>>({
       direction: [],
     });
-    const scrollBarRef = ref<HTMLElement>(null);
     const moveY = ref(0);
     const moveX = ref(0);
     const isHover = ref(false);
     const isMouseHover = ref(false);
-    const updateBarSize = ref<() => void>(null);
+    const scrollBarRef = ref<HTMLElement>();
+    const updateBarSize = ref<() => void>();
     const ro = new ResizeObserver(updateTheConfig);
 
     const style = computed(() => {
-      const res = [];
+      const res: Record<string, number | string | undefined>[] = [];
       if (props.raHeight) {
         res.push({ height: addUnit(props.raHeight) });
       }
@@ -110,6 +111,8 @@ export default defineComponent({
     }
 
     function scroll() {
+      if (!scrollBarRef.value) return;
+
       moveY.value =
         (scrollBarRef.value.scrollTop / scrollBarRef.value.clientHeight) * 100;
       moveX.value =
@@ -148,6 +151,8 @@ export default defineComponent({
 
     // lifeCycle
     onMounted(async () => {
+      if (!scrollBarRef.value) return;
+
       ro.observe(scrollBarRef.value);
       on(window, 'resize', updateTheConfig);
     });
