@@ -122,24 +122,6 @@ export default defineComponent({
       itemReactLength: 0,
     });
 
-    // watch
-    watch(activeIndex, () => {
-      transformItem();
-      emit('ra-change', activeIndex);
-    });
-
-    // mounted
-    onMounted(() => {
-      activeIndex.value = props.initialIndex;
-      autoplay();
-      ro.observe(root.value);
-      setTheOffset();
-      nextTick(() => {
-        resetItemTransition();
-      });
-      data.itemReactLength = itemReact.length;
-    });
-
     //function
     function resetItemTransition() {
       itemReact.forEach((item, index) => {
@@ -148,6 +130,8 @@ export default defineComponent({
     }
 
     function setTheOffset() {
+      if (!root.value) return;
+
       props.direction === 'horizontal'
         ? (offsetWidth.value = root.value.offsetWidth)
         : (offsetHeight.value = root.value.offsetHeight);
@@ -220,6 +204,26 @@ export default defineComponent({
       setTheOldActiveIndex();
       activeIndex.value++;
     }
+
+    // watch
+    watch(activeIndex, () => {
+      transformItem();
+      emit('change', activeIndex);
+    });
+
+    // mounted
+    onMounted(() => {
+      if (!root.value) return;
+
+      activeIndex.value = props.initialIndex;
+      autoplay();
+      ro.observe(root.value);
+      setTheOffset();
+      nextTick(() => {
+        resetItemTransition();
+      });
+      data.itemReactLength = itemReact.length;
+    });
 
     onUnmounted(() => {
       ro.disconnect();

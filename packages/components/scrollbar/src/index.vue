@@ -1,29 +1,26 @@
 <template>
   <div
     class="ra-scrollbar ra-scrollbar--scrollbar_hidden"
-    @mouseenter="mouseenterHandler"
-    @mouseleave="mouseleaveHandler"
+    @mouseenter="handleMouseenter"
+    @mouseleave="handleMouseLeave"
   >
     <div
       ref="scrollBarRef"
       class="ra-scrollbar__container"
-      :style="[...raWrapStyle, ...style]"
-      :class="[
-        raNative ? '' : 'ra-scrollbar--scrollbar_hidden',
-        ...raWrapClass,
-      ]"
-      @scroll="scroll"
+      :style="[...wrapStyle, ...style]"
+      :class="[native ? '' : 'ra-scrollbar--scrollbar_hidden', ...wrapClass]"
+      @scroll="handleScroll"
     >
       <slot></slot>
     </div>
     <div
-      v-if="!raNative && data.direction!.includes('x')"
+      v-if="!native && data.direction!.includes('x')"
       class="ra-scrollbar__horizontal"
     >
       <bar :axis="'x'"></bar>
     </div>
     <div
-      v-if="!raNative && data.direction!.includes('y')"
+      v-if="!native && data.direction!.includes('y')"
       class="ra-scrollbar__vertical"
     >
       <bar :axis="'y'"></bar>
@@ -53,25 +50,25 @@ export default defineComponent({
     bar,
   },
   props: {
-    raHeight: {
+    height: {
       type: [String, Number],
       default: 0,
     },
-    raMaxHeight: {
+    maxHeight: {
       type: [String, Number],
       default: 'unset',
     },
-    raNative: {
+    native: {
       type: Boolean,
       default: false,
     },
-    raWrapStyle: {
-      type: Array,
+    wrapStyle: {
+      type: Array as PropType<string[]>,
       default: () => {
         return [];
       },
     },
-    raWrapClass: {
+    wrapClass: {
       type: Array,
       default: () => {
         return [];
@@ -94,23 +91,22 @@ export default defineComponent({
 
     const style = computed(() => {
       const res: Record<string, number | string | undefined>[] = [];
-      if (props.raHeight) {
-        res.push({ height: addUnit(props.raHeight) });
+      if (props.height) {
+        res.push({ height: addUnit(props.height) });
       }
-      if (props.raMaxHeight) {
-        res.push({ ['max-height']: addUnit(props.raMaxHeight) });
+      if (props.maxHeight) {
+        res.push({ ['max-height']: addUnit(props.maxHeight) });
       }
       return res;
     });
 
-    // funs
     async function updateTheConfig() {
       await nextTick();
       update();
       updateBarSize.value && updateBarSize.value();
     }
 
-    function scroll() {
+    function handleScroll() {
       if (!scrollBarRef.value) return;
 
       moveY.value =
@@ -123,12 +119,12 @@ export default defineComponent({
       ]);
     }
 
-    function mouseenterHandler() {
+    function handleMouseenter() {
       isHover.value = true;
       isMouseHover.value = true;
     }
 
-    function mouseleaveHandler() {
+    function handleMouseLeave() {
       isMouseHover.value = false;
       if (isActive.value) return;
       isHover.value = false;
@@ -177,9 +173,9 @@ export default defineComponent({
       data,
       props,
       scrollBarRef,
-      scroll,
-      mouseenterHandler,
-      mouseleaveHandler,
+      handleScroll,
+      handleMouseenter,
+      handleMouseLeave,
     };
   },
 });

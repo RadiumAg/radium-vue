@@ -45,14 +45,15 @@ export default defineComponent({
       animating: boolean;
     }>({ active: false, animating: false });
 
-    let direction: 'horizontal' | 'vertical' = undefined;
+    let direction: 'horizontal' | 'vertical' = 'horizontal';
 
-    // fun
     function transformItem(
       index: number,
       activeIndex: number,
       isAnimate = true,
     ) {
+      if (!CAROUSEL_PROVIDE) return;
+
       if (isAnimate)
         isAnimating(index, activeIndex, CAROUSEL_PROVIDE.itemReact.length);
       index = processIndex(
@@ -64,6 +65,8 @@ export default defineComponent({
     }
 
     function calcTransform(index: number, activeIndex: number) {
+      if (!CAROUSEL_PROVIDE) return;
+
       itemStyle.value = `${CarouselItemConfig[direction].translate}(${
         (index - activeIndex) *
         CAROUSEL_PROVIDE[CarouselItemConfig[direction].offset].value
@@ -71,6 +74,8 @@ export default defineComponent({
     }
 
     function addCarouseItem() {
+      if (!CAROUSEL_PROVIDE || !instance) return;
+
       CAROUSEL_PROVIDE.itemReact.push({
         transformItem,
         uid: instance.uid,
@@ -78,7 +83,7 @@ export default defineComponent({
     }
 
     function processIndex(index: number, activeIndex: number, length: number) {
-      if (!CAROUSEL_PROVIDE.isLoop.value) {
+      if (!CAROUSEL_PROVIDE!.isLoop.value) {
         return index;
       }
       if (activeIndex === length - 1 && index === 0) {
@@ -92,49 +97,50 @@ export default defineComponent({
     // difficult to resolve
     function isAnimating(index: number, activeIndex: number, length: number) {
       data.animating = false;
-      if (!CAROUSEL_PROVIDE.isLoop.value) {
+      if (!CAROUSEL_PROVIDE!.isLoop.value) {
         data.animating = true;
         return;
       }
       if (
         index === activeIndex ||
-        index === CAROUSEL_PROVIDE.oldActiveIndex.value
+        index === CAROUSEL_PROVIDE!.oldActiveIndex.value
       ) {
         data.animating = true;
       }
 
       if (
         (activeIndex === 0 &&
-          CAROUSEL_PROVIDE.oldActiveIndex.value === length - 1) ||
+          CAROUSEL_PROVIDE!.oldActiveIndex.value === length - 1) ||
         (activeIndex === length - 1 &&
-          CAROUSEL_PROVIDE.oldActiveIndex.value === 0)
+          CAROUSEL_PROVIDE!.oldActiveIndex.value === 0)
       ) {
         return;
       }
 
-      if (activeIndex > CAROUSEL_PROVIDE.oldActiveIndex.value) {
+      if (activeIndex > CAROUSEL_PROVIDE!.oldActiveIndex.value!) {
         if (
           index <= activeIndex &&
-          index >= CAROUSEL_PROVIDE.oldActiveIndex.value
+          index >= CAROUSEL_PROVIDE!.oldActiveIndex.value!
         ) {
           data.animating = true;
         }
       } else if (
-        activeIndex < CAROUSEL_PROVIDE.oldActiveIndex.value &&
+        activeIndex < CAROUSEL_PROVIDE!.oldActiveIndex.value! &&
         index >= activeIndex &&
-        index <= CAROUSEL_PROVIDE.oldActiveIndex.value
+        index <= CAROUSEL_PROVIDE!.oldActiveIndex.value!
       ) {
         data.animating = true;
       }
     }
 
     watchEffect(() => {
-      direction = CAROUSEL_PROVIDE.offsetWidth.value
+      direction = CAROUSEL_PROVIDE!.offsetWidth.value
         ? 'horizontal'
         : 'vertical';
     });
 
     addCarouseItem();
+
     return { props, itemStyle, data };
   },
 });

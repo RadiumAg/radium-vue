@@ -32,7 +32,6 @@ import dayjs from 'dayjs';
 import {
   CALENDAR_INJECT_TOKEN,
   CalendarProvide,
-  TCalendarProps,
   formatString,
 } from './calendar';
 import RaDateTable from './dateTable.vue';
