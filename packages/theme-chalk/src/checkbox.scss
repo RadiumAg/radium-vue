@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 @import './mixins/mixins';
 @import './common/var';
@@ -6,4 +6,15 @@
 @include b(checkbox) {
   width: $--checkbox-input-height;
   height: $--checkbox-input-height;
+
+  @include e(input) {
+    display: none;
+  }
+
+  &::after {
+    width: 10px;
+    height: 20px;
+    border-left: 4px solid #fff;
+    border-radius: 4px solid #fff;
+  }
 }

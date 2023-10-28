@@ -13,14 +13,16 @@ import RaTabs from '../tabs';
 import RaTabPanel from '../tab-panel';
 import RaCalendar from '../calendar';
 import RaToolTip from '../tooltip';
+import RaCheckBox from '../checkbox';
 
 // plugins
 import RaMessage from '../message';
 import RaModal from '../modal';
 
 // directives
-import raRipple from '../ripple';
-import raSpin from '../spin';
+import RaRipple from '../ripple';
+import RaSpin from '../spin';
+
 import type { App, Directive } from 'vue';
 
 const components = [
@@ -33,12 +35,13 @@ const components = [
   RaCalendar,
   RaTabPanel,
   RaCarousel,
+  RaCheckBox,
   RaScrollBar,
   RaButtonGroup,
   RaCarouselItem,
 ];
 
-const directives = [raRipple, raSpin];
+const directives = [RaRipple, RaSpin];
 
 const plugins = [RaMessage, RaModal];
 
@@ -69,7 +72,8 @@ export {
   RaButton,
   RaToolTip,
   RaSlider,
-  raRipple,
+  RaRipple,
+  RaCheckBox,
   RaMessage,
   RaCarousel,
   RaCalendar,

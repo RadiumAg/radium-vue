@@ -10,22 +10,34 @@
     "jsx": "preserve",
     "noLib": false,
     "target": "es6",
-    "importsNotUsedAsValues": "error",
+    "verbatimModuleSyntax": true,
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@vp-components": ["doc/components/index.ts"],
-      "radium-vue": ["packages/components/radium-vue/index.ts"]
+      "@vp-components": [
+        "doc/components/index.ts"
+      ],
+      "radium-vue": [
+        "packages/components/radium-vue/index.ts"
+      ]
     },
     "lib": [
       "ESNext",
       "DOM"
     ],
-    "types": [""],
+    "types": [
+      ""
+    ],
     "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "node_modules"
   ],
-  "include": ["packages/**/*","doc/**/*","doc/.vitepress/**/*","doc/**/*","typings/**/*"]
+  "include": [
+    "packages/**/*",
+    "doc/**/*",
+    "doc/.vitepress/**/*",
+    "doc/**/*",
+    "typings/**/*"
+  ]
 }

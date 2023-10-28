@@ -66,6 +66,10 @@ export default defineConfig({
           { text: 'tooltip', link: '/zh/tooltip' },
         ],
       },
+      {
+        text: '数据录入',
+        items: [{ text: 'checkbox', link: '/zh/checkbox' }],
+      },
     ],
 
     socialLinks: [

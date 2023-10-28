@@ -1,0 +1,3 @@
+::: demo
+checkbox/basic
+:::

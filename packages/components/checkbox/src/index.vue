@@ -1,12 +1,19 @@
 <template>
   <div class="ra-checkbox">
-    <input :value="state" type="checkbox" @click="checkboxClicked" />
+    <input
+      :value="state"
+      class="ra-checkbox__input"
+      type="checkbox"
+      @click="handleCheckboxClick"
+    />
     <slot></slot>
   </div>
 </template>
+
 <script lang="ts">
-import { UPDATE_MODEL_EVENT } from '@radium-vue/utils/common';
 import { defineComponent, ref } from 'vue';
+import { UPDATE_MODEL_EVENT } from '@radium-vue/utils/common';
+
 export default defineComponent({
   name: 'RaCheckbox',
   props: {
@@ -18,15 +25,15 @@ export default defineComponent({
   emits: [UPDATE_MODEL_EVENT],
   setup(props: { modelValue: boolean }, { emit }) {
     const state = ref(props.modelValue);
-    const checkboxClicked = () => {
+
+    const handleCheckboxClick = () => {
       state.value = !state.value;
       emit(UPDATE_MODEL_EVENT, state.value);
     };
 
     return {
-      props,
       state,
-      checkboxClicked,
+      handleCheckboxClick,
     };
   },
 });
